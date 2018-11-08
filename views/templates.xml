@@ -1,0 +1,773 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <template id="contract_header_template">
+            <table align="center" border="0px" cellpadding="0" width="100%" style="font-family:Arial; font-size:12px; border-collapse:collapse">
+                <tr>
+                    <td align="left" colspan="1">
+                        <img src="pic/TS_logo_head.png"/>
+                    </td>
+                    <td align="right">
+                        7 495 008-84-67 hello@tabulasense.ru
+                    </td>
+                </tr>
+            </table>
+        </template>
+
+        <template id="contract_number_and_date">
+            <tr>
+                <td>
+                    <hr color="black"/>
+                </td>
+            </tr>
+            <tr valign="top" width="100%">
+                <td align="center">
+                    <b>ДОГОВОР № <t t-esc="doc.contract_id.name"/></b><br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &amp;nbsp;
+                </td>
+            </tr>
+            <tr valign="top">
+                <td align="left" colspan="2">
+                    Москва, <t t-esc="doc._context_date"/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &amp;nbsp;
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_contact_partner_template">
+            <tr valign="top">
+                <td>
+                    <b><t t-esc="docs.partner_id.contract_name"/></b>,
+                    юридическое лицо, созданное и зарегистрированное в соответствии с законодательством , с зарегистрированным офисом по адресу: <t t-esc="doc.partner_id.full_adress"/>, здесь и далее именуемое «<b>Покупатель</b>»,
+                    в лице уполномоченного представителя <b><t t-esc="doc.partner_id.representative_id.contract_name" /></b>, с одной стороны
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_contact_partner_fiz_template">
+            <tr valign="top">
+                <td>
+                    <b><t t-esc="doc.partner_id.contract_name"/></b>,
+                    физическое лицо, зарегистрированное по законодательству Российской Федерации, паспорт <t t-esc="doc.partner_id.passport_data" />, зарегистрированное по адресу: <t t-esc="doc.partner_id.full_adress" /> , здесь и далее именуемое «Покупатель», с одной стороны
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_contact_seller_template">
+            <tr valign="top">
+                <td colspan="2">
+                    и <b><t t-esc="doc.company_id.contract_name"/></b>, юридическое лицо, созданное и зарегистрированное в соответствии с законодательством Российской Федерации, с зарегистрированным офисом по адресу: <t t-esc="doc.company_id.full_adress" />, здесь и далее именуемое «<b>Продавец</b>», в лице <b><t t-esc="doc.company_id.representative_id.contract_job_name" /></b> <b><t t-esc="doc.company_id.representative_id.contract_name" /></b>, действующего на основании Устава, с другой стороны, совместно именуемые «Стороны» и по отдельности «Сторона»,
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_1_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>1. Предмет Договора</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    1.1. Продавец обязуется поставлять, а Покупатель принимать и оплачивать Товары, указанные в Приложениях, являющихся неотъемлемой частью настоящего Договора.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    1.2. В приложениях определяются наименование, количество, условия и срок поставки, порядок и срок оплаты, цена Товара и т.д.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_2_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>2. Сумма Договора</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    2.1. Общая сумма Договора складывается из сумм Приложений к настоящему Договору, подписанных Сторонами.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_3_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>3. Условия поставки</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    3.1. Товар поставляется в согласованные Сторонами сроки, которые указаны в Приложениях к настоящему Договору.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    3.2. В случае экспорта за пределы Российской Федерации Правила Толкования Торговых терминов - Международные торговые термины («Инкотермс 2010») имеют обязательный характер для сторон в рамках настоящего Договора.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    3.3. В случае экспорта за пределы Российской Федерации датой отгрузки товара считается дата транспортного документа.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    3.4. Продавец вправе по своему усмотрению поставлять товар лично, либо поручать отгрузку третьим лицам, в таком случае Продавец несет полную ответственность за них.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    3.5. Покупатель обязан принять поставку от любого из грузоотправителей, предложенных Продавцом, в случае, если это оговорено в приложении к Договору.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_4_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>4. Порядок расчетов</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    4.1. Платеж по настоящему Договору осуществляется Покупателем в течение <t t-esc="doc._context_payment_term" /> (<t t-esc="doc._context_payment_term_word" />) дней с момента выставления счета.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    4.2. При поставке товара на условиях 100% предоплаты, Продавец не позднее чем за 5 (пять) дней до отгрузки любыми имеющимися в его распоряжении средствами связи информирует об этом Покупателя.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    4.3. Стороны предусматривают возможность частичной предоплаты.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    4.4. Платеж осуществляется в рублях путем денежного перевода со счета Покупателя на счет Продавца посредством банковского перевода или с использованием электронных платежных систем.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    4.5. Все расходы, связанные с переводом денежных средств, стороны несут каждая на своей территории.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_5_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>5. Качество товара</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.1. Качество Товара должно полностью соответствовать действующим стандартам Российской Федерации или страны-импортера в случае экспорта за пределы Российской Федерации и удостоверяться документами, выданными компетентными организациями страны происхождения.<br/>
+                    Покупатель вправе требовать у Продавца (уполномоченного представителя) безвозмездного устранения недостатков товара, если они обнаружены в течение гарантийного срока или срока годности.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.2. Гарантийный срок равняется гарантийному сроку на Товар, определенному производителем Товара, но не менее 1 (одного) года с момента передачи Товара Покупателю и начинает течь с даты продажи Товара, указанной в гарантийном талоне и перехода права собственности к конечному Покупателю. Гарантийный срок на Товар приостанавливается при невозможности пользоваться Товаром из-за обнаруженных недостатков.<br/>
+                    Гарантийный срок на комплектующее изделие равен гарантийному сроку на основное изделие.<br/>
+                    При замене некачественного Товара на качественный Товар устанавливается гарантийный срок той же продолжительности, что и на возвращенный некачественный Товар.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.3. Продавец в течение гарантийного срока обязуется осуществлять ремонт или замену комплектующих вышедших из строя по вине Продавца (Производителя), в случае не возможности осуществить ремонт или замену комплектующих Продавец заменяет на аналогичный качественный Товар.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.4. Продавец (уполномоченный представитель) обязан устранить недостатки Товара в течение 45 (сорока пяти) дней, без учета затраченного времени на транспортировку Товара, с даты получения требования от Покупателя.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.5. Гарантия не распротстраняется на неисправности и дефекты, вызванные следующими причинами:<br/>
+                    - пожар, затопление стихийные бедствия, бытовые факторы;<br/>
+                    - при наличии на мебельных поверхностях механических повреждений, термо-воздействий или следов воздействия химических веществ; неисправности, возникшие вследствие нормального износа изделия; преднамеренная порча изделия или ошибочные действия потребителя (покупателя);<br/>
+                    - при неграмотно выполненном самостоятельном подъёме или сборке изделия, внесение изменений в его конструкцию;<br/>
+                    - при нарушении правил эксплуатации изделия мебели, а также по истечению гарантийного срока на изделие мебели.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.6. В случае несоблюдения правил эксплуатации и использования Товара не по назначению, Продавец не несёт ответственности за потерю потребительских качеств Товара. Сервисное обслуживание и ремонт Товара будет производиться по решению Продавца, а оказание услуг по ремонту - только за счёт Покупателя по расценкам Продавца.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.7. Продавец обязан обеспечить возможность использования Товара в течение его срока службы. Для этой цели Продавец обеспечивает ремонт и техническое обслуживание Товара, а также выпуск и поставку в торговые и ремонтные организации запасных частей в течение срока производства Товара и после снятия его с производства в течение срока службы Товара.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.8. Качественный Товар возврату или обмену не подлежит.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    5.9. Товар является товаром длительного использования. На него не распространяются требования покупателя о безвозмездном предоставлении ему на период ремонта аналогичного товара.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_6_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>6. Упаковка и маркировка</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    6.1. Товар должен быть надлежащим образом упакован, запечатан и промаркирован в целях его идентификации и безопасности в процессе транспортировки, погрузки и/или хранения.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    6.2. Упаковка должна соответствовать действующим стандартам Российской Федерации.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    6.3. Маркировка Товара осуществляется его производителем.
+                </td>
+            </tr>
+
+        </template>
+
+        <template id="contract_chapter_7_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>7. Порядок отгрузки</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    7.1. Продавец сообщает Покупателю о готовности Товара к отгрузке не позднее, чем за 5 (пять) дней до планируемой даты отгрузки.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    7.2. В товаросопроводительных документах указываются: наименование товара, количество грузовых мест, количество упаковок, вес брутто и нетто. Исправления, дописки и подчистки в указанных документах не допускаются.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    7.3. В случае экспорта за пределы Российской Федерации после отгрузки товара, но не позднее чем через 24 (двадцать четыре) часа, Продавец любыми доступными ему способами высылает Покупателю оригиналы коммерческих документов на отгруженную партию товара, необходимых для таможенного оформления в стране импортера:<br/>
+                    - коммерческий счет в 2 экз.<br/>
+                    - счет-проформу в 2 экз.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_8_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>8. Сдача - приемка Товара</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    8.1. Приемка товара производится:<br/>
+                    - по количеству мест согласно количеству, указанному в товаросопроводительных документах;<br/>
+                    - по количеству изделий согласно спецификации и упаковочным листам;<br/>
+                    - по качеству - согласно п.5 настоящего Договора.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_9_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>9. Ответственность сторон</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    9.1. Со стороны Продавца:
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    9.1.1. Если поставка товаров не осуществляется в сроки, предусмотренные настоящим Договором, Продавец выплачивает Покупателю пени в размере 0,05% (ноль целых пяти сотых процента) от стоимости не поставленных в срок товаров за каждый день просрочки, но в совокупности не более 10 (десяти) процентов от стоимости товаров.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    9.1.2. Уплата штрафа за нарушение условий Договора не освобождает Продавца от возмещения ущерба, нанесенного Покупателю из-за несоблюдения Продавцом условий Договора, и от обязанностей по выполнению Договора.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    9.2. Со стороны Покупателя:
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    9.2.1. При несвоевременной оплате Покупатель выплачивает пени в размере 0,05% (ноль целых пяти сотых процента) от невыплаченной суммы за каждый день просрочки, но в совокупности не более 10 (десяти) процентов от общей суммы.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    9.2.2. Уплата штрафа не освобождает Покупателя от обязанностей по исполнению Договора.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    9.3. В случае если недостатки, повреждение или недостачу невозможно было визуально обнаружить при приемке товара (скрытые недостатки), включая контрафактные и фальсифицированные товары с поддельными сертификатами качества, техническими паспортами или свидетельствами на продукцию, Покупатель должен в течение 7 рабочих дней с даты обнаружения недостатков товара направить Продавцу письменное уведомление об обнаруженных им скрытых повреждениях и недостатках товара (Акт о скрытых недостатках). Уведомление направляется в адрес Продавца следующим способом: средствами факсимильной и или электронной связи с дальнейшим направлением заказным письмом с уведомлением.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    В таком случае Покупатель вправе, по своему выбору, требовать от Продавца:<br/>
+                    - безвозмездного устранения недостатков товара в разумный срок;<br/>
+                    - возмещения своих расходов на устранение недостатков товара.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    В случае существенного нарушения требований к качеству товара, Покупатель вправе, потребовать замены товара ненадлежащего качества товаром, соответствующим договору. В случае возврата некачественного товара Покупателем, Продавец обязуется заменить некачественный товар.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_10_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>10. Форс-мажор</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    10.1. Стороны освобождаются от ответственности за частичное или полное неисполнение обязательств по настоящему Договору, если это неисполнение явилось следствием обстоятельств непреодолимой силы, возникших после заключения договора в результате событий чрезвычайного характера, которые стороны не могли ни предвидеть, ни предотвратить разумными мерами.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    10.2. К обстоятельствам непреодолимой силы относятся события, на которые стороны не могут оказывать влияния и за возникновение которых не несут ответственности.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    10.3. В период действия непреодолимой силы и других обстоятельств, освобождающих от ответственности, обязательства сторон приостанавливаются, и санкции за неисполнение обязательств не применяются.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_11_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>11. Споры</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    11.1. Все споры и разногласия, которые могут возникнуть в связи с исполнением обязательств по настоящему Договору, разрешаются сторонами путем переговоров. В случае не урегулирования спорных вопросов путем переговоров, спор передается на разрешение Арбитражного суда Москвы и Московской области.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    11.2. Применимым правом по данному договору является законодательство Российской Федерации.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_chapter_12_template">
+            <tr valign="top">
+                <td colspan="2">
+                    <br/><b>12. Прочие условия</b>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    12.1. Ни одна из сторон не вправе передавать свои права и обязанности по Договору третьим лицам без письменного на то согласия другой стороны.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    12.2. Всякие изменения и дополнения к настоящему Договору будут действительны лишь при условии, если они совершены в письменной форме и подписаны уполномоченными на то лицами обеих Сторон.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    12.3. Настоящий Договор составлен в двух экземплярах, по одному экземпляру для каждой из Сторон, оба экземпляра имеют равную юридическую силу.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    12.4. Настоящий договор вступает в силу с даты подписания и действует в течение 1 (одного) года, но в любом случае до полного выполнения сторонами своих обязательств по настоящему договору. В случае если ни одна из Сторон не заявит требования о расторжении договора за 30 (тридцать) календарных дней до его окончания, договор считается пролонгированным на каждый последующий год.
+                </td>
+            </tr>
+            <tr valign="top">
+                <td colspan="2">
+                    12.5. С момента подписания настоящего Договора все предшествующие договоренности и переписка, связанные с настоящим Договором, теряют силу.
+                </td>
+            </tr>
+        </template>
+
+        <template id="contract_inn_kpp_info">
+            <td>
+                <b><t t-esc="person.contract_name"/></b><br/>
+                <b>ИНН</b>: <t t-esc="person.inn"/><br/>
+                <b>КПП</b>: <t t-esc="person.kpp"/><br/>
+            </td>
+        </template>
+
+        <template id="contract_payment_template">
+            <td valign="top">
+                <b>Расчетный счет</b>: <t t-esc="person.bank_account.acc_number"/><br/>
+                <b>БИК</b>: <t t-esc="person.bank_account.bank_id.bic"/><br/>
+                <b>Банк-получатель</b>: <t t-esc="person.bank_account.bank_id.name"/><br/>
+                <b>Юридический адрес</b>:<br/>
+                <t t-esc="person.full_adress"/><br/>
+                <b>Телефон</b>: <t t-esc="person.phone" /><br/>
+            </td>
+        </template>
+
+        <template id="contract_appex_template">
+            <table align="left" width="100%">
+                <tr>
+                    <td>
+                        <b>Приложение 1 к Договору № <t t-esc="doc.contract_id.name"/> от <t t-esc="doc._context_date"/></b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Спецификация</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table align="center" width="100%" border="1px" cellpadding="5" cellspacing="0" style="border-style:solid; border-color:#000000; border-collapse:collapse">
+                            <tr>
+                                <td align="center" width="30" style="border: 1px solid;"><b>№</b></td>
+                                <td align="center" style="border: 1px solid;"><b>Товары</b></td>
+                                <td align="center" width="40" style="border: 1px solid;"><b>Кол-во</b></td>
+                                <td align="center" width="30" style="border: 1px solid;"><b>Ед.</b></td>
+                                <td align="center" width="80" style="border: 1px solid;"><b>Цена</b></td>
+                                <td align="center" width="80" style="border: 1px solid;"><b>Сумма</b></td>
+                            </tr>
+                            <t t-set="counter" t-value="0" />
+
+                            <t t-foreach="doc.order_id.order_line" t-as="line">
+                                <tr>
+                                    <t t-set="counter" t-value="counter + 1"></t>
+                                    <td align="center" width="30" style="border: 1px solid;"><b><t t-esc="counter" /></b></td>
+                                    <td align="center" style="border: 1px solid;"><b><t t-esc="line.name"/></b></td>
+                                    <td align="center" width="40" style="border: 1px solid;"><b><t t-esc="line.product_qty" /></b></td>
+                                    <td align="center" width="30" style="border: 1px solid;"><b><t t-esc="line.product_uom.name" /></b></td>
+                                    <td align="center" width="80" style="border: 1px solid;"><b><t t-esc="line.price_unit" /></b></td>
+                                    <td align="center" width="80" style="border: 1px solid;"><b><t t-esc="line.price_total"/></b></td>
+
+                                </tr>
+                            </t>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                        <table align="center" width="100%" border="0px" style="border-collapse:collapse;">
+                            <tr>
+                                <td align="right"><b>Итого:</b></td>
+                                <td align="right" width="130"><b><t t-esc="doc.order_id.amount_untaxed"/></b></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><b>Без налога (НДС)</b></td>
+                                <td align="right" width="130"><b>-</b></td>
+                            </tr>
+                            <tr>
+                                <td align="right"><b>Всего к оплате:</b></td>
+                                <td align="right" width="130"><b><t t-esc="doc.order_id.amount_total"/></b></td>
+                            </tr>
+                        </table>
+
+                        <table width="100%">
+                            <tr valign="top">
+                                <td colspan="3">
+                                    Всего наименований <t t-esc="counter"/>, на сумму <t t-esc="doc.order_id.amount_total"/> руб. (<t t-esc="doc._context_summ_word"/>)   .<br />
+                                    Поставка осуществляется на условиях: 100% предоплата<br />
+                                    Срок поставки - <t t-esc="doc.delivery_terms"/> дн.
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td width="49%">
+                                    <br /><b>ПРОДАВЕЦ</b>
+                                </td>
+                                <td width="49%">
+                                    <br /><b>ПОКУПАТЕЛЬ</b>
+                                </td>
+                                <td class="to_hide"></td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    <b><t t-esc="doc.company_id.contract_name" /></b><br />
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <b></b><br /></td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <b><t t-esc="doc.company_id.representative_id.function" />:</b><br />
+                                    <t t-esc="doc.company_id.representative_id.name"/></td>
+                                <td valign="top">
+                                    <b>Уполномоченный представитель</b>:<br />
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td colspan="3" align="left">
+                                    <span id="br1" style="display:none"><br /></span>
+                                    <div id="sign1"><img src="pic/rog_sign.png" border="0" width="180"/></div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    _________________________
+                                </td>
+                                <td>
+                                    _________________________
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    М.П.
+                                    <div id="stamp1">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<img src="pic/stamp.png" border="0" width="160"/></div>
+                                </td>
+                                <td>
+                                    М.П.
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </template>
+
+        <template id="contract_bottom_contact_data_template">
+            <table width="100%" border="0">
+                            <tr valign="top">
+                                <td width="49%">
+                                    <br/><b>ПРОДАВЕЦ</b>
+                                </td>
+
+                                <td width="49%">
+                                    <br/><b>ПОКУПАТЕЛЬ</b>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <t t-set="person" t-value="doc.company_id"/>
+                                <t t-call="client_contracts.contract_inn_kpp_info"/>
+                                <t t-set="person" t-value="doc.partner_id"/>
+                                <t t-call="client_contracts.contract_inn_kpp_info"/>
+
+                            </tr>
+                            <tr>
+                                <t t-set="person" t-value="doc.company_id"/>
+                                <t t-call="client_contracts.contract_payment_template"/>
+                                <t t-set="person" t-value="doc.partner_id"/>
+                                <t t-call="client_contracts.contract_payment_template"/>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b><t t-esc="doc.company_id.representative_id.function"/></b>:<br/>
+                                    <t t-esc="doc.company_id.representative_id.name"/></td>
+                                <td valign="top">
+                                    <b>Уполномоченный представитель</b>:<br/>
+                                    <t t-esc="doc.partner_id.representative_id.name" />
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td colspan="3" align="left">
+                                    <span id="br" style="display:none"><br/></span>
+                                    <div id="sign"><img src="pic/rog_sign.png" border="0" width="180"/></div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    _________________________
+                                </td>
+                                <td>
+                                    _________________________
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    М.П.
+                                    <div id="stamp">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<img src="pic/stamp.png" border="0" width="160"/></div>
+                                </td>
+                                <td>
+                                    М.П.</td>
+                                <td class="to_hide"></td>
+                            </tr>
+                        </table>
+        </template>
+
+        <template id="contract_bottom_contact_data_fiz_template">
+            <table width="100%" border="0">
+                            <tr valign="top">
+                                <td width="49%">
+                                    <br/><b>ПРОДАВЕЦ</b>
+                                </td>
+
+                                <td width="49%">
+                                    <br/><b>ПОКУПАТЕЛЬ</b>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <t t-set="person" t-value="doc.company_id"/>
+                                <t t-call="client_contracts.contract_inn_kpp_info"/>
+                                <t t-set="person" t-value="doc.partner_id"/>
+                                <t t-call="client_contracts.contract_inn_kpp_info"/>
+
+                            </tr>
+                            <tr>
+                                <t t-esc="doc.partner_id.name"/><br/>
+                                <br/>
+                                <br/>
+                                <b>Паспорт</b>:
+                                <t t-esc="doc.partner_id.passport_data"/>
+                                <b>Адрес:</b>
+                                <t t-esc="doc.partner_id.full_adress"/>
+                                <b>Телефон:</b>
+                                <t t-esc="doc.partner_id.phone" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b><t t-esc="doc.company_id.representative_id.function"/></b>:<br/>
+                                    <t t-esc="doc.company_id.representative_id.name"/></td>
+                                <td valign="top">
+                                    <br/>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td colspan="3" align="left">
+                                    <span id="br" style="display:none"><br/></span>
+                                    <div id="sign"><img src="pic/rog_sign.png" border="0" width="180"/></div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    _________________________
+                                </td>
+                                <td>
+                                    _________________________
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td>
+                                    М.П.
+                                    <div id="stamp">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<img src="pic/stamp.png" border="0" width="160"/></div>
+                                </td>
+                                <td>
+                                    </td>
+                                <td class="to_hide"></td>
+                            </tr>
+                        </table>
+        </template>
+
+        <template id="contract_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="article">
+                        <t t-call="client_contracts.contract_header_template"/>
+                        <table align="tablecenter" border="0px" cellpadding="0" width="100%" style="font-family:Arial; font-size:12px; border-collapse:collapse">
+                            <t t-call="client_contracts.contract_number_and_date"/>
+                            <t t-call="client_contracts.contract_contact_partner_template"/>
+                        </table>
+                        <table align="center" border="0px" cellpadding="0" width="100%" style="font-family:Arial; font-size:12px; border-collapse:collapse">
+                            <t t-call="client_contracts.contract_contact_seller_template"/>
+                            <tr valign="top">
+                                <td colspan="2">
+                                    <b>заключили настоящий Договор о нижеследующем:</b>
+                                </td>
+                            </tr>
+                            <t t-call="client_contracts.contract_chapter_1_template"/>
+                            <t t-call="client_contracts.contract_chapter_2_template"/>
+                            <t t-call="client_contracts.contract_chapter_3_template"/>
+                            <t t-call="client_contracts.contract_chapter_4_template"/>
+                            <t t-call="client_contracts.contract_chapter_5_template"/>
+                            <t t-call="client_contracts.contract_chapter_6_template"/>
+                            <t t-call="client_contracts.contract_chapter_7_template"/>
+                            <t t-call="client_contracts.contract_chapter_8_template"/>
+                            <t t-call="client_contracts.contract_chapter_9_template"/>
+                            <t t-call="client_contracts.contract_chapter_10_template"/>
+                            <t t-call="client_contracts.contract_chapter_11_template"/>
+                            <t t-call="client_contracts.contract_chapter_12_template"/>
+                        </table>
+                        <t t-call="client_contracts.contract_bottom_contact_data_template"/>
+                        <p style="page-break-before:always;"> </p>
+                        <t t-call="client_contracts.contract_appex_template"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="contract_fiz_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="article">
+                        <t t-call="client_contracts.contract_header_template"/>
+                        <table align="tablecenter" border="0px" cellpadding="0" width="100%" style="font-family:Arial; font-size:12px; border-collapse:collapse">
+                            <t t-call="client_contracts.contract_number_and_date"/>
+                            <t t-call="client_contracts.contract_contact_partner_fiz_template"/>
+                        </table>
+                        <table align="center" border="0px" cellpadding="0" width="100%" style="font-family:Arial; font-size:12px; border-collapse:collapse">
+                            <t t-call="client_contracts.contract_contact_seller_template"/>
+                            <tr valign="top">
+                                <td colspan="2">
+                                    <b>заключили настоящий Договор о нижеследующем:</b>
+                                </td>
+                            </tr>
+                            <t t-call="client_contracts.contract_chapter_1_template"/>
+                            <t t-call="client_contracts.contract_chapter_2_template"/>
+                            <t t-call="client_contracts.contract_chapter_3_template"/>
+                            <t t-call="client_contracts.contract_chapter_4_template"/>
+                            <t t-call="client_contracts.contract_chapter_5_template"/>
+                            <t t-call="client_contracts.contract_chapter_6_template"/>
+                            <t t-call="client_contracts.contract_chapter_7_template"/>
+                            <t t-call="client_contracts.contract_chapter_8_template"/>
+                            <t t-call="client_contracts.contract_chapter_9_template"/>
+                            <t t-call="client_contracts.contract_chapter_10_template"/>
+                            <t t-call="client_contracts.contract_chapter_11_template"/>
+                            <t t-call="client_contracts.contract_chapter_12_template"/>
+                        </table>
+                        <t t-call="client_contracts.contract_bottom_contact_data_fiz_template"/>
+                        <p style="page-break-before:always;"> </p>
+                        <t t-call="client_contracts.contract_appex_template"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="contract_appex_only_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="article">
+                        <t t-call="client_contracts.contract_appex_template"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

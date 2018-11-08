@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="search_res_partner_contract_filter" model="ir.ui.view">
+        <field name="name">res_partner_contract_search</field>
+        <field name="model">res.partner.contract</field>
+        <field name="arch" type="xml">
+            <search string="Search Contract">
+                <field name="partner_id" operator="child_of"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_contract_tree">
+        <field name="name">res_partner_contract</field>
+        <field name="model">res.partner.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Contracts">
+                <field name="name" readonly="1"/>
+                <field name="date"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_contract_form">
+        <field name="name">res_partner_contract</field>
+        <field name="model">res.partner.contract</field>
+        <field name="arch" type="xml">
+            <form string="Contract">
+                <header>
+                    <button name="do_toggle_active" type="object"
+                            string="Active" class="oe_highlight" />
+                </header>
+                <sheet>
+                    <group string="Contract parameters" name="single_params">
+                        <field name="name" readonly="1"/>
+                        <field name="date"/>
+                        <field name="partner_id"/>
+                    </group>
+                    <group string="Annexed orders" name="multi_params">
+                        <field name="order_ids" widget="many2many"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="res_partner_contract_action">
+        <field name="name">res_partner_contract</field>
+        <field name="res_model">res.partner.contract</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_partner_id': active_id}</field>
+    </record>
+
+    <record id="order_contract_tree" model="ir.actions.act_window">
+        <field name="name">Appexes</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="arch" type="xml">
+            <tree string="Appexes">
+                <field name="name"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_contract_view_buttons" model="ir.ui.view">
+        <field name="name">res.partner.contract.view.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="25"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button class="oe_inline oe_stat_button" type="action" name="%(res_partner_contract_action)d"
+                        attrs="{'invisible': [('customer', '=', False)]}"
+                        icon="fa-pencil-square-o">
+                    <field string="Contracts" name="contract_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="res_partner_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="25"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="contract_name"/>
+                <field name="contract_job_name"/>
+                <field name="representative_id" domain="[('id', 'in', child_ids)]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
+                <field name="passport_data" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="bank_account"/>
+                <field name="signature" widget="image"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="annex_type_action" model="ir.actions.act_window">
+        <field name="name">annex_action</field>
+        <field name="res_model">res.partner.contract.annex.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+    <record id="res_partner_contract_annex_type_view" model="ir.ui.view">
+        <field name="name">res_partner_contract_annex_type_view</field>
+        <field name="model">res.partner.contract.annex.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="arch" type="xml">
+            <tree string="Annex type">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_contract_template_action" model="ir.actions.act_window">
+        <field name="name">res_partner_contract_template_action</field>
+        <field name="res_model">res.partner.contract.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+    <record id="res_partner_contract_template_view" model="ir.ui.view">
+        <field name="name">res_partner_contract_template_view</field>
+        <field name="model">res.partner.contract.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="arch" type="xml">
+            <tree string="Template">
+                <field name="name"/>
+                <field name="is_contract_template"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem name="Annex type" parent="sale.menu_sale_config" id="res_partner_contract_annex_type_menu" action="annex_type_action"/>
+
+    <menuitem name="Templates" parent="sale.menu_sale_config" id="res_partner_contract_templates" action="res_partner_contract_template_action"/>
+
+</odoo>

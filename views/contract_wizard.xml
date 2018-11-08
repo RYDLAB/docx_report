@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <act_window id="res_partner_contract_wizard_action"
+                name="Contract wizard"
+                res_model="res.partner.contract.wizard"
+                src_model="res.partner.contract"
+                view_mode="form"
+                target="new"/>
+
+    <report
+                id="contract_company_template"
+                model="res.partner.contract.wizard"
+                string="Contract"
+                report_type="qweb-pdf"
+                name="client_contracts.contract_template"
+                file="client_contracts.contract_template"
+        />
+
+     <report
+                id="contract_personal_template"
+                model="res.partner.contract.wizard"
+                string="Contract"
+                report_type="qweb-pdf"
+                name="client_contracts.contract_fiz_template"
+                file="client_contracts.contract_fiz_template"
+        />
+
+    <report
+                id="contract_appex_only_template_print"
+                model="res.partner.contract.wizard"
+                string="Contract"
+                report_type="qweb-pdf"
+                name="client_contracts.contract_appex_only_template"
+                file="client_contracts.contract_appex_only_template"
+        />
+
+    <record id="res_partner_contract_wizard_view" model="ir.ui.view">
+        <field name="name">Contract print wizard</field>
+        <field name="model">res.partner.contract.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="template"/>
+                    <group name="partner" string="Partner parameters">
+                        <field name="partner_id"/>
+                    </group>
+                    <group name="seller" string="Seller parameters">
+                        <field name="company_id"/>
+                    </group>
+                    <group name="terms" string="Delivery and payment terms">
+                        <field name="payment_terms"/>
+                        <field name="delivery_terms"/>
+                    </group>
+                    <group string="Order info" name="order">
+                        <field name="order_id"/>
+                    </group>
+                        <field name="annex_lines" mode="tree">
+                            <form string="Annex info lines">
+                                <field name="annex_type"/>
+                                <field name="description"/>
+                            </form>
+                            <tree string="Annex info" editable="bottom">
+                                <field name="annex_type"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                </group>
+                <button string="Form DOCX from template" type="object" name="get_docx_contract" />
+                <button string="Form contract with company" type="action" name="%(contract_company_template)d" />
+                <button string="Form contract with personal" type="action" name="%(contract_personal_template)d" />
+                <button string="Form only appex contract" type="action" name="%(contract_appex_only_template_print)d" />
+                <footer>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+</odoo>

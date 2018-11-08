@@ -6,10 +6,10 @@
             <table align="center" border="0px" cellpadding="0" width="100%" style="font-family:Arial; font-size:12px; border-collapse:collapse">
                 <tr>
                     <td align="left" colspan="1">
-                        <img src="pic/TS_logo_head.png"/>
+                        <div t-field="doc.company_id.image" t-options="{'widget': 'image' }"/>
                     </td>
                     <td align="right">
-                        7 495 008-84-67 hello@tabulasense.ru
+                        <t t-esc="doc.company_id.phone"/> <t t-esc="doc.company_id.email" />
                     </td>
                 </tr>
             </table>
@@ -535,7 +535,7 @@
                             <tr valign="top">
                                 <td colspan="3" align="left">
                                     <span id="br1" style="display:none"><br /></span>
-                                    <div id="sign1"><img src="pic/rog_sign.png" border="0" width="180"/></div>
+                                    <div id="sign1"><div t-field="doc.company_id.representative_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -549,7 +549,7 @@
                             <tr valign="top">
                                 <td>
                                     М.П.
-                                    <div id="stamp1">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<img src="pic/stamp.png" border="0" width="160"/></div>
+                                    <div id="stamp1">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<div t-field="doc.company_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
                                 </td>
                                 <td>
                                     М.П.
@@ -598,7 +598,7 @@
                             <tr valign="top">
                                 <td colspan="3" align="left">
                                     <span id="br" style="display:none"><br/></span>
-                                    <div id="sign"><img src="pic/rog_sign.png" border="0" width="180"/></div>
+                                    <div id="sign"><div t-field="doc.company_id.representative_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -612,7 +612,7 @@
                             <tr valign="top">
                                 <td>
                                     М.П.
-                                    <div id="stamp">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<img src="pic/stamp.png" border="0" width="160"/></div>
+                                    <div id="stamp">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<div t-field="doc.company_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
                                 </td>
                                 <td>
                                     М.П.</td>
@@ -662,7 +662,8 @@
                             <tr valign="top">
                                 <td colspan="3" align="left">
                                     <span id="br" style="display:none"><br/></span>
-                                    <div id="sign"><img src="pic/rog_sign.png" border="0" width="180"/></div>
+                                    <div id="sign"><div t-field="doc.company_id.representative_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
+                                    <!--<div id="sign"><img src="pic/rog_sign.png" border="0" width="180"/></div>-->
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -676,7 +677,7 @@
                             <tr valign="top">
                                 <td>
                                     М.П.
-                                    <div id="stamp">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<img src="pic/stamp.png" border="0" width="160"/></div>
+                                    <div id="stamp">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<div t-field="doc.company_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
                                 </td>
                                 <td>
                                     </td>

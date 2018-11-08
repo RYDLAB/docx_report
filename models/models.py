@@ -9,21 +9,6 @@ class PartnerContract(models.Model):
 
     _name = 'res.partner.contract'
 
-    @api.onchange('date')
-    def _change_contract_name(self):
-        """
-        Procedure for forming contract name
-        :return: contract name in format "DDMM-YY-№"
-        """
-        contract_date = datetime.strptime(self.date, '%Y-%m-%d')
-        date_part = contract_date.strftime('%d%m-%y')
-        today_contracts = self.search([('date', '=', contract_date.date())])
-        if len(today_contracts) > 0:
-            last_contract_number = int(today_contracts[-1].name.split('-')[2]) + 1
-        else:
-            last_contract_number = 1
-        self.name = '{}-{}'.format(date_part, last_contract_number)
-
     name = fields.Char(
         string='Contract number',
         help='Number of contract, letters and digits',)
@@ -44,16 +29,28 @@ class PartnerContract(models.Model):
         string='Annexes',
         help='Annexes to this contract')
 
-    @api.model
-    def create(self, vals):
-        contract_date = datetime.now()
+    def _calculate_contract_name(self, _date):
+        contract_date = datetime.strptime(_date, '%Y-%m-%d')
         date_part = contract_date.strftime('%d%m-%y')
         today_contracts = self.search([('date', '=', contract_date.date())])
         if len(today_contracts) > 0:
             last_contract_number = int(today_contracts[-1].name.split('-')[2]) + 1
         else:
             last_contract_number = 1
-        vals['name'] = '{}-{}'.format(date_part, last_contract_number)
+        return '{}-{}'.format(date_part, last_contract_number)
+
+    @api.onchange('date')
+    def _change_contract_name(self):
+        """
+        Procedure for forming contract name
+        :return: contract name in format "DDMM-YY-№"
+        """
+
+        self.name = self._calculate_contract_name(self.date)
+
+    @api.model
+    def create(self, vals):
+        vals['name'] = self._calculate_contract_name(datetime.now())
         return super(PartnerContract, self).create(vals)
 
 

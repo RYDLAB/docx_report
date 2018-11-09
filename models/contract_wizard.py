@@ -390,7 +390,7 @@ class ContractWizard(models.TransientModel):
 
     def get_docx_contract_1(self):
         odoo_data_dir = config.get("data_dir")
-        odoo_bd = config.get("dbfilter")
+        odoo_bd = config.get("db_name")
         filename = self.template.store_fname
         full_path = '{}/filestore/{}/{}'.format(odoo_data_dir, odoo_bd, filename)
         context = self._generate_context()

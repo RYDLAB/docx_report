@@ -236,42 +236,77 @@ class ContractWizard(models.TransientModel):
     def _compute_context_payment_term_word(self):
         self._context_payment_term_word = numeral.in_words(self.payment_terms)
 
-    _context_name = fields.Char(compute='_compute_context_name', readonly=True)
-    _context_date = fields.Char(compute='_compute_context_date', readonly=True)
-    _context_partner_contract_name = fields.Char(compute='_compute_context_partner_contract_name', readonly=True)
+    _context_name = fields.Char(string='Contract number', compute='_compute_context_name', readonly=True)
+    _context_date = fields.Char(string='Contract date', compute='_compute_context_date', readonly=True)
+    _context_partner_contract_name = fields.Char(string='Partner contract name',
+                                                 compute='_compute_context_partner_contract_name', readonly=True)
     _context_partner_adress = fields.Char(compute='_compute_context_partner_adress', readonly=True)
-    _context_partner_representer_contract_name = fields.Char(
+    _context_partner_representer_contract_name = fields.Char(string='partner representer contract name',
         compute='_compute_context_partner_representer_contract_name', readonly=True)
-    _context_partner_inn = fields.Char(compute='_compute_context_partner_inn', readonly=True)
-    _context_partner_kpp = fields.Char(compute='_compute_context_partner_kpp', readonly=True)
-    _context_partner_rs = fields.Char(compute='_compute_context_partner_rs', readonly=True)
-    _context_partner_bik = fields.Char(compute='_compute_context_partner_bik', readonly=True)
-    _context_partner_bank = fields.Char(compute='_compute_context_partner_bank', readonly=True)
-    _context_partner_phone = fields.Char(compute='_compute_context_partner_phone', readonly=True)
-    _context_partner_representer_name = fields.Char(compute='_compute_context_partner_representer_name', readonly=True)
-    _context_seller_contract_name = fields.Char(compute='_compute_context_seller_contract_name', readonly=True)
-    _context_seller_adress = fields.Char(compute='_compute_context_seller_adress', readonly=True)
-    _context_seller_representer_contract_job_name = fields.Char(
+    _context_partner_inn = fields.Char(string='Partner inn', compute='_compute_context_partner_inn', readonly=True)
+    _context_partner_kpp = fields.Char(string='Partner kpp', compute='_compute_context_partner_kpp', readonly=True)
+    _context_partner_rs = fields.Char(string='Partner corresponding account',
+                                      compute='_compute_context_partner_rs',
+                                      readonly=True)
+    _context_partner_bik = fields.Char(string='Partner bank bik',
+                                       compute='_compute_context_partner_bik',
+                                       readonly=True)
+    _context_partner_bank = fields.Char(string='Partner bank name',
+                                        compute='_compute_context_partner_bank',
+                                        readonly=True)
+    _context_partner_phone = fields.Char(string='Partner phone',
+                                         compute='_compute_context_partner_phone',
+                                         readonly=True)
+    _context_partner_representer_name = fields.Char(string='Partner representer name',
+                                                    compute='_compute_context_partner_representer_name',
+                                                    readonly=True)
+    _context_seller_contract_name = fields.Char(string='Seller contract name',
+                                                compute='_compute_context_seller_contract_name',
+                                                readonly=True)
+    _context_seller_adress = fields.Char(string='Seller full adress',
+                                         compute='_compute_context_seller_adress',
+                                         readonly=True)
+    _context_seller_representer_contract_job_name = fields.Char(string='Seller representer contract job name',
         compute='_compute_context_seller_representer_contract_job_name', readonly=True)
-    _context_seller_representer_contract_name = fields.Char(compute='_compute_context_seller_representer_contract_name',
+    _context_seller_representer_contract_name = fields.Char(string='Seller representer contract name',
+                                                            compute='_compute_context_seller_representer_contract_name',
                                                             readonly=True)
-    _context_seller_inn = fields.Char(compute='_compute_context_seller_inn', readonly=True)
-    _context_seller_kpp = fields.Char(compute='_compute_context_seller_kpp', readonly=True)
-    _context_seller_rs = fields.Char(compute='_compute_context_seller_rs', readonly=True)
-    _context_seller_bik = fields.Char(compute='_compute_context_seller_bik', readonly=True)
-    _context_seller_bank = fields.Char(compute='_compute_context_seller_bank', readonly=True)
-    _context_seller_phone = fields.Char(compute='_compute_context_seller_phone', readonly=True)
-    _context_seller_representer_job_name = fields.Char(compute='_compute_context_seller_representer_job_name',
+    _context_seller_inn = fields.Char(string='Seller inn', compute='_compute_context_seller_inn', readonly=True)
+    _context_seller_kpp = fields.Char(string='Seller kpp', compute='_compute_context_seller_kpp', readonly=True)
+    _context_seller_rs = fields.Char(string='Seller corresponding account',
+                                     compute='_compute_context_seller_rs',
+                                     readonly=True)
+    _context_seller_bik = fields.Char(string='Seller bank bik', compute='_compute_context_seller_bik', readonly=True)
+    _context_seller_bank = fields.Char(string='Seller bank name', compute='_compute_context_seller_bank', readonly=True)
+    _context_seller_phone = fields.Char(string='Seller phone', compute='_compute_context_seller_phone', readonly=True)
+    _context_seller_representer_job_name = fields.Char(string='Seller representer job name',
+                                                       compute='_compute_context_seller_representer_job_name',
                                                        readonly=True)
-    _context_seller_representer_name = fields.Char(compute='_compute_context_seller_representer_name', readonly=True)
-    _context_summ_rub = fields.Char(compute='_compute_context_summ_rub', readonly=True)
-    _context_summ_rub_word = fields.Char(compute='_compute_context_summ_rub_word', readonly=True)
-    _context_summ_kop = fields.Char(compute='_compute_context_summ_kop', readonly=True)
-    _context_summ_word = fields.Char(compute='_compute_context_summ_word', readonly=True)
-    _context_delivery_term = fields.Char(compute='_compute_context_delivery_term', readonly=True)
-    _context_delivery_term_word = fields.Char(compute='_compute_context_delivery_term_word', readonly=True)
-    _context_payment_term = fields.Char(compute='_compute_context_payment_term', readonly=True)
-    _context_payment_term_word = fields.Char(compute='_compute_context_payment_term_word', readonly=True)
+    _context_seller_representer_name = fields.Char(string='Seller representer name',
+                                                   compute='_compute_context_seller_representer_name', readonly=True)
+    _context_summ_rub = fields.Char(string='Contract summ(rub)', compute='_compute_context_summ_rub', readonly=True)
+    _context_summ_rub_word = fields.Char(string='Contract summ(rub), word',
+                                         compute='_compute_context_summ_rub_word',
+                                         readonly=True)
+    _context_summ_kop = fields.Char(string='Contract summ(kop)', compute='_compute_context_summ_kop', readonly=True)
+    _context_summ_word = fields.Char(string='Contract summ word', compute='_compute_context_summ_word', readonly=True)
+    _context_delivery_term = fields.Char(string='Contract delivery term',
+                                         compute='_compute_context_delivery_term',
+                                         readonly=True)
+    _context_delivery_term_word = fields.Char(string='Contract delivery term word',
+                                              compute='_compute_context_delivery_term_word',
+                                              readonly=True)
+    _context_payment_term = fields.Char(string='Contract payment term',
+                                        compute='_compute_context_payment_term', readonly=True)
+    _context_payment_term_word = fields.Char(string='Contract payment term word',
+                                             compute='_compute_context_payment_term_word', readonly=True)
+    _context_partner_passport_data = fields.Char(string='Partner passport data',
+                                                 compute='_compute_partner_passport_data',
+                                                 readonly=True)
+
+    @api.onchange('partner_id')
+    def _compute_partner_passport_data(self):
+        return self.partner_id.passport_data
 
     @api.onchange('partner_id')
     def _set_order_domain(self):
@@ -326,6 +361,7 @@ class ContractWizard(models.TransientModel):
                    'partner_rs': self.partner_id.bank_account.acc_number,
                    'partner_bik': self.partner_id.bank_account.bank_id.bic,
                    'partner_bank': self.partner_id.bank_account.bank_id.name,
+                   'partner_passport_data': self.partner_id.passport_data,
                    'partner_phone': self.partner_id.phone,
                    'partner_representer_name': self.partner_id.representative_id.name,
                    'seller_contract_name': self.company_id.contract_name,

@@ -65,6 +65,46 @@
                                 <field name="description"/>
                             </tree>
                         </field>
+                    <group string="Contract values">
+                        <group string="Contract">
+                            <field name="_context_name"/>
+                            <field name="_context_date"/>
+                            <field name="_context_summ_rub"/>
+                            <field name="_context_summ_rub_word"/>
+                            <field name="_context_summ_kop"/>
+                            <field name="_context_summ_word"/>
+                            <field name="_context_delivery_term"/>
+                            <field name="_context_delivery_term_word"/>
+                            <field name="_context_payment_term"/>
+                            <field name="_context_payment_term_word"/>
+                        </group>
+                        <group string="Company values">
+                            <field name="_context_seller_contract_name"/>
+                            <field name="_context_seller_adress"/>
+                            <field name="_context_seller_representer_contract_job_name"/>
+                            <field name="_context_seller_representer_contract_name"/>
+                            <field name="_context_seller_inn"/>
+                            <field name="_context_seller_kpp"/>
+                            <field name="_context_seller_rs"/>
+                            <field name="_context_seller_bik"/>
+                            <field name="_context_seller_bank"/>
+                            <field name="_context_seller_phone"/>
+                            <field name="_context_seller_representer_job_name"/>
+                            <field name="_context_seller_representer_name"/>
+                        </group>
+                        <group string="Partner values">
+                            <field name="_context_partner_contract_name"/>
+                            <field name="_context_partner_adress"/>
+                            <field name="_context_partner_representer_contract_name"/>
+                            <field name="_context_partner_inn"/>
+                            <field name="_context_partner_kpp"/>
+                            <field name="_context_partner_rs"/>
+                            <field name="_context_partner_bik"/>
+                            <field name="_context_partner_bank"/>
+                            <field name="_context_partner_phone"/>
+                            <field name="_context_partner_representer_name"/>
+                        </group>
+                    </group>
                 </group>
                 <button string="Form DOCX from template" type="object" name="get_docx_contract" />
                 <button string="Form contract with company" type="action" name="%(contract_company_template)d" />

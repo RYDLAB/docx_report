@@ -429,12 +429,31 @@
             </td>
         </template>
 
+        <template id="contract_inn_kpp_fiz_info">
+            <td>
+                <b><t t-esc="person.contract_name"/></b><br/>
+                <br/>
+                <br/>
+            </td>
+        </template>
+
         <template id="contract_payment_template">
             <td valign="top">
                 <b>Расчетный счет</b>: <t t-esc="person.bank_account.acc_number"/><br/>
                 <b>БИК</b>: <t t-esc="person.bank_account.bank_id.bic"/><br/>
                 <b>Банк-получатель</b>: <t t-esc="person.bank_account.bank_id.name"/><br/>
                 <b>Юридический адрес</b>:<br/>
+                <t t-esc="person.full_adress"/><br/>
+                <b>Телефон</b>: <t t-esc="person.phone" /><br/>
+            </td>
+        </template>
+
+        <template id="contract_payment_fiz_template">
+            <td valign="top">
+                <b>Паспорт</b>: <t t-esc="person.passport_data"/><br/>
+                <br/>
+                <br/>
+                <b>Адрес</b>:<br/>
                 <t t-esc="person.full_adress"/><br/>
                 <b>Телефон</b>: <t t-esc="person.phone" /><br/>
             </td>
@@ -622,7 +641,7 @@
         </template>
 
         <template id="contract_bottom_contact_data_fiz_template">
-            <table width="100%" border="0">
+             <table width="100%" border="0">
                             <tr valign="top">
                                 <td width="49%">
                                     <br/><b>ПРОДАВЕЦ</b>
@@ -636,19 +655,14 @@
                                 <t t-set="person" t-value="doc.company_id"/>
                                 <t t-call="client_contracts.contract_inn_kpp_info"/>
                                 <t t-set="person" t-value="doc.partner_id"/>
-                                <t t-call="client_contracts.contract_inn_kpp_info"/>
+                                <t t-call="client_contracts.contract_inn_kpp_fiz_info"/>
 
                             </tr>
                             <tr>
-                                <t t-esc="doc.partner_id.name"/><br/>
-                                <br/>
-                                <br/>
-                                <b>Паспорт</b>:
-                                <t t-esc="doc.partner_id.passport_data"/>
-                                <b>Адрес:</b>
-                                <t t-esc="doc.partner_id.full_adress"/>
-                                <b>Телефон:</b>
-                                <t t-esc="doc.partner_id.phone" />
+                                <t t-set="person" t-value="doc.company_id"/>
+                                <t t-call="client_contracts.contract_payment_template"/>
+                                <t t-set="person" t-value="doc.partner_id"/>
+                                <t t-call="client_contracts.contract_payment_fiz_template"/>
                             </tr>
                             <tr>
                                 <td>
@@ -663,7 +677,6 @@
                                 <td colspan="3" align="left">
                                     <span id="br" style="display:none"><br/></span>
                                     <div id="sign"><div t-field="doc.company_id.representative_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
-                                    <!--<div id="sign"><img src="pic/rog_sign.png" border="0" width="180"/></div>-->
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -680,7 +693,7 @@
                                     <div id="stamp">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<div t-field="doc.company_id.signature" t-options="{'widget': 'image', 'border':'0', 'width':'100' }"/></div>
                                 </td>
                                 <td>
-                                    </td>
+                                </td>
                                 <td class="to_hide"></td>
                             </tr>
                         </table>

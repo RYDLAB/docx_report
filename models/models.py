@@ -50,7 +50,8 @@ class PartnerContract(models.Model):
 
     @api.model
     def create(self, vals):
-        vals['name'] = self._calculate_contract_name(datetime.now())
+        datetime_now = datetime.now().strftime("%Y-%m-%d")
+        vals['name'] = self._calculate_contract_name(datetime_now)
         return super(PartnerContract, self).create(vals)
 
 
@@ -85,7 +86,12 @@ class ResPartner(models.Model):
     @api.one
     @api.depends('street', 'street2', 'city', 'state_id', 'zip', 'country_id')
     def _compute_full_adress(self):
-        full_adress = '{}, {}, {}, {} {}'.format(self.zip, self.country_id.name, self.city, self.street, self.street2)
+        if self.zip:
+            full_adress = '{}, {}, {}, {} {}'.format(self.zip, self.country_id.name, self.city, self.street,
+                                                     self.street2)
+        else:
+            full_adress = '{}, {}, {} {}'.format(self.country_id.name, self.city, self.street,
+                                                     self.street2)
         self.full_adress = full_adress
 
     @api.one

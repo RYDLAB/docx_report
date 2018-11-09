@@ -82,7 +82,7 @@ class ContractWizard(models.TransientModel):
     @api.onchange('contract_id')
     def _compute_context_date(self):
         contract_date = datetime.strptime(self.contract_id.date, '%Y-%m-%d')
-        self._context_date = contract_date.strftime('%d %b %Y')
+        self._context_date = contract_date.strftime('%d %B %Y')
 
     @api.onchange('partner_id')
     def _compute_context_partner_contract_name(self):

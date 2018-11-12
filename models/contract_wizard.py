@@ -75,24 +75,24 @@ class ContractWizard(models.TransientModel):
 
     annex_lines = fields.One2many('res.partner.contract.annex.line', 'id', auto_join=True, copy=True)
 
-    @api.onchange('contract_id')
+    @api.depends('contract_id')
     def _compute_context_name(self):
         self._context_name = self.contract_id.name
 
-    @api.onchange('contract_id')
+    @api.depends('contract_id')
     def _compute_context_date(self):
         contract_date = datetime.strptime(self.contract_id.date, '%Y-%m-%d')
         self._context_date = contract_date.strftime('%d %B %Y')
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_contract_name(self):
         self._context_partner_contract_name = self.partner_id.contract_name
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_adress(self):
         self._compute_context_partner_adress = self.partner_id.full_adress
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_representer_contract_name(self):
         if self.partner_id.representative_id:
             partner_representer_contract_name = self.partner_id.representative_id.contract_name
@@ -100,43 +100,43 @@ class ContractWizard(models.TransientModel):
             partner_representer_contract_name = ''
         self._context_partner_representer_contract_name = partner_representer_contract_name
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_inn(self):
         self._context_partner_inn = self.partner_id.inn
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_kpp(self):
         self._context_partner_kpp = self.partner_id.kpp
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_rs(self):
         self._context_partner_rs = self.partner_id.bank_account.acc_number
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_bik(self):
         self._context_partner_bik = self.partner_id.bank_account.bank_id.bic
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_bank(self):
         self._context_partner_bank = self.partner_id.bank_account.bank_id.name
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_phone(self):
         self._context_partner_phone = self.partner_id.phone
 
-    @api.onchange('partner_id')
+    @api.depends('partner_id')
     def _compute_context_partner_representer_name(self):
         self._context_partner_representer_name = self.partner_id.representative_id.name
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_contract_name(self):
         self._context_seller_contract_name = self.company_id.contract_name
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_adress(self):
         self._context_seller_adress = self.company_id.full_adress
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_representer_contract_job_name(self):
         if self.company_id.representative_id:
             seller_represent_contract_job_name = self.company_id.representative_id.contract_job_name
@@ -144,7 +144,7 @@ class ContractWizard(models.TransientModel):
             seller_represent_contract_job_name = ''
         self._context_seller_representer_contract_job_name = seller_represent_contract_job_name
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_representer_contract_name(self):
         if self.company_id.representative_id:
             seller_represent_contract_name = self.company_id.representative_id.contract_name
@@ -152,31 +152,31 @@ class ContractWizard(models.TransientModel):
             seller_represent_contract_name = ''
         self._context_seller_representer_contract_name = seller_represent_contract_name
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_inn(self):
         self._context_seller_inn = self.company_id.inn
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_kpp(self):
         self._context_seller_kpp = self.company_id.kpp
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_rs(self):
         self._context_seller_rs = self.company_id.bank_account.acc_number
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_bik(self):
         self._context_seller_bik = self.company_id.bank_account.bank_id.bic
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_bank(self):
         self._context_seller_bank = self.company_id.bank_account.bank_id.name
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_phone(self):
         self._context_seller_phone = self.company_id.phone
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_representer_job_name(self):
         if self.company_id.representative_id:
             seller_represent_job_name = self.company_id.representative_id.function
@@ -184,7 +184,7 @@ class ContractWizard(models.TransientModel):
             seller_represent_job_name = ''
         self._context_seller_representer_job_name = seller_represent_job_name
 
-    @api.onchange('company_id')
+    @api.depends('company_id')
     def _compute_context_seller_representer_name(self):
         if self.company_id.representative_id:
             seller_represent_name = self.company_id.representative_id.name
@@ -192,7 +192,7 @@ class ContractWizard(models.TransientModel):
             seller_represent_name = ''
         self._context_seller_representer_name = seller_represent_name
 
-    @api.onchange('order_id')
+    @api.depends('order_id')
     def _compute_context_summ_rub(self):
         if self.order_id:
             amount = math.modf(self.order_id.amount_total)
@@ -200,7 +200,7 @@ class ContractWizard(models.TransientModel):
             amount = math.modf(0.0)
         self._context_summ_rub = str(int(amount[1]))
 
-    @api.onchange('order_id')
+    @api.depends('order_id')
     def _compute_context_summ_rub_word(self):
         if self.order_id:
             amount = math.modf(self.order_id.amount_total)
@@ -208,7 +208,7 @@ class ContractWizard(models.TransientModel):
             amount = math.modf(0.0)
         self._context_summ_rub_word = numeral.in_words(int(amount[1]))
 
-    @api.onchange('order_id')
+    @api.depends('order_id')
     def _compute_context_summ_kop(self):
         if self.order_id:
             amount = math.modf(self.order_id.amount_total)
@@ -216,23 +216,23 @@ class ContractWizard(models.TransientModel):
         else:
             self._context_summ_kop = '0'
 
-    @api.onchange('order_id')
+    @api.depends('order_id')
     def _compute_context_summ_word(self):
         self._context_summ_word = numeral.rubles(self.order_id.amount_total)
 
-    @api.onchange('delivery_terms')
+    @api.depends('delivery_terms')
     def _compute_context_delivery_term(self):
         self._context_delivery_term = self.delivery_terms
 
-    @api.onchange('delivery_terms')
+    @api.depends('delivery_terms')
     def _compute_context_delivery_term_word(self):
         self._context_delivery_term_word = numeral.in_words(self.delivery_terms)
 
-    @api.onchange('payment_terms')
+    @api.depends('payment_terms')
     def _compute_context_payment_term(self):
         self._context_payment_term = self.payment_terms
 
-    @api.onchange('payment_terms')
+    @api.depends('payment_terms')
     def _compute_context_payment_term_word(self):
         self._context_payment_term_word = numeral.in_words(self.payment_terms)
 

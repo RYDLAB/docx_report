@@ -42,7 +42,7 @@
             <form>
                 <group>
                     <group name="template" string="Шаблон">
-                    <field name="template" string="Шаблон договора"/>
+                        <field name="template" string="Шаблон договора"/>
                     </group>
                     <group name="partner" string="Partner parameters">
                         <field name="partner_id"/>

@@ -26,8 +26,6 @@ msgstr " Адрес покупателя в договоре"
 msgid "# of contracts"
 msgstr "кол-во договоров"
 
-
-
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 msgid "Active"
@@ -596,8 +594,6 @@ msgstr "С фирмой"
 #: selection:res.partner.contract.wizard,type:0
 msgid "With person"
 msgstr "С частным лицом"
-
-
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard__context_partner_representer_contract_name

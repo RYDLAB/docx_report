@@ -41,7 +41,9 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="template"/>
+                    <group name="template" string="Шаблон">
+                    <field name="template" string="Шаблон договора"/>
+                    </group>
                     <group name="partner" string="Partner parameters">
                         <field name="partner_id"/>
                     </group>

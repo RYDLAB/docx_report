@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
     <act_window id="res_partner_contract_wizard_action"
@@ -117,9 +117,5 @@
             </form>
         </field>
     </record>
-
-
-
-
 
 </odoo>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <odoo>
     <data>
+    
         <template id="contract_header_template">
             <table align="center" border="0px" cellpadding="0" width="100%" style="font-family:Arial; font-size:12px; border-collapse:collapse">
                 <tr>

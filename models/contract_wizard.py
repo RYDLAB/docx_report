@@ -33,27 +33,38 @@ class ContractWizard(models.TransientModel):
         return self.partner_id.representative_id
 
     _context_name = fields.Char(
-        string='Contract number', compute='_compute_context_name', readonly=True
+        string='Contract number',
+        compute='_compute_context_name',
+        readonly=True
     )
     _context_date = fields.Char(
-        string='Contract date', compute='_compute_context_date', readonly=True
+        string='Contract date',
+        compute='_compute_context_date',
+        readonly=True
     )
     _context_partner_contract_name = fields.Char(
         string='Partner contract name',
-        compute='_compute_context_partner_contract_name', readonly=True
+        compute='_compute_context_partner_contract_name',
+        readonly=True
     )
     _context_partner_adress = fields.Char(
-        compute='_compute_context_partner_adress', readonly=True
+        compute='_compute_context_partner_adress',
+        readonly=True
     )
     _context_partner_representer_contract_name = fields.Char(
         string='partner representer contract name',
-        compute='_compute_context_partner_representer_contract_name', readonly=True
+        compute='_compute_context_partner_representer_contract_name',
+        readonly=True
     )
     _context_partner_inn = fields.Char(
-        string='Partner inn', compute='_compute_context_partner_inn', readonly=True
+        string='Partner inn',
+        compute='_compute_context_partner_inn',
+        readonly=True
     )
     _context_partner_kpp = fields.Char(
-        string='Partner kpp', compute='_compute_context_partner_kpp', readonly=True
+        string='Partner kpp',
+        compute='_compute_context_partner_kpp',
+        readonly=True
     )
     _context_partner_rs = fields.Char(
         string='Partner corresponding account',

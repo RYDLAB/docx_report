@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import math
-
 from datetime import datetime
-from docxtpl import DocxTemplate
-from pytils import numeral
 
-from odoo import models, fields, api
+from docxtpl import DocxTemplate
+from odoo import api, fields, models
 from odoo.tools.config import config
+from pytils import numeral
 
 
 class ContractWizard(models.TransientModel):

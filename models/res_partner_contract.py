@@ -77,9 +77,13 @@ class AnnexType(models.Model):
 
 class ContractTemplate(models.Model):
     _name = 'res.partner.contract.template'
-    _inherit = 'ir.attachment'
 
-    is_contract_template = fields.Boolean(
-        srting='Is this document contract template?',
-        default=True
-    )  # TODO: srting -> string
+    attachment_id = fields.Many2one(
+        'ir.attachment',
+        string="Template Attachment",
+        required=True,
+    )
+    is_default = fields.Boolean(
+        string='Default Template',
+        default=False,
+    )

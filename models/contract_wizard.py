@@ -16,12 +16,12 @@ class ContractWizard(models.TransientModel):
 
     # TODO: Move _get_default_+ method down
     def _get_default_template(self):
-        _template = self.env['res.partner.contract.template'].search(
-            [('is_contract_template', '=', True)])
+        _template = self.env['res.partner.contract.template'].search([
+            ('is_default', '=', True)
+        ])
         if _template:
             return _template[0].id
-        else:
-            return False
+        return False
 
     def _get_default_partner(self):
         current_id = self.env.context.get('active_ids')
@@ -508,7 +508,7 @@ class ContractWizard(models.TransientModel):
     def get_docx_contract_1(self):
         odoo_data_dir = config.get("data_dir")
         odoo_bd = config.get("db_name")
-        filename = self.template.store_fname
+        filename = self.template.attachment_id.store_fname
         full_path = '{}/filestore/{}/{}'.format(
             odoo_data_dir, odoo_bd, filename)
         context = self._generate_context()

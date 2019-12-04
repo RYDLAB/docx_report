@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
-import io
-
 import math
 from datetime import datetime
-
-from docxtpl import DocxTemplate
 
 from odoo import api, fields, models
 from odoo.tools.config import config
@@ -16,7 +12,6 @@ from ..utils.docxtpl import get_document_from_values_stream
 class ContractWizard(models.TransientModel):
     _name = 'res.partner.contract.wizard'
 
-    # TODO: Move _get_default_+ method down
     def _get_default_template(self):
         _template = self.env['res.partner.contract.template'].search([
             ('is_default', '=', True)
@@ -507,23 +502,22 @@ class ContractWizard(models.TransientModel):
                    }
         return context
 
-
     def get_docx_contract(self):
-        
         path_to_template = "{}/filestore/{}/{}".format(
             config.get("data_dir"),
             config.get("db_name"),
             self.template.attachment_id.store_fname
         )
         fields = self._generate_context()
-        
-        binary_data = get_document_from_values_stream(path_to_template, fields).read()
+
+        binary_data = get_document_from_values_stream(
+            path_to_template, fields).read()
         encoded_data = base64.b64encode(binary_data)
 
         attachment = self.env['ir.attachment'].create({
-            "name": "Contract-{}.doc".format(self.contract_id.name), 
+            "name": "Contract-{}.doc".format(self.contract_id.name),
             "type": "binary",
-            "datas": binary_data, 
+            "datas": encoded_data,
         })
         return attachment
 

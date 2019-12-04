@@ -28,10 +28,9 @@
         <field name="model">res.partner.contract</field>
         <field name="arch" type="xml">
             <form string="Contract">
-                <header>
-                    <button name="do_toggle_active" type="object"
-                            string="Active" class="oe_highlight" />
-                </header>
+                <!-- <header>
+                    <button name="do_toggle_active" type="object" string="Active" class="oe_highlight" />
+                </header> -->
                 <sheet>
                     <group string="Contract parameters" name="single_params">
                         <field name="name" readonly="1"/>
@@ -90,10 +89,11 @@
         <field name="priority" eval="25"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
-                <field name="contract_name"/>
-                <field name="contract_job_name"/>
+                <field name="name"/>
+                <field name="function"/>
                 <field name="representative_id" domain="[('id', 'in', child_ids)]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
-                <field name="passport_data" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="passport_series" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="passport_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                 <field name="bank_account"/>
                 <field name="signature" widget="image"/>
             </xpath>

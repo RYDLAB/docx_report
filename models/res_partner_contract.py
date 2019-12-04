@@ -1,11 +1,11 @@
-from datetime import datetime
+import datetime
 
 from odoo import api, fields, models
 
 
 class PartnerContract(models.Model):
-
     _name = 'res.partner.contract'
+    _inherit = 'mail.thread'
 
     name = fields.Char(
         string='Contract number',
@@ -14,7 +14,7 @@ class PartnerContract(models.Model):
     date = fields.Date(
         string='Date of conclusion',
         help='Date, when contract was concluded',
-        default=datetime.now().date(),
+        default=datetime.date.today(),
         required=True
     )
     order_ids = fields.One2many(

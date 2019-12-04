@@ -257,7 +257,7 @@ class ContractWizard(models.TransientModel):
 
     @api.depends('partner_id')
     def _compute_context_partner_contract_name(self):
-        self._context_partner_contract_name = self.partner_id.contract_name
+        self._context_partner_contract_name = self.partner_id.name
 
     @api.depends('partner_id')
     def _compute_context_partner_adress(self):
@@ -265,11 +265,9 @@ class ContractWizard(models.TransientModel):
 
     @api.depends('partner_id')
     def _compute_context_partner_representer_contract_name(self):
-        # TODO: lite refactor
+        partner_representer_contract_name = ''
         if self.partner_id.representative_id:
-            partner_representer_contract_name = self.partner_id.representative_id.contract_name
-        else:
-            partner_representer_contract_name = ''
+            partner_representer_contract_name = self.partner_id.representative_id.name
         self._context_partner_representer_contract_name = partner_representer_contract_name
 
     @api.depends('partner_id')
@@ -302,7 +300,7 @@ class ContractWizard(models.TransientModel):
 
     @api.depends('company_id')
     def _compute_context_seller_contract_name(self):
-        self._context_seller_contract_name = self.company_id.contract_name
+        self._context_seller_contract_name = self.company_id.name
 
     @api.depends('company_id')
     def _compute_context_seller_adress(self):
@@ -310,20 +308,16 @@ class ContractWizard(models.TransientModel):
 
     @api.depends('company_id')
     def _compute_context_seller_representer_contract_job_name(self):
-        # TODO: lite refactor
+        seller_represent_job_function = ''
         if self.company_id.representative_id:
-            seller_represent_contract_job_name = self.company_id.representative_id.contract_job_name
-        else:
-            seller_represent_contract_job_name = ''
-        self._context_seller_representer_contract_job_name = seller_represent_contract_job_name
+            seller_represent_job_function = self.company_id.representative_id.function
+        self._context_seller_representer_contract_job_name = seller_represent_job_function
 
     @api.depends('company_id')
     def _compute_context_seller_representer_contract_name(self):
-        # TODO: lite refactor
+        seller_represent_contract_name = ''
         if self.company_id.representative_id:
-            seller_represent_contract_name = self.company_id.representative_id.contract_name
-        else:
-            seller_represent_contract_name = ''
+            seller_represent_contract_name = self.company_id.representative_id.name
         self._context_seller_representer_contract_name = seller_represent_contract_name
 
     @api.depends('company_id')
@@ -418,7 +412,7 @@ class ContractWizard(models.TransientModel):
 
     @api.onchange('partner_id')
     def _compute_partner_passport_data(self):
-        return self.partner_id.passport_data
+        return self.partner_id.passport_series + self.partner_id.passport_number
 
     @api.onchange('partner_id')
     def _set_order_domain(self):
@@ -437,11 +431,11 @@ class ContractWizard(models.TransientModel):
         seller_represent_job_name = ''
 
         if self.partner_id.representative_id:
-            partner_representer_contract_name = self.partner_id.representative_id.contract_name
+            partner_representer_contract_name = self.partner_id.representative_id.name
 
         if self.company_id.representative_id:
-            seller_represent_contract_name = self.company_id.representative_id.contract_name
-            seller_represent_contract_job_name = self.company_id.representative_id.contract_job_name
+            seller_represent_contract_name = self.company_id.representative_id.name
+            seller_represent_contract_job_name = self.company_id.representative_id.function
             seller_represent_name = self.company_id.representative_id.name
             seller_represent_job_name = self.company_id.representative_id.function
 
@@ -472,7 +466,7 @@ class ContractWizard(models.TransientModel):
             'name': self.contract_id.name,
             'current_date': contract_date.strftime('%d %b %Y'),
 
-            'partner_contract_name': self.partner_id.contract_name,
+            'partner_contract_name': self.partner_id.name,
             'partner_adress': self.partner_id.full_adress,
             'partner_representer_contract_name': partner_representer_contract_name,
             'partner_inn': self.partner_id.inn,
@@ -480,11 +474,11 @@ class ContractWizard(models.TransientModel):
             'partner_rs': self.partner_id.bank_account.acc_number,
             'partner_bik': self.partner_id.bank_account.bank_id.bic,
             'partner_bank': self.partner_id.bank_account.bank_id.name,
-            'partner_passport_data': self.partner_id.passport_data,
+            'partner_passport_data': self.partner_id.passport_series + self.partner_id.passport_number,
             'partner_phone': self.partner_id.phone,
             'partner_representer_name': self.partner_id.representative_id.name,
 
-            'seller_contract_name': self.company_id.contract_name,
+            'seller_contract_name': self.company_id.name,
             'seller_adress': self.company_id.full_adress,
             'seller_representer_contract_job_name': seller_represent_contract_job_name,
             'seller_representer_contract_name': seller_represent_contract_name,

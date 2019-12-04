@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import io
 
 import math
 from datetime import datetime
 
 from docxtpl import DocxTemplate
+
 from odoo import api, fields, models
 from odoo.tools.config import config
 from pytils import numeral
@@ -512,8 +514,10 @@ class ContractWizard(models.TransientModel):
         context = self._generate_context()
         doc = DocxTemplate(full_path)
         doc.render(context)
-        doc.save('tmp.docx')
-        return open('tmp.docx', 'rb').read()
+        stream = io.BytesIO()
+        doc.save(stream)
+        stream.seek(0)
+        return stream
 
     def get_docx_contract(self):
         return {

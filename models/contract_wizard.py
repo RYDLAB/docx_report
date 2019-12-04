@@ -428,33 +428,36 @@ class ContractWizard(models.TransientModel):
 
     def _generate_context(self):
         contract_date = datetime.strptime(self.contract_id.date, '%Y-%m-%d')
+
+        partner_representer_contract_name = ''
+
+        seller_represent_contract_name = ''
+        seller_represent_contract_job_name = ''
+        seller_represent_name = ''
+        seller_represent_job_name = ''
+
         if self.partner_id.representative_id:
             partner_representer_contract_name = self.partner_id.representative_id.contract_name
-        else:
-            partner_representer_contract_name = ''
 
         if self.company_id.representative_id:
             seller_represent_contract_name = self.company_id.representative_id.contract_name
             seller_represent_contract_job_name = self.company_id.representative_id.contract_job_name
             seller_represent_name = self.company_id.representative_id.name
             seller_represent_job_name = self.company_id.representative_id.function
-        else:
-            seller_represent_contract_name = ''
-            seller_represent_contract_job_name = ''
-            seller_represent_name = ''
-            seller_represent_job_name = ''
 
         amount = math.modf(self.order_id.amount_total)
 
         order_goods = []
         counter = 1
         for line in self.order_id.order_line:
-            order_line_values = {'label': counter,
-                                 'description': line.name,
-                                 'count': line.product_qty,
-                                 'mesure': line.product_uom.name,
-                                 'price': line.price_unit,
-                                 'amount': line.price_total}
+            order_line_values = {
+                'label': counter,
+                'description': line.name,
+                'count': line.product_qty,
+                'mesure': line.product_uom.name,
+                'price': line.price_unit,
+                'amount': line.price_total
+            }
             order_goods.append(order_line_values)
             counter += 1
 
@@ -464,41 +467,46 @@ class ContractWizard(models.TransientModel):
             annex_terms = annex_terms + \
                 '{}) {}\n'.format(counter, line.description)
             counter += 1
-        context = {'name': self.contract_id.name,
-                   'current_date': contract_date.strftime('%d %b %Y'),
-                   'partner_contract_name': self.partner_id.contract_name,
-                   'partner_adress': self.partner_id.full_adress,
-                   'partner_representer_contract_name': partner_representer_contract_name,
-                   'partner_inn': self.partner_id.inn,
-                   'partner_kpp': self.partner_id.kpp,
-                   'partner_rs': self.partner_id.bank_account.acc_number,
-                   'partner_bik': self.partner_id.bank_account.bank_id.bic,
-                   'partner_bank': self.partner_id.bank_account.bank_id.name,
-                   'partner_passport_data': self.partner_id.passport_data,
-                   'partner_phone': self.partner_id.phone,
-                   'partner_representer_name': self.partner_id.representative_id.name,
-                   'seller_contract_name': self.company_id.contract_name,
-                   'seller_adress': self.company_id.full_adress,
-                   'seller_representer_contract_job_name': seller_represent_contract_job_name,
-                   'seller_representer_contract_name': seller_represent_contract_name,
-                   'seller_inn': self.company_id.inn,
-                   'seller_kpp': self.company_id.kpp,
-                   'seller_rs': self.company_id.bank_account.acc_number,
-                   'seller_bik': self.company_id.bank_account.bank_id.bic,
-                   'seller_bank': self.company_id.bank_account.bank_id.name,
-                   'seller_phone': self.company_id.phone,
-                   'seller_representer_job_name': seller_represent_job_name,
-                   'seller_representer_name': seller_represent_name,
-                   'summ_rub': int(amount[1]),
-                   'summ_rub_word': numeral.in_words(int(amount[1])),
-                   'summ_kop': int(amount[0]),
-                   'delivery_term': self.delivery_terms,
-                   'delivery_term_word': numeral.in_words(self.delivery_terms),
-                   'payment_term': self.payment_terms,
-                   'payment_term_word': numeral.in_words(self.payment_terms),
-                   'annex_terms': annex_terms,
-                   'order_goods': order_goods,
-                   }
+
+        context = {
+            'name': self.contract_id.name,
+            'current_date': contract_date.strftime('%d %b %Y'),
+
+            'partner_contract_name': self.partner_id.contract_name,
+            'partner_adress': self.partner_id.full_adress,
+            'partner_representer_contract_name': partner_representer_contract_name,
+            'partner_inn': self.partner_id.inn,
+            'partner_kpp': self.partner_id.kpp,
+            'partner_rs': self.partner_id.bank_account.acc_number,
+            'partner_bik': self.partner_id.bank_account.bank_id.bic,
+            'partner_bank': self.partner_id.bank_account.bank_id.name,
+            'partner_passport_data': self.partner_id.passport_data,
+            'partner_phone': self.partner_id.phone,
+            'partner_representer_name': self.partner_id.representative_id.name,
+
+            'seller_contract_name': self.company_id.contract_name,
+            'seller_adress': self.company_id.full_adress,
+            'seller_representer_contract_job_name': seller_represent_contract_job_name,
+            'seller_representer_contract_name': seller_represent_contract_name,
+            'seller_inn': self.company_id.inn,
+            'seller_kpp': self.company_id.kpp,
+            'seller_rs': self.company_id.bank_account.acc_number,
+            'seller_bik': self.company_id.bank_account.bank_id.bic,
+            'seller_bank': self.company_id.bank_account.bank_id.name,
+            'seller_phone': self.company_id.phone,
+            'seller_representer_job_name': seller_represent_job_name,
+            'seller_representer_name': seller_represent_name,
+
+            'summ_rub': int(amount[1]),
+            'summ_rub_word': numeral.in_words(int(amount[1])),
+            'summ_kop': int(amount[0]),
+            'delivery_term': self.delivery_terms,
+            'delivery_term_word': numeral.in_words(self.delivery_terms),
+            'payment_term': self.payment_terms,
+            'payment_term_word': numeral.in_words(self.payment_terms),
+            'annex_terms': annex_terms,
+            'order_goods': order_goods,
+        }
         return context
 
     def get_docx_contract(self):

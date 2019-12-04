@@ -4,7 +4,6 @@ import math
 from datetime import datetime
 
 from odoo import api, fields, models
-from odoo.tools.config import config
 from pytils import numeral
 
 from ..utils.docxtpl import get_document_from_values_stream
@@ -503,11 +502,9 @@ class ContractWizard(models.TransientModel):
         return context
 
     def get_docx_contract(self):
-        path_to_template = "{}/filestore/{}/{}".format(
-            config.get("data_dir"),
-            config.get("db_name"),
-            self.template.attachment_id.store_fname
-        )
+        template = self.template.attachment_id
+        path_to_template = template._full_path(template.store_fname)
+
         fields = self._generate_context()
 
         binary_data = get_document_from_values_stream(

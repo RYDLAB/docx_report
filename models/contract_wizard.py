@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import base64
 import io
 
 import math
@@ -10,6 +11,7 @@ from odoo import api, fields, models
 from odoo.tools.config import config
 from pytils import numeral
 
+from ..utils.docxtpl import get_document_from_values_stream
 
 class ContractWizard(models.TransientModel):
     _name = 'res.partner.contract.wizard'
@@ -505,27 +507,25 @@ class ContractWizard(models.TransientModel):
                    }
         return context
 
-    def get_docx_contract_1(self):
-        odoo_data_dir = config.get("data_dir")
-        odoo_bd = config.get("db_name")
-        filename = self.template.attachment_id.store_fname
-        full_path = '{}/filestore/{}/{}'.format(
-            odoo_data_dir, odoo_bd, filename)
-        context = self._generate_context()
-        doc = DocxTemplate(full_path)
-        doc.render(context)
-        stream = io.BytesIO()
-        doc.save(stream)
-        stream.seek(0)
-        return stream
 
     def get_docx_contract(self):
-        return {
-            'type': 'ir.actions.act_url',
-            'url': '/web/binary/get_compiled_contract?doc_id={}&doc_name={}.docx'.format(self.id,
-                                                                                         self.contract_id.name),
-            'target': 'self',
-        }
+        
+        path_to_template = "{}/filestore/{}/{}".format(
+            config.get("data_dir"),
+            config.get("db_name"),
+            self.template.attachment_id.store_fname
+        )
+        fields = self._generate_context()
+        
+        binary_data = get_document_from_values_stream(path_to_template, fields).read()
+        encoded_data = base64.b64encode(binary_data)
+
+        attachment = self.env['ir.attachment'].create({
+            "name": "Contract-{}.doc".format(self.contract_id.name), 
+            "type": "binary",
+            "datas": binary_data, 
+        })
+        return attachment
 
 
 class AnnexLine(models.TransientModel):

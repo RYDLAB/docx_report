@@ -18,7 +18,8 @@
     'depends': [
         'base',
         'contacts',
-        'sale'
+        'l10n_ru_doc',
+        'sale',
     ],
 
     'data': [

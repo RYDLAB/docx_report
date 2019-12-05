@@ -92,7 +92,7 @@
                 <field name="name"/>
                 <field name="function"/>
                 <field name="representative_id" domain="[('id', 'in', child_ids)]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
-                <field name="passport_series" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <!-- <field name="passport_series" attrs="{'invisible': [('company_type', '=', 'company')]}"/> -->
                 <field name="passport_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                 <field name="bank_account"/>
                 <field name="signature" widget="image"/>

@@ -66,22 +66,6 @@
         </field>
     </record>
 
-    <record id="res_partner_contract_view_buttons" model="ir.ui.view">
-        <field name="name">res.partner.contract.view.buttons</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
-        <field name="priority" eval="25"/>
-        <field name="arch" type="xml">
-            <button name="toggle_active" position="before">
-                <button class="oe_inline oe_stat_button" type="action" name="%(res_partner_contract_action)d"
-                        attrs="{'invisible': [('customer', '=', False)]}"
-                        icon="fa-pencil-square-o">
-                    <field string="Contracts" name="contract_count" widget="statinfo"/>
-                </button>
-            </button>
-        </field>
-    </record>
-
     <record id="res_partner_inherit" model="ir.ui.view">
         <field name="name">res.partner.inherit</field>
         <field name="model">res.partner</field>
@@ -97,6 +81,20 @@
                 <field name="bank_account"/>
                 <field name="signature" widget="image"/>
             </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_contract_view_buttons" model="ir.ui.view">
+        <field name="name">res.partner.contract.view.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="25"/>
+        <field name="arch" type="xml">
+            <button name="toggle_active" position="before">
+                <button class="oe_inline oe_stat_button" type="action" name="%(res_partner_contract_action)d" attrs="{'invisible': [('customer', '=', False)]}" icon="fa-pencil-square-o">
+                    <field string="Contracts" name="contract_count" widget="statinfo"/>
+                </button>
+            </button>
         </field>
     </record>
 

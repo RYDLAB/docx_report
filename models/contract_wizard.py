@@ -510,12 +510,26 @@ class ContractWizard(models.TransientModel):
             path_to_template, fields).read()
         encoded_data = base64.b64encode(binary_data)
 
-        attachment = self.env['ir.attachment'].create({
-            "name": "Contract-{}.doc".format(self.contract_id.name),
+        attachment_name = "Contract-{number}.{ext}".format(
+            number=self.contract_id.name,
+            ext=self.template.attachment_id.datas_fname.split('.')[-1]
+        )
+        document_as_attachment = self.env['ir.attachment'].create({
+            "name": attachment_name,
+            "datas_fname": attachment_name,
             "type": "binary",
             "datas": encoded_data,
         })
-        return attachment
+
+        # Send message with attachment to a mail.thread of the company
+        self.env['mail.message'].create({
+            "model": "res.partner",
+            "res_id": self.partner_id.id,
+            "message_type": "comment",
+            "attachment_ids": [(4, document_as_attachment.id, False)]
+        })
+
+        return document_as_attachment
 
 
 class AnnexLine(models.TransientModel):

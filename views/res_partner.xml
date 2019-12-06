@@ -1,58 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="search_res_partner_contract_filter" model="ir.ui.view">
-        <field name="name">res_partner_contract_search</field>
-        <field name="model">res.partner.contract</field>
-        <field name="arch" type="xml">
-            <search string="Search Contract">
-                <field name="partner_id" operator="child_of"/>
-            </search>
-        </field>
-    </record>
-
-    <record model="ir.ui.view" id="res_partner_contract_tree">
-        <field name="name">res_partner_contract</field>
-        <field name="model">res.partner.contract</field>
-        <field name="arch" type="xml">
-            <tree string="Contracts">
-                <field name="name" readonly="1"/>
-                <field name="date"/>
-                <field name="partner_id"/>
-            </tree>
-        </field>
-    </record>
-
-    <record model="ir.ui.view" id="res_partner_contract_form">
-        <field name="name">res_partner_contract</field>
-        <field name="model">res.partner.contract</field>
-        <field name="arch" type="xml">
-            <form string="Contract">
-                <!-- <header>
-                    <button name="do_toggle_active" type="object" string="Active" class="oe_highlight" />
-                </header> -->
-                <sheet>
-                    <group string="Contract parameters" name="single_params">
-                        <field name="name" readonly="1"/>
-                        <field name="date"/>
-                        <field name="partner_id"/>
-                    </group>
-                    <group string="Annexed orders" name="multi_params">
-                        <field name="order_ids" widget="many2many"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="res_partner_contract_action">
-        <field name="name">res_partner_contract</field>
-        <field name="res_model">res.partner.contract</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="context">{'search_default_partner_id': active_id}</field>
-    </record>
-
     <record id="order_contract_tree" model="ir.actions.act_window">
         <field name="name">Appexes</field>
         <field name="res_model">sale.order</field>

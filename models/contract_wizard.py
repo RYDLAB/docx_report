@@ -523,8 +523,8 @@ class ContractWizard(models.TransientModel):
 
         # Send message with attachment to a mail.thread of the company
         self.env['mail.message'].create({
-            "model": "res.partner",
-            "res_id": self.partner_id.id,
+            "model": "res.partner.contract",
+            "res_id": self.contract_id.id,
             "message_type": "comment",
             "attachment_ids": [(4, document_as_attachment.id, False)]
         })

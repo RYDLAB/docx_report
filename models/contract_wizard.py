@@ -512,7 +512,7 @@ class ContractWizard(models.TransientModel):
 
         attachment_name = "Contract-{number}.{ext}".format(
             number=self.contract_id.name,
-            ext=self.template.attachment_id.datas_fname.split('.')[-1]
+            ext="docx"
         )
         document_as_attachment = self.env['ir.attachment'].create({
             "name": attachment_name,

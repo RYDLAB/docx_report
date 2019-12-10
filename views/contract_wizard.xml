@@ -59,16 +59,16 @@
                     <group string="Order info" name="order">
                         <field name="order_id"/>
                     </group>
-                        <field name="annex_lines" mode="tree">
-                            <form string="Annex info lines">
-                                <field name="annex_type"/>
-                                <field name="description"/>
-                            </form>
-                            <tree string="Annex info" editable="bottom">
-                                <field name="annex_type"/>
-                                <field name="description"/>
-                            </tree>
-                        </field>
+                    <field name="annex_lines" mode="tree">
+                        <form string="Annex info lines">
+                            <field name="annex_type"/>
+                            <field name="description"/>
+                        </form>
+                        <tree string="Annex info" editable="bottom">
+                            <field name="annex_type"/>
+                            <field name="description"/>
+                        </tree>
+                    </field>
                     <group string="Contract values">
                         <field name="transient_field_ids">
                             <tree>

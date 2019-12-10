@@ -18,14 +18,6 @@ class ResPartner(models.Model):
         compute='_compute_contract_count',
         string='# of contracts'
     )
-    # contract_job_name = fields.Char(
-    #     string='Contract job name',
-    #     help='Job position as it would be in contract'
-    # ) # res.partner.function
-    # contract_name = fields.Char(
-    #     string='Contract name',
-    #     help='Name, as it would be in contract'
-    # ) # res.partner.name
     full_adress = fields.Char(
         compute='_compute_full_adress'
     )  # Check for res.partner.contact_address in base/res

@@ -4,6 +4,7 @@ import math
 from datetime import datetime
 
 from odoo import api, fields, models
+from odoo.exceptions import UserError
 from pytils import numeral
 
 from ..utils.docxtpl import get_document_from_values_stream
@@ -244,6 +245,12 @@ class ContractWizard(models.TransientModel):
         ],
         string='Type of contract',
         default='company'
+    )
+
+    transient_field_ids = fields.One2many(
+        'res.partner.contract.field.transient',
+        '_contract_wizard_id',
+        string="Contract Fields",
     )
 
     @api.depends('contract_id')
@@ -500,11 +507,43 @@ class ContractWizard(models.TransientModel):
         }
         return context
 
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        """Creates transient fields for generate contract template
+        Looks as a tree view of *_contract_field_transient model in xml
+        """
+        def get_contract_field(technical_name):
+            return self.env['res.partner.contract.field'].search([
+                ('technical_name', '=', technical_name),
+            ])
+
+        contract_context_values = self.env.ref(
+            'client_contracts.action_get_context').run()
+
+        self.transient_field_ids = [  # one2many
+            (
+                4,
+                self.env['res.partner.contract.field.transient'].create({
+                    "contract_field_id": get_contract_field(field).id,
+                    "value": value,
+                }).id,
+                0,
+            ) for field, value in contract_context_values.items()
+        ]
+
     def get_docx_contract(self):
         template = self.template.attachment_id
+        if not template:
+            raise UserError("Template must be set up")
+
         path_to_template = template._full_path(template.store_fname)
 
-        fields = self._generate_context()
+        fields = {
+            transient_field.technical_name: transient_field.value
+            for transient_field
+            in self.transient_field_ids
+            if transient_field.technical_name
+        }
 
         binary_data = get_document_from_values_stream(
             path_to_template, fields).read()

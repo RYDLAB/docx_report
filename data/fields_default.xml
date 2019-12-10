@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <!-- Action -->
+        <record id="action_get_context" model="ir.actions.server">
+            <field name="name">Generate Context for Contract</field>
+            <field name="model_id" ref="client_contracts.model_res_partner_contract_wizard"/>
+            <field name="state">code</field>
+            <field name="code">
+self = records
+
+# ctx keys must be decalared in this xml
+ctx = {
+    "contract_number":"--1",
+    "amount_whole":"",
+    "amount_fractional":"",
+    
+    "seller_company_name":"Test Company Name",
+    "seller_business_address":"",
+    "seller_representer_name":"",
+    "seller_representer_name_parent":"",
+    "seller_representer_name_initials":"",
+    "seller_representer_function":"",
+    "seller_inn":"",
+    "seller_kpp":"",
+    "seller_bic":"",
+    "seller_ogrn":"",
+    "seller_bank":"",
+    "seller_bank_account":"",
+    "seller_phone":"",
+
+    "partner_company_name":"",
+    "partner_business_address":"",
+    "partner_representer_name":"",
+    "partner_representer_name_parent":"",
+    "partner_representer_name_initials":"",
+    "partner_representer_function":"",
+    "partner_inn":"",
+    "partner_kpp":"",
+    "partner_bic":"",
+    "partner_ogrn":"",
+    "partner_bank":"",
+    "partner_bank_account":"",
+    "partner_phone":"",
+}
+action = ctx
+            </field>
+        </record>
+
+
+        <!-- Common fields -->
+
+        <record id="contract_field_contract_number" model="res.partner.contract.field">
+            <field name="name">Contract Number</field>
+            <field name="technical_name">contract_number</field>
+        </record>
+
+        <record id="contract_field_amount_whole" model="res.partner.contract.field">
+            <field name="name">Amount Whole Part</field>
+            <field name="technical_name">amount_whole</field>
+        </record>
+
+        <record id="contract_field_amount_fractional" model="res.partner.contract.field">
+            <field name="name">Amount Fractional Part</field>
+            <field name="technical_name">amount_fractional</field>
+        </record>
+
+
+        <!-- Seller -->
+
+        <record id="contract_field_seller_company_name" model="res.partner.contract.field">
+            <field name="name">Seller Company Name</field>
+            <field name="technical_name">seller_company_name</field>
+        </record>
+
+        <record id="contract_field_seller_business_address" model="res.partner.contract.field">
+            <field name="name">Seller Business Address</field>
+            <field name="technical_name">seller_business_address</field>
+        </record>
+
+        <record id="contract_field_seller_representer_name" model="res.partner.contract.field">
+            <field name="name">Seller Representer Name</field>
+            <field name="technical_name">seller_representer_name</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_representer_name_parent" model="res.partner.contract.field">
+            <field name="name">Seller Representer Parent Name</field>
+            <field name="technical_name">seller_representer_name_parent</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_representer_name_initials" model="res.partner.contract.field">
+            <field name="name">Seller Representer Initials Name</field>
+            <field name="technical_name">seller_representer_name_initials</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_representer_function" model="res.partner.contract.field">
+            <field name="name">Seller Representer Function</field>
+            <field name="technical_name">seller_representer_function</field>
+        </record>
+
+        <record id="contract_field_seller_inn" model="res.partner.contract.field">
+            <field name="name">Seller INN</field>
+            <field name="technical_name">seller_inn</field>
+        </record>
+
+        <record id="contract_field_seller_kpp" model="res.partner.contract.field">
+            <field name="name">Seller KPP</field>
+            <field name="technical_name">seller_kpp</field>
+        </record>
+
+        <record id="contract_field_seller_bic" model="res.partner.contract.field">
+            <field name="name">Seller BIC</field>
+            <field name="technical_name">seller_bic</field>
+        </record>
+
+        <record id="contract_field_seller_ogrn" model="res.partner.contract.field">
+            <field name="name">Seller OGRN</field>
+            <field name="technical_name">seller_ogrn</field>
+        </record>
+
+        <record id="contract_field_seller_bank" model="res.partner.contract.field">
+            <field name="name">Seller Bank Name</field>
+            <field name="technical_name">seller_bank</field>
+        </record>
+
+        <record id="contract_field_seller_bank_account" model="res.partner.contract.field">
+            <field name="name">Seller Bank Account</field>
+            <field name="technical_name">seller_bank_account</field>
+        </record>
+
+        <record id="contract_field_seller_phone" model="res.partner.contract.field">
+            <field name="name">Seller Phone</field>
+            <field name="technical_name">seller_phone</field>
+        </record>
+
+
+        <!-- Partner -->
+
+        <record id="contract_field_partner_company_name" model="res.partner.contract.field">
+            <field name="name">Partner Company Name</field>
+            <field name="technical_name">partner_company_name</field>
+        </record>
+
+        <record id="contract_field_partner_business_address" model="res.partner.contract.field">
+            <field name="name">Partner Business Address</field>
+            <field name="technical_name">partner_business_address</field>
+        </record>
+
+        <record id="contract_field_partner_representer_name" model="res.partner.contract.field">
+            <field name="name">Partner Representer Name</field>
+            <field name="technical_name">partner_representer_name</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_representer_name_parent" model="res.partner.contract.field">
+            <field name="name">Partner Representer Parent Name</field>
+            <field name="technical_name">partner_representer_name_parent</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_representer_name_initials" model="res.partner.contract.field">
+            <field name="name">Partner Representer Initials Name</field>
+            <field name="technical_name">partner_representer_name_initials</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_representer_function" model="res.partner.contract.field">
+            <field name="name">Partner Representer Function</field>
+            <field name="technical_name">partner_representer_function</field>
+        </record>
+
+        <record id="contract_field_partner_inn" model="res.partner.contract.field">
+            <field name="name">Partner INN</field>
+            <field name="technical_name">partner_inn</field>
+        </record>
+
+        <record id="contract_field_partner_kpp" model="res.partner.contract.field">
+            <field name="name">Partner KPP</field>
+            <field name="technical_name">partner_kpp</field>
+        </record>
+
+        <record id="contract_field_partner_bic" model="res.partner.contract.field">
+            <field name="name">Partner BIC</field>
+            <field name="technical_name">partner_bic</field>
+        </record>
+
+        <record id="contract_field_partner_ogrn" model="res.partner.contract.field">
+            <field name="name">Partner OGRN</field>
+            <field name="technical_name">partner_ogrn</field>
+        </record>
+
+        <record id="contract_field_partner_bank" model="res.partner.contract.field">
+            <field name="name">Partner Bank Name</field>
+            <field name="technical_name">partner_bank</field>
+        </record>
+
+        <record id="contract_field_partner_bank_account" model="res.partner.contract.field">
+            <field name="name">Partner Bank Account</field>
+            <field name="technical_name">partner_bank_account</field>
+        </record>
+
+        <record id="contract_field_partner_phone" model="res.partner.contract.field">
+            <field name="name">Partner Phone</field>
+            <field name="technical_name">partner_phone</field>
+        </record>
+
+
+
+        <!-- <record id="" model="res.partner.contract.field">
+            <field name="name"></field>
+            <field name="technical_name"></field>
+        </record> -->
+
+    </data>
+</odoo>

@@ -27,7 +27,7 @@ class PartnerContract(models.Model):
         'res.partner',
         string='Contract Partner',
         help='Contract partner',
-        default=lambda self: self.env.context['active_id'],
+        default=lambda self: self.env.context.get('active_id'),
         required=True
     )
 
@@ -42,22 +42,22 @@ class PartnerContract(models.Model):
     @api.model
     def create(self, vals):
 
-        datetime_now = datetime.now().strftime("%Y-%m-%d")
+        datetime_now = datetime.datetime.now().strftime("%Y-%m-%d")
         vals['name'] = self._calculate_contract_name(datetime_now)
 
         return super(PartnerContract, self).create(vals)
 
     def _calculate_contract_name(self, _date):
 
-        contract_date = datetime.strptime(_date, '%Y-%m-%d')
+        contract_date = datetime.datetime.strptime(_date, '%Y-%m-%d')
         date_part = contract_date.strftime('%d%m-%y')
 
         today_contracts = self.search([
             ('date', '=', contract_date.date()),
         ])
         if len(today_contracts) > 0:
-            last_contract_number = int(
-                today_contracts[-1].name.split('-')[2]) + 1
+            name = today_contracts[-1].name or '0-0-0'
+            last_contract_number = int(name.split('-')[2]) + 1
         else:
             last_contract_number = 1
 

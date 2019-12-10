@@ -518,7 +518,9 @@ class ContractWizard(models.TransientModel):
             ])
 
         contract_context_values = self.env.ref(
-            'client_contracts.action_get_context').run()
+            'client_contracts.action_get_context').with_context({
+                "onchange_self": self,
+            }).run()
 
         self.transient_field_ids = [  # one2many
             (
@@ -531,6 +533,7 @@ class ContractWizard(models.TransientModel):
             ) for field, value in contract_context_values.items()
         ]
 
+    @api.multi
     def get_docx_contract(self):
         template = self.template.attachment_id
         if not template:
@@ -542,7 +545,7 @@ class ContractWizard(models.TransientModel):
             transient_field.technical_name: transient_field.value
             for transient_field
             in self.transient_field_ids
-            if transient_field.technical_name
+            if transient_field.technical_name and transient_field.value
         }
 
         binary_data = get_document_from_values_stream(
@@ -569,6 +572,12 @@ class ContractWizard(models.TransientModel):
         })
 
         return document_as_attachment
+
+    def modf(self, arg):
+        """Math.modf function for using in XML ir.action.server code
+        Uses in data/fields_default.xml
+        """
+        return math.modf(arg)
 
 
 class AnnexLine(models.TransientModel):

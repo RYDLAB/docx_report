@@ -71,7 +71,7 @@
                     </field>
                     <group string="Contract values">
                         <field name="transient_field_ids">
-                            <tree>
+                            <tree editable="1">
                                 <field name="technical_name"/>
                                 <field name="name"/>
                                 <field name="value"/>

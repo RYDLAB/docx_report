@@ -6,44 +6,64 @@
         <record id="action_get_context" model="ir.actions.server">
             <field name="name">Generate Context for Contract</field>
             <field name="model_id" ref="client_contracts.model_res_partner_contract_wizard"/>
+            <field name="binding_model_id" ref="client_contracts.model_res_partner_contract_wizard" />
             <field name="state">code</field>
             <field name="code">
-self = records
+
+# Aliases
+self = record
+partner = self.partner_id
+seller = self.company_id
+
+# Functions
+modf = self.modf
 
 # ctx keys must be decalared in this xml
 ctx = {
-    "contract_number":"--1",
-    "amount_whole":"",
-    "amount_fractional":"",
+    "contract_number": self.contract_id.name,
+    "amount_whole": 0.0,
+    "amount_fractional": 0.0,
     
-    "seller_company_name":"Test Company Name",
-    "seller_business_address":"",
-    "seller_representer_name":"",
-    "seller_representer_name_parent":"",
-    "seller_representer_name_initials":"",
-    "seller_representer_function":"",
-    "seller_inn":"",
-    "seller_kpp":"",
-    "seller_bic":"",
-    "seller_ogrn":"",
-    "seller_bank":"",
-    "seller_bank_account":"",
-    "seller_phone":"",
+    "seller_company_name": partner.name,
+    "seller_business_address": partner.full_adress,
+    "seller_representer_name": partner.representative_id.name,
+    "seller_representer_name_parent": "",
+    "seller_representer_name_initials": "",
+    "seller_representer_function": partner.function,
+    "seller_inn": partner.inn,
+    "seller_kpp": partner.kpp,
+    "seller_bic": partner.bank_account.bank_bic,
+    "seller_ogrn": "",
+    "seller_bank": partner.bank_account.bank_id.name, # Зачем нам bank_account, если есть bank_ids
+    "seller_bank_account": partner.bank_account.acc_number, # Расчётный счёт
+    "seller_phone": partner.phone,
 
-    "partner_company_name":"",
-    "partner_business_address":"",
-    "partner_representer_name":"",
-    "partner_representer_name_parent":"",
-    "partner_representer_name_initials":"",
-    "partner_representer_function":"",
-    "partner_inn":"",
-    "partner_kpp":"",
-    "partner_bic":"",
-    "partner_ogrn":"",
-    "partner_bank":"",
-    "partner_bank_account":"",
-    "partner_phone":"",
+    "partner_company_name": seller.name,
+    "partner_business_address": seller.full_adress,
+    "partner_representer_name": seller.representative_id.name,
+    "partner_representer_name_parent": "",
+    "partner_representer_name_initials": "",
+    "partner_representer_function": seller.function,
+    "partner_inn": seller.inn,
+    "partner_kpp": seller.kpp,
+    "partner_bic": seller.bank_account.bank_bic,
+    "partner_ogrn": "",
+    "partner_bank": seller.bank_account.bank_id.name,
+    "partner_bank_account": seller.bank_account.acc_number,
+    "partner_phone": seller.phone,
 }
+
+if self.order_id:
+    order = self.order_id
+
+    amount = modf(order.amount_total)
+    fractional, whole = amount
+    
+    ctx.update({
+        "amount_whole": whole,
+        "amount_fractional": fractional,
+    })
+
 action = ctx
             </field>
         </record>

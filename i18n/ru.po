@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-11 12:41+0000\n"
-"PO-Revision-Date: 2019-12-11 12:41+0000\n"
+"POT-Creation-Date: 2019-12-11 14:49+0000\n"
+"PO-Revision-Date: 2019-12-11 14:49+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: Rydlab\n"
 "MIME-Version: 1.0\n"
@@ -48,16 +48,6 @@ msgid "Annex Type"
 msgstr "Annex Type"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Annex info"
-msgstr "Annex info"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Annex info lines"
-msgstr "Annex info lines"
-
-#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_type_description
 msgid "Annex template description"
 msgstr "Annex template description"
@@ -70,12 +60,12 @@ msgstr "Annex template name"
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 msgid "Annexed orders"
-msgstr "Annexed orders"
+msgstr "Приложенные заказы"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_order_ids
 msgid "Annexes"
-msgstr "Annexes"
+msgstr "Приложения"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_order_ids
@@ -162,7 +152,7 @@ msgstr "Номер договора"
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 msgid "Contract parameters"
-msgstr "Contract parameters"
+msgstr "Информация"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_partner_id
@@ -331,11 +321,6 @@ msgid "Name uses in template"
 msgstr "Имя поля, используемое в шаблоне"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Order info"
-msgstr "Информация о заказе"
-
-#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_psrn
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_psrn
 msgid "PSRN"
@@ -343,6 +328,7 @@ msgstr "ОГРН"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_partner_id
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
 msgid "Partner"
 msgstr "Партнёр"
 
@@ -375,11 +361,6 @@ msgstr "Наименование компании Партнёра"
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_inn
 msgid "Partner INN"
 msgstr "ИНН Партнёра"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Partner Info"
-msgstr "Информация о партнёре"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_kpp
@@ -469,9 +450,19 @@ msgid "Representative"
 msgstr "Представитель"
 
 #. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
+msgid "Requisites"
+msgstr "Requisites"
+
+#. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.search_res_partner_contract_filter
 msgid "Search Contract"
 msgstr "Search Contract"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
+msgid "Seller"
+msgstr "Seller"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_bic
@@ -502,11 +493,6 @@ msgstr "Наименование компании Продавца"
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_inn
 msgid "Seller INN"
 msgstr "ИНН Продавца"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Seller Info"
-msgstr "Seller Info"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_kpp

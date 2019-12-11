@@ -102,9 +102,9 @@ class ContractWizard(models.TransientModel):
         self.contract_id = self.env.context.get('active_id')
 
         contract_context_values = self.env.ref(
-            'client_contracts.action_get_context').with_context({
-                "onchange_self": self,
-            }).run()
+            'client_contracts.action_get_context').with_context(
+                {"onchange_self": self}
+        ).run()
 
         self.transient_field_ids = [  # one2many
             (
@@ -114,7 +114,7 @@ class ContractWizard(models.TransientModel):
                     "value": value,
                 }).id,
                 0,
-            ) for field, value in contract_context_values.items()
+            ) for field, value in sorted(contract_context_values.items())
         ]
 
     @api.multi

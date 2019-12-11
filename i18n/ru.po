@@ -68,12 +68,6 @@ msgid "Annex template name"
 msgstr "Annex template name"
 
 #. module: client_contracts
-#: model:ir.ui.menu,name:client_contracts.res_partner_contract_annex_type_menu
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_type_view
-msgid "Annex type"
-msgstr "Annex type"
-
-#. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 msgid "Annexed orders"
 msgstr "Annexed orders"
@@ -200,6 +194,11 @@ msgid "Contracts"
 msgstr "Договоры"
 
 #. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
+msgid "Create a document"
+msgstr "Создать документ"
+
+#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_line_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_type_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_create_uid
@@ -267,26 +266,6 @@ msgstr "Отображаемое Имя"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_contract_field_id
 msgid "Field"
 msgstr "Поле"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Create a document"
-msgstr "Создать документ"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Form contract with company"
-msgstr "Form contract with company"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Form contract with personal"
-msgstr "Form contract with personal"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Form only appex contract"
-msgstr "Form only appex contract"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_full_adress
@@ -398,12 +377,17 @@ msgid "Partner INN"
 msgstr "ИНН Партнёра"
 
 #. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
+msgid "Partner Info"
+msgstr "Информация о партнёре"
+
+#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_kpp
 msgid "Partner KPP"
 msgstr "КПП Партнёра"
 
 #. module: client_contracts
-#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_ogrn
+#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_psrn
 msgid "Partner PSRN"
 msgstr "ОГРН Партнёра"
 
@@ -431,11 +415,6 @@ msgstr "Полное имя представителя Партнёра"
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name_parent
 msgid "Partner Representer Parent Name"
 msgstr "Полное имя в родительном падеже Партнёра"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Partner Info"
-msgstr "Информация о покупателе"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_passport_authority
@@ -525,12 +504,17 @@ msgid "Seller INN"
 msgstr "ИНН Продавца"
 
 #. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
+msgid "Seller Info"
+msgstr "Seller Info"
+
+#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_kpp
 msgid "Seller KPP"
 msgstr "КПП Продавца"
 
 #. module: client_contracts
-#: model:res.partner.contract.field,name:client_contracts.contract_field_seller_ogrn
+#: model:res.partner.contract.field,name:client_contracts.contract_field_seller_psrn
 msgid "Seller PSRN"
 msgstr "ОГРН Продавца"
 
@@ -560,11 +544,6 @@ msgid "Seller Representer Parent Name"
 msgstr "Полное имя в родительном падеже Продавца"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Seller Info"
-msgstr "Информацио о продавце"
-
-#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_technical_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_technical_name
 msgid "Technical Name"
@@ -572,7 +551,6 @@ msgstr "Техническое название"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_template
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_template_view
 msgid "Template"
 msgstr "Шаблон"
 

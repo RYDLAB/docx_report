@@ -81,11 +81,6 @@
                     </group>
                 </group>
                 <button string="Create a document" type="object" name="get_docx_contract" />
-                <!-- <button string="Form contract with company" type="action" name="%(contract_company_template)d" />
-                <button string="Form contract with personal" type="action" name="%(contract_personal_template)d" />
-                <button string="Form only appex contract" type="action" name="%(contract_appex_only_template_print)d" />
-                <footer>
-                </footer>
             </form>
         </field>
     </record>

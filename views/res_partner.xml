@@ -46,48 +46,4 @@
         </field>
     </record>
 
-    <record id="annex_type_action" model="ir.actions.act_window">
-        <field name="name">annex_action</field>
-        <field name="res_model">res.partner.contract.annex.type</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form,graph</field>
-    </record>
-
-    <record id="res_partner_contract_annex_type_view" model="ir.ui.view">
-        <field name="name">res_partner_contract_annex_type_view</field>
-        <field name="model">res.partner.contract.annex.type</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form,graph</field>
-        <field name="arch" type="xml">
-            <tree string="Annex type">
-                <field name="name"/>
-                <field name="description"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="res_partner_contract_template_action" model="ir.actions.act_window">
-        <field name="name">res_partner_contract_template_action</field>
-        <field name="res_model">res.partner.contract.template</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form,graph</field>
-    </record>
-
-    <record id="res_partner_contract_template_view" model="ir.ui.view">
-        <field name="name">res_partner_contract_template_view</field>
-        <field name="model">res.partner.contract.template</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form,graph</field>
-        <field name="arch" type="xml">
-            <tree string="Template">
-                <field name="attachment_id"/>
-                <field name="is_default"/>
-            </tree>
-        </field>
-    </record>
-
-    <menuitem name="Annex type" parent="sale.menu_sale_config" id="res_partner_contract_annex_type_menu" action="annex_type_action"/>
-
-    <menuitem name="Templatesв" parent="sale.menu_sale_config" id="res_partner_contract_templates" action="res_partner_contract_template_action"/>
-
 </odoo>

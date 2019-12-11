@@ -147,8 +147,8 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_seller_ogrn" model="res.partner.contract.field">
-            <field name="name">Seller OGRN</field>
+        <record id="contract_field_seller_psrn" model="res.partner.contract.field">
+            <field name="name">Seller PSRN</field>
             <field name="technical_name">seller_ogrn</field>
             <field name="description"></field>
         </record>

@@ -12,7 +12,6 @@ class ResPartner(models.Model):
         'res.partner.contract',
         'partner_id',
         string='Contracts',
-        help='Contracts for this partner'
     )
     contract_count = fields.Integer(
         compute='_compute_contract_count',

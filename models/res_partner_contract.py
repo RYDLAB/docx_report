@@ -9,11 +9,9 @@ class PartnerContract(models.Model):
 
     name = fields.Char(
         string='Contract number',
-        help='Number of contract, letters and digits',
     )
     date = fields.Date(
         string='Date of conclusion',
-        help='Date, when contract was concluded',
         default=datetime.date.today(),
         required=True
     )

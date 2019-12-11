@@ -33,7 +33,6 @@ class ContractWizard(models.TransientModel):
     company_id = fields.Many2one(
         'res.partner',
         string='Company',
-        help='Seller company',
         default=lambda self: self.env.user.company_id.partner_id
     )
     contract_id = fields.Many2one(
@@ -43,7 +42,6 @@ class ContractWizard(models.TransientModel):
     )
     delivery_terms = fields.Integer(
         string='Delivery terms',
-        help='When product must be delivered',
         default=10
     )
     order_id = fields.Many2one(
@@ -54,12 +52,10 @@ class ContractWizard(models.TransientModel):
     partner_id = fields.Many2one(
         'res.partner',
         string='Partner',
-        help='Partner to render contract',
         default=_get_default_partner
     )
     payment_terms = fields.Integer(
         string='Payment term',
-        help='When customer must pay',
         default=45
     )
     template = fields.Many2one(

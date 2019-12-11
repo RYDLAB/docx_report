@@ -41,11 +41,13 @@
         <field name="arch" type="xml">
             <form>
                 <group>
+                    <!-- 
                     <group name="template" string="Templates">
                         <field name="template" string="Templates">
                             <field name="attachment_id"/>
                         </field>
                     </group>
+                    -->
                     <group name="requisites" string="Requisites">
                         <field name="partner_id" string="Partner" readonly="1"/>
                         <field name="company_id" string="Seller" readonly="1"/>

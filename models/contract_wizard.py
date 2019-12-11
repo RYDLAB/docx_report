@@ -24,10 +24,6 @@ class ContractWizard(models.TransientModel):
         current_id = self.env.context.get('active_ids')
         return self.env['res.partner.contract'].browse([current_id[0]]).partner_id.id
 
-    def _get_default_contract(self):
-        return self.env.context.get('active_id')
-        # return self.env['res.partner.contract'].browse(current_id[0])
-
     annex_lines = fields.One2many(
         'res.partner.contract.annex.line',
         'id',
@@ -43,7 +39,7 @@ class ContractWizard(models.TransientModel):
     contract_id = fields.Many2one(
         'res.partner.contract',
         string='Contract',
-        default=_get_default_contract
+        default=lambda self: self.env.context.get('active_id')
     )
     delivery_terms = fields.Integer(
         string='Delivery terms',
@@ -102,6 +98,8 @@ class ContractWizard(models.TransientModel):
             return self.env['res.partner.contract.field'].search([
                 ('technical_name', '=', technical_name),
             ])
+
+        self.contract_id = self.env.context.get('active_id')
 
         contract_context_values = self.env.ref(
             'client_contracts.action_get_context').with_context({

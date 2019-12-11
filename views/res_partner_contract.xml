@@ -68,7 +68,7 @@
     </record>
 
     <record id="res_partner_contract_action" model="ir.actions.act_window">
-        <field name="name">res_partner_contract</field>
+        <field name="name">Contracts</field>
         <field name="res_model">res.partner.contract</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

@@ -69,7 +69,7 @@
                             <field name="description"/>
                         </tree>
                     </field>
-                    <group string="Contract values">
+                    <group string="Contract values" colspan="4">
                         <field name="transient_field_ids">
                             <tree editable="1">
                                 <field name="technical_name"/>

@@ -16,7 +16,8 @@ class ResPartner(models.Model):
     full_adress = fields.Char(
         compute='_compute_full_adress'
     )  # Check for res.partner.contact_address in base/res
-    address_actual = fields.Char(
+    street_actual = fields.Many2one(
+        'res.partner',
         string='Actual Address',
     )
     passport_authority = fields.Char(

@@ -22,7 +22,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
 
-                <field name="function" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                 <field name="representative_id" domain="[('company_type', '=', 'person')]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
 
                 <field name="passport_series" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
@@ -30,7 +29,7 @@
                 <field name="passport_date" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                 <field name="passport_authority" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
 
-                <!-- <field name="signature" widget="image"/> -->
+                <field name="signature" widget="image"/>
 
             </xpath>
 
@@ -44,7 +43,11 @@
                     </tree>
                 </field>
 
-                <field name="signature" widget="image"/>
+            </xpath>
+
+            <xpath expr="//field[@name='vat']" position="before">
+
+                <field name="street_actual"/>
 
             </xpath>
         </field>

@@ -30,7 +30,7 @@
                 <field name="passport_date" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                 <field name="passport_authority" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
 
-                <field name="signature" widget="image"/>
+                <!-- <field name="signature" widget="image"/> -->
 
             </xpath>
 

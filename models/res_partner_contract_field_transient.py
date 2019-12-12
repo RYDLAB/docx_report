@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ContractFieldTransient(models.TransientModel):
@@ -15,25 +15,21 @@ class ContractFieldTransient(models.TransientModel):
         string="Field",
     )
     technical_name = fields.Char(
+        related="contract_field_id.technical_name",
         string="Technical Name",
+        readonly=True,
     )
     name = fields.Char(
+        related="contract_field_id.name",
         string="Name",
+        readonly=True,
     )
     description = fields.Char(
+        related="contract_field_id.description",
         string="Description",
+        readonly=True,
     )
     value = fields.Char(
         string="Value",
         default="",
     )
-
-    @api.model
-    def create(self, values):
-        res = super().create(values)
-
-        res.technical_name = res.contract_field_id.technical_name
-        res.name = res.contract_field_id.name
-        res.description = res.contract_field_id.description
-
-        return res

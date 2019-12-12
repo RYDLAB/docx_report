@@ -27,7 +27,7 @@ ctx = {
     "amount_fractional": 0,
     
     "seller_company_name": seller.name,
-    "seller_business_address": seller.full_adress,
+    "seller_business_address": seller.full_address,
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_parent_case,
     "seller_representer_name_initials": seller.representative_id.name_initials_case,
@@ -42,7 +42,7 @@ ctx = {
     "seller_phone": partner.phone,
 
     "partner_company_name": partner.name,
-    "partner_business_address": partner.full_adress,
+    "partner_business_address": partner.full_address,
     "partner_representer_name": partner.representative_id.name,
     "partner_representer_name_parent": partner.representative_id.name_parent_case,
     "partner_representer_name_initials": partner.representative_id.name_initials_case,

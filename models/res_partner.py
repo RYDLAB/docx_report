@@ -22,8 +22,8 @@ class ResPartner(models.Model):
         compute='_compute_contract_count',
         string='# of contracts'
     )
-    full_adress = fields.Char(
-        compute='_compute_full_adress'
+    full_address = fields.Char(
+        compute='_compute_full_address'
     )  # Check for res.partner.contact_address in base/res
     street_actual = fields.Many2one(
         'res.partner',
@@ -56,23 +56,18 @@ class ResPartner(models.Model):
         string='Client signature'
     )
 
-    @api.one
     @api.depends('street', 'street2', 'city', 'state_id', 'zip', 'country_id')
-    def _compute_full_adress(self):
-        address = ""
-        full_street = "{} {}".format(
-            self.street or "", self.street2 or "").strip()
-
-        if self.zip:
-            address += "{}, ".format(self.zip)
-
-        address += ", ".join(map(lambda el: el,
-                                 (
-                                     self.country_id.name or "",
-                                     self.city or "",
-                                     full_street or ""
-                                 )))
-        self.full_adress = address
+    def _compute_full_address(self):
+        for record in self:
+            data = filter(None,
+                          map(lambda s: s and s.strip(), [
+                              record.zip,
+                              record.street,
+                              record.street2,
+                              record.country_id.name,
+                              record.city
+                          ]))
+            record.full_address = ', '.join(data)
 
     @api.one
     @api.depends('self.client_contract_ids')

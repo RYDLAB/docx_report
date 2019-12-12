@@ -14,8 +14,26 @@
         </field>
     </record>
 
-    <record id="res_partner_inherit" model="ir.ui.view">
-        <field name="name">res.partner.inherit</field>
+    <!-- res.partner.contract.field action window -->
+    <record id="res_partner_contract_field_action" model="ir.actions.act_window">
+        <field name="name">res.partner.contract.field.action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.contract.field</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <!-- res.partner.contract.template action window -->
+    <record id="res_partner_contract_template_action" model="ir.actions.act_window">
+        <field name="name">res.partner.contract.template.action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.contract.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <record id="res_partner_contract_info_inherit_view" model="ir.ui.view">
+        <field name="name">res.partner.contract.info</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority" eval="25"/>
@@ -77,5 +95,23 @@
             </button>
         </field>
     </record>
+
+
+    <menuitem id="res_partner_menu_contracts"
+        name="Contract"
+        parent="contacts.res_partner_menu_config"
+        sequence="7"/>
+
+    <menuitem id="res_partner_menu_contracts_fields"
+        name="Fields"
+        action="res_partner_contract_field_action"
+        parent="res_partner_menu_contracts"
+        sequence="1"/>
+
+    <menuitem id="res_partner_menu_contracts_templates"
+        name="Templates"
+        action="res_partner_contract_template_action"
+        parent="res_partner_menu_contracts"
+        sequence="2"/>
 
 </odoo>

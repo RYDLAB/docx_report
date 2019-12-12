@@ -24,7 +24,6 @@
 
     'data': [
         'security/ir.model.access.csv',
-        # 'views/templates.xml',
         'views/res_partner_contract.xml',
         'views/res_partner.xml',
         'wizard/res_partner_contract_wizard.xml',

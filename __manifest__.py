@@ -27,7 +27,7 @@
         # 'views/templates.xml',
         'views/res_partner_contract.xml',
         'views/res_partner.xml',
-        'views/contract_wizard.xml',
+        'wizard/res_partner_contract_wizard.xml',
         'data/fields_default.xml',
     ],
 }

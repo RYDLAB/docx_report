@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0-20191106\n"
+"Project-Id-Version: Odoo Server 11.0-20190816\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-11 14:49+0000\n"
-"PO-Revision-Date: 2019-12-11 14:49+0000\n"
+"POT-Creation-Date: 2019-12-12 06:20+0000\n"
+"PO-Revision-Date: 2019-12-12 06:20+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: Rydlab\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +22,8 @@ msgid "# of contracts"
 msgstr "кол-во договоров"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_address_actual
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_address_actual
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_street_actual
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_street_actual
 msgid "Actual Address"
 msgstr "Актуальный адрес"
 
@@ -86,12 +86,6 @@ msgstr "Appex order"
 #: model:ir.actions.act_window,name:client_contracts.order_contract_tree
 msgid "Appexes"
 msgstr "Appexes"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_bank_account
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_bank_account
-msgid "Bank account"
-msgstr "Bank account"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_signature
@@ -371,8 +365,8 @@ msgid "Partner KPP"
 msgstr "КПП Партнёра"
 
 #. module: client_contracts
-#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_ogrn
-msgid "Partner OGRN"
+#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_psrn
+msgid "Partner PSRN"
 msgstr "ОГРН Партнёра"
 
 #. module: client_contracts
@@ -552,11 +546,6 @@ msgstr "Вложение-шаблон"
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_wizard_template
 msgid "Template for contract"
 msgstr "Шаблон для договора"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_wizard_view
-msgid "Templates"
-msgstr "Шаблоны"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_type

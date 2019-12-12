@@ -20,6 +20,13 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority" eval="25"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="before">
+
+                <field name="name" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="name_parent_case" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="name_initials_case" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+
+            </xpath>
             <xpath expr="//field[@name='category_id']" position="after">
 
                 <field name="representative_id" domain="[('company_type', '=', 'person')]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>

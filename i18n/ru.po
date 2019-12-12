@@ -185,9 +185,9 @@ msgstr "Создать документ"
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_line_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_type_create_uid
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_create_uid
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_template_create_uid_5064
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_create_uid
 msgid "Created by"
 msgstr "Создано"
@@ -195,9 +195,9 @@ msgstr "Создано"
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_line_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_type_create_date
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_create_date
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_template_create_date_5065
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_create_date
 msgid "Created on"
 msgstr "Создан"
@@ -258,6 +258,12 @@ msgid "Full Adress"
 msgstr "Full Adress"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_function_parent_case
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_function_parent_case
+msgid "Function Parent Case"
+msgstr "Должность в родительном падеже"
+
+#. module: client_contracts
 #: model:ir.actions.server,name:client_contracts.action_get_context
 msgid "Generate Context for Contract"
 msgstr "Generate Context for Contract"
@@ -267,6 +273,7 @@ msgstr "Generate Context for Contract"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_type_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_id
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_template_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_id
 msgid "ID"
@@ -290,6 +297,7 @@ msgstr "Последнее изменение"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_write_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_template_write_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_write_uid
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_write_uid
 msgid "Last Updated by"
 msgstr "Последний раз обновлено"
 
@@ -300,8 +308,9 @@ msgstr "Последний раз обновлено"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_write_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_template_write_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_write_date
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_write_date
 msgid "Last Updated on"
-msgstr "Последнее обновление"
+msgstr "Последний раз обновлено"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_name
@@ -389,6 +398,11 @@ msgid "Partner Representer Function"
 msgstr "Должность представителя Партнёра"
 
 #. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_function_parent_case
+msgid "Partner Representer Function Parent Case"
+msgstr "Должность представителя Партнёра в родительном падеже"
+
+#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name_initials
 msgid "Partner Representer Initials Name"
 msgstr "Фамилия с инициалами представителя Партнёра"
@@ -447,7 +461,7 @@ msgstr "Основной государственный регистрацион
 #. module: client_contracts
 #: model:ir.model,name:client_contracts.model_sale_order
 msgid "Quotation"
-msgstr "Оферта"
+msgstr "Предложение цен"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_representative_id
@@ -521,6 +535,11 @@ msgid "Seller Representer Function"
 msgstr "Должность представителя Продавца"
 
 #. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_function_parent_case
+msgid "Seller Representer Function Parent Case"
+msgstr "Должность представителя Продавца в родительном падеже"
+
+#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name_initials
 msgid "Seller Representer Initials Name"
 msgstr "Фамилия с инициалами представителя Продавца"
@@ -575,12 +594,12 @@ msgstr "Каким подразделением был выдан паспорт
 #. module: client_contracts
 #: selection:res.partner.contract.wizard,type:0
 msgid "With company"
-msgstr "С компанией"
+msgstr "С фирмой"
 
 #. module: client_contracts
 #: selection:res.partner.contract.wizard,type:0
 msgid "With person"
-msgstr "С человеком"
+msgstr "С частным лицом"
 
 #. module: client_contracts
 #: model:ir.model,name:client_contracts.model_res_partner_contract

@@ -1,9 +1,9 @@
-# client_contracts
+# Account Contracts
 
-На текущий момент нужно, чтобы в конфиг файле Odoo был обязательно прописан: 
-- data_dir
-- db_name
+## Summary
+Create and storage form for contracts. Generate a print form of document of contract.
 
-Чтобы создать шаблон нужно:
-1. Зайти в Wizard генерации документа и создать из него Шаблон, в котором привязать вложение к нему
-2. Сгенерировать шаблон
+## Features
+- Contract management: create, sign, close, renew
+- Create .docx form of contract using any document template
+- Fields in document fill from Odoo models

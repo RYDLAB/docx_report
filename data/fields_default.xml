@@ -12,8 +12,10 @@
 
 # Aliases
 self = record
-partner = self.partner_id
+partner = self.partner_id # res.partner
+partner_bank = partner.bank_ids[0] # res.partner.bank
 seller = self.company_id
+seller_bank = seller.bank_ids[0]
 
 # Functions
 modf = self.modf
@@ -24,34 +26,48 @@ ctx = {
     "amount_whole": 0,
     "amount_fractional": 0,
     
-    "seller_company_name": partner.name,
-    "seller_business_address": partner.full_adress,
-    "seller_representer_name": partner.representative_id.name,
+    "seller_company_name": seller.name,
+    "seller_business_address": seller.full_adress,
+    "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": "",
     "seller_representer_name_initials": "",
-    "seller_representer_function": partner.function,
-    "seller_inn": partner.inn,
-    "seller_kpp": partner.kpp,
-    "seller_bic": partner.bank_account.bank_bic,
+    "seller_representer_function": seller.function,
+    "seller_inn": seller.inn,
+    "seller_kpp": seller.kpp,
+    "seller_bic": False,
     "seller_ogrn": "",
-    "seller_bank": partner.bank_account.bank_id.name, # Зачем нам bank_account, если есть bank_ids
-    "seller_bank_account": partner.bank_account.acc_number, # Расчётный счёт
+    "seller_bank": False,
+    "seller_bank_account": False,
     "seller_phone": partner.phone,
 
-    "partner_company_name": seller.name,
-    "partner_business_address": seller.full_adress,
-    "partner_representer_name": seller.representative_id.name,
+    "partner_company_name": partner.name,
+    "partner_business_address": partner.full_adress,
+    "partner_representer_name": partner.representative_id.name,
     "partner_representer_name_parent": "",
     "partner_representer_name_initials": "",
-    "partner_representer_function": seller.function,
-    "partner_inn": seller.inn,
-    "partner_kpp": seller.kpp,
-    "partner_bic": seller.bank_account.bank_bic,
+    "partner_representer_function": partner.function,
+    "partner_inn": partner.inn,
+    "partner_kpp": partner.kpp,
+    "partner_bic": False,
     "partner_ogrn": "",
-    "partner_bank": seller.bank_account.bank_id.name,
-    "partner_bank_account": seller.bank_account.acc_number,
-    "partner_phone": seller.phone,
+    "partner_bank": False,
+    "partner_bank_account": False,
+    "partner_phone": partner.phone,
 }
+
+if partner_bank:
+    ctx.update({
+        "partner_bic": partner_bank.bank_id.bic,
+        "partner_bank": partner_bank.bank_id.name,
+        "partner_bank_account": partner_bank.acc_number,
+    })
+
+if seller_bank:
+    ctx.update({
+        "seller_bic": seller_bank.bank_id.bic,
+        "seller_bank": seller_bank.bank_id.name,
+        "seller_bank_account": seller_bank.acc_number,
+    })
 
 if self.order_id:
     order = self.order_id
@@ -228,8 +244,8 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_partner_ogrn" model="res.partner.contract.field">
-            <field name="name">Partner OGRN</field>
+        <record id="contract_field_partner_psrn" model="res.partner.contract.field">
+            <field name="name">Partner PSRN</field>
             <field name="technical_name">partner_ogrn</field>
             <field name="description"></field>
         </record>

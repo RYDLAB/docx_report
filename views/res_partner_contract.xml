@@ -20,17 +20,21 @@
         <field name="model">res.partner.contract</field>
         <field name="arch" type="xml">
             <form string="Contract">
-                <!-- <header>
-                    <button name="do_toggle_active" type="object" string="Active" class="oe_highlight" />
-                </header> -->
+                <header>
+                    <button name="action_sign" type="object" string="Sign" states="draft" class="oe_highlight"/>
+                    <button name="action_close" type="object" string="Close" states="sign" class="oe_highlight"/>
+                    <button name="action_renew" type="object" string="Renew" states="close"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sign,close"/>
+                </header>
                 <sheet>
                     <group string="Contract parameters" name="single_params">
                         <field name="name" readonly="1"/>
-                        <field name="date"/>
-                        <field name="partner_id"/>
+                        <field name="date" attrs="{'readonly': [('state', 'in', ['sign', 'close'])]}"/>
+                        <field name="partner_id" readonly="1"/>
                     </group>
                     <group string="Annexed orders" name="multi_params">
-                        <field name="order_ids" widget="many2many"/>
+                        <field name="order_ids" widget="many2many" attrs="{'readonly': [('state', '=', 'close')]}"/>
                     </group>
                 </sheet>
             </form>

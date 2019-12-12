@@ -28,6 +28,19 @@ class PartnerContract(models.Model):
         default=lambda self: self.env.context.get('active_id'),
         required=True
     )
+    state = fields.Selection([
+        ('draft', 'New'),
+        ('sign', 'Signed'),
+        ('close', 'Closed'),
+    ],
+        string='Status',
+        readonly=True,
+        copy=False,
+        index=True,
+        track_visibility='onchange',
+        track_sequence=3,
+        default='draft'
+    )
 
     @api.onchange('date')
     def _change_contract_name(self):
@@ -36,6 +49,18 @@ class PartnerContract(models.Model):
         :return: contract name in format "DDMM-YY-№"
         """
         self.name = self._calculate_contract_name(self.date)
+
+    @api.multi
+    def action_sign(self):
+        self.write({'state': 'sign'})
+
+    @api.multi
+    def action_close(self):
+        self.write({'state': 'close'})
+
+    @api.multi
+    def action_renew(self):
+        self.write({'state': 'draft'})
 
     @api.model
     def create(self, vals):

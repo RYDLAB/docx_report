@@ -6,11 +6,9 @@ class ResPartner(models.Model):
 
     name_parent_case = fields.Char(
         string='Name Parent Case',
-        help='Full Name Of Parent Case',
     )
     name_initials_case = fields.Char(
         string='Name Initials Case',
-        help='Last Name with Initials',
     )
     client_contract_ids = fields.One2many(
         'res.partner.contract',

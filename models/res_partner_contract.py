@@ -47,14 +47,6 @@ class PartnerContract(models.Model):
         default='draft'
     )
 
-    @api.onchange('date')
-    def _change_contract_name(self):
-        """
-        Procedure for forming contract name
-        :return: contract name in format "DDMM-YY-№"
-        """
-        self.name = self._calculate_contract_name(self.date)
-
     @api.multi
     def action_sign(self):
         self.write({'state': 'sign'})

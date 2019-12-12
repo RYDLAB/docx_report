@@ -147,6 +147,12 @@ action = ctx
             <field name="description"></field>
         </record>
 
+        <record id="contract_field_seller_representer_function_parent_case" model="res.partner.contract.field">
+            <field name="name">Seller Representer Function Parent Case</field>
+            <field name="technical_name">seller_representer_function_parent_case</field>
+            <field name="description"></field>
+        </record>
+
         <record id="contract_field_seller_inn" model="res.partner.contract.field">
             <field name="name">Seller INN</field>
             <field name="technical_name">seller_inn</field>
@@ -225,6 +231,12 @@ action = ctx
         <record id="contract_field_partner_representer_function" model="res.partner.contract.field">
             <field name="name">Partner Representer Function</field>
             <field name="technical_name">partner_representer_function</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_representer_function_parent_case" model="res.partner.contract.field">
+            <field name="name">Partner Representer Function Parent Case</field>
+            <field name="technical_name">partner_representer_function_parent_case</field>
             <field name="description"></field>
         </record>
 

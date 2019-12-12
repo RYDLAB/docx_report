@@ -10,6 +10,9 @@ class ResPartner(models.Model):
     name_initials_case = fields.Char(
         string='Name Initials Case',
     )
+    function_parent_case = fields.Char(
+        string='Function Parent Case',
+    )
     client_contract_ids = fields.One2many(
         'res.partner.contract',
         'partner_id',

@@ -21,13 +21,31 @@
         <field name="priority" eval="25"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='category_id']" position="after">
-                <field name="name"/>
-                <field name="function"/>
-                <field name="representative_id" domain="[('id', 'in', child_ids)]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
+
+                <field name="function" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="representative_id" domain="[('company_type', '=', 'person')]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
+
                 <field name="passport_series" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                 <field name="passport_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                <field name="bank_account"/>
+                <field name="passport_date" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="passport_authority" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+
                 <field name="signature" widget="image"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='okpo']" position="after">
+
+                <field name="psrn" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                <field name="bank_ids" attrs="{'invisible': [('company_type', '=', 'person')]}">
+                    <tree>
+                        <field name="acc_number"/>
+                        <field name="bank_id"/>
+                    </tree>
+                </field>
+
+                <field name="signature" widget="image"/>
+
             </xpath>
         </field>
     </record>

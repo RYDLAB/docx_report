@@ -4,10 +4,6 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    bank_account = fields.Many2one(
-        'res.partner.bank',
-        string='Bank account'
-    )
     client_contract_ids = fields.One2many(
         'res.partner.contract',
         'partner_id',

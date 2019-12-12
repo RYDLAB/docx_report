@@ -10,10 +10,15 @@ class PartnerContract(models.Model):
     name = fields.Char(
         string='Contract number',
     )
-    date = fields.Date(
+    date_conclusion = fields.Date(
         string='Date of conclusion',
         default=datetime.date.today(),
         required=True
+    )
+    date_conclusion_fix = fields.Date(
+        string='Manual Date of conclusion',
+        help='Field for manual edit when contract is signed or closed',
+        default=lambda self: self.date_conclusion,
     )
     order_ids = fields.One2many(
         'sale.order',
@@ -76,7 +81,7 @@ class PartnerContract(models.Model):
         date_part = contract_date.strftime('%d%m-%y')
 
         today_contracts = self.search([
-            ('date', '=', contract_date.date()),
+            ('date_conclusion', '=', contract_date.date()),
         ])
         if len(today_contracts) > 0:
             name = today_contracts[-1].name or '0-0-0'

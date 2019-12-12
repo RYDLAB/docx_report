@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <tree string="Contracts">
                 <field name="name"/>
-                <field name="date"/>
+                <field name="date_conclusion"/>
                 <field name="partner_id"/>
             </tree>
         </field>
@@ -30,7 +30,9 @@
                 <sheet>
                     <group string="Contract parameters" name="single_params">
                         <field name="name" readonly="1"/>
-                        <field name="date" attrs="{'readonly': [('state', 'in', ['sign', 'close'])]}"/>
+                        <field name="create_date"/>
+                        <field name="date_conclusion" attrs="{'readonly': [('state', 'in', ['sign', 'close'])]}"/>
+                        <field name="date_conclusion_fix"/>
                         <field name="partner_id" readonly="1"/>
                     </group>
                     <group string="Annexed orders" name="multi_params">

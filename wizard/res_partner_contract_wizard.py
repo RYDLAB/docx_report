@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import base64
+import logging
 import math
 from datetime import datetime
 
@@ -8,6 +9,9 @@ from odoo.exceptions import UserError
 from pytils import numeral
 
 from ..utils.docxtpl import get_document_from_values_stream
+
+_logger = logging.getLogger(__name__)
+
 
 class ContractWizard(models.TransientModel):
     _name = 'res.partner.contract.wizard'

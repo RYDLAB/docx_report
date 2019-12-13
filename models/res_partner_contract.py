@@ -12,8 +12,6 @@ class PartnerContract(models.Model):
     )
     date_conclusion = fields.Date(
         string='Date of conclusion',
-        default=datetime.date.today(),
-        required=True
     )
     date_conclusion_fix = fields.Date(
         string='Manual Date of conclusion',
@@ -49,7 +47,7 @@ class PartnerContract(models.Model):
 
     @api.multi
     def action_sign(self):
-        self.write({'state': 'sign'})
+        self.write({'state': 'sign', 'date_conclusion': fields.Date.today()})
 
     @api.multi
     def action_close(self):

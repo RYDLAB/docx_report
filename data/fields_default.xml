@@ -23,8 +23,8 @@ modf = self.modf
 # ctx keys must be decalared in this xml
 ctx = {
     "contract_number": self.contract_id.name,
-    "amount_whole": 0,
-    "amount_fractional": 0,
+#    "amount_whole": 0,
+#    "amount_fractional": 0,
     
     "seller_company_name": seller.name,
     "seller_business_address": seller.full_address,

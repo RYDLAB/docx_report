@@ -24,11 +24,6 @@ modf = self.modf
 ctx = {
     "contract_number": self.contract_id.name,
     
-#    "amount_whole": 0,
-#    "amount_whole_handwritten": 0,
-#    "amount_fractional": 0,
-#    "amount_fractional_handwritten",
-    
     "seller_company_name": seller.name,
     "seller_business_address": seller.full_address,
     "seller_representer_name": seller.representative_id.name,
@@ -72,17 +67,6 @@ if seller_bank:
         "seller_bic": seller_bank.bank_id.bic,
         "seller_bank": seller_bank.bank_id.name,
         "seller_bank_account": seller_bank.acc_number,
-    })
-
-if self.order_id:
-    order = self.order_id
-
-    amount = modf(order.amount_total)
-    fractional, whole = amount
-    
-    ctx.update({
-        "amount_whole": whole,
-        "amount_fractional": fractional,
     })
 
 action = ctx

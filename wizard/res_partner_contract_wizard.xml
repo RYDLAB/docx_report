@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <act_window id="res_partner_contract_wizard_action" name="Contract wizard" res_model="res.partner.contract.wizard" src_model="res.partner.contract" view_mode="form" target="new"/>
-
-    <report id="contract_company_template" model="res.partner.contract.wizard" string="Contract" report_type="qweb-pdf" name="client_contracts.contract_template" file="client_contracts.contract_template" />
-
-    <report id="contract_personal_template" model="res.partner.contract.wizard" string="Contract" report_type="qweb-pdf" name="client_contracts.contract_fiz_template" file="client_contracts.contract_fiz_template" />
-
-    <report id="contract_appex_only_template_print" model="res.partner.contract.wizard" string="Contract" report_type="qweb-pdf" name="client_contracts.contract_appex_only_template" file="client_contracts.contract_appex_only_template" />
-
     <record id="res_partner_contract_wizard_view" model="ir.ui.view">
         <field name="name">Contract print wizard</field>
         <field name="model">res.partner.contract.wizard</field>
         <field name="arch" type="xml">
+
             <form>
+
                 <group>
-                    <!-- 
-                    <group name="template" string="Templates">
-                        <field name="template" string="Templates">
-                            <field name="attachment_id"/>
-                        </field>
-                    </group>
-                    -->
                     <group name="requisites" string="Requisites">
                         <field name="partner_id" string="Partner" readonly="1"/>
                         <field name="company_id" string="Seller" readonly="1"/>
@@ -41,8 +28,11 @@
                         </field>
                     </group>
                 </group>
+
                 <button string="Create a document" type="object" name="get_docx_contract" />
+                
                 <footer/>
+
             </form>
         </field>
     </record>

@@ -23,11 +23,11 @@
         <field name="view_type">form</field>
     </record>
 
-    <!-- res.partner.contract.template action window -->
+    <!-- res.partner.template.print.contract action window -->
     <record id="res_partner_contract_template_action" model="ir.actions.act_window">
-        <field name="name">res.partner.contract.template.action</field>
+        <field name="name">res.partner.template.print.contract.action</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.partner.contract.template</field>
+        <field name="res_model">res.partner.template.print.contract</field>
         <field name="view_mode">tree,form</field>
         <field name="view_type">form</field>
     </record>

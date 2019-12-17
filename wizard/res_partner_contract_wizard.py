@@ -2,11 +2,9 @@
 import base64
 import logging
 import math
-from datetime import datetime
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
-from pytils import numeral
 
 from ..utils.docxtpl import get_document_from_values_stream
 
@@ -17,7 +15,7 @@ class ContractWizard(models.TransientModel):
     _name = "res.partner.contract.wizard"
 
     def _get_default_template(self):
-        _template = self.env["res.partner.contract.template"].search(
+        _template = self.env["res.partner.template.print.contract"].search(
             [("is_default", "=", True)]
         )
         if _template:
@@ -39,13 +37,12 @@ class ContractWizard(models.TransientModel):
         default=lambda self: self.env.context.get("active_id"),
     )
     delivery_terms = fields.Integer(string="Delivery terms", default=10)
-    order_id = fields.Many2one("sale.order", string="Appex order", help="Appex",)
     partner_id = fields.Many2one(
         "res.partner", string="Partner", default=_get_default_partner
     )
     payment_terms = fields.Integer(string="Payment term", default=45)
-    template = fields.Many2one(
-        "res.partner.contract.template",
+    print_template_contract = fields.Many2one(
+        "res.partner.template.print.contract",
         string="Template",
         help="Template for contract",
         default=_get_default_template,
@@ -61,12 +58,6 @@ class ContractWizard(models.TransientModel):
         "_contract_wizard_id",
         string="Contract Fields",
     )
-
-    @api.onchange("partner_id")
-    def _set_order_domain(self):
-        current_id = self.env.context.get("active_ids")
-        domain = [("contract_id", "=", current_id)]
-        return {"domain": {"order_id": domain}}
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
@@ -146,4 +137,3 @@ class ContractWizard(models.TransientModel):
         Uses in data/fields_default.xml
         """
         return math.modf(arg)
-

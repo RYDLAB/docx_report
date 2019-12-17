@@ -36,7 +36,9 @@
                         <field name="partner_id" readonly="1"/>
                     </group>
                     <group string="Annexed orders" name="multi_params">
-                        <field name="order_ids" widget="many2many" attrs="{'readonly': [('state', '=', 'close')]}"/>
+                        <field name="contract_annex_ids" attrs="{'readonly': [('state', 'in', ['sign', 'close'])]}">
+                            <field name="name"/>
+                        </field>
                     </group>
                 </sheet>
             </form>

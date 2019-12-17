@@ -28,9 +28,6 @@ class ContractWizard(models.TransientModel):
         current_id = self.env.context.get("active_ids")
         return self.env["res.partner.contract"].browse([current_id[0]]).partner_id.id
 
-    annex_lines = fields.One2many(
-        "res.partner.contract.annex.line", "id", auto_join=True, copy=True
-    )
     company_id = fields.Many2one(
         "res.partner",
         string="Company",
@@ -150,13 +147,3 @@ class ContractWizard(models.TransientModel):
         """
         return math.modf(arg)
 
-
-class AnnexLine(models.TransientModel):
-    _name = "res.partner.contract.annex.line"
-
-    @api.onchange("annex_type")
-    def _get_default_description(self):
-        self.description = self.annex_type.description
-
-    annex_type = fields.Many2one("res.partner.contract.annex.type")
-    description = fields.Text()

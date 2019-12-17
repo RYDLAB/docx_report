@@ -14,8 +14,11 @@ class PartnerContract(models.Model):
         help="Field for manual edit when contract is signed or closed",
         default=lambda self: self.date_conclusion,
     )
-    order_ids = fields.One2many(
-        "sale.order", "contract_id", string="Annexes", help="Annexes to this contract"
+    contract_annex_ids = fields.One2many(
+        "res.partner.contract.annex",
+        "contract_id",
+        string="Annexes",
+        help="Annexes to this contract",
     )
     partner_id = fields.Many2one(
         "res.partner",
@@ -70,15 +73,19 @@ class PartnerContract(models.Model):
         return "{}-{}".format(date_part, last_contract_number)
 
 
-class AnnexType(models.Model):
-    _name = "res.partner.contract.annex.type"
+class PrintTemplateContract(models.Model):
+    _name = "res.partner.template.print.contract"
+    _description = "Print Template Contract"
 
-    name = fields.Char(string="Annex template name")
-    description = fields.Text(string="Annex template description")
+    attachment_id = fields.Many2one(
+        "ir.attachment", string="Template Attachment", required=True,
+    )
+    is_default = fields.Boolean(string="Default Template", default=False,)
 
 
-class ContractTemplate(models.Model):
-    _name = "res.partner.contract.template"
+class PrintTemplateAnnex(models.Model):
+    _name = "res.partner.template.print.annex"
+    _description = "Print Template Contract Annex"
 
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,

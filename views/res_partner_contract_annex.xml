@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- res.partner.contract.annex form view -->
+        <record id="res_partner_contract_annex_view_form" model="ir.ui.view">
+            <field name="name">res.partner.contract.annex.view.form</field>
+            <field name="model">res.partner.contract.annex</field>
+            <field name="arch" type="xml">
+
+                <form string="Contract Annex">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="contract_id" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                            <field name="order_ids"/>
+                        </group>
+                    </sheet>
+                </form>
+                
+            </field>
+        </record>
+
+    </data>
+</odoo>

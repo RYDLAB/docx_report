@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20190816\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 11:29+0000\n"
-"PO-Revision-Date: 2019-12-18 11:29+0000\n"
+"POT-Creation-Date: 2019-12-18 12:35+0000\n"
+"PO-Revision-Date: 2019-12-18 12:35+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: Rydlab\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_contract_count
 msgid "# of contracts"
 msgstr "кол-во договоров"
+
+#. module: client_contracts
+#: model:account.payment.term,name:client_contracts.payment_term_postpayment
+msgid "100% Postpaid"
+msgstr "100% постоплата"
+
+#. module: client_contracts
+#: model:account.payment.term,name:client_contracts.payment_term_prepaid
+msgid "100% Prepaid"
+msgstr "100% предоплата"
+
+#. module: client_contracts
+#: model:account.payment.term,name:client_contracts.payment_term_partial_2
+msgid "2 stages"
+msgstr "Оплата в 2 этапа"
+
+#. module: client_contracts
+#: model:account.payment.term,name:client_contracts.payment_term_partial_3
+msgid "3 stages"
+msgstr "Оплата в 3 этапа"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_street_actual
@@ -70,7 +90,7 @@ msgstr "Подпись или печать"
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 msgid "Close"
-msgstr "Закрыт"
+msgstr "Закрыть"
 
 #. module: client_contracts
 #: selection:res.partner.contract,state:0
@@ -196,7 +216,18 @@ msgstr "Дата получения паспорта"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_is_default
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_is_default
 msgid "Default Template"
-msgstr "Шаблон по-умолчанию"
+msgstr "Default Template"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_payment_term
+msgid "Payment Term"
+msgstr "Условия оплаты"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_sale_order_delivery_time
+#: model:res.partner.contract.field,name:client_contracts.contract_field_delivery_time
+msgid "Delivery Time"
+msgstr "Срок доставки"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_description
@@ -448,6 +479,26 @@ msgstr "Номер паспорта"
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_passport_series
 msgid "Passport Series"
 msgstr "Серия паспорта"
+
+#. module: client_contracts
+#: model:account.payment.term,note:client_contracts.payment_term_prepaid
+msgid "Payment terms: 100% Prepaid"
+msgstr "Условия оплаты: 100% предоплата"
+
+#. module: client_contracts
+#: model:account.payment.term,note:client_contracts.payment_term_partial_2
+msgid "Payment terms: Partial 2 Stages"
+msgstr "Условия оплаты: частично в 2 этапа"
+
+#. module: client_contracts
+#: model:account.payment.term,note:client_contracts.payment_term_partial_3
+msgid "Payment terms: Partial 3 Stages"
+msgstr "Условия оплаты: частично в 3 этапа"
+
+#. module: client_contracts
+#: model:account.payment.term,note:client_contracts.payment_term_postpayment
+msgid "Payment terms: 100% Postpaid"
+msgstr "Условия оплаты: постоплата"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_representative_id

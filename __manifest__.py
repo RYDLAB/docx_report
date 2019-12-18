@@ -16,6 +16,7 @@
         "views/res_partner_contract.xml",
         "views/res_partner_contract_annex.xml",
         "views/res_partner.xml",
+        "views/sale_order.xml",
         "wizard/res_partner_contract_wizard.xml",
         "data/fields_default.xml",
         "data/payment_terms.xml",

@@ -18,5 +18,6 @@
         "views/res_partner.xml",
         "wizard/res_partner_contract_wizard.xml",
         "data/fields_default.xml",
+        "data/payment_terms.xml",
     ],
 }

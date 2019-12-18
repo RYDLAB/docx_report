@@ -82,6 +82,8 @@ action = ctx
 # Aliases
 self = record
 order = self.order_id
+seller = self.contract_id.company_id
+partner = self.contract_id.partner_id
 
 # Functions
 modf = self.modf
@@ -93,8 +95,16 @@ ctx = {
     "amount_whole": 0,
     "amount_fractional": 0,
 
-    "delivery_term": False,
+    "payment_term": False,
     "delivery_time": False,
+
+    "seller_company_name": seller.name,
+    "seller_representer_name": seller.representative_id.name,
+    "seller_representer_function": seller.representative_id.function,
+
+    "partner_company_name": partner.name,
+    "partner_representer_name": partner.representative_id.name,
+    "partner_representer_function": partner.representative_id.function,
 }
 
 if order:

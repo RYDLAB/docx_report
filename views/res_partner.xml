@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="order_contract_tree" model="ir.actions.act_window">
-        <field name="name">Appexes</field>
-        <field name="res_model">sale.order</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form,graph</field>
-        <field name="arch" type="xml">
-            <tree string="Appexes">
-                <field name="name"/>
-                <field name="date"/>
-            </tree>
-        </field>
-    </record>
-
     <!-- res.partner.contract.field action window -->
     <record id="res_partner_contract_field_action" model="ir.actions.act_window">
         <field name="name">res.partner.contract.field.action</field>

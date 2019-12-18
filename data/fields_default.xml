@@ -100,13 +100,17 @@ ctx = {
 if order:
     amount = modf(order.amount_total)
     fractional, whole = amount
+
+    delivery_term = order.payment_term_id.name
+    delivery_term = delivery_term and delivery_term.lower()
+    delivery_time = order.delivery_time
     
     ctx.update({
         "amount_whole": whole,
         "amount_fractional": fractional,
 
-        "delivery_term": order.payment_term_id.name,
-        "delivery_time": order.delivery_time,
+        "delivery_term": delivery_term,
+        "delivery_time": delivery_time,
     })
 
 action = ctx
@@ -131,6 +135,18 @@ action = ctx
         <record id="contract_field_amount_fractional" model="res.partner.contract.field">
             <field name="name">Amount Fractional Part</field>
             <field name="technical_name">amount_fractional</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_delivery_time" model="res.partner.contract.field">
+            <field name="name">Delivery Time</field>
+            <field name="technical_name">delivery_time</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_delivery_term" model="res.partner.contract.field">
+            <field name="name">Delivery Term</field>
+            <field name="technical_name">delivery_term</field>
             <field name="description"></field>
         </record>
 

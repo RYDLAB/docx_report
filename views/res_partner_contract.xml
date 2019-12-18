@@ -25,6 +25,8 @@
                     <button name="action_close" type="object" string="Close" states="sign" class="oe_highlight"/>
                     <button name="action_renew" type="object" string="Renew" states="close"/>
 
+                    <button name="action_print_form" type="object" string="Print"/>
+
                     <field name="state" widget="statusbar" statusbar_visible="draft,sign,close"/>
                 </header>
                 <sheet>

@@ -22,10 +22,14 @@ class PartnerContract(models.Model):
     )
     partner_id = fields.Many2one(
         "res.partner",
-        string="Contract Partner",
-        help="Contract partner",
+        string="Partner",
         default=lambda self: self.env.context.get("active_id"),
         required=True,
+    )
+    company_id = fields.Many2one(
+        "res.partner",
+        string="Company",
+        default=lambda self: self.env.user.company_id.partner_id,
     )
     state = fields.Selection(
         [("draft", "New"), ("sign", "Signed"), ("close", "Closed"),],
@@ -49,6 +53,19 @@ class PartnerContract(models.Model):
     @api.multi
     def action_renew(self):
         self.write({"state": "draft"})
+
+    @api.multi
+    def action_print_form(self):
+        view = self.env.ref("client_contracts.res_partner_wizard_print_contract_view")
+        return {
+            "name": "Print Form of Contract",
+            "type": "ir.actions.act_window",
+            "res_model": "res.partner.contract.wizard",
+            "view_mode": "form",
+            "view_id": view.id,
+            "target": "new",
+            "context": {"self_id": self.id},
+        }
 
     @api.model
     def create(self, vals):

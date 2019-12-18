@@ -3,7 +3,7 @@
     <data>
 
         <!-- Action -->
-        <record id="action_get_context" model="ir.actions.server">
+        <record id="action_get_contract_context" model="ir.actions.server">
             <field name="name">Generate Context for Contract</field>
             <field name="model_id" ref="client_contracts.model_res_partner_contract_wizard"/>
             <field name="binding_model_id" ref="client_contracts.model_res_partner_contract_wizard" />
@@ -17,12 +17,9 @@ partner_bank = partner.bank_ids[0] # res.partner.bank
 seller = self.company_id
 seller_bank = seller.bank_ids[0]
 
-# Functions
-modf = self.modf
-
 # ctx keys must be decalared in this xml
 ctx = {
-    "contract_number": self.contract_id.name,
+    "contract_number": self.name,
     
     "seller_company_name": seller.name,
     "seller_business_address": seller.full_address,
@@ -67,6 +64,48 @@ if seller_bank:
         "seller_bic": seller_bank.bank_id.bic,
         "seller_bank": seller_bank.bank_id.name,
         "seller_bank_account": seller_bank.acc_number,
+    })
+
+action = ctx
+            </field>
+        </record>
+
+
+        <!-- Action -->
+        <record id="action_get_annex_context" model="ir.actions.server">
+            <field name="name">Generate Context for Contract</field>
+            <field name="model_id" ref="client_contracts.model_res_partner_contract_wizard"/>
+            <field name="binding_model_id" ref="client_contracts.model_res_partner_contract_wizard" />
+            <field name="state">code</field>
+            <field name="code">
+
+# Aliases
+self = record
+partner = self.contract_id.partner_id # res.partner
+seller = self.contract_id.company_id
+order = self.order_id
+
+# Functions
+modf = self.modf
+
+# ctx keys must be decalared in this xml
+ctx = {
+    "contract_number": self.contract_id.name,
+
+    "seller_inn": seller.inn,
+    "seller_kpp": seller.kpp,
+
+    "partner_inn": partner.inn,
+    "partner_kpp": partner.kpp,
+}
+
+if order:
+    amount = modf(order.amount_total)
+    fractional, whole = amount
+    
+    ctx.update({
+        "amount_whole": whole,
+        "amount_fractional": fractional,
     })
 
 action = ctx

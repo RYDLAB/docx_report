@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="res_partner_contract_wizard_view" model="ir.ui.view">
-        <field name="name">Contract print wizard</field>
+    <record id="res_partner_wizard_print_contract_view" model="ir.ui.view">
+        <field name="name">Print Contract</field>
         <field name="model">res.partner.contract.wizard</field>
         <field name="arch" type="xml">
 
@@ -10,14 +10,53 @@
 
                 <group>
                     <group name="requisites" string="Requisites">
+                        <field name="target"/>
                         <field name="partner_id" string="Partner" readonly="1"/>
                         <field name="company_id" string="Seller" readonly="1"/>
                     </group>
-                    <group name="terms" string="Delivery and payment terms">
+                    <!-- <group name="terms" string="Delivery and payment terms">
                         <field name="payment_terms"/>
                         <field name="delivery_terms"/>
-                    </group>
+                    </group> -->
                     <group string="Contract values" colspan="4">
+                        <field name="transient_field_ids">
+                            <tree editable="1" create="0" delete="0">
+                                <field name="name"/>
+                                <field name="value"/>
+                                <field name="description" invisible="1"/>
+                                <field name="technical_name" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+
+                <button string="Create a document" type="object" name="get_docx_contract" />
+                
+                <footer/>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_wizard_print_annex_view" model="ir.ui.view">
+        <field name="name">Print Annex</field>
+        <field name="model">res.partner.contract.wizard</field>
+        <field name="arch" type="xml">
+
+            <form>
+
+                <group>
+                    <group name="info" string="Info">
+                        <field name="target"/>
+                    </group>
+                    <!-- <group name="terms" string="Delivery and payment terms">
+                        <field name="payment_terms"/>
+                        <field name="delivery_terms"/>
+                    </group> -->
+                    <!-- <group name="order" string="Order Info">
+                        <field name="order_id"/>
+                    </group> -->
+                    <group string="Annex values" colspan="4">
                         <field name="transient_field_ids">
                             <tree editable="1" create="0" delete="0">
                                 <field name="name"/>

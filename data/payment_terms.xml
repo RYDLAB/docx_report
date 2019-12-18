@@ -3,12 +3,12 @@
     <data noupdate="0">
 
         <record id="payment_term_prepaid" model="account.payment.term">
-            <field name="name">Prepaid</field>
+            <field name="name"100% >Prepaid</field>
             <field name="note">Payment terms: 100% Prepaid</field>
             <field name="sequence">1</field>
         </record>
         <record id="payment_term_postpayment" model="account.payment.term">
-            <field name="name">Postpaid</field>
+            <field name="name">100% Postpaid</field>
             <field name="note">Payment terms: Postpaid</field>
             <field name="sequence">2</field>
         </record>

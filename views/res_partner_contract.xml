@@ -36,6 +36,9 @@
                         <field name="date_conclusion" attrs="{'readonly': [('state', 'in', ['sign', 'close'])]}"/>
                         <field name="date_conclusion_fix"/>
                         <field name="partner_id" readonly="1"/>
+
+                        <!-- Uses to generate number of Annex -->
+                        <field name="contract_annex_number" invisible="1"/> 
                     </group>
                     <group string="Annexed orders" name="multi_params">
                         <field name="contract_annex_ids" attrs="{'readonly': [('state', 'in', ['sign', 'close'])]}">

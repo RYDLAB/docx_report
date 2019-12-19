@@ -20,6 +20,9 @@ class PartnerContract(models.Model):
         string="Annexes",
         help="Annexes to this contract",
     )
+    contract_annex_number = fields.Integer(
+        default=1, help="Counter for generate Annex name"
+    )
     partner_id = fields.Many2one(
         "res.partner",
         string="Partner",

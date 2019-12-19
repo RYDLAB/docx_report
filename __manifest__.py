@@ -12,13 +12,13 @@
     "version": "0.1.1",
     "depends": ["base", "contacts", "l10n_ru_doc", "sale",],
     "data": [
+        "data/fields_default.xml",
+        "data/payment_terms.xml",
         "security/ir.model.access.csv",
         "views/res_partner_contract.xml",
         "views/res_partner_contract_annex.xml",
         "views/res_partner.xml",
         "views/sale_order.xml",
         "wizard/res_partner_contract_wizard.xml",
-        "data/fields_default.xml",
-        "data/payment_terms.xml",
     ],
 }

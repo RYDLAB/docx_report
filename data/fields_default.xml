@@ -20,6 +20,7 @@ seller_bank = seller.bank_ids[0]
 # ctx keys must be declared in this xml
 ctx = {
     "contract_number": self.name,
+    "date_conclusion": self.date_conclusion_fix or self.date_conclusion,
     
     "seller_company_name": seller.name,
     "seller_business_address": seller.full_address,
@@ -133,6 +134,12 @@ action = ctx
         <record id="contract_field_contract_number" model="res.partner.contract.field">
             <field name="name">Contract Number</field>
             <field name="technical_name">contract_number</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_contract_conclusion_date" model="res.partner.contract.field">
+            <field name="name">Conclusion Date</field>
+            <field name="technical_name">date_conclusion</field>
             <field name="description"></field>
         </record>
 

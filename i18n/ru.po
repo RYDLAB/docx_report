@@ -104,6 +104,7 @@ msgid "Company"
 msgstr "Компания"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_date_conclusion
 #: model:res.partner.contract.field,name:client_contracts.contract_field_contract_conclusion_date
 msgid "Conclusion Date"
 msgstr "Дата подписания"
@@ -235,6 +236,7 @@ msgid "Default Template"
 msgstr "Default Template"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_delivery_time
 #: model:ir.model.fields,field_description:client_contracts.field_sale_order_delivery_time
 #: model:res.partner.contract.field,name:client_contracts.contract_field_delivery_time
 msgid "Delivery Time"
@@ -497,6 +499,11 @@ msgid "Payment Term"
 msgstr "Условия оплаты"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_payment_term
+msgid "Payment Terms"
+msgstr "Условия оплаты"
+
+#. module: client_contracts
 #: model:account.payment.term,note:client_contracts.payment_term_postpayment
 msgid "Payment terms: 100% Postpaid"
 msgstr "Условия оплаты: постоплата"
@@ -521,6 +528,11 @@ msgstr "Условия оплаты: частично в 3 этапа"
 #: model:ir.model.fields,help:client_contracts.field_res_users_representative_id
 msgid "Person, who represents company"
 msgstr "Представитель компании"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_prepaid_expance
+msgid "Prepaid Expance"
+msgstr "Аванс"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_psrn

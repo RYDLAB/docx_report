@@ -12,6 +12,14 @@ class ContractOrderAnnex(models.Model):
     contract_id = fields.Many2one(
         "res.partner.contract", string="Contract", readonly=True,
     )
+    date_conclusion = fields.Date(
+        string="Conclusion Date", default=fields.Date.today(),
+    )
+    prepaid_expance = fields.Float(string="Prepaid Expance", default=0)
+    delivery_time = fields.Integer(related="order_id.delivery_time", readonly=True,)
+    payment_term = fields.Many2one(
+        "account.payment.term", related="order_id.payment_term_id", readonly=True,
+    )
 
     @api.onchange("contract_id")
     def _onchange_contract_id(self):

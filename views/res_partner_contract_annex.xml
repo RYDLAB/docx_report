@@ -14,6 +14,9 @@
                             <field name="name" placeholder="Leave empty for compute"/>
                             <field name="contract_id" attrs="{'invisible': [('contract_id', '=', False)]}"/>
                             <field name="order_id"/>
+                            <field name="date_conclusion"/>
+                            <field name="payment_term"/>
+                            <field name="delivery_time"/>
                         </group>
                         <group>
                             <button name="action_print_form" type="object" string="Print" attrs="{'invisible': [('contract_id', '=', False)]}"/>

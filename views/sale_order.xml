@@ -10,6 +10,7 @@
             
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="delivery_time"/>
+                <field name="contract_annex_id"/>
             </xpath>
             
         </field>

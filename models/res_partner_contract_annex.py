@@ -8,7 +8,12 @@ class ContractOrderAnnex(models.Model):
     _description = "Contract Order Annex"
 
     name = fields.Char(string="Name", help="The Number of Annex")
-    order_id = fields.Many2one("sale.order", string="Order", required=True)
+    order_id = fields.Many2one(
+        "sale.order",
+        string="Order",
+        domain=[("contract_annex_id", "=", False)],
+        required=True,
+    )
     contract_id = fields.Many2one(
         "res.partner.contract", string="Contract", readonly=True
     )
@@ -25,6 +30,7 @@ class ContractOrderAnnex(models.Model):
             record.name = "{contract}--{annex}".format(
                 contract=contract_number, annex=annex_number
             )
+        record.order_id.contract_annex_id = record.id
 
         return record
 

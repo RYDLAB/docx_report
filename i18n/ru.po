@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20190816\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 12:35+0000\n"
-"PO-Revision-Date: 2019-12-18 12:35+0000\n"
+"POT-Creation-Date: 2019-12-19 08:24+0000\n"
+"PO-Revision-Date: 2019-12-19 08:24+0000\n"
 "Last-Translator: Stepan Savelyev\n"
-"Language-Team: Rydlab\n"
+"Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -104,6 +104,11 @@ msgid "Company"
 msgstr "Компания"
 
 #. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_contract_conclusion_date
+msgid "Conclusion Date"
+msgstr "Дата подписания"
+
+#. module: client_contracts
 #: model:ir.model,name:client_contracts.model_res_partner
 msgid "Contact"
 msgstr "Контакт"
@@ -119,10 +124,16 @@ msgid "Contract"
 msgstr "Договор"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_sale_order_contract_annex_id
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
 #: selection:res.partner.contract.wizard,target:0
 msgid "Contract Annex"
 msgstr "Приложение к договору"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_contract_annex_number
+msgid "Contract Annex Number"
+msgstr "Счётчик приложений к договору"
 
 #. module: client_contracts
 #: model:ir.model,name:client_contracts.model_res_partner_contract_field
@@ -174,6 +185,11 @@ msgid "Contracts"
 msgstr "Договоры"
 
 #. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_contract_annex_number
+msgid "Counter for generate Annex name"
+msgstr "Счётчик для генерации имени приложения к договору"
+
+#. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_annex_view
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_contract_view
 msgid "Create a document"
@@ -217,11 +233,6 @@ msgstr "Дата получения паспорта"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_is_default
 msgid "Default Template"
 msgstr "Default Template"
-
-#. module: client_contracts
-#: model:res.partner.contract.field,name:client_contracts.contract_field_payment_term
-msgid "Payment Term"
-msgstr "Условия оплаты"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_sale_order_delivery_time
@@ -481,6 +492,16 @@ msgid "Passport Series"
 msgstr "Серия паспорта"
 
 #. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_payment_term
+msgid "Payment Term"
+msgstr "Условия оплаты"
+
+#. module: client_contracts
+#: model:account.payment.term,note:client_contracts.payment_term_postpayment
+msgid "Payment terms: 100% Postpaid"
+msgstr "Условия оплаты: постоплата"
+
+#. module: client_contracts
 #: model:account.payment.term,note:client_contracts.payment_term_prepaid
 msgid "Payment terms: 100% Prepaid"
 msgstr "Условия оплаты: 100% предоплата"
@@ -494,11 +515,6 @@ msgstr "Условия оплаты: частично в 2 этапа"
 #: model:account.payment.term,note:client_contracts.payment_term_partial_3
 msgid "Payment terms: Partial 3 Stages"
 msgstr "Условия оплаты: частично в 3 этапа"
-
-#. module: client_contracts
-#: model:account.payment.term,note:client_contracts.payment_term_postpayment
-msgid "Payment terms: 100% Postpaid"
-msgstr "Условия оплаты: постоплата"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_representative_id

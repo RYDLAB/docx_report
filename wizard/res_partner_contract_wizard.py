@@ -37,7 +37,6 @@ class ContractWizard(models.TransientModel):
             ("res.partner.contract.annex", "Contract Annex"),
         ],
         string="Target",
-        readonly=True,
     )
     company_id = fields.Many2one("res.partner", string="Company")
     partner_id = fields.Many2one("res.partner", string="Partner")

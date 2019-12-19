@@ -17,7 +17,7 @@ partner_bank = partner.bank_ids[0] # res.partner.bank
 seller = self.company_id
 seller_bank = seller.bank_ids[0]
 
-# ctx keys must be decalared in this xml
+# ctx keys must be declared in this xml
 ctx = {
     "contract_number": self.name,
     
@@ -334,13 +334,6 @@ action = ctx
             <field name="technical_name">partner_phone</field>
             <field name="description"></field>
         </record>
-
-
-
-        <!-- <record id="" model="res.partner.contract.field">
-            <field name="name"></field>
-            <field name="technical_name"></field>
-        </record> -->
 
     </data>
 </odoo>

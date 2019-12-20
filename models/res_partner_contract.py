@@ -70,13 +70,10 @@ class PartnerContract(models.Model):
             "context": {"self_id": self.id},
         }
 
-    @api.model
-    def create(self, vals):
-
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
         datetime_now = datetime.datetime.now().strftime("%Y-%m-%d")
-        vals["name"] = self._calculate_contract_name(datetime_now)
-
-        return super(PartnerContract, self).create(vals)
+        self.name = self._calculate_contract_name(datetime_now)
 
     def _calculate_contract_name(self, _date):
 

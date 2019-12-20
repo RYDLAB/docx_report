@@ -90,9 +90,8 @@ class ContractWizard(models.TransientModel):
             else self.target.contract_id.partner_id
         )
 
-        self.write(
-            {"company_id": company_id, "partner_id": partner_id,}
-        )
+        self.company_id = company_id
+        self.partner_id = partner_id
 
         model_to_action = {
             "res.partner.contract": "client_contracts.action_get_contract_context",

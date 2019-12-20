@@ -10,7 +10,7 @@
     "website": "http://rydlab.ru",
     "category": "Invoicing & Payments",
     "version": "0.1.1",
-    "depends": ["base", "contacts", "russian_requisites", "sale",],
+    "depends": ["base", "contacts", "l10n_ru_doc", "sale",],
     "data": [
         "data/fields_default.xml",
         "data/payment_terms.xml",

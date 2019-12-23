@@ -31,7 +31,7 @@
                 </header>
                 <sheet>
                     <group string="Contract parameters" name="single_params">
-                        <field name="name"/>
+                        <field name="name" readonly="1"/>
                         <field name="partner_id" readonly="1"/>
                         <field name="create_date" readonly="1" attrs="{'invisible': [('create_date', '=', False)]}"/>
                         <field name="date_conclusion" readonly="1" attrs="{'invisible': ['|', ('create_date', '=', False), ('date_conclusion', '=', False)]}"/>

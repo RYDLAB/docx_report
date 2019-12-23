@@ -2,10 +2,6 @@ import datetime
 
 from odoo import api, fields, models
 
-import logging
-
-_logger = logging.getLogger(__name__)
-
 
 class PartnerContract(models.Model):
     _name = "res.partner.contract"

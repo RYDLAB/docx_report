@@ -2,13 +2,43 @@ import datetime
 
 from odoo import api, fields, models
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class PartnerContract(models.Model):
     _name = "res.partner.contract"
     _description = "Contract"
     _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers"]
 
-    name = fields.Char(string="Contract number",)
+    def _get_default_name(self):
+        """Returns name format `№YYMM-D-N`,
+        where N is a sequence number of contracts which are created this day
+        """
+        current_day_ts = (
+            datetime.datetime.now()
+            .replace(minute=0, hour=0, second=0, microsecond=0)
+            .timestamp()
+        )
+        partner = self.env["res.partner"].browse(self.env.context.get("active_id"))
+
+        contracts_today = self.search(
+            [("partner_id", "=", partner.id), ("create_date_ts", ">=", current_day_ts),]
+        )
+
+        contract_date = "{format_date}-{number}".format(
+            format_date=datetime.date.strftime(datetime.date.today(), "%y%m-%d"),
+            number=len(contracts_today) + 1,
+        )
+        return contract_date
+
+    def _get_default_create_date_ts(self):
+        """Returns timestamp of now by local datetime"""
+        return datetime.datetime.now().timestamp()
+
+    name = fields.Char(string="Contract number", default=_get_default_name,)
+    create_date_ts = fields.Char(default=_get_default_create_date_ts)
     date_conclusion = fields.Date(string="Date of system conclusion",)
     date_conclusion_fix = fields.Date(
         string="Date of manual conclusion",
@@ -70,25 +100,6 @@ class PartnerContract(models.Model):
             "target": "new",
             "context": {"self_id": self.id},
         }
-
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
-        datetime_now = datetime.datetime.now().strftime("%Y-%m-%d")
-        self.name = self._calculate_contract_name(datetime_now)
-
-    def _calculate_contract_name(self, _date):
-
-        contract_date = datetime.datetime.strptime(_date, "%Y-%m-%d")
-        date_part = contract_date.strftime("%d%m-%y")
-
-        today_contracts = self.search([("date_conclusion", "=", contract_date.date()),])
-        if len(today_contracts) > 0:
-            name = today_contracts[-1].name or "0-0-0"
-            last_contract_number = int(name.split("-")[2]) + 1
-        else:
-            last_contract_number = 1
-
-        return "{}-{}".format(date_part, last_contract_number)
 
 
 class PrintTemplateContract(models.Model):

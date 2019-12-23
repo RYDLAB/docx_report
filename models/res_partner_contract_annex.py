@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 class ContractOrderAnnex(models.Model):
     _name = "res.partner.contract.annex"
-    _description = "Contract Order Annex"
+    _description = "Contract Annex"
 
     name = fields.Char(string="Name", help="The Number of Annex")
     order_id = fields.Many2one("sale.order", string="Order", required=True,)

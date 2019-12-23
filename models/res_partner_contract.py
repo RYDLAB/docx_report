@@ -5,6 +5,7 @@ from odoo import api, fields, models
 
 class PartnerContract(models.Model):
     _name = "res.partner.contract"
+    _description = "Contract"
     _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers"]
 
     name = fields.Char(string="Contract number",)

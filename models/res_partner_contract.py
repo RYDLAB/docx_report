@@ -8,9 +8,9 @@ class PartnerContract(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers"]
 
     name = fields.Char(string="Contract number",)
-    date_conclusion = fields.Date(string="Date of conclusion",)
+    date_conclusion = fields.Date(string="Date of system conclusion",)
     date_conclusion_fix = fields.Date(
-        string="Manual Date of conclusion",
+        string="Date of manual conclusion",
         help="Field for manual edit when contract is signed or closed",
         default=lambda self: self.date_conclusion,
     )

@@ -2,7 +2,7 @@
 import base64
 import logging
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 from ..utils.docxtpl import get_document_from_values_stream
@@ -139,12 +139,12 @@ class ContractWizard(models.TransientModel):
             number=self.target.name,
             ext="docx",
             name=(
-                "Contract"
+                _("Contract")
                 if self.target._name == "res.partner.contract"
                 else (
-                    "Annex"
+                    _("Annex")
                     if self.target._name == "res.partner.contract.annex"
-                    else ("Unknown#")
+                    else ("Unknown")
                 )
             ),
         )

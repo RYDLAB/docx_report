@@ -28,8 +28,8 @@ class ContractWizard(models.TransientModel):
         )
 
     def _get_default_partner(self):
-        current_id = self.env.context.get("active_ids")
-        return self.env["res.partner.contract"].browse([current_id[0]]).partner_id.id
+        current_id = self.env.context.get("active_id")
+        return self.env["res.partner.contract"].browse(current_id).partner_id.id
 
     target = fields.Reference(
         selection=[

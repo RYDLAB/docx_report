@@ -2,7 +2,7 @@
 import base64
 import logging
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..utils.docxtpl import get_document_from_values_stream

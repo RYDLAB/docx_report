@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-25 08:01+0000\n"
-"PO-Revision-Date: 2019-12-25 08:01+0000\n"
+"POT-Creation-Date: 2019-12-25 11:27+0000\n"
+"PO-Revision-Date: 2019-12-25 11:27+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,11 @@ msgstr "Приложения"
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_contract_annex_ids
 msgid "Annexes to this contract"
 msgstr "Приложения к договору"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_info_inherit_view
+msgid "Banks"
+msgstr "Банки"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_signature
@@ -457,18 +462,6 @@ msgid "Partner Representer Parent Name"
 msgstr "Полное имя в родительном падеже Партнёра"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_passport_authority
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_passport_authority
-msgid "Passport Authority"
-msgstr "Подразделение, выдавшее паспорт"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_passport_series
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_passport_series
-msgid "Passport Series"
-msgstr "Серия паспорта"
-
-#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_payment_term
 msgid "Payment Term"
 msgstr "Условия оплаты"
@@ -694,12 +687,6 @@ msgstr "Номер приложения"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_value
 msgid "Value"
 msgstr "Значение"
-
-#. module: client_contracts
-#: model:ir.model.fields,help:client_contracts.field_res_partner_passport_authority
-#: model:ir.model.fields,help:client_contracts.field_res_users_passport_authority
-msgid "What Department issued the passport"
-msgstr "Каким подразделением был выдан паспорт"
 
 #. module: client_contracts
 #: model:ir.model,name:client_contracts.model_res_partner_contract_annex_line

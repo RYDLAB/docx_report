@@ -16,4 +16,6 @@
         </field>
     </record>
 
+    <menuitem id="res_partner_contract_menu_act" name="Contracts" parent="sale.sale_order_menu" action="res_partner_contract_action" sequence="4"/>
+
 </odoo>

@@ -17,15 +17,6 @@ class ResPartner(models.Model):
         compute="_compute_full_address"
     )  # Check for res.partner.contact_address in base/res
     street_actual = fields.Many2one("res.partner", string="Actual Address",)
-    passport_authority = fields.Char(
-        string="Passport Authority", help="What Department issued the passport",
-    )
-    passport_date = fields.Date(
-        string="Passport Issue Date", help="Date when receive a passport",
-    )
-    passport_number = fields.Char(string="Passport Number",)
-    passport_series = fields.Char(string="Passport Series",)
-    psrn = fields.Char(string="PSRN", help="Primary State Registration Number",)
     representative_id = fields.Many2one(
         "res.partner", string="Representative", help="Person, who represents company"
     )

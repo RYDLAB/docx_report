@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- res.partner.contract.annex form view -->
+        <record id="res_partner_contract_annex_view_form" model="ir.ui.view">
+            <field name="name">res.partner.contract.annex.view.form</field>
+            <field name="model">res.partner.contract.annex</field>
+            <field name="arch" type="xml">
+
+                <form string="Contract Annex">
+                    <sheet>
+                        <group>
+                            <field name="name" placeholder="Leave empty for compute"/>
+                            <field name="contract_id" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                            <field name="order_id"/>
+                            <field name="date_conclusion"/>
+                            <field name="payment_term"/>
+                            <field name="delivery_time"/>
+                        </group>
+                        <group>
+                            <button name="action_print_form" type="object" string="Print" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+                
+            </field>
+        </record>
+
+    </data>
+</odoo>

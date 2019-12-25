@@ -499,7 +499,7 @@ msgstr "Представитель компании"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_prepaid_expance
-msgid "Prepaid Expance"
+msgid "Prepaid Expence"
 msgstr "Аванс"
 
 #. module: client_contracts

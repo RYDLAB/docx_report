@@ -1,6 +1,6 @@
 import math
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 
 
 class ContractOrderAnnex(models.Model):

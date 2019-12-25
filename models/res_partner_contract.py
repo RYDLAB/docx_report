@@ -1,6 +1,6 @@
 import datetime
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class PartnerContract(models.Model):
@@ -88,7 +88,7 @@ class PartnerContract(models.Model):
     def action_print_form(self):
         view = self.env.ref("client_contracts.res_partner_wizard_print_contract_view")
         return {
-            "name": "Print Form of Contract",
+            "name": _("Print Form of Contract"),
             "type": "ir.actions.act_window",
             "res_model": "res.partner.contract.wizard",
             "view_mode": "form",

@@ -1,6 +1,6 @@
 import math
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class ContractOrderAnnex(models.Model):
@@ -58,7 +58,7 @@ class ContractOrderAnnex(models.Model):
     def action_print_form(self):
         view = self.env.ref("client_contracts.res_partner_wizard_print_annex_view")
         return {
-            "name": "Print Form of Contract Annex",
+            "name": _("Print Form of Contract Annex"),
             "type": "ir.actions.act_window",
             "res_model": "res.partner.contract.wizard",
             "view_mode": "form",

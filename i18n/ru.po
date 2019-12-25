@@ -175,8 +175,10 @@ msgstr "Поля в печатном договоре"
 
 #. module: client_contracts
 #: model:ir.actions.act_window,name:client_contracts.res_partner_contract_action
+#: model:ir.actions.act_window,name:client_contracts.res_partner_contract_partner_action
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_client_contract_ids
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_client_contract_ids
+#: model:ir.ui.menu,name:client_contracts.res_partner_contract_menu_act
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_tree
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_view_buttons
 msgid "Contracts"

@@ -20,7 +20,7 @@
         <field name="model">res.partner.contract</field>
         <field name="arch" type="xml">
             <form string="Contract">
-                <header attrs="{'invisible': [('create_date', '=', False)]}">
+                <header attrs="{'invisible': [('id', '=', False)]}">
                     <button name="action_sign" type="object" string="Sign" states="draft" class="oe_highlight"/>
                     <button name="action_close" type="object" string="Close" states="sign" class="oe_highlight"/>
                     <button name="action_renew" type="object" string="Renew" states="close"/>
@@ -33,14 +33,14 @@
                     <group string="Contract parameters" name="single_params">
                         <field name="name" readonly="1"/>
                         <field name="partner_id" readonly="1"/>
-                        <field name="create_date" readonly="1" attrs="{'invisible': [('create_date', '=', False)]}"/>
-                        <field name="date_conclusion" readonly="1" attrs="{'invisible': ['|', ('create_date', '=', False), ('date_conclusion', '=', False)]}"/>
-                        <field name="date_conclusion_fix" attrs="{'invisible': [('create_date', '=', False)]}"/>
+                        <field name="create_date" readonly="1" attrs="{'invisible': [('id', '=', False)]}"/>
+                        <field name="date_conclusion" readonly="1" attrs="{'invisible': ['|', ('id', '=', False), ('date_conclusion', '=', False)]}"/>
+                        <field name="date_conclusion_fix" attrs="{'invisible': [('id', '=', False)]}"/>
 
                         <!-- Uses to generate number of Annex -->
                         <field name="contract_annex_number" invisible="1"/> 
                     </group>
-                    <group string="Annexed orders" name="annexes" attrs="{'invisible': [('create_date', '=', False)]}">
+                    <group string="Annexed orders" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
                         <field name="contract_annex_ids">
                             <field name="name"/>
                         </field>

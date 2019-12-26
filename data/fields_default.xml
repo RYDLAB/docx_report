@@ -40,6 +40,7 @@ ctx = {
     "seller_ks": False,
 
     "seller_phone": seller.phone,
+    "seller_email": seller.email,
 
     "partner_company_name": partner.name,
     "partner_business_address": partner.full_address,
@@ -59,6 +60,7 @@ ctx = {
     "partner_ks": False,
 
     "partner_phone": partner.phone,
+    "partner_email": partner.email,
 }
 
 if partner_bank:
@@ -271,6 +273,12 @@ action = ctx
             <field name="description"></field>
         </record>
 
+        <record id="contract_field_seller_email" model="res.partner.contract.field">
+            <field name="name">Seller Email</field>
+            <field name="technical_name">seller_email</field>
+            <field name="description"></field>
+        </record>
+
 
         <!-- Partner -->
 
@@ -361,6 +369,12 @@ action = ctx
         <record id="contract_field_partner_phone" model="res.partner.contract.field">
             <field name="name">Partner Phone</field>
             <field name="technical_name">partner_phone</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_email" model="res.partner.contract.field">
+            <field name="name">Partner Email</field>
+            <field name="technical_name">partner_email</field>
             <field name="description"></field>
         </record>
 

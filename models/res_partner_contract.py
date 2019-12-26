@@ -102,6 +102,7 @@ class PrintTemplateContract(models.Model):
     _name = "res.partner.template.print.contract"
     _description = "Print Template Contract"
 
+    name = fields.Char(related="attachment_id.name",)
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,
     )
@@ -112,6 +113,7 @@ class PrintTemplateAnnex(models.Model):
     _name = "res.partner.template.print.annex"
     _description = "Print Template Contract Annex"
 
+    name = fields.Char(related="attachment_id.name",)
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,
     )

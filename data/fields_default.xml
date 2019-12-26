@@ -29,12 +29,16 @@ ctx = {
     "seller_representer_name_initials": seller.representative_id.name_initials_case,
     "seller_representer_function": seller.representative_id.function,
     "seller_representer_function_parent_case": seller.representative_id.function_parent_case,
+
     "seller_inn": seller.inn,
     "seller_kpp": seller.kpp,
     "seller_bic": False,
     "seller_ogrn": seller.psrn,
+
     "seller_bank": False,
-    "seller_bank_account": False,
+    "seller_rs": False,
+    "seller_ks": False,
+
     "seller_phone": seller.phone,
 
     "partner_company_name": partner.name,
@@ -44,12 +48,16 @@ ctx = {
     "partner_representer_name_initials": partner.representative_id.name_initials_case,
     "partner_representer_function": partner.representative_id.function,
     "partner_representer_function_parent_case": partner.representative_id.function_parent_case,
+
     "partner_inn": partner.inn,
     "partner_kpp": partner.kpp,
     "partner_bic": False,
     "partner_ogrn": partner.psrn,
+
     "partner_bank": False,
-    "partner_bank_account": False,
+    "partner_rs": False,
+    "partner_ks": False,
+
     "partner_phone": partner.phone,
 }
 
@@ -57,14 +65,16 @@ if partner_bank:
     ctx.update({
         "partner_bic": partner_bank.bank_id.bic,
         "partner_bank": partner_bank.bank_id.name,
-        "partner_bank_account": partner_bank.acc_number,
+        "partner_rs": partner_bank.acc_number,
+        "partner_ks": partner_bank.bank_id.corr_account,
     })
 
 if seller_bank:
     ctx.update({
         "seller_bic": seller_bank.bank_id.bic,
         "seller_bank": seller_bank.bank_id.name,
-        "seller_bank_account": seller_bank.acc_number,
+        "seller_rs": seller_bank.acc_number,
+        "seller_ks": seller_bank.bank_id.corr_account,
     })
 
 action = ctx
@@ -243,9 +253,15 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_seller_bank_account" model="res.partner.contract.field">
+        <record id="contract_field_seller_rs" model="res.partner.contract.field">
             <field name="name">Seller Bank Account</field>
-            <field name="technical_name">seller_bank_account</field>
+            <field name="technical_name">seller_rs</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_ks" model="res.partner.contract.field">
+            <field name="name">Seller Corresponding Account</field>
+            <field name="technical_name">seller_ks</field>
             <field name="description"></field>
         </record>
 
@@ -330,9 +346,15 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_partner_bank_account" model="res.partner.contract.field">
+        <record id="contract_field_partner_rs" model="res.partner.contract.field">
             <field name="name">Partner Bank Account</field>
-            <field name="technical_name">partner_bank_account</field>
+            <field name="technical_name">partner_rs</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_ks" model="res.partner.contract.field">
+            <field name="name">Partner Corresponding Account</field>
+            <field name="technical_name">partner_ks</field>
             <field name="description"></field>
         </record>
 

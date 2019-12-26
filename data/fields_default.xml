@@ -30,8 +30,8 @@ ctx = {
     "seller_representer_function": seller.representative_id.function,
     "seller_representer_function_parent_case": seller.representative_id.function_parent_case,
 
-    "seller_inn": seller.inn,
-    "seller_kpp": seller.kpp,
+    "seller_inn": seller.vat,
+    "seller_kpp": seller.iec,
     "seller_bic": False,
     "seller_ogrn": seller.psrn,
 
@@ -50,8 +50,8 @@ ctx = {
     "partner_representer_function": partner.representative_id.function,
     "partner_representer_function_parent_case": partner.representative_id.function_parent_case,
 
-    "partner_inn": partner.inn,
-    "partner_kpp": partner.kpp,
+    "partner_inn": partner.vat,
+    "partner_kpp": partner.iec,
     "partner_bic": False,
     "partner_ogrn": partner.psrn,
 

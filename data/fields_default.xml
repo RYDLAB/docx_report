@@ -35,7 +35,7 @@ ctx = {
     "seller_ogrn": seller.psrn,
     "seller_bank": False,
     "seller_bank_account": False,
-    "seller_phone": partner.phone,
+    "seller_phone": seller.phone,
 
     "partner_company_name": partner.name,
     "partner_business_address": partner.full_address,

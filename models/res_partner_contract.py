@@ -98,23 +98,25 @@ class PartnerContract(models.Model):
         }
 
 
-class PrintTemplateContract(models.Model):
-    _name = "res.partner.template.print.contract"
-    _description = "Print Template Contract"
+class PrintTemplate(models.Model):
+    _name = "res.partner.template.print"
+    _description = "Print Template"
 
     name = fields.Char(related="attachment_id.name",)
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,
     )
-    is_default = fields.Boolean(string="Default Template", default=False,)
+    individual = fields.Boolean(string="Individual",)
+    company = fields.Boolean(string="Company",)
+
+
+class PrintTemplateContract(models.Model):
+    _name = "res.partner.template.print.contract"
+    _inherit = "res.partner.template.print"
+    _description = "Print Template Contract"
 
 
 class PrintTemplateAnnex(models.Model):
     _name = "res.partner.template.print.annex"
+    _inherit = "res.partner.template.print"
     _description = "Print Template Contract Annex"
-
-    name = fields.Char(related="attachment_id.name",)
-    attachment_id = fields.Many2one(
-        "ir.attachment", string="Template Attachment", required=True,
-    )
-    is_default = fields.Boolean(string="Default Template", default=False,)

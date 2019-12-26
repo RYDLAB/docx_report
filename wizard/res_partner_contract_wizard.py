@@ -13,20 +13,6 @@ _logger = logging.getLogger(__name__)
 class ContractWizard(models.TransientModel):
     _name = "res.partner.contract.wizard"
 
-    def _get_default_template_contract(self):
-        return (
-            self.env["res.partner.template.print.contract"]
-            .search([("is_default", "=", True)], limit=1)
-            .id
-        )
-
-    def _get_default_template_annex(self):
-        return (
-            self.env["res.partner.template.print.annex"]
-            .search([("is_default", "=", True)], limit=1)
-            .id
-        )
-
     def _get_default_partner(self):
         current_id = self.env.context.get("active_id")
         return self.env["res.partner.contract"].browse(current_id).partner_id.id
@@ -43,13 +29,11 @@ class ContractWizard(models.TransientModel):
     print_template_contract = fields.Many2one(
         "res.partner.template.print.contract",
         string="Print Template of Contract",
-        default=_get_default_template_contract,
         required=True,
     )
     print_template_annex = fields.Many2one(
         "res.partner.template.print.annex",
         string="Print Template of Contract Annex",
-        default=_get_default_template_annex,
         required=True,
     )
 

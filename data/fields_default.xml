@@ -44,7 +44,7 @@ ctx = {
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_parent_case,
     "seller_representer_name_initials": seller.representative_id.name_initials_case,
-    "seller_representer_document_parent": seller.representative_id.representative_document,
+    "seller_representer_document_parent": seller.representative_document,
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
     "seller_ogrn": seller.psrn,
@@ -88,7 +88,7 @@ else:
         "partner_representer_name": partner.representative_id.name,
         "partner_representer_name_parent": partner.representative_id.name_parent_case,
         "partner_representer_name_initials": partner.representative_id.name_initials_case,
-        "partner_representer_document_parent": partner.representative_id.representative_document,
+        "partner_representer_document_parent": partner.representative_document,
     })
 
     if partner.company_form == 'sp':

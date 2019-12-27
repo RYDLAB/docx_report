@@ -22,62 +22,72 @@ ctx = {
     "contract_number": self.name,
     "date_conclusion": self.date_conclusion_fix or self.date_conclusion,
     
-    "seller_company_name": seller.name,
-    "seller_business_address": seller.full_address,
+    "seller_name": seller.name,
+    "seller_company_form": seller.company_form,
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_parent_case,
     "seller_representer_name_initials": seller.representative_id.name_initials_case,
-    "seller_representer_function": seller.representative_id.function,
-    "seller_representer_function_parent_case": seller.representative_id.function_parent_case,
-
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
-    "seller_bic": False,
     "seller_ogrn": seller.psrn,
-
-    "seller_bank": False,
-    "seller_rs": False,
-    "seller_ks": False,
-
+    "seller_business_address": seller.full_address,
     "seller_phone": seller.phone,
     "seller_email": seller.email,
 
-    "partner_company_name": partner.name,
-    "partner_business_address": partner.full_address,
-    "partner_representer_name": partner.representative_id.name,
-    "partner_representer_name_parent": partner.representative_id.name_parent_case,
-    "partner_representer_name_initials": partner.representative_id.name_initials_case,
-    "partner_representer_function": partner.representative_id.function,
-    "partner_representer_function_parent_case": partner.representative_id.function_parent_case,
-
     "partner_inn": partner.vat,
-    "partner_kpp": partner.iec,
-    "partner_bic": False,
-    "partner_ogrn": partner.psrn,
-
-    "partner_bank": False,
-    "partner_rs": False,
-    "partner_ks": False,
-
+    "partner_business_address": partner.full_address,
     "partner_phone": partner.phone,
     "partner_email": partner.email,
 }
 
 if partner_bank:
     ctx.update({
-        "partner_bic": partner_bank.bank_id.bic,
-        "partner_bank": partner_bank.bank_id.name,
         "partner_rs": partner_bank.acc_number,
         "partner_ks": partner_bank.bank_id.corr_account,
+        "partner_bic": partner_bank.bank_id.bic,
     })
-
 if seller_bank:
     ctx.update({
-        "seller_bic": seller_bank.bank_id.bic,
-        "seller_bank": seller_bank.bank_id.name,
         "seller_rs": seller_bank.acc_number,
         "seller_ks": seller_bank.bank_id.corr_account,
+        "seller_bic": seller_bank.bank_id.bic,
     })
+
+
+# Person
+if not partner.is_company:
+    ctx.update({
+        "partner_name": partner.name,
+        "partner_name_initials": partner.name_initials_case, # TODO: remove 'case'
+        "partner_passport_number": partner.passport_number,
+        "partner_passport_date": partner.passport_date,
+        "partner_passport_department": partner.passport_department,
+    })
+else:
+    # Company
+    ctx.update({
+        "partner_name":,
+        "partner_company_form":,
+        "partner_representer_name":,
+        "partner_representer_name_parent":,
+        "partner_representer_name_initials":,
+        "partner_representer_document_parent":,
+    })
+
+    if partner.company_form == 'sp':
+        # Sole Proprietor
+        ctx.update({
+            "partner_ip_number": partner.sp_register_number,
+            "partner_ip_date": partner.sp_register_date,
+            "partner_ogrnip": partner.psrn_sp,
+        })
+    if partner.company_form == 'plc':
+        # Private Limited Company
+        ctx.update({
+            "partner_kpp": partner.iec,
+            "partner_ogrn": partner.psrn,
+        })
+
 
 action = ctx
             </field>
@@ -296,27 +306,15 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_seller_rs" model="res.partner.contract.field">
+        <record id="contract_field_seller_bank_account" model="res.partner.contract.field">
             <field name="name">Seller Bank Account</field>
-            <field name="technical_name">seller_rs</field>
-            <field name="description"></field>
-        </record>
-
-        <record id="contract_field_seller_ks" model="res.partner.contract.field">
-            <field name="name">Seller Corresponding Account</field>
-            <field name="technical_name">seller_ks</field>
+            <field name="technical_name">seller_bank_account</field>
             <field name="description"></field>
         </record>
 
         <record id="contract_field_seller_phone" model="res.partner.contract.field">
             <field name="name">Seller Phone</field>
             <field name="technical_name">seller_phone</field>
-            <field name="description"></field>
-        </record>
-
-        <record id="contract_field_seller_email" model="res.partner.contract.field">
-            <field name="name">Seller Email</field>
-            <field name="technical_name">seller_email</field>
             <field name="description"></field>
         </record>
 
@@ -437,27 +435,15 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_partner_rs" model="res.partner.contract.field">
+        <record id="contract_field_partner_bank_account" model="res.partner.contract.field">
             <field name="name">Partner Bank Account</field>
-            <field name="technical_name">partner_rs</field>
-            <field name="description"></field>
-        </record>
-
-        <record id="contract_field_partner_ks" model="res.partner.contract.field">
-            <field name="name">Partner Corresponding Account</field>
-            <field name="technical_name">partner_ks</field>
+            <field name="technical_name">partner_bank_account</field>
             <field name="description"></field>
         </record>
 
         <record id="contract_field_partner_phone" model="res.partner.contract.field">
             <field name="name">Partner Phone</field>
             <field name="technical_name">partner_phone</field>
-            <field name="description"></field>
-        </record>
-
-        <record id="contract_field_partner_email" model="res.partner.contract.field">
-            <field name="name">Partner Email</field>
-            <field name="technical_name">partner_email</field>
             <field name="description"></field>
         </record>
 

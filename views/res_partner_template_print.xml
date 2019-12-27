@@ -12,6 +12,7 @@
                         <group>
                             <field name="name"/>
                             <field name="attachment_id"/>
+                            <field name="company_type"/>
                         </group>
                     </sheet>
                 </form>
@@ -28,6 +29,7 @@
                         <group>
                             <field name="name"/>
                             <field name="attachment_id"/>
+                            <field name="company_type"/>
                         </group>
                     </sheet>
                 </form>

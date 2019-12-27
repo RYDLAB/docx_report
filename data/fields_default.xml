@@ -77,9 +77,9 @@ if seller_bank:
 if not partner.is_company:
     ctx.update({
         "partner_name_initials": partner.name_initials_case, # TODO: remove 'case'
-        "partner_passport_number": partner.passport_number,
-        "partner_passport_date": partner.passport_date,
-        "partner_passport_department": partner.passport_department,
+        "partner_representer_passport_number": partner.passport_number,
+        "partner_representer_passport_date": partner.passport_date,
+        "partner_representer_passport_department": partner.passport_department,
     })
 else:
     # Company
@@ -97,9 +97,9 @@ else:
             "partner_ip_number": partner.sp_register_number,
             "partner_ip_date": partner.sp_register_date,
             "partner_ogrnip": partner.psrn_sp,
-            "partner_passport_number": partner.representative_id.passport_number,
-            "partner_passport_date": partner.representative_id.passport_date,
-            "partner_passport_department": partner.representative_id.passport_department,
+            "partner_representer_passport_number": partner.representative_id.passport_number,
+            "partner_representer_passport_date": partner.representative_id.passport_date,
+            "partner_representer_passport_department": partner.representative_id.passport_department,
         })
     if partner.company_form == 'plc':
         # Private Limited Company

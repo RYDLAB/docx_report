@@ -1,6 +1,7 @@
 import datetime
 
 from odoo import _, api, fields, models
+from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 
 class PartnerContract(models.Model):
@@ -97,20 +98,14 @@ class PartnerContract(models.Model):
             "context": {"self_id": self.id},
         }
 
-    def get_date_context(self):
-        months = ["",
-                      "января", "февраля", "марта", "апреля",
-                      "мая", "июня", "июля", "августа",
-                      "сентября", "октября", "ноября", "декабря",
-                      ]
-        date = self.date_conclusion_fix or self.date_conclusion_fix or self.create_date
-        return {
-            "dd": date.day,
-            "mm": date.month,
-            "yyyy": date.year,
-            "yy": date.year % 100,
-            "MM": months[date.month],
-        }
+    def get_date(self):
+        date = self.date_conclusion_fix or self.date_conclusion
+        if date:
+            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATE_FORMAT)
+        else:
+            date = self.create_date
+            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
+        return date
 
 
 class PrintTemplate(models.Model):

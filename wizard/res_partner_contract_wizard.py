@@ -29,12 +29,10 @@ class ContractWizard(models.TransientModel):
     print_template_contract = fields.Many2one(
         "res.partner.template.print.contract",
         string="Print Template of Contract",
-        required=True,
     )
     print_template_annex = fields.Many2one(
         "res.partner.template.print.annex",
         string="Print Template of Contract Annex",
-        required=True,
     )
 
     transient_field_ids = fields.One2many(

@@ -182,9 +182,15 @@ action = ctx
 
         <!-- Seller -->
 
-        <record id="contract_field_seller_company_name" model="res.partner.contract.field">
-            <field name="name">Seller Company Name</field>
-            <field name="technical_name">seller_company_name</field>
+        <record id="contract_field_seller_name" model="res.partner.contract.field">
+            <field name="name">Seller Name</field>
+            <field name="technical_name">seller_name</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_company_form" model="res.partner.contract.field">
+            <field name="name">Seller Institutional-Legal Form</field>
+            <field name="technical_name">seller_company_form</field>
             <field name="description"></field>
         </record>
 
@@ -210,6 +216,11 @@ action = ctx
             <field name="name">Seller Representer Initials Name</field>
             <field name="technical_name">seller_representer_name_initials</field>
             <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_representer_document" model="res.partner.contract.field">
+            <field name="name">Seller Representer Document Parent</field>
+            <field name="technical_name">seller_representer_document_parent</field>
             <field name="description"></field>
         </record>
 
@@ -219,9 +230,39 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_seller_representer_function_parent_case" model="res.partner.contract.field">
+        <record id="contract_field_seller_representer_function_parent" model="res.partner.contract.field">
             <field name="name">Seller Representer Function Parent Case</field>
-            <field name="technical_name">seller_representer_function_parent_case</field>
+            <field name="technical_name">seller_representer_function_parent</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_representer_passport_number" model="res.partner.contract.field">
+            <field name="name">Seller Representer Passport Number</field>
+            <field name="technical_name">seller_representer_passport_number</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_representer_passport_date" model="res.partner.contract.field">
+            <field name="name">Seller Representer Passport Date</field>
+            <field name="technical_name">seller_representer_passport_date</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_representer_passport_department" model="res.partner.contract.field">
+            <field name="name">Seller Representer Passport Department</field>
+            <field name="technical_name">seller_representer_passport_department</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_ip_number" model="res.partner.contract.field">
+            <field name="name">Seller IP Number</field>
+            <field name="technical_name">seller_ip_number</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_seller_ip_date" model="res.partner.contract.field">
+            <field name="name">Seller IP Date</field>
+            <field name="technical_name">seller_ip_date</field>
             <field name="description"></field>
         </record>
 
@@ -282,9 +323,15 @@ action = ctx
 
         <!-- Partner -->
 
-        <record id="contract_field_partner_company_name" model="res.partner.contract.field">
-            <field name="name">Partner Company Name</field>
-            <field name="technical_name">partner_company_name</field>
+        <record id="contract_field_partner_name" model="res.partner.contract.field">
+            <field name="name">Partner Name</field>
+            <field name="technical_name">partner_name</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_company_form" model="res.partner.contract.field">
+            <field name="name">Partner Institutional-Legal Form</field>
+            <field name="technical_name">partner_company_form</field>
             <field name="description"></field>
         </record>
 
@@ -312,15 +359,51 @@ action = ctx
             <field name="description"></field>
         </record>
 
+        <record id="contract_field_partner_representer_document" model="res.partner.contract.field">
+            <field name="name">Partner Representer Document Parent</field>
+            <field name="technical_name">partner_representer_document_parent</field>
+            <field name="description"></field>
+        </record>
+
         <record id="contract_field_partner_representer_function" model="res.partner.contract.field">
             <field name="name">Partner Representer Function</field>
             <field name="technical_name">partner_representer_function</field>
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_partner_representer_function_parent_case" model="res.partner.contract.field">
+        <record id="contract_field_partner_representer_function_parent" model="res.partner.contract.field">
             <field name="name">Partner Representer Function Parent Case</field>
-            <field name="technical_name">partner_representer_function_parent_case</field>
+            <field name="technical_name">partner_representer_function_parent</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_representer_passport_number" model="res.partner.contract.field">
+            <field name="name">Partner Representer Passport Number</field>
+            <field name="technical_name">partner_representer_passport_number</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_representer_passport_date" model="res.partner.contract.field">
+            <field name="name">Partner Representer Passport Date</field>
+            <field name="technical_name">partner_representer_passport_date</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_representer_passport_department" model="res.partner.contract.field">
+            <field name="name">Partner Representer Passport Department</field>
+            <field name="technical_name">partner_representer_passport_department</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_ip_number" model="res.partner.contract.field">
+            <field name="name">Partner IP Number</field>
+            <field name="technical_name">partner_ip_number</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_ip_date" model="res.partner.contract.field">
+            <field name="name">Partner IP Date</field>
+            <field name="technical_name">partner_ip_date</field>
             <field name="description"></field>
         </record>
 

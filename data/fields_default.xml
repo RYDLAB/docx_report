@@ -341,21 +341,27 @@ action = ctx
             <field name="description"></field>
         </record>
 
+        <record id="contract_field_seller_psrn_ip" model="res.partner.contract.field">
+            <field name="name">Seller PSRN-IP</field>
+            <field name="technical_name">seller_ogrnip</field>
+            <field name="description"></field>
+        </record>
+
         <record id="contract_field_seller_bank" model="res.partner.contract.field">
             <field name="name">Seller Bank Name</field>
             <field name="technical_name">seller_bank</field>
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_partner_bank_rs" model="res.partner.contract.field">
-            <field name="name">Partner Bank Account Number</field>
-            <field name="technical_name">partner_rs</field>
+        <record id="contract_field_seller_bank_rs" model="res.partner.contract.field">
+            <field name="name">Seller Bank Account Number</field>
+            <field name="technical_name">seller_rs</field>
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_partner_bank_ks" model="res.partner.contract.field">
-            <field name="name">Partner Bank Corresponding Account Number</field>
-            <field name="technical_name">partner_ks</field>
+        <record id="contract_field_seller_bank_ks" model="res.partner.contract.field">
+            <field name="name">Seller Bank Corresponding Account Number</field>
+            <field name="technical_name">seller_ks</field>
             <field name="description"></field>
         </record>
 
@@ -481,6 +487,13 @@ action = ctx
             <field name="technical_name">partner_ogrn</field>
             <field name="description"></field>
         </record>
+
+        <record id="contract_field_partner_psrn_ip" model="res.partner.contract.field">
+            <field name="name">Partner PSRN-IP</field>
+            <field name="technical_name">partner_ogrnip</field>
+            <field name="description"></field>
+        </record>
+
 
         <record id="contract_field_partner_bank" model="res.partner.contract.field">
             <field name="name">Partner Bank Name</field>

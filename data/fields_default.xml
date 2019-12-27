@@ -17,10 +17,27 @@ partner_bank = partner.bank_ids[0] # res.partner.bank
 seller = self.company_id
 seller_bank = seller.bank_ids[0]
 
+months = ["",
+    "января", "февраля", "марта", "апреля",
+    "мая", "июня", "июля", "августа", 
+    "сентября", "октября", "ноября", "декабря",
+]
+date = self.date_conclusion_fix or self.date_conclusion or self.create_date
+dd = date.day
+mm = date.month
+yyyy = date.year
+yy = yyyy % 100
+MM = months[mm]
+
 # ctx keys must be declared in this xml
 ctx = {
     "contract_number": self.name,
-    "date_conclusion": self.date_conclusion_fix or self.date_conclusion,
+
+    "dd": dd,
+    "mm": mm,
+    "MM": MM,
+    "yy": yy,
+    "yyyy": yyyy,
 
     "seller_name": seller.name,
     "seller_company_form": seller.company_form,
@@ -159,9 +176,33 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_contract_conclusion_date" model="res.partner.contract.field">
-            <field name="name">Conclusion Date</field>
-            <field name="technical_name">date_conclusion</field>
+        <record id="contract_field_contract_date_dd" model="res.partner.contract.field">
+            <field name="name">Day</field>
+            <field name="technical_name">dd</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_contract_date_mm" model="res.partner.contract.field">
+            <field name="name">Month</field>
+            <field name="technical_name">mm</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_contract_date_mm_word" model="res.partner.contract.field">
+            <field name="name">Month Word</field>
+            <field name="technical_name">MM</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_contract_date_yy" model="res.partner.contract.field">
+            <field name="name">Year Short</field>
+            <field name="technical_name">yy</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_contract_date_yyyy" model="res.partner.contract.field">
+            <field name="name">Year Full</field>
+            <field name="technical_name">yyyy</field>
             <field name="description"></field>
         </record>
 
@@ -318,6 +359,12 @@ action = ctx
             <field name="description"></field>
         </record>
 
+        <record id="contract_field_seller_email" model="res.partner.contract.field">
+            <field name="name">Seller Email</field>
+            <field name="technical_name">seller_email</field>
+            <field name="description"></field>
+        </record>
+
 
         <!-- Partner -->
 
@@ -444,6 +491,12 @@ action = ctx
         <record id="contract_field_partner_phone" model="res.partner.contract.field">
             <field name="name">Partner Phone</field>
             <field name="technical_name">partner_phone</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_email" model="res.partner.contract.field">
+            <field name="name">Partner Email</field>
+            <field name="technical_name">partner_email</field>
             <field name="description"></field>
         </record>
 

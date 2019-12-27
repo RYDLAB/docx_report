@@ -97,8 +97,20 @@ class PartnerContract(models.Model):
             "context": {"self_id": self.id},
         }
 
-    def get_date(self):
-        return self.date_conclusion_fix or self.date_conclusion_fix or self.create_date
+    def get_date_context(self):
+        months = ["",
+                      "января", "февраля", "марта", "апреля",
+                      "мая", "июня", "июля", "августа",
+                      "сентября", "октября", "ноября", "декабря",
+                      ]
+        date = self.date_conclusion_fix or self.date_conclusion_fix or self.create_date
+        return {
+            "dd": date.day,
+            "mm": date.month,
+            "yyyy": date.year,
+            "yy": date.year % 100,
+            "MM": months[date.month],
+        }
 
 
 class PrintTemplate(models.Model):

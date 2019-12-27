@@ -22,22 +22,17 @@ months = ["",
     "мая", "июня", "июля", "августа", 
     "сентября", "октября", "ноября", "декабря",
 ]
-#date = self.get_date()
-#dd = date.day
-#mm = date.month
-#yyyy = date.year
-#yy = yyyy % 100
-#MM = months[mm]
+date = self.get_date_context()
 
 # ctx keys must be declared in this xml
 ctx = {
     "contract_number": self.name,
 
-#    "dd": dd,
-#    "mm": mm,
-#    "MM": MM,
-#    "yy": yy,
-#    "yyyy": yyyy,
+    "dd": date.get('dd'),
+    "mm": date.get('mm'),
+    "MM": date.get('MM'),
+    "yy": date.get('yy'),
+    "yyyy": date.get('yyyy'),
 
     "seller_name": seller.name,
     "seller_company_form": seller.company_form,

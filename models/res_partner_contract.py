@@ -106,8 +106,13 @@ class PrintTemplate(models.Model):
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,
     )
-    individual = fields.Boolean(string="Individual",)
-    company = fields.Boolean(string="Company",)
+    company_type = fields.Selection(
+        selection=[
+            ('person', 'Individual'),
+            ('sp', 'Sole Proprietor'),
+            ('plc', 'Private Limited Company'),
+        ]
+    )
 
 
 class PrintTemplateContract(models.Model):

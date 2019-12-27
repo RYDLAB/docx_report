@@ -22,7 +22,7 @@ months = ["",
     "мая", "июня", "июля", "августа", 
     "сентября", "октября", "ноября", "декабря",
 ]
-date = self.date_conclusion_fix or self.date_conclusion or self.create_date
+date = self.get_date()
 dd = date.day
 mm = date.month
 yyyy = date.year

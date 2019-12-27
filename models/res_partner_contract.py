@@ -97,6 +97,9 @@ class PartnerContract(models.Model):
             "context": {"self_id": self.id},
         }
 
+    def get_date(self):
+        return self.date_conclusion_fix or self.date_conclusion_fix or self.create_date
+
 
 class PrintTemplate(models.Model):
     _name = "res.partner.template.print"

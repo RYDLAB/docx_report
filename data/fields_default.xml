@@ -347,9 +347,15 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_seller_bank_account" model="res.partner.contract.field">
-            <field name="name">Seller Bank Account</field>
-            <field name="technical_name">seller_bank_account</field>
+        <record id="contract_field_partner_bank_rs" model="res.partner.contract.field">
+            <field name="name">Partner Bank Account Number</field>
+            <field name="technical_name">partner_rs</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_bank_ks" model="res.partner.contract.field">
+            <field name="name">Partner Bank Corresponding Account Number</field>
+            <field name="technical_name">partner_ks</field>
             <field name="description"></field>
         </record>
 
@@ -482,9 +488,15 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_partner_bank_account" model="res.partner.contract.field">
-            <field name="name">Partner Bank Account</field>
-            <field name="technical_name">partner_bank_account</field>
+        <record id="contract_field_partner_bank_rs" model="res.partner.contract.field">
+            <field name="name">Partner Bank Account Number</field>
+            <field name="technical_name">partner_rs</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_partner_bank_ks" model="res.partner.contract.field">
+            <field name="name">Partner Bank Corresponding Account Number</field>
+            <field name="technical_name">partner_ks</field>
             <field name="description"></field>
         </record>
 

@@ -21,12 +21,13 @@ seller_bank = seller.bank_ids[0]
 ctx = {
     "contract_number": self.name,
     "date_conclusion": self.date_conclusion_fix or self.date_conclusion,
-    
+
     "seller_name": seller.name,
     "seller_company_form": seller.company_form,
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_parent_case,
     "seller_representer_name_initials": seller.representative_id.name_initials_case,
+    "seller_representer_document_parent": seller.representative_id.representative_document,
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
     "seller_ogrn": seller.psrn,
@@ -34,6 +35,7 @@ ctx = {
     "seller_phone": seller.phone,
     "seller_email": seller.email,
 
+    "partner_name": partner.name,
     "partner_inn": partner.vat,
     "partner_business_address": partner.full_address,
     "partner_phone": partner.phone,
@@ -57,7 +59,6 @@ if seller_bank:
 # Person
 if not partner.is_company:
     ctx.update({
-        "partner_name": partner.name,
         "partner_name_initials": partner.name_initials_case, # TODO: remove 'case'
         "partner_passport_number": partner.passport_number,
         "partner_passport_date": partner.passport_date,
@@ -66,12 +67,11 @@ if not partner.is_company:
 else:
     # Company
     ctx.update({
-        "partner_name":,
-        "partner_company_form":,
-        "partner_representer_name":,
-        "partner_representer_name_parent":,
-        "partner_representer_name_initials":,
-        "partner_representer_document_parent":,
+        "partner_company_form": partner.company_form,
+        "partner_representer_name": partner.representative_id.name,
+        "partner_representer_name_parent": partner.representative_id.name_parent_case,
+        "partner_representer_name_initials": partner.representative_id.name_initials_case,
+        "partner_representer_document_parent": partner.representative_id.representative_document,
     })
 
     if partner.company_form == 'sp':
@@ -137,7 +137,7 @@ if order:
     payment_term = order.payment_term_id.name
     payment_term = payment_term and payment_term.lower()
     delivery_time = order.delivery_time
-    
+
     ctx.update({
         "amount_whole": whole,
         "amount_fractional": fractional,

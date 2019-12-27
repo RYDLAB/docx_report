@@ -97,6 +97,9 @@ else:
             "partner_ip_number": partner.sp_register_number,
             "partner_ip_date": partner.sp_register_date,
             "partner_ogrnip": partner.psrn_sp,
+            "partner_passport_number": partner.representative_id.passport_number,
+            "partner_passport_date": partner.representative_id.passport_date,
+            "partner_passport_department": partner.representative_id.passport_department,
         })
     if partner.company_form == 'plc':
         # Private Limited Company

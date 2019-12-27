@@ -104,6 +104,15 @@ class ContractWizard(models.TransientModel):
             for field, value in sorted(contract_context_values.items())
         ]
 
+        # Set up template domain
+        company_type = self.partner_id.company_form if self.partner_id.is_company else 'person'
+        return {
+            'domain': {
+                'print_template_contract': [('company_type', '=', company_type)],
+                'print_template_annex': [('company_type', '=', company_type)]
+            }
+        }
+
     @api.multi
     def get_docx_contract(self):
         template = self._get_template()

@@ -20,6 +20,9 @@ class ResPartner(models.Model):
     representative_id = fields.Many2one(
         "res.partner", string="Representative", help="Person, who represents company"
     )
+    representative_document = fields.Char(
+        string="Representative acts on the basis of", help="Parent Case",
+    )
     signature = fields.Binary(string="Client signature")
 
     @api.depends("street", "street2", "city", "state_id", "zip", "country_id")

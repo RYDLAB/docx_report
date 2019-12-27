@@ -43,6 +43,8 @@
 
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="representative_id" domain="[('company_type', '=', 'person')]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
+                <field name="representative_document" domain="[('company_type', '=', 'person')]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
+
                 <field name="signature" widget="image"/>
             </xpath>
 

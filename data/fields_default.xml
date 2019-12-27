@@ -40,7 +40,7 @@ ctx = {
     "yyyy": yyyy,
 
     "seller_name": seller.name,
-    "seller_company_form": seller.company_form,
+    "seller_company_form": dict(seller._fields['company_form'].selection).get(seller.company_form),
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_parent_case,
     "seller_representer_name_initials": seller.representative_id.name_initials_case,
@@ -84,7 +84,7 @@ if not partner.is_company:
 else:
     # Company
     ctx.update({
-        "partner_company_form": partner.company_form,
+        "partner_company_form": dict(partner._fields['company_form'].selection).get(partner.company_form),
         "partner_representer_name": partner.representative_id.name,
         "partner_representer_name_parent": partner.representative_id.name_parent_case,
         "partner_representer_name_initials": partner.representative_id.name_initials_case,

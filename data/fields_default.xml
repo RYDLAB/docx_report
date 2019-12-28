@@ -524,7 +524,7 @@ action = ctx
         </record>
 
         <record id="contract_field_partner_representer_name_parent" model="res.partner.contract.field">
-            <field name="name">Parent Name</field>
+            <field name="name">Name Genitive</field>
             <field name="technical_name">partner_representer_name_parent</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">288</field>
@@ -545,14 +545,14 @@ action = ctx
         </record>
 
         <record id="contract_field_partner_representer_function_parent" model="res.partner.contract.field">
-            <field name="name">Function Parent Case</field>
+            <field name="name">Function Genitive</field>
             <field name="technical_name">partner_representer_function_parent</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">312</field>
         </record>
 
         <record id="contract_field_partner_representer_document_parent" model="res.partner.contract.field">
-            <field name="name">Document Parent</field>
+            <field name="name">Document Genitive</field>
             <field name="technical_name">partner_representer_document_parent</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">320</field>

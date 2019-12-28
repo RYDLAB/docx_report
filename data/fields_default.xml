@@ -622,14 +622,14 @@ action = ctx
         </record>
 
         <record id="contract_field_partner_rs" model="res.partner.contract.field">
-            <field name="name">Bank Account Number</field>
+            <field name="name">Bank Payment Account</field>
             <field name="technical_name">partner_rs</field>
             <field name="description">Partner</field>
             <field name="sequence">400</field>
         </record>
 
         <record id="contract_field_partner_ks" model="res.partner.contract.field">
-            <field name="name">Bank Corresponding Account Number</field>
+            <field name="name">Bank Corresponding Account</field>
             <field name="technical_name">partner_ks</field>
             <field name="description">Partner</field>
             <field name="sequence">408</field>

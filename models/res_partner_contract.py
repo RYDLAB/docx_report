@@ -99,6 +99,11 @@ class PartnerContract(models.Model):
         }
 
     def get_date(self):
+        """Uses in xml action (data/fields_default)
+
+        Returns:
+            datetime.datetime -- date_conclusion_fix or date_conclusion or create_date
+        """
         date = self.date_conclusion_fix or self.date_conclusion
         if date:
             date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATE_FORMAT)
@@ -106,6 +111,14 @@ class PartnerContract(models.Model):
             date = self.create_date
             date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
         return date
+
+    def _(self, arg):
+        """Uses in xml action (data/fields_default)
+
+        Arguments:
+            arg {str} -- String to translate
+        """
+        return _(arg)
 
 
 class PrintTemplate(models.Model):

@@ -124,47 +124,108 @@ action = ctx
 
 # Aliases
 self = record
-order = self.order_id
+
 seller = self.contract_id.company_id
 partner = self.contract_id.partner_id
 
+seller_bank = seller.bank_ids[0]
+partner_bank = partner.bank_ids[0]
+
 # Functions
-modf = self.modf
+_ = self.contract_id._
+get_date = self.contract_id.get_date
+
+# Parse date
+months = ["",
+    "января", "февраля", "марта", "апреля",
+    "мая", "июня", "июля", "августа", 
+    "сентября", "октября", "ноября", "декабря",
+]
+date = get_date()
+dd = date.day
+mm = date.month
+yyyy = date.year
+yy = yyyy % 100
+MM = months[mm]
 
 # ctx keys must be decalared in this xml
 ctx = {
     "contract_number": self.contract_id.name,
 
-    "amount_whole": 0,
-    "amount_fractional": 0,
+    "dd": dd,
+    "mm": mm,
+    "MM": MM,
+    "yy": yy,
+    "yyyy": yyyy,
 
-    "payment_term": False,
-    "delivery_time": False,
-
-    "seller_company_name": seller.name,
+    "seller_name": seller.name,
+    "seller_company_form": _(dict(seller._fields['company_form'].selection).get(seller.company_form)),
     "seller_representer_name": seller.representative_id.name,
-    "seller_representer_function": seller.representative_id.function,
+    "seller_representer_name_parent": seller.representative_id.name_parent_case,
+    "seller_representer_name_initials": seller.representative_id.name_initials_case,
 
-    "partner_company_name": partner.name,
+    "seller_inn": seller.vat,
+    "seller_kpp": seller.iec,
+    "seller_ogrn": seller.psrn,
+    "seller_business_address": seller.full_address,
+    "seller_phone": seller.phone,
+    "seller_email": seller.email,
+
+    "partner_name": partner.name,
     "partner_representer_name": partner.representative_id.name,
-    "partner_representer_function": partner.representative_id.function,
+    "partner_representer_name_initials": partner.representative_id.name_initials_case, # TODO: remove 'case'
+    "partner_inn": partner.vat,
+    "partner_business_address": partner.full_address,
+    "partner_phone": partner.phone,
+    "partner_email": partner.email,
 }
 
-if order:
-    amount = modf(order.amount_total)
-    fractional, whole = amount
-
-    payment_term = order.payment_term_id.name
-    payment_term = payment_term and payment_term.lower()
-    delivery_time = order.delivery_time
-
+if partner_bank:
     ctx.update({
-        "amount_whole": whole,
-        "amount_fractional": fractional,
-
-        "payment_term": payment_term,
-        "delivery_time": delivery_time,
+        "partner_rs": partner_bank.acc_number,
+        "partner_ks": partner_bank.bank_id.corr_account,
+        "partner_bic": partner_bank.bank_id.bic,
     })
+if seller_bank:
+    ctx.update({
+        "seller_rs": seller_bank.acc_number,
+        "seller_ks": seller_bank.bank_id.corr_account,
+        "seller_bic": seller_bank.bank_id.bic,
+    })
+
+
+# Person
+if not partner.is_company:
+    ctx.update({
+        "partner_representer_name_initials": partner.name_initials_case, # TODO: remove 'case'
+        "partner_representer_passport_number": partner.passport_number,
+        "partner_representer_passport_date": partner.passport_date,
+        "partner_representer_passport_department": partner.passport_department,
+    })
+else:
+    # Company
+    ctx.update({
+        "partner_company_form": _(dict(partner._fields['company_form'].selection).get(partner.company_form)),
+        "partner_representer_name_parent": partner.representative_id.name_parent_case,
+        "partner_representer_document_parent": partner.representative_document,
+    })
+
+    if partner.company_form == 'sp':
+        # Sole Proprietor
+        ctx.update({
+            "partner_ip_number": partner.sp_register_number,
+            "partner_ip_date": partner.sp_register_date,
+            "partner_ogrnip": partner.psrn_sp,
+            "partner_representer_passport_number": partner.representative_id.passport_number,
+            "partner_representer_passport_date": partner.representative_id.passport_date,
+            "partner_representer_passport_department": partner.representative_id.passport_department,
+        })
+    if partner.company_form == 'plc':
+        # Private Limited Company
+        ctx.update({
+            "partner_kpp": partner.iec,
+            "partner_ogrn": partner.psrn,
+        })
 
 action = ctx
             </field>

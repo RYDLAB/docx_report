@@ -332,7 +332,7 @@ action = ctx
         </record>
 
         <record id="contract_field_seller_ip_date" model="res.partner.contract.field">
-            <field name="name">IP Date</field>
+            <field name="name">IP Issued on</field>
             <field name="technical_name">seller_ip_date</field>
             <field name="description">Seller IP Certificate</field>
             <field name="sequence">72</field>
@@ -510,7 +510,7 @@ action = ctx
         </record>
 
         <record id="contract_field_partner_ip_date" model="res.partner.contract.field">
-            <field name="name">IP Date</field>
+            <field name="name">IP Issued on</field>
             <field name="technical_name">partner_ip_date</field>
             <field name="description">Partner IP Certificate</field>
             <field name="sequence">272</field>
@@ -531,7 +531,7 @@ action = ctx
         </record>
 
         <record id="contract_field_partner_representer_name_initials" model="res.partner.contract.field">
-            <field name="name">Initials Name</field>
+            <field name="name">Name Initials</field>
             <field name="technical_name">partner_representer_name_initials</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">296</field>
@@ -559,21 +559,21 @@ action = ctx
         </record>
 
         <record id="contract_field_partner_representer_passport_number" model="res.partner.contract.field">
-            <field name="name">Passport Number</field>
+            <field name="name">Passport №</field>
             <field name="technical_name">partner_representer_passport_number</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">328</field>
         </record>
 
         <record id="contract_field_partner_representer_passport_date" model="res.partner.contract.field">
-            <field name="name">Passport Date</field>
+            <field name="name">Passport Issued on</field>
             <field name="technical_name">partner_representer_passport_date</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">336</field>
         </record>
 
         <record id="contract_field_partner_representer_passport_department" model="res.partner.contract.field">
-            <field name="name">Passport Department</field>
+            <field name="name">Passport Issued by</field>
             <field name="technical_name">partner_representer_passport_department</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">344</field>

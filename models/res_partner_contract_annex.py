@@ -2,6 +2,8 @@ import math
 
 from odoo import _, api, fields, models
 
+from ..utils import MODULE_NAME
+
 
 class ContractOrderAnnex(models.Model):
     _name = "res.partner.contract.annex"
@@ -56,7 +58,7 @@ class ContractOrderAnnex(models.Model):
 
     @api.multi
     def action_print_form(self):
-        view = self.env.ref("client_contracts.res_partner_wizard_print_annex_view")
+        view = self.env.ref("{}.res_partner_wizard_print_annex_view".format(MODULE_NAME))
         return {
             "name": _("Print Form of Contract Annex"),
             "type": "ir.actions.act_window",

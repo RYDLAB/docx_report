@@ -76,8 +76,8 @@ class ContractWizard(models.TransientModel):
         self.partner_id = partner_id
 
         model_to_action = {
-            "res.partner.contract": "client_contracts.action_get_contract_context",
-            "res.partner.contract.annex": "client_contracts.action_get_annex_context",
+            "res.partner.contract": "{}.action_get_contract_context".format(MODULE_NAME),
+            "res.partner.contract.annex": "{}.action_get_annex_context".format(MODULE_NAME),
         }
         action = model_to_action[active_model]
 

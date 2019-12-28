@@ -1,5 +1,7 @@
 from odoo import api, fields, models
 
+from ..utils import MODULE_NAME
+
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -18,9 +20,9 @@ class SaleOrder(models.Model):
     def _get_payment_terms(self):
         ref = self.env.ref
         terms = (
-            ref("client_contracts.payment_term_prepaid").id,
-            ref("client_contracts.payment_term_postpayment").id,
-            ref("client_contracts.payment_term_partial_2").id,
-            ref("client_contracts.payment_term_partial_3").id,
+            ref("{}.payment_term_prepaid".format(MODULE_NAME)).id,
+            ref("{}.payment_term_postpayment".format(MODULE_NAME)).id,
+            ref("{}.payment_term_partial_2".format(MODULE_NAME)).id,
+            ref("{}.payment_term_partial_3".format(MODULE_NAME)).id,
         )
         return terms

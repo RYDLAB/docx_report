@@ -3,6 +3,8 @@ import datetime
 from odoo import _, api, fields, models
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
+from ..utils import MODULE_NAME
+
 
 class PartnerContract(models.Model):
     _name = "res.partner.contract"
@@ -88,7 +90,7 @@ class PartnerContract(models.Model):
 
     @api.multi
     def action_print_form(self):
-        view = self.env.ref("client_contracts.res_partner_wizard_print_contract_view")
+        view = self.env.ref("{}.res_partner_wizard_print_contract_view".format(MODULE_NAME))
         return {
             "name": _("Print Form of Contract"),
             "type": "ir.actions.act_window",

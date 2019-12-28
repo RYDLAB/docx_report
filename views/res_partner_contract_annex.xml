@@ -15,8 +15,8 @@
                             <field name="contract_id" attrs="{'invisible': [('contract_id', '=', False)]}"/>
                             <field name="order_id"/>
                             <field name="date_conclusion"/>
-                            <field name="payment_term"/>
-                            <field name="delivery_time"/>
+                            <field name="payment_term" invisible="1"/>
+                            <field name="delivery_time" invisible="1"/>
                         </group>
                         <group>
                             <button name="action_print_form" type="object" string="Print" attrs="{'invisible': [('contract_id', '=', False)]}"/>

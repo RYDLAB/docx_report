@@ -27,12 +27,10 @@ class ContractWizard(models.TransientModel):
     company_id = fields.Many2one("res.partner", string="Company")
     partner_id = fields.Many2one("res.partner", string="Partner")
     print_template_contract = fields.Many2one(
-        "res.partner.template.print.contract",
-        string="Print Template of Contract",
+        "res.partner.template.print.contract", string="Print Template of Contract",
     )
     print_template_annex = fields.Many2one(
-        "res.partner.template.print.annex",
-        string="Print Template of Contract Annex",
+        "res.partner.template.print.annex", string="Print Template of Contract Annex",
     )
 
     transient_field_ids = fields.One2many(
@@ -103,11 +101,13 @@ class ContractWizard(models.TransientModel):
         ]
 
         # Set up template domain
-        company_type = self.partner_id.company_form if self.partner_id.is_company else 'person'
+        company_type = (
+            self.partner_id.company_form if self.partner_id.is_company else "person"
+        )
         return {
-            'domain': {
-                'print_template_contract': [('company_type', '=', company_type)],
-                'print_template_annex': [('company_type', '=', company_type)]
+            "domain": {
+                "print_template_contract": [("company_type", "=", company_type)],
+                "print_template_annex": [("company_type", "=", company_type)],
             }
         }
 

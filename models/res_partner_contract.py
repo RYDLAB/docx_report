@@ -118,9 +118,9 @@ class PrintTemplate(models.Model):
     )
     company_type = fields.Selection(
         selection=[
-            ('person', 'Individual'),
-            ('sp', 'Sole Proprietor'),
-            ('plc', 'Private Limited Company'),
+            ("person", "Individual"),
+            ("sp", "Sole Proprietor"),
+            ("plc", "Private Limited Company"),
         ]
     )
 

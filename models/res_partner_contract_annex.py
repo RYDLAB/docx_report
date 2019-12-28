@@ -15,7 +15,7 @@ class ContractOrderAnnex(models.Model):
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
-    prepaid_expence = fields.Float(string="Prepaid Expence", default=0)
+    prepaid_expense = fields.Float(string="Prepaid Expense", default=0)
     delivery_time = fields.Integer(related="order_id.delivery_time", readonly=True,)
     payment_term = fields.Many2one(
         "account.payment.term", related="order_id.payment_term_id", readonly=True,

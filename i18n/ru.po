@@ -601,8 +601,8 @@ msgid "Person, who represents company"
 msgstr "Представитель компании"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_prepaid_expence
-msgid "Prepaid Expence"
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_prepaid_expense
+msgid "Prepaid Expense"
 msgstr "Аванс"
 
 #. module: client_contracts

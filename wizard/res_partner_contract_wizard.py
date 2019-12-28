@@ -5,6 +5,7 @@ import logging
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
 
 _logger = logging.getLogger(__name__)
@@ -97,7 +98,7 @@ class ContractWizard(models.TransientModel):
                 .id,
                 0,
             )
-            for field, value in sorted(contract_context_values.items())
+            for field, value in sorted(contract_context_values.items(), key=lambda tpl: self.env.ref("{}.contract_field_{}".format(MODULE_NAME, tpl[0])).sequence)
         ]
 
         # Set up template domain

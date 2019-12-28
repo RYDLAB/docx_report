@@ -35,6 +35,7 @@ class PartnerContract(models.Model):
         return datetime.datetime.now().timestamp()
 
     name = fields.Char(string="Contract number", default=_get_default_name,)
+    create_date = fields.Datetime(string=_("Created on"))
     create_date_ts = fields.Char(default=_get_default_create_date_ts)
     date_conclusion = fields.Date(string="Date of system conclusion",)
     date_conclusion_fix = fields.Date(

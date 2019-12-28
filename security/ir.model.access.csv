@@ -1,8 +1,8 @@
-id                                    ,name                                  ,model_id/id                                ,group_id/id     ,perm_read ,perm_write ,perm_create ,perm_unlink
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 
-access_contracts_contracts            ,access_contracts_contracts            ,model_res_partner_contract                 ,base.group_user ,1         ,1          ,1           ,1
-access_contracts_field                ,access_contracts_field                ,model_res_partner_contract_field           ,base.group_user ,1         ,0          ,0           ,0
-access_contracts_field_transient      ,access_contracts_field_transient      ,model_res_partner_contract_field_transient ,base.group_user ,1         ,1          ,1           ,1
-access_contracts_field_contract_annex ,access_contracts_field_contract_annex ,model_res_partner_contract_annex           ,base.group_user ,1         ,1          ,1           ,1
-access_contract_document_template     ,access_contract_document_template     ,model_res_partner_template_print_contract  ,base.group_user ,1         ,0          ,0           ,0
-access_contract_annex_template        ,access_contract_annex_template        ,model_res_partner_template_print_annex     ,base.group_user ,1         ,0          ,0           ,0
+access_contracts_contracts,access_contracts_contracts,model_res_partner_contract,base.group_user,1,1,1,1
+access_contracts_field,access_contracts_field,model_res_partner_contract_field,base.group_user,1,0,0,0
+access_contracts_field_transient,access_contracts_field_transient,model_res_partner_contract_field_transient,base.group_user,1,1,1,1
+access_contracts_field_contract_annex,access_contracts_field_contract_annex,model_res_partner_contract_annex,base.group_user,1,1,1,1
+access_contract_document_template,access_contract_document_template,model_res_partner_template_print_contract,base.group_user,1,0,0,0
+access_contract_annex_template,access_contract_annex_template,model_res_partner_template_print_annex,base.group_user,1,0,0,0

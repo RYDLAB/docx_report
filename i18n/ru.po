@@ -247,12 +247,12 @@ msgstr "Создан"
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_date_conclusion_fix
 msgid "Date of manual conclusion"
-msgstr "Date of manual conclusion"
+msgstr "Дата подписания"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_date_conclusion
 msgid "Date of system conclusion"
-msgstr "Date of system conclusion"
+msgstr "Дата подписания в системе"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_contract_date_dd

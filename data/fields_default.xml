@@ -14,10 +14,10 @@
 self = record
 
 partner = self.partner_id # res.partner
-partner_bank = partner.bank_ids[0] # res.partner.bank
+partner_bank = partner.bank_ids and partner.bank_ids[0] # res.partner.bank
 
 seller = self.company_id
-seller_bank = seller.bank_ids[0]
+seller_bank = seller.bank_ids and seller.bank_ids[0]
 
 # Functions
 _ = self._
@@ -135,8 +135,8 @@ self = record
 seller = self.contract_id.company_id
 partner = self.contract_id.partner_id
 
-seller_bank = seller.bank_ids[0]
-partner_bank = partner.bank_ids[0]
+seller_bank = seller.bank_ids and seller.bank_ids[0]
+partner_bank = partner.bank_ids and partner.bank_ids[0]
 
 # Functions
 _ = self.contract_id._

@@ -37,8 +37,8 @@
 
             <xpath expr="//field[@name='type']" position="before">
                 <field name="name" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                <field name="name_parent_case" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                <field name="name_initials_case" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="name_genitive" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="name_initials" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
             </xpath>
 
             <xpath expr="//field[@name='category_id']" position="after">
@@ -49,7 +49,7 @@
             </xpath>
 
             <xpath expr="//field[@name='function']" position="after">
-                <field name="function_parent_case" attrs="{'invisible': [('is_company','=', True)]}"/>
+                <field name="function_genitive" attrs="{'invisible': [('is_company','=', True)]}"/>
             </xpath>
 
         </field>

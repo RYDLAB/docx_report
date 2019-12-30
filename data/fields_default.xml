@@ -12,60 +12,108 @@
 
 # Aliases
 self = record
-partner = self.partner_id # res.partner
-partner_bank = partner.bank_ids[0] # res.partner.bank
-seller = self.company_id
-seller_bank = seller.bank_ids[0]
 
-# ctx keys must be declared in this xml
+partner = self.partner_id # res.partner
+partner_bank = partner.bank_ids and partner.bank_ids[0] # res.partner.bank
+
+seller = self.company_id
+seller_bank = seller.bank_ids and seller.bank_ids[0]
+
+# Functions
+get_date = self.get_date
+
+# Parse date
+months = ["",
+    "января", "февраля", "марта", "апреля",
+    "мая", "июня", "июля", "августа", 
+    "сентября", "октября", "ноября", "декабря",
+]
+date = get_date()
+dd = date.day
+mm = date.month
+yyyy = date.year
+yy = yyyy % 100
+MM = months[mm]
+
+# ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
     "contract_number": self.name,
-    "date_conclusion": self.date_conclusion_fix or self.date_conclusion,
-    
-    "seller_company_name": seller.name,
-    "seller_business_address": seller.full_address,
-    "seller_representer_name": seller.representative_id.name,
-    "seller_representer_name_parent": seller.representative_id.name_parent_case,
-    "seller_representer_name_initials": seller.representative_id.name_initials_case,
-    "seller_representer_function": seller.representative_id.function,
-    "seller_representer_function_parent_case": seller.representative_id.function_parent_case,
-    "seller_inn": seller.inn,
-    "seller_kpp": seller.kpp,
-    "seller_bic": False,
-    "seller_ogrn": seller.psrn,
-    "seller_bank": False,
-    "seller_bank_account": False,
-    "seller_phone": partner.phone,
 
-    "partner_company_name": partner.name,
+    "dd": dd,
+    "mm": mm,
+    "MM": MM,
+    "yy": yy,
+    "yyyy": yyyy,
+
+    "seller_name": seller.name,
+    "seller_company_form": _(dict(seller._fields['company_form'].selection).get(seller.company_form)),
+    "seller_representer_name": seller.representative_id.name,
+    "seller_representer_name_parent": seller.representative_id.name_genitive,
+    "seller_representer_name_initials": seller.representative_id.name_initials,
+    "seller_representer_document_parent": seller.representative_document,
+    "seller_inn": seller.vat,
+    "seller_kpp": seller.iec,
+    "seller_ogrn": seller.psrn,
+    "seller_business_address": seller.full_address,
+    "seller_phone": seller.phone,
+    "seller_email": seller.email,
+
+    "partner_name": partner.name,
+    "partner_inn": partner.vat,
     "partner_business_address": partner.full_address,
-    "partner_representer_name": partner.representative_id.name,
-    "partner_representer_name_parent": partner.representative_id.name_parent_case,
-    "partner_representer_name_initials": partner.representative_id.name_initials_case,
-    "partner_representer_function": partner.representative_id.function,
-    "partner_representer_function_parent_case": partner.representative_id.function_parent_case,
-    "partner_inn": partner.inn,
-    "partner_kpp": partner.kpp,
-    "partner_bic": False,
-    "partner_ogrn": partner.psrn,
-    "partner_bank": False,
-    "partner_bank_account": False,
     "partner_phone": partner.phone,
+    "partner_email": partner.email,
 }
 
 if partner_bank:
     ctx.update({
+        "partner_rs": partner_bank.acc_number,
+        "partner_ks": partner_bank.bank_id.corr_account,
         "partner_bic": partner_bank.bank_id.bic,
-        "partner_bank": partner_bank.bank_id.name,
-        "partner_bank_account": partner_bank.acc_number,
     })
-
 if seller_bank:
     ctx.update({
+        "seller_rs": seller_bank.acc_number,
+        "seller_ks": seller_bank.bank_id.corr_account,
         "seller_bic": seller_bank.bank_id.bic,
-        "seller_bank": seller_bank.bank_id.name,
-        "seller_bank_account": seller_bank.acc_number,
     })
+
+
+# Person
+if not partner.is_company:
+    ctx.update({
+        "partner_representer_name_initials": partner.name_initials,
+        "partner_representer_passport_number": partner.passport_number,
+        "partner_representer_passport_date": partner.passport_date,
+        "partner_representer_passport_department": partner.passport_department,
+    })
+else:
+    # Company
+    ctx.update({
+        "partner_company_form": _(dict(partner._fields['company_form'].selection).get(partner.company_form)),
+        "partner_representer_name": partner.representative_id.name,
+        "partner_representer_name_parent": partner.representative_id.name_genitive,
+        "partner_representer_name_initials": partner.representative_id.name_initials,
+        "partner_representer_document_parent": partner.representative_document,
+    })
+
+    if partner.company_form == 'sp':
+        # Sole Proprietor
+        ctx.update({
+            "partner_ip_number": partner.sp_register_number,
+            "partner_ip_date": partner.sp_register_date,
+            "partner_ogrnip": partner.psrn_sp,
+            "partner_representer_passport_number": partner.representative_id.passport_number,
+            "partner_representer_passport_date": partner.representative_id.passport_date,
+            "partner_representer_passport_department": partner.representative_id.passport_department,
+        })
+    if partner.company_form == 'plc':
+        # Private Limited Company
+        ctx.update({
+            "partner_kpp": partner.iec,
+            "partner_ogrn": partner.psrn,
+        })
+
 
 action = ctx
             </field>
@@ -82,47 +130,107 @@ action = ctx
 
 # Aliases
 self = record
-order = self.order_id
+
 seller = self.contract_id.company_id
 partner = self.contract_id.partner_id
 
-# Functions
-modf = self.modf
+seller_bank = seller.bank_ids and seller.bank_ids[0]
+partner_bank = partner.bank_ids and partner.bank_ids[0]
 
-# ctx keys must be decalared in this xml
+# Functions
+get_date = self.contract_id.get_date
+
+# Parse date
+months = ["",
+    "января", "февраля", "марта", "апреля",
+    "мая", "июня", "июля", "августа", 
+    "сентября", "октября", "ноября", "декабря",
+]
+date = get_date()
+dd = date.day
+mm = date.month
+yyyy = date.year
+yy = yyyy % 100
+MM = months[mm]
+
+# ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
     "contract_number": self.contract_id.name,
 
-    "amount_whole": 0,
-    "amount_fractional": 0,
+    "dd": dd,
+    "mm": mm,
+    "MM": MM,
+    "yy": yy,
+    "yyyy": yyyy,
 
-    "payment_term": False,
-    "delivery_time": False,
-
-    "seller_company_name": seller.name,
+    "seller_name": seller.name,
+    "seller_company_form": seller.read(["company_form"])[0]['company_form'],
     "seller_representer_name": seller.representative_id.name,
-    "seller_representer_function": seller.representative_id.function,
+    "seller_representer_name_parent": seller.representative_id.name_genitive,
+    "seller_representer_name_initials": seller.representative_id.name_initials,
 
-    "partner_company_name": partner.name,
+    "seller_inn": seller.vat,
+    "seller_kpp": seller.iec,
+    "seller_ogrn": seller.psrn,
+    "seller_business_address": seller.full_address,
+    "seller_phone": seller.phone,
+    "seller_email": seller.email,
+
+    "partner_name": partner.name,
     "partner_representer_name": partner.representative_id.name,
-    "partner_representer_function": partner.representative_id.function,
+    "partner_representer_name_initials": partner.representative_id.name_initials,
+    "partner_inn": partner.vat,
+    "partner_business_address": partner.full_address,
+    "partner_phone": partner.phone,
+    "partner_email": partner.email,
 }
 
-if order:
-    amount = modf(order.amount_total)
-    fractional, whole = amount
-
-    payment_term = order.payment_term_id.name
-    payment_term = payment_term and payment_term.lower()
-    delivery_time = order.delivery_time
-    
+if partner_bank:
     ctx.update({
-        "amount_whole": whole,
-        "amount_fractional": fractional,
-
-        "payment_term": payment_term,
-        "delivery_time": delivery_time,
+        "partner_rs": partner_bank.acc_number,
+        "partner_ks": partner_bank.bank_id.corr_account,
+        "partner_bic": partner_bank.bank_id.bic,
     })
+if seller_bank:
+    ctx.update({
+        "seller_rs": seller_bank.acc_number,
+        "seller_ks": seller_bank.bank_id.corr_account,
+        "seller_bic": seller_bank.bank_id.bic,
+    })
+
+
+# Person
+if not partner.is_company:
+    ctx.update({
+        "partner_representer_name_initials": partner.name_initials,
+        "partner_representer_passport_number": partner.passport_number,
+        "partner_representer_passport_date": partner.passport_date,
+        "partner_representer_passport_department": partner.passport_department,
+    })
+else:
+    # Company
+    ctx.update({
+        "partner_company_form": partner.read(["company_form"])[0]['company_form'],
+        "partner_representer_name_parent": partner.representative_id.name_genitive,
+        "partner_representer_document_parent": partner.representative_document,
+    })
+
+    if partner.company_form == 'sp':
+        # Sole Proprietor
+        ctx.update({
+            "partner_ip_number": partner.sp_register_number,
+            "partner_ip_date": partner.sp_register_date,
+            "partner_ogrnip": partner.psrn_sp,
+            "partner_representer_passport_number": partner.representative_id.passport_number,
+            "partner_representer_passport_date": partner.representative_id.passport_date,
+            "partner_representer_passport_department": partner.representative_id.passport_department,
+        })
+    if partner.company_form == 'plc':
+        # Private Limited Company
+        ctx.update({
+            "partner_kpp": partner.iec,
+            "partner_ogrn": partner.psrn,
+        })
 
 action = ctx
             </field>
@@ -135,12 +243,42 @@ action = ctx
             <field name="name">Contract Number</field>
             <field name="technical_name">contract_number</field>
             <field name="description"></field>
+            <field name="sequence">1</field>
         </record>
 
-        <record id="contract_field_contract_conclusion_date" model="res.partner.contract.field">
-            <field name="name">Conclusion Date</field>
-            <field name="technical_name">date_conclusion</field>
-            <field name="description"></field>
+        <record id="contract_field_dd" model="res.partner.contract.field">
+            <field name="name">Day</field>
+            <field name="technical_name">dd</field>
+            <field name="description">Number</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <record id="contract_field_mm" model="res.partner.contract.field">
+            <field name="name">Month</field>
+            <field name="technical_name">mm</field>
+            <field name="description">Number</field>
+            <field name="sequence">16</field>
+        </record>
+
+        <record id="contract_field_MM" model="res.partner.contract.field">
+            <field name="name">Month</field>
+            <field name="technical_name">MM</field>
+            <field name="description">Word</field>
+            <field name="sequence">24</field>
+        </record>
+
+        <record id="contract_field_yy" model="res.partner.contract.field">
+            <field name="name">Year</field>
+            <field name="technical_name">yy</field>
+            <field name="description">Short</field>
+            <field name="sequence">40</field>
+        </record>
+
+        <record id="contract_field_yyyy" model="res.partner.contract.field">
+            <field name="name">Year</field>
+            <field name="technical_name">yyyy</field>
+            <field name="description">Full</field>
+            <field name="sequence">32</field>
         </record>
 
         <record id="contract_field_amount_whole" model="res.partner.contract.field">
@@ -170,176 +308,357 @@ action = ctx
 
         <!-- Seller -->
 
-        <record id="contract_field_seller_company_name" model="res.partner.contract.field">
-            <field name="name">Seller Company Name</field>
-            <field name="technical_name">seller_company_name</field>
-            <field name="description"></field>
+        <record id="contract_field_seller_name" model="res.partner.contract.field">
+            <field name="name">Name</field>
+            <field name="technical_name">seller_name</field>
+            <field name="description">Seller</field>
+            <field name="sequence">48</field>
         </record>
 
-        <record id="contract_field_seller_business_address" model="res.partner.contract.field">
-            <field name="name">Seller Business Address</field>
-            <field name="technical_name">seller_business_address</field>
-            <field name="description"></field>
+        <record id="contract_field_seller_company_form" model="res.partner.contract.field">
+            <field name="name">Institutional-Legal Form</field>
+            <field name="technical_name">seller_company_form</field>
+            <field name="description">Seller</field>
+            <field name="sequence">56</field>
+        </record>
+
+        <record id="contract_field_seller_ip_number" model="res.partner.contract.field">
+            <field name="name">IP Number</field>
+            <field name="technical_name">seller_ip_number</field>
+            <field name="description">Seller IP Certificate</field>
+            <field name="sequence">64</field>
+        </record>
+
+        <record id="contract_field_seller_ip_date" model="res.partner.contract.field">
+            <field name="name">IP Issued on</field>
+            <field name="technical_name">seller_ip_date</field>
+            <field name="description">Seller IP Certificate</field>
+            <field name="sequence">72</field>
         </record>
 
         <record id="contract_field_seller_representer_name" model="res.partner.contract.field">
-            <field name="name">Seller Representer Name</field>
+            <field name="name">Name</field>
             <field name="technical_name">seller_representer_name</field>
-            <field name="description"></field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">80</field>
         </record>
 
         <record id="contract_field_seller_representer_name_parent" model="res.partner.contract.field">
-            <field name="name">Seller Representer Parent Name</field>
+            <field name="name">Name Genitive</field>
             <field name="technical_name">seller_representer_name_parent</field>
-            <field name="description"></field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">88</field>
         </record>
 
         <record id="contract_field_seller_representer_name_initials" model="res.partner.contract.field">
-            <field name="name">Seller Representer Initials Name</field>
+            <field name="name">Name Initials</field>
             <field name="technical_name">seller_representer_name_initials</field>
-            <field name="description"></field>
-            <field name="description"></field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">96</field>
         </record>
 
         <record id="contract_field_seller_representer_function" model="res.partner.contract.field">
-            <field name="name">Seller Representer Function</field>
+            <field name="name">Function</field>
             <field name="technical_name">seller_representer_function</field>
-            <field name="description"></field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">104</field>
         </record>
 
-        <record id="contract_field_seller_representer_function_parent_case" model="res.partner.contract.field">
-            <field name="name">Seller Representer Function Parent Case</field>
-            <field name="technical_name">seller_representer_function_parent_case</field>
-            <field name="description"></field>
+        <record id="contract_field_seller_representer_function_parent" model="res.partner.contract.field">
+            <field name="name">Function Genitive</field>
+            <field name="technical_name">seller_representer_function_parent</field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">112</field>
+        </record>
+
+        <record id="contract_field_seller_representer_document_parent" model="res.partner.contract.field">
+            <field name="name">Document Genitive</field>
+            <field name="technical_name">seller_representer_document_parent</field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">120</field>
+        </record>
+
+        <record id="contract_field_seller_representer_passport_number" model="res.partner.contract.field">
+            <field name="name">Passport №</field>
+            <field name="technical_name">seller_representer_passport_number</field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">128</field>
+        </record>
+
+        <record id="contract_field_seller_representer_passport_date" model="res.partner.contract.field">
+            <field name="name">Passport Issued on</field>
+            <field name="technical_name">seller_representer_passport_date</field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">136</field>
+        </record>
+
+        <record id="contract_field_seller_representer_passport_department" model="res.partner.contract.field">
+            <field name="name">Passport Issued by</field>
+            <field name="technical_name">seller_representer_passport_department</field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">144</field>
         </record>
 
         <record id="contract_field_seller_inn" model="res.partner.contract.field">
-            <field name="name">Seller INN</field>
+            <field name="name">INN</field>
             <field name="technical_name">seller_inn</field>
-            <field name="description"></field>
+            <field name="description">Seller</field>
+            <field name="sequence">152</field>
+        </record>
+
+        <record id="contract_field_seller_ogrn" model="res.partner.contract.field">
+            <field name="name">PSRN</field>
+            <field name="technical_name">seller_ogrn</field>
+            <field name="description">Seller</field>
+            <field name="sequence">160</field>
+        </record>
+
+        <record id="contract_field_seller_ogrnip" model="res.partner.contract.field">
+            <field name="name">PSRN-IP</field>
+            <field name="technical_name">seller_ogrnip</field>
+            <field name="description">Seller</field>
+            <field name="sequence">168</field>
         </record>
 
         <record id="contract_field_seller_kpp" model="res.partner.contract.field">
-            <field name="name">Seller KPP</field>
+            <field name="name">KPP</field>
             <field name="technical_name">seller_kpp</field>
-            <field name="description"></field>
+            <field name="description">Seller</field>
+            <field name="sequence">176</field>
         </record>
 
-        <record id="contract_field_seller_bic" model="res.partner.contract.field">
-            <field name="name">Seller BIC</field>
-            <field name="technical_name">seller_bic</field>
-            <field name="description"></field>
-        </record>
-
-        <record id="contract_field_seller_psrn" model="res.partner.contract.field">
-            <field name="name">Seller PSRN</field>
-            <field name="technical_name">seller_ogrn</field>
-            <field name="description"></field>
+        <record id="contract_field_seller_okpo" model="res.partner.contract.field">
+            <field name="name">OKPO</field>
+            <field name="technical_name">seller_okpo</field>
+            <field name="description">Seller</field>
+            <field name="sequence">184</field>
         </record>
 
         <record id="contract_field_seller_bank" model="res.partner.contract.field">
-            <field name="name">Seller Bank Name</field>
+            <field name="name">Bank Name</field>
             <field name="technical_name">seller_bank</field>
-            <field name="description"></field>
+            <field name="description">Seller</field>
+            <field name="sequence">192</field>
         </record>
 
-        <record id="contract_field_seller_bank_account" model="res.partner.contract.field">
-            <field name="name">Seller Bank Account</field>
-            <field name="technical_name">seller_bank_account</field>
-            <field name="description"></field>
+        <record id="contract_field_seller_rs" model="res.partner.contract.field">
+            <field name="name">Bank Payment Account</field>
+            <field name="technical_name">seller_rs</field>
+            <field name="description">Seller</field>
+            <field name="sequence">200</field>
+        </record>
+
+        <record id="contract_field_seller_ks" model="res.partner.contract.field">
+            <field name="name">Bank Corresponding Account</field>
+            <field name="technical_name">seller_ks</field>
+            <field name="description">Seller</field>
+            <field name="sequence">208</field>
+        </record>
+
+        <record id="contract_field_seller_bic" model="res.partner.contract.field">
+            <field name="name">BIC</field>
+            <field name="technical_name">seller_bic</field>
+            <field name="description">Seller</field>
+            <field name="sequence">216</field>
+        </record>
+
+        <record id="contract_field_seller_business_address" model="res.partner.contract.field">
+            <field name="name">Business Address</field>
+            <field name="technical_name">seller_business_address</field>
+            <field name="description">Seller</field>
+            <field name="sequence">224</field>
         </record>
 
         <record id="contract_field_seller_phone" model="res.partner.contract.field">
-            <field name="name">Seller Phone</field>
+            <field name="name">Phone</field>
             <field name="technical_name">seller_phone</field>
-            <field name="description"></field>
+            <field name="description">Seller</field>
+            <field name="sequence">232</field>
+        </record>
+
+        <record id="contract_field_seller_email" model="res.partner.contract.field">
+            <field name="name">Email</field>
+            <field name="technical_name">seller_email</field>
+            <field name="description">Seller</field>
+            <field name="sequence">240</field>
         </record>
 
 
         <!-- Partner -->
 
-        <record id="contract_field_partner_company_name" model="res.partner.contract.field">
-            <field name="name">Partner Company Name</field>
-            <field name="technical_name">partner_company_name</field>
-            <field name="description"></field>
+        <record id="contract_field_partner_name" model="res.partner.contract.field">
+            <field name="name">Name</field>
+            <field name="technical_name">partner_name</field>
+            <field name="description">Partner</field>
+            <field name="sequence">248</field>
         </record>
 
-        <record id="contract_field_partner_business_address" model="res.partner.contract.field">
-            <field name="name">Partner Business Address</field>
-            <field name="technical_name">partner_business_address</field>
-            <field name="description"></field>
+        <record id="contract_field_partner_company_form" model="res.partner.contract.field">
+            <field name="name">Institutional-Legal Form</field>
+            <field name="technical_name">partner_company_form</field>
+            <field name="description">Partner</field>
+            <field name="sequence">256</field>
+        </record>
+
+        <record id="contract_field_partner_ip_number" model="res.partner.contract.field">
+            <field name="name">IP Number</field>
+            <field name="technical_name">partner_ip_number</field>
+            <field name="description">Partner IP Certificate</field>
+            <field name="sequence">264</field>
+        </record>
+
+        <record id="contract_field_partner_ip_date" model="res.partner.contract.field">
+            <field name="name">IP Issued on</field>
+            <field name="technical_name">partner_ip_date</field>
+            <field name="description">Partner IP Certificate</field>
+            <field name="sequence">272</field>
         </record>
 
         <record id="contract_field_partner_representer_name" model="res.partner.contract.field">
-            <field name="name">Partner Representer Name</field>
+            <field name="name">Name</field>
             <field name="technical_name">partner_representer_name</field>
-            <field name="description"></field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">280</field>
         </record>
 
         <record id="contract_field_partner_representer_name_parent" model="res.partner.contract.field">
-            <field name="name">Partner Representer Parent Name</field>
+            <field name="name">Name Genitive</field>
             <field name="technical_name">partner_representer_name_parent</field>
-            <field name="description"></field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">288</field>
         </record>
 
         <record id="contract_field_partner_representer_name_initials" model="res.partner.contract.field">
-            <field name="name">Partner Representer Initials Name</field>
+            <field name="name">Name Initials</field>
             <field name="technical_name">partner_representer_name_initials</field>
-            <field name="description"></field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">296</field>
         </record>
 
         <record id="contract_field_partner_representer_function" model="res.partner.contract.field">
-            <field name="name">Partner Representer Function</field>
+            <field name="name">Function</field>
             <field name="technical_name">partner_representer_function</field>
-            <field name="description"></field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">304</field>
         </record>
 
-        <record id="contract_field_partner_representer_function_parent_case" model="res.partner.contract.field">
-            <field name="name">Partner Representer Function Parent Case</field>
-            <field name="technical_name">partner_representer_function_parent_case</field>
-            <field name="description"></field>
+        <record id="contract_field_partner_representer_function_parent" model="res.partner.contract.field">
+            <field name="name">Function Genitive</field>
+            <field name="technical_name">partner_representer_function_parent</field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">312</field>
+        </record>
+
+        <record id="contract_field_partner_representer_document_parent" model="res.partner.contract.field">
+            <field name="name">Document Genitive</field>
+            <field name="technical_name">partner_representer_document_parent</field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">320</field>
+        </record>
+
+        <record id="contract_field_partner_representer_passport_number" model="res.partner.contract.field">
+            <field name="name">Passport №</field>
+            <field name="technical_name">partner_representer_passport_number</field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">328</field>
+        </record>
+
+        <record id="contract_field_partner_representer_passport_date" model="res.partner.contract.field">
+            <field name="name">Passport Issued on</field>
+            <field name="technical_name">partner_representer_passport_date</field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">336</field>
+        </record>
+
+        <record id="contract_field_partner_representer_passport_department" model="res.partner.contract.field">
+            <field name="name">Passport Issued by</field>
+            <field name="technical_name">partner_representer_passport_department</field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">344</field>
         </record>
 
         <record id="contract_field_partner_inn" model="res.partner.contract.field">
-            <field name="name">Partner INN</field>
+            <field name="name">INN</field>
             <field name="technical_name">partner_inn</field>
-            <field name="description"></field>
+            <field name="description">Partner</field>
+            <field name="sequence">352</field>
+        </record>
+
+        <record id="contract_field_partner_ogrn" model="res.partner.contract.field">
+            <field name="name">PSRN</field>
+            <field name="technical_name">partner_ogrn</field>
+            <field name="description">Partner</field>
+            <field name="sequence">360</field>
+        </record>
+
+        <record id="contract_field_partner_ogrnip" model="res.partner.contract.field">
+            <field name="name">PSRN-IP</field>
+            <field name="technical_name">partner_ogrnip</field>
+            <field name="description">Partner</field>
+            <field name="sequence">368</field>
         </record>
 
         <record id="contract_field_partner_kpp" model="res.partner.contract.field">
-            <field name="name">Partner KPP</field>
+            <field name="name">KPP</field>
             <field name="technical_name">partner_kpp</field>
-            <field name="description"></field>
+            <field name="description">Partner</field>
+            <field name="sequence">376</field>
         </record>
 
-        <record id="contract_field_partner_bic" model="res.partner.contract.field">
-            <field name="name">Partner BIC</field>
-            <field name="technical_name">partner_bic</field>
-            <field name="description"></field>
-        </record>
-
-        <record id="contract_field_partner_psrn" model="res.partner.contract.field">
-            <field name="name">Partner PSRN</field>
-            <field name="technical_name">partner_ogrn</field>
-            <field name="description"></field>
+        <record id="contract_field_partner_okpo" model="res.partner.contract.field">
+            <field name="name">OKPO</field>
+            <field name="technical_name">partner_okpo</field>
+            <field name="description">Partner</field>
+            <field name="sequence">384</field>
         </record>
 
         <record id="contract_field_partner_bank" model="res.partner.contract.field">
-            <field name="name">Partner Bank Name</field>
+            <field name="name">Bank</field>
             <field name="technical_name">partner_bank</field>
-            <field name="description"></field>
+            <field name="description">Partner</field>
+            <field name="sequence">392</field>
         </record>
 
-        <record id="contract_field_partner_bank_account" model="res.partner.contract.field">
-            <field name="name">Partner Bank Account</field>
-            <field name="technical_name">partner_bank_account</field>
-            <field name="description"></field>
+        <record id="contract_field_partner_rs" model="res.partner.contract.field">
+            <field name="name">Bank Payment Account</field>
+            <field name="technical_name">partner_rs</field>
+            <field name="description">Partner</field>
+            <field name="sequence">400</field>
+        </record>
+
+        <record id="contract_field_partner_ks" model="res.partner.contract.field">
+            <field name="name">Bank Corresponding Account</field>
+            <field name="technical_name">partner_ks</field>
+            <field name="description">Partner</field>
+            <field name="sequence">408</field>
+        </record>
+
+        <record id="contract_field_partner_bic" model="res.partner.contract.field">
+            <field name="name">BIC</field>
+            <field name="technical_name">partner_bic</field>
+            <field name="description">Partner</field>
+            <field name="sequence">416</field>
+        </record>
+
+        <record id="contract_field_partner_business_address" model="res.partner.contract.field">
+            <field name="name">Business Address</field>
+            <field name="technical_name">partner_business_address</field>
+            <field name="description">Partner</field>
+            <field name="sequence">424</field>
         </record>
 
         <record id="contract_field_partner_phone" model="res.partner.contract.field">
-            <field name="name">Partner Phone</field>
+            <field name="name">Phone</field>
             <field name="technical_name">partner_phone</field>
-            <field name="description"></field>
+            <field name="description">Partner</field>
+            <field name="sequence">432</field>
+        </record>
+
+        <record id="contract_field_partner_email" model="res.partner.contract.field">
+            <field name="name">Email</field>
+            <field name="technical_name">partner_email</field>
+            <field name="description">Partner</field>
+            <field name="sequence">440</field>
         </record>
 
     </data>

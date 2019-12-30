@@ -5,6 +5,7 @@ import logging
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
 
 _logger = logging.getLogger(__name__)
@@ -12,20 +13,6 @@ _logger = logging.getLogger(__name__)
 
 class ContractWizard(models.TransientModel):
     _name = "res.partner.contract.wizard"
-
-    def _get_default_template_contract(self):
-        return (
-            self.env["res.partner.template.print.contract"]
-            .search([("is_default", "=", True)], limit=1)
-            .id
-        )
-
-    def _get_default_template_annex(self):
-        return (
-            self.env["res.partner.template.print.annex"]
-            .search([("is_default", "=", True)], limit=1)
-            .id
-        )
 
     def _get_default_partner(self):
         current_id = self.env.context.get("active_id")
@@ -41,14 +28,10 @@ class ContractWizard(models.TransientModel):
     company_id = fields.Many2one("res.partner", string="Company")
     partner_id = fields.Many2one("res.partner", string="Partner")
     print_template_contract = fields.Many2one(
-        "res.partner.template.print.contract",
-        string="Print Template of Contract",
-        default=_get_default_template_contract,
+        "res.partner.template.print.contract", string="Print Template of Contract",
     )
     print_template_annex = fields.Many2one(
-        "res.partner.template.print.annex",
-        string="Print Template of Contract Annex",
-        default=_get_default_template_annex,
+        "res.partner.template.print.annex", string="Print Template of Contract Annex",
     )
 
     transient_field_ids = fields.One2many(
@@ -94,8 +77,8 @@ class ContractWizard(models.TransientModel):
         self.partner_id = partner_id
 
         model_to_action = {
-            "res.partner.contract": "client_contracts.action_get_contract_context",
-            "res.partner.contract.annex": "client_contracts.action_get_annex_context",
+            "res.partner.contract": "{}.action_get_contract_context".format(MODULE_NAME),
+            "res.partner.contract.annex": "{}.action_get_annex_context".format(MODULE_NAME),
         }
         action = model_to_action[active_model]
 
@@ -115,8 +98,19 @@ class ContractWizard(models.TransientModel):
                 .id,
                 0,
             )
-            for field, value in sorted(contract_context_values.items())
+            for field, value in sorted(contract_context_values.items(), key=lambda tpl: self.env.ref("{}.contract_field_{}".format(MODULE_NAME, tpl[0])).sequence)
         ]
+
+        # Set up template domain
+        company_type = (
+            self.partner_id.company_form if self.partner_id.is_company else "person"
+        )
+        return {
+            "domain": {
+                "print_template_contract": [("company_type", "=", company_type)],
+                "print_template_annex": [("company_type", "=", company_type)],
+            }
+        }
 
     @api.multi
     def get_docx_contract(self):

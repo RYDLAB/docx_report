@@ -2,6 +2,8 @@ import math
 
 from odoo import _, api, fields, models
 
+from ..utils import MODULE_NAME
+
 
 class ContractOrderAnnex(models.Model):
     _name = "res.partner.contract.annex"
@@ -15,7 +17,7 @@ class ContractOrderAnnex(models.Model):
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
-    prepaid_expence = fields.Float(string="Prepaid Expence", default=0)
+    prepaid_expense = fields.Float(string="Prepaid Expense", default=0)
     delivery_time = fields.Integer(related="order_id.delivery_time", readonly=True,)
     payment_term = fields.Many2one(
         "account.payment.term", related="order_id.payment_term_id", readonly=True,
@@ -56,7 +58,7 @@ class ContractOrderAnnex(models.Model):
 
     @api.multi
     def action_print_form(self):
-        view = self.env.ref("client_contracts.res_partner_wizard_print_annex_view")
+        view = self.env.ref("{}.res_partner_wizard_print_annex_view".format(MODULE_NAME))
         return {
             "name": _("Print Form of Contract Annex"),
             "type": "ir.actions.act_window",

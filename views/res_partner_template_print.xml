@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <!-- res.partner.template.print.contract form view -->
+        <record id="res_partner_template_print_contract_view_form" model="ir.ui.view">
+            <field name="name">res.partner.template.print.contract.view.form</field>
+            <field name="model">res.partner.template.print.contract</field>
+            <field name="arch" type="xml">
+                <form string="Template Contract">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="attachment_id"/>
+                            <field name="company_type"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- res.partner.template.print.annex form view -->
+        <record id="res_partner_template_print_annex_view_form" model="ir.ui.view">
+            <field name="name">res.partner.template.print.annex.view.form</field>
+            <field name="model">res.partner.template.print.annex</field>
+            <field name="arch" type="xml">
+                <form string="Template Annex">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="attachment_id"/>
+                            <field name="company_type"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

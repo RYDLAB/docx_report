@@ -1,6 +1,9 @@
 import datetime
 
 from odoo import _, api, fields, models
+from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
+
+from ..utils import MODULE_NAME
 
 
 class PartnerContract(models.Model):
@@ -34,6 +37,7 @@ class PartnerContract(models.Model):
         return datetime.datetime.now().timestamp()
 
     name = fields.Char(string="Contract number", default=_get_default_name,)
+    create_date = fields.Datetime(string="Created on")
     create_date_ts = fields.Char(default=_get_default_create_date_ts)
     date_conclusion = fields.Date(string="Date of system conclusion",)
     date_conclusion_fix = fields.Date(
@@ -86,7 +90,7 @@ class PartnerContract(models.Model):
 
     @api.multi
     def action_print_form(self):
-        view = self.env.ref("client_contracts.res_partner_wizard_print_contract_view")
+        view = self.env.ref("{}.res_partner_wizard_print_contract_view".format(MODULE_NAME))
         return {
             "name": _("Print Form of Contract"),
             "type": "ir.actions.act_window",
@@ -97,22 +101,45 @@ class PartnerContract(models.Model):
             "context": {"self_id": self.id},
         }
 
+    def get_date(self):
+        """Uses in xml action (data/fields_default)
 
-class PrintTemplateContract(models.Model):
-    _name = "res.partner.template.print.contract"
-    _description = "Print Template Contract"
+        Returns:
+            datetime.datetime -- date_conclusion_fix or date_conclusion or create_date
+        """
+        date = self.date_conclusion_fix or self.date_conclusion
+        if date:
+            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATE_FORMAT)
+        else:
+            date = self.create_date
+            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
+        return date
 
+
+class PrintTemplate(models.Model):
+    _name = "res.partner.template.print"
+    _description = "Print Template"
+
+    name = fields.Char(related="attachment_id.name",)
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,
     )
-    is_default = fields.Boolean(string="Default Template", default=False,)
+    company_type = fields.Selection(
+        selection=[
+            ("person", "Individual"),
+            ("sp", "Sole Proprietor"),
+            ("plc", "Private Limited Company"),
+        ]
+    )
+
+
+class PrintTemplateContract(models.Model):
+    _name = "res.partner.template.print.contract"
+    _inherit = "res.partner.template.print"
+    _description = "Print Template Contract"
 
 
 class PrintTemplateAnnex(models.Model):
     _name = "res.partner.template.print.annex"
+    _inherit = "res.partner.template.print"
     _description = "Print Template Contract Annex"
-
-    attachment_id = fields.Many2one(
-        "ir.attachment", string="Template Attachment", required=True,
-    )
-    is_default = fields.Boolean(string="Default Template", default=False,)

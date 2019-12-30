@@ -4,9 +4,9 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    name_parent_case = fields.Char(string="Name Parent Case",)
-    name_initials_case = fields.Char(string="Name Initials Case",)
-    function_parent_case = fields.Char(string="Function Parent Case",)
+    name_genitive = fields.Char(string="Name Genitive",)
+    name_initials = fields.Char(string="Name Initials",)
+    function_genitive = fields.Char(string="Function Genitive",)
     client_contract_ids = fields.One2many(
         "res.partner.contract", "partner_id", string="Contracts",
     )
@@ -19,6 +19,9 @@ class ResPartner(models.Model):
     street_actual = fields.Many2one("res.partner", string="Actual Address",)
     representative_id = fields.Many2one(
         "res.partner", string="Representative", help="Person, who represents company"
+    )
+    representative_document = fields.Char(
+        string="Representative acts on the basis of", help="Parent Case",
     )
     signature = fields.Binary(string="Client signature")
 

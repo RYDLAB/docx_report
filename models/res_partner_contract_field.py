@@ -10,3 +10,4 @@ class ContractField(models.Model):
         string="Technical Name", help="Name uses in template", required=True,
     )
     description = fields.Char(string="Description", translate=True, default="",)
+    sequence = fields.Integer(string="Sequence",)

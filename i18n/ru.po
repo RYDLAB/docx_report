@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-28 10:32+0000\n"
-"PO-Revision-Date: 2019-12-28 10:32+0000\n"
+"POT-Creation-Date: 2019-12-30 10:11+0000\n"
+"PO-Revision-Date: 2019-12-30 10:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -268,7 +268,6 @@ msgid "Created by"
 msgstr "Создано"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:40
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_create_date
@@ -276,7 +275,6 @@ msgstr "Создано"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_create_date
-#, python-format
 msgid "Created on"
 msgstr "Создан"
 
@@ -365,8 +363,8 @@ msgid "Function"
 msgstr "Должность"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_function_parent_case
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_function_parent_case
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_function_genitive
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_function_genitive
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_function_parent
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_function_parent
 msgid "Function Genitive"
@@ -488,16 +486,16 @@ msgid "Name"
 msgstr "Название"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_parent_case
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_parent_case
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_genitive
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_genitive
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name_parent
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name_parent
 msgid "Name Genitive"
 msgstr "Имя (род.падеж)"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_initials_case
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_initials_case
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_initials
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_initials
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name_initials
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name_initials
 msgid "Name Initials"

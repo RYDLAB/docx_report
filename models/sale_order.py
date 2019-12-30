@@ -20,9 +20,12 @@ class SaleOrder(models.Model):
     def _get_payment_terms(self):
         ref = self.env.ref
         terms = (
-            ref("{}.payment_term_prepaid".format(MODULE_NAME)).id,
-            ref("{}.payment_term_postpayment".format(MODULE_NAME)).id,
-            ref("{}.payment_term_partial_2".format(MODULE_NAME)).id,
-            ref("{}.payment_term_partial_3".format(MODULE_NAME)).id,
+            ref("{}.{}".format(MODULE_NAME, external_id)).id
+            for external_id in (
+                "payment_term_prepaid",
+                "payment_term_postpayment",
+                "payment_term_partial_2",
+                "payment_term_partial_3",
+            )
         )
-        return terms
+        return list(terms)

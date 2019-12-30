@@ -166,7 +166,7 @@ ctx = {
     "yyyy": yyyy,
 
     "seller_name": seller.name,
-    "seller_company_form": _(dict(seller._fields['company_form'].selection).get(seller.company_form)),
+    "seller_company_form": seller.read(["company_form"])[0]['company_form'],
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_genitive,
     "seller_representer_name_initials": seller.representative_id.name_initials,
@@ -204,7 +204,7 @@ if seller_bank:
 # Person
 if not partner.is_company:
     ctx.update({
-        "partner_representer_name_initials": partner.name_initials, # TODO: remove 'case'
+        "partner_representer_name_initials": partner.name_initials,
         "partner_representer_passport_number": partner.passport_number,
         "partner_representer_passport_date": partner.passport_date,
         "partner_representer_passport_department": partner.passport_department,
@@ -212,7 +212,7 @@ if not partner.is_company:
 else:
     # Company
     ctx.update({
-        "partner_company_form": _(dict(partner._fields['company_form'].selection).get(partner.company_form)),
+        "partner_company_form": partner.read(["company_form"])[0]['company_form'],
         "partner_representer_name_parent": partner.representative_id.name_genitive,
         "partner_representer_document_parent": partner.representative_document,
     })

@@ -115,14 +115,6 @@ class PartnerContract(models.Model):
             date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
         return date
 
-    def _(self, arg):
-        """Uses in xml action (data/fields_default)
-
-        Arguments:
-            arg {str} -- String to translate
-        """
-        return _(arg)
-
 
 class PrintTemplate(models.Model):
     _name = "res.partner.template.print"

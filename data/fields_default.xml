@@ -20,6 +20,7 @@ seller = self.company_id
 seller_bank = seller.bank_ids and seller.bank_ids[0]
 
 # Functions
+_ = self._
 get_date = self.get_date
 
 # Parse date
@@ -138,6 +139,7 @@ seller_bank = seller.bank_ids and seller.bank_ids[0]
 partner_bank = partner.bank_ids and partner.bank_ids[0]
 
 # Functions
+_ = self.contract_id._
 get_date = self.contract_id.get_date
 
 # Parse date

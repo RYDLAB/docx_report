@@ -77,8 +77,12 @@ class ContractWizard(models.TransientModel):
         self.partner_id = partner_id
 
         model_to_action = {
-            "res.partner.contract": "{}.action_get_contract_context".format(MODULE_NAME),
-            "res.partner.contract.annex": "{}.action_get_annex_context".format(MODULE_NAME),
+            "res.partner.contract": "{}.action_get_contract_context".format(
+                MODULE_NAME
+            ),
+            "res.partner.contract.annex": "{}.action_get_annex_context".format(
+                MODULE_NAME
+            ),
         }
         action = model_to_action[active_model]
 
@@ -98,7 +102,12 @@ class ContractWizard(models.TransientModel):
                 .id,
                 0,
             )
-            for field, value in sorted(contract_context_values.items(), key=lambda tpl: self.env.ref("{}.contract_field_{}".format(MODULE_NAME, tpl[0])).sequence)
+            for field, value in sorted(
+                contract_context_values.items(),
+                key=lambda tpl: self.env.ref(
+                    "{}.contract_field_{}".format(MODULE_NAME, tpl[0])
+                ).sequence,
+            )
         ]
 
         # Set up template domain

@@ -24,6 +24,12 @@ class ResPartner(models.Model):
         string="Representative acts on the basis of", help="Parent Case",
     )
     signature = fields.Binary(string="Client signature")
+    phone_whatsup = fields.Char(
+        string="WhatsApp", help="If a contact have a WhatsApp number",
+    )
+    phone_telegram = fields.Char(
+        string="Telegram", help="If a contact have a Telegram number or identifier",
+    )
 
     @api.depends("street", "street2", "city", "state_id", "zip", "country_id")
     def _compute_full_address(self):

@@ -52,6 +52,11 @@
                 <field name="function_genitive" attrs="{'invisible': [('is_company','=', True)]}"/>
             </xpath>
 
+            <xpath expr="//field[@name='mobile']" position="after">
+                <field name="phone_whatsapp"/>
+                <field name="phone_telegram"/>
+            </xpath>
+
         </field>
     </record>
 

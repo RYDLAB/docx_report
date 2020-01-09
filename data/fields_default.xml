@@ -87,6 +87,7 @@ if not partner.is_company:
         "partner_representer_passport_number": partner.passport_number,
         "partner_representer_passport_date": partner.passport_date,
         "partner_representer_passport_department": partner.passport_department,
+        "partner_representer_passport_department_code": partner.passport_department_code,
     })
 else:
     # Company
@@ -107,6 +108,7 @@ else:
             "partner_representer_passport_number": partner.representative_id.passport_number,
             "partner_representer_passport_date": partner.representative_id.passport_date,
             "partner_representer_passport_department": partner.representative_id.passport_department,
+            "partner_representer_passport_department_code": partner.representative_id.passport_department_code,
         })
     if partner.company_form == 'plc':
         # Private Limited Company
@@ -401,6 +403,13 @@ action = ctx
             <field name="sequence">144</field>
         </record>
 
+        <record id="contract_field_seller_representer_passport_department_code" model="res.partner.contract.field">
+            <field name="name">Passport Department Code</field>
+            <field name="technical_name">seller_representer_passport_department_code</field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">146</field>
+        </record>
+
         <record id="contract_field_seller_inn" model="res.partner.contract.field">
             <field name="name">INN</field>
             <field name="technical_name">seller_inn</field>
@@ -577,6 +586,13 @@ action = ctx
             <field name="technical_name">partner_representer_passport_department</field>
             <field name="description">Partner Representative</field>
             <field name="sequence">344</field>
+        </record>
+
+        <record id="contract_field_partner_representer_passport_department_code" model="res.partner.contract.field">
+            <field name="name">Passport Department Code</field>
+            <field name="technical_name">partner_representer_passport_department_code</field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">346</field>
         </record>
 
         <record id="contract_field_partner_inn" model="res.partner.contract.field">

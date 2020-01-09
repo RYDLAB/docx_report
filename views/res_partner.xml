@@ -36,7 +36,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='type']" position="before">
-                <field name="name" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="name_write" placeholder="i.e. Ural Bank for Reconstruction and Development"/>
                 <field name="name_genitive" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
                 <field name="name_initials" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
             </xpath>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-09 03:29+0000\n"
-"PO-Revision-Date: 2020-01-09 03:29+0000\n"
+"POT-Creation-Date: 2020-01-09 05:51+0000\n"
+"PO-Revision-Date: 2020-01-09 05:51+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -88,13 +88,6 @@ msgstr "Приложения"
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_contract_annex_ids
 msgid "Annexes to this contract"
 msgstr "Приложения к договору"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_name
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_name
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_name
-msgid "Attachment Name"
-msgstr "Название вложения"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_bic
@@ -490,12 +483,17 @@ msgstr "Месяц"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_name
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_write
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_name
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_name
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_name
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_write
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_name
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_name
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name
 msgid "Name"
-msgstr "Название"
+msgstr "Наименование"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_genitive
@@ -596,9 +594,16 @@ msgstr "Партнёр; Сертификат о регистрации ИП"
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_name_parent
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_date
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_department
+#: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_department_code
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_number
 msgid "Partner Representative"
 msgstr "Представитель Партнёра"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_passport_department_code
+#: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_passport_department_code
+msgid "Passport Department Code"
+msgstr "Код подразделения, выдавшего паспорт"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_passport_department
@@ -781,6 +786,7 @@ msgstr "Продавец; Сертификат о регистрации ИП"
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_name_parent
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_date
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_department
+#: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_department_code
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_number
 msgid "Seller Representative"
 msgstr "Представитель Продавца"
@@ -868,6 +874,12 @@ msgid "The Number of Annex"
 msgstr "Номер приложения"
 
 #. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_name_write
+#: model:ir.model.fields,help:client_contracts.field_res_users_name_write
+msgid "This name uses in contracts"
+msgstr "Наименование, используемое при заполнении договоров"
+
+#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_value
 msgid "Value"
 msgstr "Значение"
@@ -888,6 +900,11 @@ msgstr "Слово"
 #: model:res.partner.contract.field,name:client_contracts.contract_field_yyyy
 msgid "Year"
 msgstr "Год"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_info_inherit_view
+msgid "i.e. Ural Bank for Reconstruction and Development"
+msgstr "напр. «Уральский банк реконструкции и развития»"
 
 #. module: client_contracts
 #: model:ir.model,name:client_contracts.model_res_partner_contract_annex_line

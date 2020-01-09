@@ -4,6 +4,10 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    name_write = fields.Char(
+        string="Name",
+        help="This name uses in contracts",
+    )
     name_genitive = fields.Char(string="Name Genitive",)
     name_initials = fields.Char(string="Name Initials",)
     function_genitive = fields.Char(string="Function Genitive",)

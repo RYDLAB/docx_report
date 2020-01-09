@@ -46,7 +46,7 @@ ctx = {
     "yy": yy,
     "yyyy": yyyy,
 
-    "seller_name": seller.name,
+    "seller_name": seller.name_write,
     "seller_company_form": _(dict(seller._fields['company_form'].selection).get(seller.company_form)),
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_genitive,
@@ -59,7 +59,7 @@ ctx = {
     "seller_phone": seller.phone,
     "seller_email": seller.email,
 
-    "partner_name": partner.name,
+    "partner_name": partner.name_write,
     "partner_inn": partner.vat,
     "partner_business_address": partner.full_address,
     "partner_phone": partner.phone,

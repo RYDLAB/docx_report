@@ -36,6 +36,7 @@ class PartnerContract(models.Model):
         """Returns timestamp of now by local datetime"""
         return datetime.datetime.now().timestamp()
 
+    res_model = fields.Char(default=lambda self: self._name)
     name = fields.Char(string="Contract number", default=_get_default_name,)
     create_date = fields.Datetime(string="Created on")
     create_date_ts = fields.Char(default=_get_default_create_date_ts)

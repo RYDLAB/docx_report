@@ -24,7 +24,7 @@ class ResPartner(models.Model):
         string="Representative acts on the basis of", help="Parent Case",
     )
     signature = fields.Binary(string="Client signature")
-    phone_whatsup = fields.Char(
+    phone_whatsapp = fields.Char(
         string="WhatsApp", help="If a contact have a WhatsApp number",
     )
     phone_telegram = fields.Char(

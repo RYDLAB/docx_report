@@ -130,7 +130,7 @@ class PrintTemplate(models.Model):
     _name = "res.partner.template.print"
     _description = "Print Template"
 
-    name = fields.Char(related="attachment_id.name",)
+    name = fields.Char()
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,
     )

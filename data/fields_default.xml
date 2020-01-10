@@ -89,6 +89,10 @@ if not partner.is_company:
         "partner_representer_passport_department": partner.passport_department,
         "partner_representer_passport_department_code": partner.passport_department_code,
     })
+    if not partner.name_write:
+        ctx.update({
+            "partner_name": partner.name,
+        })
 else:
     # Company
     ctx.update({
@@ -211,6 +215,10 @@ if not partner.is_company:
         "partner_representer_passport_date": partner.passport_date,
         "partner_representer_passport_department": partner.passport_department,
     })
+    if not partner.name_write:
+        ctx.update({
+            "partner_name": partner.name,
+        })
 else:
     # Company
     ctx.update({

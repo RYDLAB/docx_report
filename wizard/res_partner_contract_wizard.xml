@@ -53,7 +53,7 @@
                         <tree editable="1" create="0" delete="0">
                             <field name="name"/>
                             <field name="value"/>
-                            <field name="description" invisible="1"/>
+                            <field name="description"/>
                             <field name="technical_name" invisible="1"/>
                         </tree>
                     </field>

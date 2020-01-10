@@ -49,7 +49,7 @@
             </xpath>
 
             <xpath expr="//field[@name='function']" position="after">
-                <field name="function_genitive" attrs="{'invisible': [('is_company','=', True)]}"/>
+                <field name="function_genitive" attrs="{'invisible': [('is_company','=', True)]}" invisible="1"/>
             </xpath>
 
             <xpath expr="//field[@name='email']" position="before">

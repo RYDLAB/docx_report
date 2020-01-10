@@ -83,6 +83,7 @@ if seller_bank:
 # Person
 if not partner.is_company:
     ctx.update({
+        "partner_representer_name": partner.name_write,
         "partner_representer_name_initials": partner.name_initials,
         "partner_representer_passport_number": partner.passport_number,
         "partner_representer_passport_date": partner.passport_date,
@@ -92,6 +93,7 @@ if not partner.is_company:
     if not partner.name_write:
         ctx.update({
             "partner_name": partner.name,
+            "partner_representer_name": partner.name,
         })
 else:
     # Company
@@ -210,6 +212,7 @@ if seller_bank:
 # Person
 if not partner.is_company:
     ctx.update({
+        "partner_representer_name": partner.name_write,
         "partner_representer_name_initials": partner.name_initials,
         "partner_representer_passport_number": partner.passport_number,
         "partner_representer_passport_date": partner.passport_date,
@@ -218,6 +221,7 @@ if not partner.is_company:
     if not partner.name_write:
         ctx.update({
             "partner_name": partner.name,
+            "partner_representer_name": partner.name,
         })
 else:
     # Company

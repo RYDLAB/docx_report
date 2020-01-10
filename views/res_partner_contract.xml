@@ -19,7 +19,7 @@
         <field name="name">Contract Form</field>
         <field name="model">res.partner.contract</field>
         <field name="arch" type="xml">
-            <form string="Contract">
+            <form string="Contract" create="0">
                 <header attrs="{'invisible': [('id', '=', False)]}">
                     <button name="action_sign" type="object" string="Sign" states="draft" class="oe_highlight"/>
                     <button name="action_close" type="object" string="Close" states="sign" class="oe_highlight"/>

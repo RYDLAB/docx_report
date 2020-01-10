@@ -44,7 +44,7 @@
                         <field name="contract_annex_ids">
                             <tree>
                                 <field name="name"/>
-                                <button name="action_print_form" type="object" string="Print" icon="fa-print"/>
+                                <button name="action_print_form" type="object" string="Print" icon="fa-print" attrs="{'invisible': [('id', '=', False)]}"/>
                             </tree>
                         </field>
                     </group>

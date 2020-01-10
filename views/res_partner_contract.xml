@@ -42,7 +42,10 @@
                     </group>
                     <group string="Annexed orders" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
                         <field name="contract_annex_ids">
-                            <field name="name"/>
+                            <tree>
+                                <field name="name"/>
+                                <button name="action_print_form" type="object" string="Print" icon="fa-print"/>
+                            </tree>
                         </field>
                     </group>
                 </sheet>

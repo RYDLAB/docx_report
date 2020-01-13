@@ -41,7 +41,7 @@
                         <field name="contract_annex_number" invisible="1"/> 
                     </group>
                     <group string="Annexed orders" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
-                        <field name="contract_annex_ids">
+                        <field name="contract_annex_ids" nolabel="1">
                             <tree>
                                 <field name="name"/>
                                 <button name="action_print_form" type="object" string="Print" attrs="{'invisible': [('id', '=', False)]}"/>

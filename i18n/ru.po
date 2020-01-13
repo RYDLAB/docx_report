@@ -493,7 +493,7 @@ msgstr "Месяц"
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_name
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name
 msgid "Name"
-msgstr "Наименование"
+msgstr "Наименование (для договора)"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_genitive

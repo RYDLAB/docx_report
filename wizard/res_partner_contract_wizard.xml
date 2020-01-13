@@ -11,11 +11,16 @@
                 <group string="Template">
                     <field name="document_template"></field>
                 </group>
-                <group name="requisites" string="Requisites">
+
+                <group invisible="1">
+                    <!-- Need for generate a document -->
                     <field name="target"/>
-                    <field name="partner_id" string="Partner" readonly="1"/>
-                    <field name="company_id" string="Seller" readonly="1"/>
+                    <field name="partner_id"/>
+                    <field name="company_id"/>
                 </group>
+                
+                <button string="Create a document" type="object" name="get_docx_contract" />
+
                 <group string="Contract values" colspan="4">
                     <field name="transient_field_ids">
                         <tree editable="1" create="0" delete="0">
@@ -26,8 +31,6 @@
                         </tree>
                     </field>
                 </group>
-
-                <button string="Create a document" type="object" name="get_docx_contract" />
 
                 <footer/>
 
@@ -45,9 +48,16 @@
                 <group string="Template">
                     <field name="document_template"></field>
                 </group>
-                <group name="info" string="Info">
+
+                <group invisible="1">
+                    <!-- Need for generate a document -->
                     <field name="target"/>
+                    <field name="partner_id"/>
+                    <field name="company_id"/>
                 </group>
+                
+                <button string="Create a document" type="object" name="get_docx_contract" />
+                
                 <group string="Annex values" colspan="4">
                     <field name="transient_field_ids">
                         <tree editable="1" create="0" delete="0">
@@ -58,8 +68,6 @@
                         </tree>
                     </field>
                 </group>
-
-                <button string="Create a document" type="object" name="get_docx_contract" />
 
                 <footer/>
 

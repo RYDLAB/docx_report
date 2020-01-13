@@ -37,7 +37,7 @@ class ContractWizard(models.TransientModel):
     )
 
     @api.onchange("document_template")
-    def _onchange_target(self):
+    def _onchange_document_template(self):
         """Creates transient fields for generate contract template
         Looks as a tree view of *_contract_field_transient model in xml
         """

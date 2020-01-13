@@ -3,7 +3,6 @@ import base64
 import logging
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
 
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream

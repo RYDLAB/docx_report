@@ -126,7 +126,7 @@ class ContractWizard(models.TransientModel):
 
     @api.multi
     def get_docx_contract(self):
-        template = self.document_template
+        template = self.document_template.attachment_id
 
         path_to_template = template._full_path(template.store_fname)
 

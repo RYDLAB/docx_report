@@ -130,6 +130,7 @@ class PartnerContract(models.Model):
 class PrintTemplate(models.Model):
     _name = "res.partner.template.print"
     _description = "Print Template"
+    _order = "sequence"
 
     name = fields.Char()
     attachment_id = fields.Many2one(
@@ -142,6 +143,7 @@ class PrintTemplate(models.Model):
             ("plc", "Private Limited Company"),
         ]
     )
+    sequence = fields.Integer()
 
 
 class PrintTemplateContract(models.Model):

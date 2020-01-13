@@ -130,7 +130,7 @@ class PartnerContract(models.Model):
 class DocumentTemplate(models.Model):
     _name = "res.partner.document.template"
     _description = "Document Template"
-    _order = "sequence"
+    _order = "template_type desc,company_type,sequence"
 
     name = fields.Char()
     attachment_id = fields.Many2one(

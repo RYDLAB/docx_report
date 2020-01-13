@@ -5,7 +5,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     name_write = fields.Char(
-        string="Name",
+        string="Name (in contracts)",
         help="This name uses in contracts",
     )
     name_genitive = fields.Char(string="Name Genitive",)

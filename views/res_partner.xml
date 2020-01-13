@@ -10,20 +10,11 @@
         <field name="view_type">form</field>
     </record>
 
-    <!-- res.partner.template.print.contract action window -->
-    <record id="res_partner_print_contract_action" model="ir.actions.act_window">
-        <field name="name">res.partner.template.print.contract.action</field>
+    <!-- res.partner.document.template action window -->
+    <record id="res_partner_document_template_action" model="ir.actions.act_window">
+        <field name="name">res.partner.document.template.action</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.partner.template.print.contract</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
-    </record>
-
-    <!-- res.partner.template.print.annex action window -->
-    <record id="res_partner_print_annex_action" model="ir.actions.act_window">
-        <field name="name">res.partner.template.print.annex.action</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.partner.template.print.annex</field>
+        <field name="res_model">res.partner.document.template</field>
         <field name="view_mode">tree,form</field>
         <field name="view_type">form</field>
     </record>
@@ -92,21 +83,10 @@
         parent="res_partner_menu_contracts"
         sequence="1"/>
 
-    <menuitem id="res_partner_menu_contracts_templates"
+    <menuitem id="res_partner_menu_contracts_templates_"
         name="Templates"
         parent="res_partner_menu_contracts"
-        sequence="2"/>
-
-    <menuitem id="res_partner_menu_contracts_templates_contract"
-        name="Contract"
-        parent="res_partner_menu_contracts_templates"
-        action="res_partner_print_contract_action"
-        sequence="1"/>
-
-    <menuitem id="res_partner_menu_contracts_templates_annex"
-        name="Annex"
-        parent="res_partner_menu_contracts_templates"
-        action="res_partner_print_annex_action"
+        action="res_partner_document_template_action"
         sequence="2"/>
 
 </odoo>

@@ -27,20 +27,16 @@ class ContractWizard(models.TransientModel):
     )
     company_id = fields.Many2one("res.partner", string="Company")
     partner_id = fields.Many2one("res.partner", string="Partner")
-    print_template_contract = fields.Many2one(
-        "res.partner.template.print.contract", string="Print Template of Contract",
+    document_template = fields.Many2one(
+        "res.partner.document.template", string="Document Template", required=True,
     )
-    print_template_annex = fields.Many2one(
-        "res.partner.template.print.annex", string="Print Template of Contract Annex",
-    )
-
     transient_field_ids = fields.One2many(
         "res.partner.contract.field.transient",
         "_contract_wizard_id",
         string="Contract Fields",
     )
 
-    @api.onchange("target")
+    @api.onchange("document_template")
     def _onchange_target(self):
         """Creates transient fields for generate contract template
         Looks as a tree view of *_contract_field_transient model in xml
@@ -111,21 +107,26 @@ class ContractWizard(models.TransientModel):
         ]
 
         # Set up template domain
+        template_type = {
+            "res.partner.contract": "contract",
+            "res.partner.contract.annex": "annex",
+        }.get(active_model, False)
         company_type = (
             self.partner_id.company_form if self.partner_id.is_company else "person"
         )
+
         return {
             "domain": {
-                "print_template_contract": [("company_type", "=", company_type)],
-                "print_template_annex": [("company_type", "=", company_type)],
+                "document_template": [
+                    ("template_type", "=", template_type),
+                    ("company_type", "=", company_type),
+                ],
             }
         }
 
     @api.multi
     def get_docx_contract(self):
-        template = self._get_template()
-        if not template:
-            raise UserError("Template must be set up")
+        template = self.document_template
 
         path_to_template = template._full_path(template.store_fname)
 
@@ -176,11 +177,3 @@ class ContractWizard(models.TransientModel):
         )
 
         return document_as_attachment
-
-    @api.multi
-    def _get_template(self):
-        model_to_template = {
-            "res.partner.contract": self.print_template_contract.attachment_id,
-            "res.partner.contract.annex": self.print_template_annex.attachment_id,
-        }
-        return model_to_template.get(self.env.context.get("active_model"), False)

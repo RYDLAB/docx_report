@@ -127,9 +127,9 @@ class PartnerContract(models.Model):
         return _(arg)
 
 
-class PrintTemplate(models.Model):
-    _name = "res.partner.template.print"
-    _description = "Print Template"
+class DocumentTemplate(models.Model):
+    _name = "res.partner.document.template"
+    _description = "Document Template"
     _order = "sequence"
 
     name = fields.Char()
@@ -143,16 +143,7 @@ class PrintTemplate(models.Model):
             ("plc", "Private Limited Company"),
         ]
     )
+    template_type = fields.Selection(
+        selection=[("contract", "Contract"), ("annex", "Annex"),]
+    )
     sequence = fields.Integer()
-
-
-class PrintTemplateContract(models.Model):
-    _name = "res.partner.template.print.contract"
-    _inherit = "res.partner.template.print"
-    _description = "Print Template Contract"
-
-
-class PrintTemplateAnnex(models.Model):
-    _name = "res.partner.template.print.annex"
-    _inherit = "res.partner.template.print"
-    _description = "Print Template Contract Annex"

@@ -9,7 +9,7 @@
             <form>
 
                 <group string="Template">
-                    <field name="print_template_contract"></field>
+                    <field name="document_template"></field>
                 </group>
                 <group name="requisites" string="Requisites">
                     <field name="target"/>
@@ -43,7 +43,7 @@
             <form>
 
                 <group string="Template">
-                    <field name="print_template_annex"></field>
+                    <field name="document_template"></field>
                 </group>
                 <group name="info" string="Info">
                     <field name="target"/>

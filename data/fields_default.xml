@@ -36,6 +36,9 @@ yyyy = date.year
 yy = yyyy % 100
 MM = months[mm]
 
+dd = dd if dd // 10 else '0{}'.format(dd)
+mm = mm if mm // 10 else '0{}'.format(mm)
+
 # ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
     "contract_number": self.name,
@@ -162,6 +165,9 @@ mm = date.month
 yyyy = date.year
 yy = yyyy % 100
 MM = months[mm]
+
+dd = dd if dd // 10 else '0{}'.format(dd)
+mm = mm if mm // 10 else '0{}'.format(mm)
 
 # ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {

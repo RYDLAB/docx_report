@@ -40,6 +40,9 @@ class ContractWizard(models.TransientModel):
         "_contract_wizard_id",
         string="Contract Fields",
     )
+    transient_field_ids_hidden = fields.One2many(
+        "res.partner.contract.field.transient", "_contract_wizard_id",
+    )
 
     @api.onchange("document_template")
     def _onchange_document_template(self):
@@ -110,6 +113,12 @@ class ContractWizard(models.TransientModel):
                 ).sequence,
             )
         ]
+        self.transient_field_ids_hidden = (
+            self.transient_field_ids - self.transient_field_ids.filtered("visible")
+        )
+        self.transient_field_ids = (
+            self.transient_field_ids - self.transient_field_ids_hidden
+        )
 
         # Set up template domain
         template_type = {
@@ -137,7 +146,9 @@ class ContractWizard(models.TransientModel):
 
         fields = {
             transient_field.technical_name: transient_field.value
-            for transient_field in self.transient_field_ids
+            for transient_field in (
+                self.transient_field_ids + self.transient_field_ids_hidden
+            )
             if transient_field.technical_name and transient_field.value
         }
 

@@ -11,3 +11,4 @@ class ContractField(models.Model):
     )
     description = fields.Char(string="Description", translate=True, default="",)
     sequence = fields.Integer(string="Sequence",)
+    visible = fields.Boolean(string="Visible", default=True,)

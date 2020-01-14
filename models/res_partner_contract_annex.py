@@ -10,7 +10,12 @@ class ContractOrderAnnex(models.Model):
     _description = "Contract Annex"
 
     name = fields.Char(string="Name", help="The Number of Annex")
-    order_id = fields.Many2one("sale.order", string="Order", required=True,)
+    order_id = fields.Many2one(
+        "sale.order",
+        string="Order",
+        required=True,
+        help="Orders with this partner which are not uses in annexes yet",
+    )
     contract_id = fields.Many2one(
         "res.partner.contract", string="Contract", readonly=True,
     )

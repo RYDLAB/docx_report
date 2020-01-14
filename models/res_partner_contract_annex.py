@@ -29,7 +29,7 @@ class ContractOrderAnnex(models.Model):
         contract_number = self.contract_id.name
         annex_number = self.contract_id.contract_annex_number
 
-        self.name = "{contract}--{annex}".format(
+        self.name = "{contract}—{annex}".format(
             contract=contract_number, annex=annex_number
         )
 

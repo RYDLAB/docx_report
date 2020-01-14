@@ -58,7 +58,7 @@ msgid "Amount Whole Part"
 msgstr "Целая часть суммы"
 
 #. module: client_contracts
-#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:165
+#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:163
 #: selection:res.partner.document.template,template_type:0
 #, python-format
 msgid "Annex"
@@ -150,7 +150,7 @@ msgid "Contact"
 msgstr "Контакт"
 
 #. module: client_contracts
-#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:162
+#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:160
 #: model:ir.model,name:client_contracts.model_res_partner_contract
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_contract_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient__contract_wizard_id
@@ -461,18 +461,18 @@ msgstr "Месяц"
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_name
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name
 msgid "Name"
-msgstr "Наименование"
+msgstr "Название"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_info_inherit_view
 msgid "Name (in ERP)"
-msgstr "Наименование (для ERP)"
+msgstr "Название в ERP"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_write
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_name_write
 msgid "Name (in contracts)"
-msgstr "Наименование (для договора)"
+msgstr "Название в договоре"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_genitive
@@ -517,6 +517,11 @@ msgstr "ОКПО"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_order_id
 msgid "Order"
 msgstr "Заказ"
+
+#. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_order_id
+msgid "Orders with this partner which are not uses in annexes yet"
+msgstr "Заказы, заключённые с этим партнёром и ещё не использующиеся в приложениях"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_ogrn
@@ -659,7 +664,7 @@ msgid "Print Form of Contract"
 msgstr "Форма печати договора"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract_annex.py:65
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:71
 #, python-format
 msgid "Print Form of Contract Annex"
 msgstr "Форма печати приложения к договору"

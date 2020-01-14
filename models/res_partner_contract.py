@@ -92,7 +92,7 @@ class PartnerContract(models.Model):
     @api.multi
     def action_print_form(self):
         view = self.env.ref(
-            "{}.res_partner_wizard_print_contract_view".format(MODULE_NAME)
+            "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)
         )
         return {
             "name": _("Print Form of Contract"),

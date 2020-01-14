@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-14 04:47+0000\n"
-"PO-Revision-Date: 2020-01-14 04:47+0000\n"
-"Last-Translator: Stepan Savelyev\n"
-"Language-Team: RYDLAB\n"
+"POT-Creation-Date: 2020-01-14 11:49+0000\n"
+"PO-Revision-Date: 2020-01-14 11:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -428,7 +428,7 @@ msgstr "Последнее изменение"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_write_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_write_uid
 msgid "Last Updated by"
-msgstr "Последний раз обновлено"
+msgstr "Последний раз обновил"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_write_date
@@ -438,7 +438,7 @@ msgstr "Последний раз обновлено"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_write_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_write_date
 msgid "Last Updated on"
-msgstr "Последний раз обновлено"
+msgstr "Последнее обновление"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
@@ -464,17 +464,6 @@ msgid "Name"
 msgstr "Название"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_info_inherit_view
-msgid "Name (in ERP)"
-msgstr "Название в ERP"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_write
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_write
-msgid "Name (in contracts)"
-msgstr "Название в договоре"
-
-#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_genitive
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_name_genitive
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name_parent
@@ -489,6 +478,17 @@ msgstr "Имя (род.падеж)"
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name_initials
 msgid "Name Initials"
 msgstr "Фамилия с инициалами"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_info_inherit_view
+msgid "Name in ERP"
+msgstr "Название в ERP"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_write
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_write
+msgid "Name in contracts"
+msgstr "Название в договоре"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_field_technical_name

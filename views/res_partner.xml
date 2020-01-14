@@ -27,7 +27,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='name']" position="attributes">
-                <attribute name="placeholder">Name (in ERP)</attribute>
+                <attribute name="placeholder">Name in ERP</attribute>
             </xpath>
 
             <xpath expr="//field[@name='type']" position="before">

@@ -8,8 +8,9 @@
         <field name="arch" type="xml">
             <tree string="Contracts">
                 <field name="name"/>
-                <field name="date_conclusion"/>
                 <field name="partner_id"/>
+                <field name="date_conclusion"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>

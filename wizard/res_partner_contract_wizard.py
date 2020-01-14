@@ -17,9 +17,6 @@ class ContractWizard(models.TransientModel):
         current_id = self.env.context.get("active_id")
         return self.env["res.partner.contract"].browse(current_id).partner_id.id
 
-    def _get_default_document_template(self):
-        return self.env["res.partner.document.template"].search([], limit=1)
-
     target = fields.Reference(
         selection=[
             ("res.partner.contract", "Contract"),
@@ -30,10 +27,7 @@ class ContractWizard(models.TransientModel):
     company_id = fields.Many2one("res.partner", string="Company")
     partner_id = fields.Many2one("res.partner", string="Partner")
     document_template = fields.Many2one(
-        "res.partner.document.template",
-        string="Document Template",
-        default=_get_default_document_template,
-        required=True,
+        "res.partner.document.template", string="Document Template", required=True,
     )
     transient_field_ids = fields.One2many(
         "res.partner.contract.field.transient",
@@ -129,14 +123,15 @@ class ContractWizard(models.TransientModel):
             self.partner_id.company_form if self.partner_id.is_company else "person"
         )
 
-        return {
-            "domain": {
-                "document_template": [
-                    ("template_type", "=", template_type),
-                    ("company_type", "=", company_type),
-                ],
-            }
-        }
+        document_template_domain = [
+            ("template_type", "=", template_type),
+            ("company_type", "=", company_type),
+        ]
+
+        # Set default template
+        self.document_template = self.env["res.partner.document.template"].search(document_template_domain, limit=1)
+
+        return {"domain": {"document_template": document_template_domain,}}
 
     @api.multi
     def get_docx_contract(self):

@@ -12,6 +12,7 @@
     "version": "0.1.1",
     "depends": ["base", "contacts", "russian_requisites", "sale",],
     "data": [
+        "data/assets_extension.xml",
         "data/fields_default.xml",
         "data/payment_terms.xml",
         "security/ir.model.access.csv",

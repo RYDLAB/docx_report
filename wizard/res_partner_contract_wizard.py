@@ -129,9 +129,10 @@ class ContractWizard(models.TransientModel):
         ]
 
         # Set default template
-        self.document_template = self.env["res.partner.document.template"].search(
-            document_template_domain, limit=1
-        )
+        if not self.document_template:
+            self.document_template = self.env["res.partner.document.template"].search(
+                document_template_domain, limit=1
+            )
 
         return {"domain": {"document_template": document_template_domain,}}
 

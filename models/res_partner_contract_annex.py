@@ -9,17 +9,18 @@ class ContractOrderAnnex(models.Model):
     _name = "res.partner.contract.annex"
     _description = "Contract Annex"
 
-    name = fields.Char(string="Name", help="The Number of Annex")
+    name = fields.Char(string="Name",)
+    display_name = fields.Char(compute="_compute_display_name")
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
         required=True,
         help="Orders with this partner which are not uses in annexes yet",
     )
-    display_name = fields.Char(related="order_id.name",)
     contract_id = fields.Many2one(
         "res.partner.contract", string="Contract", readonly=True,
     )
+    number = fields.Integer(string="№",)
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
@@ -29,14 +30,13 @@ class ContractOrderAnnex(models.Model):
         "account.payment.term", related="order_id.payment_term_id", readonly=True,
     )
 
-    @api.onchange("contract_id")
-    def _onchange_contract_id(self):
-        # Compute name if there is no custom name
+    @api.onchange("order_id")
+    def _onchange_order_id(self):
         contract_number = self.contract_id.name
-        annex_number = self.contract_id.contract_annex_number
+        order_number = self.order_id.name or "SO###"
 
-        self.name = "{contract}—{annex}".format(
-            contract=contract_number, annex=annex_number
+        self.name = "{contract}-{order}".format(
+            contract=contract_number, order=order_number,
         )
 
         # Compute domain for order_id because of bug with
@@ -50,6 +50,15 @@ class ContractOrderAnnex(models.Model):
             }
         }
 
+    @api.multi
+    @api.depends('name')
+    def _compute_display_name(self):
+        for record in self:
+            annex_number = record.number
+            record.display_name = "№{number} {name}".format(
+                number=annex_number, name=record.name,
+            )
+
     @api.model
     def create(self, values):
         record = super().create(values)
@@ -57,7 +66,8 @@ class ContractOrderAnnex(models.Model):
         # Fill annex_id to domain it in future
         record.order_id.contract_annex_id = record.id
 
-        # Add counter
+        # Counter
+        record.number = record.contract_id.contract_annex_number
         record.contract_id.contract_annex_number += 1
 
         return record

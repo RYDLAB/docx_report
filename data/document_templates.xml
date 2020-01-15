@@ -25,12 +25,12 @@
         <!-- Contract -->
         <record id="document_contract_postavki_person" model="ir.attachment">
             <field name="name">Договор Поставки Физлицо</field>
-            <field name="datas_fname">Договор Поставки</field>
+            <field name="datas_fname">Договор поставки</field>
             <field name="type">binary</field>
             <field name="datas" file="client_contracts/static/assets/documents/person/contract_postavki_person.docx" type="base64"/>
         </record>
         <record id="template_contract_postavki_person" model="res.partner.document.template">
-            <field name="name">Договор Поставки</field>
+            <field name="name">Договор поставки</field>
             <field name="attachment_id" ref="document_contract_postavki_person"/>
             <field name="document_type">contract</field>
             <field name="document_type_name"></field>

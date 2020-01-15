@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <!-- res.partner.document.template tree view -->
+    <record id="res_partner_document_template_view_tree" model="ir.ui.view">
+        <field name="name">res.partner.document.template.view.tree</field>
+        <field name="model">res.partner.document.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="company_type"/>
+                <field name="document_type"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

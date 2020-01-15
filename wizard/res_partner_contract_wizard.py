@@ -153,19 +153,33 @@ class ContractWizard(models.TransientModel):
         binary_data = get_document_from_values_stream(path_to_template, fields).read()
         encoded_data = base64.b64encode(binary_data)
 
-        attachment_name = "{name}-{number}.{ext}".format(
-            number=self.target.name,
-            ext="docx",
-            name=(
-                _("Contract")
-                if self.target._name == "res.partner.contract"
-                else (
-                    _("Annex")
-                    if self.target._name == "res.partner.contract.annex"
-                    else ("Unknown")
+        if self.target._name == "res.partner.contract":
+            contract = self.target
+            attachment_name = "{type} {number} {from_} {date}".format(
+                type=dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type),
+                number=contract.name,
+                from_=_("from"),
+                date=contract.get_date().strftime("%d.%m.%Y"),
+            )
+        elif self.target._name == "res.partner.contract.annex":
+            annex = self.target
+            attachment_name = "{type} №{name}".format(
+                type=dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type),
+                name={
+                    "specification": "{number} {type} {name}",
+                    "approval_list": "{number}.1 {type} {name}-1",
+                    "act_at": "{number}.2 {type} {name}-2",
+                    "act_ad": "{number}.3 {type} {name}-3",
+                }.get(self.document_template.document_type_name).format(
+                    number=annex.number,
+                    type=dict(self.document_template._fields['document_type_name'].selection).get(self.document_template.document_type_name),
+                    name=annex.name,
                 )
-            ),
-        )
+            )
+        else:
+            attachment_name = "Unknown"
+
+        attachment_name = "{}.docx".format(attachment_name)
 
         document_as_attachment = self.env["ir.attachment"].create(
             {

@@ -41,7 +41,7 @@
                         <!-- Uses to generate number of Annex -->
                         <field name="contract_annex_number" invisible="1"/> 
                     </group>
-                    <group string="Annexed orders" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
+                    <group string="Annexed Specifications" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
                         <field name="contract_annex_ids" nolabel="1">
                             <tree>
                                 <field name="display_name"/>

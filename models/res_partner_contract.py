@@ -136,6 +136,23 @@ class DocumentTemplate(models.Model):
     attachment_id = fields.Many2one(
         "ir.attachment", string="Template Attachment", required=True,
     )
+    document_type = fields.Selection(
+        string="Type of document",
+        selection=[
+            ("contract", "Contract"),
+            ("annex", "Annex"),
+            ("addition", "Addition"),
+        ]
+    )
+    document_type_name = fields.Selection(
+        string="Document",
+        selection=[
+            ("specification", "Specification"),
+            ("approval_list", "Approval List"),
+            ("act_at", "Act of Acceptance and Transfer"),
+            ("act_ad", "Act of Acceptance and Delivery"),
+        ]
+    )
     company_type = fields.Selection(
         selection=[
             ("person", "Individual"),

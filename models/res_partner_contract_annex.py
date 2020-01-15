@@ -10,7 +10,6 @@ class ContractOrderAnnex(models.Model):
     _description = "Contract Annex"
 
     name = fields.Char(string="Name",)
-    display_name = fields.Char(compute="_compute_display_name")
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
@@ -32,11 +31,12 @@ class ContractOrderAnnex(models.Model):
 
     @api.onchange("order_id")
     def _onchange_order_id(self):
+        annex_number = self.contract_id.contract_annex_number
         contract_number = self.contract_id.name
         order_number = self.order_id.name or "SO###"
 
-        self.name = "{contract}-{order}".format(
-            contract=contract_number, order=order_number,
+        self.name = "№{number} {contract}-{order}".format(
+            number=annex_number, contract=contract_number, order=order_number,
         )
 
         # Compute domain for order_id because of bug with
@@ -49,15 +49,6 @@ class ContractOrderAnnex(models.Model):
                 ]
             }
         }
-
-    @api.multi
-    @api.depends('name')
-    def _compute_display_name(self):
-        for record in self:
-            annex_number = record.number
-            record.display_name = "№{number} {name}".format(
-                number=annex_number, name=record.name,
-            )
 
     @api.model
     def create(self, values):

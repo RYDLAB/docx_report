@@ -134,7 +134,7 @@ class DocumentTemplate(models.Model):
 
     name = fields.Char()
     attachment_id = fields.Many2one(
-        "ir.attachment", string="Template Attachment", required=True,
+        "ir.attachment", string="Template Attachment", ondelete="cascade", required=True,
     )
     document_type = fields.Selection(
         string="Type of document",

@@ -3,6 +3,7 @@ import base64
 import logging
 
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
@@ -27,7 +28,7 @@ class ContractWizard(models.TransientModel):
     company_id = fields.Many2one("res.partner", string="Company")
     partner_id = fields.Many2one("res.partner", string="Partner")
     document_template = fields.Many2one(
-        "res.partner.document.template", string="Document Template", required=True,
+        "res.partner.document.template", string="Document Template",
     )
     transient_field_ids = fields.One2many(
         "res.partner.contract.field.transient",
@@ -37,6 +38,11 @@ class ContractWizard(models.TransientModel):
     transient_field_ids_hidden = fields.One2many(
         "res.partner.contract.field.transient", "_contract_wizard_id",
     )
+
+    @api.constrains("document_template")
+    def _check_document_template(self):
+        if not self.document_template:
+            raise ValidationError("You did not set up the template...")
 
     @api.onchange("document_template")
     def _onchange_document_template(self):

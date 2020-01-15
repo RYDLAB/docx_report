@@ -139,18 +139,18 @@ class DocumentTemplate(models.Model):
     document_type = fields.Selection(
         string="Type of document",
         selection=[
-            ("contract", "Contract"),
-            ("annex", "Annex"),
-            ("addition", "Addition"),
+            ("contract", _("Contract")),
+            ("annex", _("Annex")),
+            ("addition", _("Addition")),
         ]
     )
     document_type_name = fields.Selection(
         string="Document",
         selection=[
-            ("specification", "Specification"),
-            ("approval_list", "Approval List"),
-            ("act_at", "Act of Acceptance and Transfer"),
-            ("act_ad", "Act of Acceptance and Delivery"),
+            ("specification", _("Specification")),
+            ("approval_list", _("Approval List")),
+            ("act_at", _("Act of Acceptance and Transfer")),
+            ("act_ad", _("Act of Acceptance and Delivery")),
         ]
     )
     company_type = fields.Selection(

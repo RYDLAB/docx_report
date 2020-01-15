@@ -156,14 +156,14 @@ class ContractWizard(models.TransientModel):
         if self.target._name == "res.partner.contract":
             contract = self.target
             attachment_name = _("{type} {number} from {date}").format(
-                type=dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type),
+                type=_(dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type)),
                 number=contract.name,
                 date=contract.get_date().strftime("%d.%m.%Y"),
             )
         elif self.target._name == "res.partner.contract.annex":
             annex = self.target
             attachment_name = "{type} №{name}".format(
-                type=dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type),
+                type=_(dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type)),
                 name={
                     "specification": "{number} {type} {name}",
                     "approval_list": "{number}.1 {type} {name}-1",
@@ -171,7 +171,7 @@ class ContractWizard(models.TransientModel):
                     "act_ad": "{number}.3 {type} {name}-3",
                 }.get(self.document_template.document_type_name).format(
                     number=annex.number,
-                    type=dict(self.document_template._fields['document_type_name'].selection).get(self.document_template.document_type_name),
+                    type=_(dict(self.document_template._fields['document_type_name'].selection).get(self.document_template.document_type_name)),
                     name=annex.name,
                 )
             )

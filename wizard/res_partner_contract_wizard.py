@@ -155,10 +155,9 @@ class ContractWizard(models.TransientModel):
 
         if self.target._name == "res.partner.contract":
             contract = self.target
-            attachment_name = "{type} {number} {from_} {date}".format(
+            attachment_name = _("{type} {number} from {date}").format(
                 type=dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type),
                 number=contract.name,
-                from_=_("from"),
                 date=contract.get_date().strftime("%d.%m.%Y"),
             )
         elif self.target._name == "res.partner.contract.annex":

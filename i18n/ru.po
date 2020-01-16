@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 12:47+0000\n"
-"PO-Revision-Date: 2020-01-15 12:47+0000\n"
+"POT-Creation-Date: 2020-01-16 13:28+0000\n"
+"PO-Revision-Date: 2020-01-16 13:28+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -42,14 +42,14 @@ msgid "3 stages"
 msgstr "Оплата в 3 этапа"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:153
+#: code:addons/client_contracts/models/res_partner_document_template.py:27
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Act of Acceptance and Delivery"
 msgstr "Акт приема-сдачи"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:152
+#: code:addons/client_contracts/models/res_partner_document_template.py:26
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Act of Acceptance and Transfer"
@@ -62,7 +62,7 @@ msgid "Actual Address"
 msgstr "Актуальный адрес"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:144
+#: code:addons/client_contracts/models/res_partner_document_template.py:18
 #: selection:res.partner.document.template,document_type:0
 #, python-format
 msgid "Addition"
@@ -79,12 +79,17 @@ msgid "Amount Whole Part"
 msgstr "Целая часть суммы"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:143
+#: code:addons/client_contracts/models/res_partner_document_template.py:17
 #: selection:res.partner.document.template,document_type:0
 #: selection:res.partner.document.template,template_type:0
 #, python-format
 msgid "Annex"
 msgstr "Приложение"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_annex_name
+msgid "Annex Name"
+msgstr "Наименование приложения"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
@@ -102,7 +107,7 @@ msgid "Annexes to this contract"
 msgstr "Приложения к договору"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:151
+#: code:addons/client_contracts/models/res_partner_document_template.py:25
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Approval List"
@@ -179,7 +184,7 @@ msgid "Contact"
 msgstr "Контакт"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:142
+#: code:addons/client_contracts/models/res_partner_document_template.py:16
 #: model:ir.model,name:client_contracts.model_res_partner_contract
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_contract_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient__contract_wizard_id
@@ -699,7 +704,7 @@ msgid "Print Form of Contract"
 msgstr "Форма печати договора"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract_annex.py:81
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:71
 #, python-format
 msgid "Print Form of Contract Annex"
 msgstr "Форма печати приложения к договору"
@@ -816,7 +821,7 @@ msgid "Sole Proprietor"
 msgstr "Индивидуальный предприниматель"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:150
+#: code:addons/client_contracts/models/res_partner_document_template.py:24
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Specification"
@@ -934,7 +939,13 @@ msgid "res.partner.document.template.action"
 msgstr "res.partner.document.template.action"
 
 #. module: client_contracts
-#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:158
+#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:170
+#, python-format
+msgid "{name} from {date}"
+msgstr "{name} от {date}"
+
+#. module: client_contracts
+#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:182
 #, python-format
 msgid "{type} {number} from {date}"
 msgstr "{type} {number} от {date}"

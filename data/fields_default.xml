@@ -175,6 +175,7 @@ mm = mm if mm // 10 else '0{}'.format(mm)
 ctx = {
     "contract_number": self.contract_id.name,
     "annex_name": self.name,
+    "order_name": self.order_id.name,
 
     "dd": dd,
     "mm": mm,
@@ -276,6 +277,13 @@ action = ctx
             <field name="technical_name">annex_name</field>
             <field name="description"></field>
             <field name="sequence">2</field>
+        </record>
+
+        <record id="contract_field_order_name" model="res.partner.contract.field">
+            <field name="name">Order Name</field>
+            <field name="technical_name">order_name</field>
+            <field name="description"></field>
+            <field name="sequence">3</field>
         </record>
 
         <record id="contract_field_dd" model="res.partner.contract.field">

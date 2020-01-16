@@ -31,12 +31,11 @@ class ContractOrderAnnex(models.Model):
 
     @api.onchange("order_id")
     def _onchange_order_id(self):
-        annex_number = self.contract_id.contract_annex_number
         contract_number = self.contract_id.name
         order_number = self.order_id.name or "SO###"
 
-        self.name = "№{number} {contract}-{order}".format(
-            number=annex_number, contract=contract_number, order=order_number,
+        self.name = "{contract}-{order}".format(
+            contract=contract_number, order=order_number,
         )
 
         # Compute domain for order_id because of bug with

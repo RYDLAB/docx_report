@@ -71,12 +71,14 @@ ctx = {
 
 if partner_bank:
     ctx.update({
+        "partner_bank": partner_bank.name,
         "partner_rs": partner_bank.acc_number,
         "partner_ks": partner_bank.bank_id.corr_account,
         "partner_bic": partner_bank.bank_id.bic,
     })
 if seller_bank:
     ctx.update({
+        "seller_bank": partner_bank.name,
         "seller_rs": seller_bank.acc_number,
         "seller_ks": seller_bank.bank_id.corr_account,
         "seller_bic": seller_bank.bank_id.bic,

@@ -252,6 +252,11 @@ msgid "Contracts"
 msgstr "Договоры"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_crm_lead_cost_price
+msgid "Cost Price"
+msgstr "Себестоимость"
+
+#. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_contract_annex_number
 msgid "Counter for generate Annex name"
 msgstr "Счётчик для генерации имени приложения к договору"
@@ -479,6 +484,11 @@ msgstr "Последний раз обновил"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_write_date
 msgid "Last Updated on"
 msgstr "Последнее обновление"
+
+#. module: client_contracts
+#: model:ir.model,name:client_contracts.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Лид / Потенциальная сделка"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form

@@ -172,6 +172,7 @@ mm = mm if mm // 10 else '0{}'.format(mm)
 # ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
     "contract_number": self.contract_id.name,
+    "annex_name": self.name,
 
     "dd": dd,
     "mm": mm,
@@ -266,6 +267,13 @@ action = ctx
             <field name="technical_name">contract_number</field>
             <field name="description"></field>
             <field name="sequence">1</field>
+        </record>
+
+        <record id="contract_field_annex_name" model="res.partner.contract.field">
+            <field name="name">Annex Name</field>
+            <field name="technical_name">annex_name</field>
+            <field name="description"></field>
+            <field name="sequence">2</field>
         </record>
 
         <record id="contract_field_dd" model="res.partner.contract.field">

@@ -44,7 +44,7 @@
                     <group string="Annexed Specifications" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
                         <field name="contract_annex_ids" nolabel="1">
                             <tree>
-                                <field name="name"/>
+                                <field name="display_name" string="Name"/>
                                 <button name="action_print_form" type="object" string="Print" attrs="{'invisible': [('id', '=', False)]}"/>
                             </tree>
                         </field>

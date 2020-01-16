@@ -10,6 +10,7 @@ class ContractOrderAnnex(models.Model):
     _description = "Contract Annex"
 
     name = fields.Char(string="Name",)
+    display_name = fields.Char(compute="_compute_display_name",)
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
@@ -48,6 +49,12 @@ class ContractOrderAnnex(models.Model):
                 ]
             }
         }
+
+    @api.multi
+    @api.depends('name')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = "№{} {}".format(record.number or record.contract_id.contract_annex_number, record.name)
 
     @api.model
     def create(self, values):

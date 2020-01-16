@@ -12,6 +12,7 @@
                     <sheet>
                         <group>
                             <field name="name" placeholder="Leave empty for compute"/>
+                            <field name="display_name" invisible="1"/>
                             <field name="contract_id" attrs="{'invisible': [('contract_id', '=', False)]}"/>
                             <field name="order_id" options="{'no_create': True}"/>
                             <field name="date_conclusion"/>

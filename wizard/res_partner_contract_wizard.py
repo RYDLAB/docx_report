@@ -155,10 +155,28 @@ class ContractWizard(models.TransientModel):
             )
             if transient_field.technical_name and transient_field.value
         }
+        if self.target._name == "res.partner.contract.annex":
+            # TODO: bad
+            fields.update({
+                "annex_name": {
+                    "specification": "{number} {name}",
+                    "approval_list": "{number}.1 {name}-1",
+                    "act_at": "{number}.2 {name}-2",
+                    "act_ad": "{number}.3 {name}-3",
+                }.get(self.document_template.document_type_name).format(
+                    number=self.target.number,
+                    name=self.target.name,
+                ),
+                "specification_name": _("{name} from {date}").format(
+                    name="{}-{}".format(self.target.contract_id.name, self.target.order_id.name),
+                    date=self.target.contract_id.get_date().strftime("%d.%m.%Y"),
+                ),
+            })
 
         binary_data = get_document_from_values_stream(path_to_template, fields).read()
         encoded_data = base64.b64encode(binary_data)
 
+        # TODO: bad
         if self.target._name == "res.partner.contract":
             contract = self.target
             attachment_name = _("{type} {number} from {date}").format(

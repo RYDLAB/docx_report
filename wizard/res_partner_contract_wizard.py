@@ -176,32 +176,7 @@ class ContractWizard(models.TransientModel):
         binary_data = get_document_from_values_stream(path_to_template, fields).read()
         encoded_data = base64.b64encode(binary_data)
 
-        # TODO: bad
-        if self.target._name == "res.partner.contract":
-            contract = self.target
-            attachment_name = _("{type} {number} from {date}").format(
-                type=_(dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type)),
-                number=contract.name,
-                date=contract.get_date().strftime("%d.%m.%Y"),
-            )
-        elif self.target._name == "res.partner.contract.annex":
-            annex = self.target
-            attachment_name = "{type} №{name}".format(
-                type=_(dict(self.document_template._fields['document_type'].selection).get(self.document_template.document_type)),
-                name={
-                    "specification": "{number} {type} {name}",
-                    "approval_list": "{number}.1 {type} {name}-1",
-                    "act_at": "{number}.2 {type} {name}-2",
-                    "act_ad": "{number}.3 {type} {name}-3",
-                }.get(self.document_template.document_type_name).format(
-                    number=annex.number,
-                    type=_(dict(self.document_template._fields['document_type_name'].selection).get(self.document_template.document_type_name)),
-                    name=annex.name,
-                )
-            )
-        else:
-            attachment_name = "Unknown"
-
+        attachment_name = self.target.get_filename_by_document_template(self.document_template) or "Unknown"
         attachment_name = "{}.docx".format(attachment_name)
 
         document_as_attachment = self.env["ir.attachment"].create(

@@ -85,6 +85,22 @@ class ContractOrderAnnex(models.Model, Extension):
             "context": {"self_id": self.id},
         }
 
+    def get_filename_by_document_template(self, document_template_id):
+        return "{type} №{name}".format(
+            type=_(dict(document_template_id._fields['document_type'].selection).get(document_template_id.document_type)),
+            name={
+                "bill": "{number} {type} {name}",
+                "specification": "{number} {type} {name}",
+                "approval_list": "{number}.1 {type} {name}-1",
+                "act_at": "{number}.2 {type} {name}-2",
+                "act_ad": "{number}.3 {type} {name}-3",
+            }.get(document_template_id.document_type_name).format(
+                number=self.number,
+                type=_(dict(document_template_id._fields['document_type_name'].selection).get(document_template_id.document_type_name)),
+                name=self.name,
+            )
+        )
+
     def modf(self, arg):
         """Math.modf function for using in XML ir.action.server code
         Uses in data/fields_default.xml

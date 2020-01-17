@@ -12,6 +12,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
 
     name = fields.Char(string="Name",)
     display_name = fields.Char(compute="_compute_display_name",)
+    specification_name = fields.Char(compute="_compute_specification_name",)
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
@@ -56,6 +57,13 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     def _compute_display_name(self):
         for record in self:
             record.display_name = "№{} {}".format(record.number or record.contract_id.contract_annex_number, record.name)
+
+    @api.depends('specification_name', 'contract_id', 'order_id')
+    def _compute_specification_name(self):
+        self.specification_name = _("{name} from {date}").format(
+            name="{}-{}".format(self.contract_id.name, self.order_id.name),
+            date=self.contract_id.get_date().strftime("%d.%m.%Y"),
+        )
 
     @api.model
     def create(self, values):

@@ -161,13 +161,9 @@ class ContractWizard(models.TransientModel):
             if transient_field.technical_name and transient_field.value
         }
         if self.target._name == "res.partner.contract.annex":
-            # TODO: bad
             fields.update({
                 "annex_name": self.document_name,
-                "specification_name": _("{name} from {date}").format(
-                    name="{}-{}".format(self.target.contract_id.name, self.target.order_id.name),
-                    date=self.target.contract_id.get_date().strftime("%d.%m.%Y"),
-                ),
+                "specification_name": self.target.specification_name,
             })
 
         binary_data = get_document_from_values_stream(path_to_template, fields).read()

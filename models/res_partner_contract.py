@@ -4,10 +4,10 @@ from odoo import _, api, fields, models
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 from ..utils import MODULE_NAME
-from ..utils.misc import Extension
+from ..utils.misc import Extension, IDocument
 
 
-class PartnerContract(models.Model, Extension):
+class PartnerContract(models.Model, IDocument, Extension):
     _name = "res.partner.contract"
     _description = "Contract"
     _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers"]

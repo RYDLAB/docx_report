@@ -46,7 +46,7 @@ msgstr "Оплата в 3 этапа"
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Act of Acceptance and Delivery"
-msgstr "Акт приема-сдачи"
+msgstr "Акт сдачи-приемки"
 
 #. module: client_contracts
 #: code:addons/client_contracts/models/res_partner_document_template.py:26

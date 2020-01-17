@@ -15,15 +15,17 @@ class ContractWizard(models.TransientModel):
 
     def _get_default_partner(self):
         current_id = self.env.context.get("active_id")
-        return self.env["res.partner.contract"].browse(current_id).partner_id.id
+        partner_id = self.env[self.active_model].browse(current_id).partner_id
+        return partner_id
 
     def _get_default_template(self):
+        partner_id = self._get_default_partner()
         template_type = {
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
         company_type = (
-            self.partner_id.company_form if self.partner_id.is_company else "person"
+            partner_id.company_form if partner_id.is_company else "person"
         )
 
         document_template_domain = [
@@ -43,7 +45,7 @@ class ContractWizard(models.TransientModel):
         string="Target",
     )
     company_id = fields.Many2one("res.partner", string="Company")
-    partner_id = fields.Many2one("res.partner", string="Partner")
+    partner_id = fields.Many2one("res.partner", string="Partner", default=_get_default_partner)
     document_template = fields.Many2one(
         "res.partner.document.template", string="Document Template", default=_get_default_template,
     )

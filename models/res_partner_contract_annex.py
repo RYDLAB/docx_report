@@ -13,24 +13,20 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     name = fields.Char(string="Name",)
     display_name = fields.Char(compute="_compute_display_name",)
     specification_name = fields.Char(compute="_compute_specification_name",)
+
+    contract_id = fields.Many2one(
+        "res.partner.contract", string="Contract", readonly=True,
+    )
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
         required=True,
         help="Orders with this partner which are not uses in annexes yet",
     )
-    contract_id = fields.Many2one(
-        "res.partner.contract", string="Contract", readonly=True,
-    )
-    number = fields.Integer(string="№",)
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
-    prepaid_expense = fields.Float(string="Prepaid Expense", default=0)
-    delivery_time = fields.Integer(related="order_id.delivery_time", readonly=True,)
-    payment_term = fields.Many2one(
-        "account.payment.term", related="order_id.payment_term_id", readonly=True,
-    )
+    number = fields.Integer(string="№",help="Counter of Contract Annexes")
 
     development_period = fields.Integer("Product Development Period (days)",)
 

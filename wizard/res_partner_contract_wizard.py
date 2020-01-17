@@ -79,11 +79,8 @@ class ContractWizard(models.TransientModel):
             )
 
         # A record is the model called from (manually set with context)
-        target_id = self.env.context.get("self_id")
-
-        # Reference to this record
-        self.target = "{model},{record_id}".format(
-            model=self.active_model, record_id=int(target_id)
+        self.target = "{model},{target_id}".format(
+            model=self.active_model, target_id=int(self.env.context.get("self_id"))
         )
 
         # Check for model and get this meta fields
@@ -97,19 +94,14 @@ class ContractWizard(models.TransientModel):
             if hasattr(self.target, "partner_id")
             else self.target.contract_id.partner_id
         )
-
         self.company_id = company_id
         self.partner_id = partner_id
 
         model_to_action = {
-            "res.partner.contract": "{}.action_get_contract_context".format(
-                MODULE_NAME
-            ),
-            "res.partner.contract.annex": "{}.action_get_annex_context".format(
-                MODULE_NAME
-            ),
+            "res.partner.contract": "action_get_contract_context",
+            "res.partner.contract.annex": "action_get_annex_context",
         }
-        action = model_to_action[self.active_model]
+        action = "{}.{}".format(MODULE_NAME, model_to_action[self.active_model])
 
         # Get dictionary for `transient_fields_ids` with editable fields
         # With data from Odoo database

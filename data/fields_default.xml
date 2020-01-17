@@ -347,18 +347,6 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_delivery_time" model="res.partner.contract.field">
-            <field name="name">Delivery Time</field>
-            <field name="technical_name">delivery_time</field>
-            <field name="description"></field>
-        </record>
-
-        <record id="contract_field_payment_term" model="res.partner.contract.field">
-            <field name="name">Payment Term</field>
-            <field name="technical_name">payment_term</field>
-            <field name="description"></field>
-        </record>
-
 
         <!-- Seller -->
 

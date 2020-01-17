@@ -21,6 +21,7 @@ class DocumentTemplate(models.Model):
     document_type_name = fields.Selection(
         string="Document",
         selection=[
+            ("bill", _("Bill")),
             ("specification", _("Specification")),
             ("approval_list", _("Approval List")),
             ("act_at", _("Act of Acceptance and Transfer")),

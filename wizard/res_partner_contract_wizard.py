@@ -18,6 +18,24 @@ class ContractWizard(models.TransientModel):
         current_id = self.env.context.get("active_id")
         return self.env["res.partner.contract"].browse(current_id).partner_id.id
 
+    def _get_default_template(self):
+        template_type = {
+            "res.partner.contract": "contract",
+            "res.partner.contract.annex": "annex",
+        }.get(self.active_model, False)
+        company_type = (
+            self.partner_id.company_form if self.partner_id.is_company else "person"
+        )
+
+        document_template_domain = [
+            ("template_type", "=", template_type),
+            ("company_type", "=", company_type),
+        ]
+
+        return self.env["res.partner.document.template"].search(
+            document_template_domain, limit=1
+        )
+
     target = fields.Reference(
         selection=[
             ("res.partner.contract", "Contract"),
@@ -28,7 +46,7 @@ class ContractWizard(models.TransientModel):
     company_id = fields.Many2one("res.partner", string="Company")
     partner_id = fields.Many2one("res.partner", string="Partner")
     document_template = fields.Many2one(
-        "res.partner.document.template", string="Document Template",
+        "res.partner.document.template", string="Document Template", default=_get_default_template,
     )
     document_name = fields.Char(string="Document Name", compute='_compute_document_name')
     transient_field_ids = fields.One2many(
@@ -60,14 +78,12 @@ class ContractWizard(models.TransientModel):
                 [("technical_name", "=", technical_name),]
             )
 
-        # A model is the wizard called from
-        active_model = self.env.context.get("active_model")
         # A record is the model called from (manually set with context)
         target_id = self.env.context.get("self_id")
 
         # Reference to this record
         self.target = "{model},{record_id}".format(
-            model=active_model, record_id=int(target_id)
+            model=self.active_model, record_id=int(target_id)
         )
 
         # Check for model and get this meta fields
@@ -93,7 +109,7 @@ class ContractWizard(models.TransientModel):
                 MODULE_NAME
             ),
         }
-        action = model_to_action[active_model]
+        action = model_to_action[self.active_model]
 
         # Get dictionary for `transient_fields_ids` with editable fields
         # With data from Odoo database
@@ -125,27 +141,16 @@ class ContractWizard(models.TransientModel):
             self.transient_field_ids - self.transient_field_ids_hidden
         )
 
-        # Set up template domain
+        # TODO: remove replicate of code
         template_type = {
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
-        }.get(active_model, False)
+        }.get(self.active_model, False)
         company_type = (
             self.partner_id.company_form if self.partner_id.is_company else "person"
         )
 
-        document_template_domain = [
-            ("template_type", "=", template_type),
-            ("company_type", "=", company_type),
-        ]
-
-        # Set default template
-        if not self.document_template:
-            self.document_template = self.env["res.partner.document.template"].search(
-                document_template_domain, limit=1
-            )
-
-        return {"domain": {"document_template": document_template_domain,}}
+        return {"domain": {"document_template": [("template_type", "=", template_type),("company_type", "=", company_type),],}}
 
     @api.multi
     def get_docx_contract(self):
@@ -196,3 +201,7 @@ class ContractWizard(models.TransientModel):
         )
 
         return document_as_attachment
+
+    @property
+    def active_model(self):
+        return self.env.context.get("active_model")

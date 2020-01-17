@@ -85,6 +85,17 @@ class ContractOrderAnnex(models.Model, Extension):
             "context": {"self_id": self.id},
         }
 
+    def get_name_by_document_template(self, document_template_id):
+        return {
+            "specification": "{number} {name}",
+            "approval_list": "{number}.1 {name}-1",
+            "act_at": "{number}.2 {name}-2",
+            "act_ad": "{number}.3 {name}-3",
+        }.get(document_template_id.document_type_name, "Unknown").format(
+            number=self.number,
+            name=self.name,
+        )
+
     def get_filename_by_document_template(self, document_template_id):
         return "{type} №{name}".format(
             type=_(dict(document_template_id._fields['document_type'].selection).get(document_template_id.document_type)),

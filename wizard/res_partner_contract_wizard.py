@@ -30,6 +30,7 @@ class ContractWizard(models.TransientModel):
     document_template = fields.Many2one(
         "res.partner.document.template", string="Document Template",
     )
+    document_name = fields.Char(string="Document Name", compute='_compute_document_name')
     transient_field_ids = fields.One2many(
         "res.partner.contract.field.transient",
         "_contract_wizard_id",
@@ -43,6 +44,10 @@ class ContractWizard(models.TransientModel):
     def _check_document_template(self):
         if not self.document_template:
             raise ValidationError("You did not set up the template...")
+
+    @api.depends('document_name', 'document_template', 'target')
+    def _compute_document_name(self):
+        self.document_name = self.target.get_name_by_document_template(self.document_template)
 
     @api.onchange("document_template")
     def _onchange_document_template(self):
@@ -158,15 +163,7 @@ class ContractWizard(models.TransientModel):
         if self.target._name == "res.partner.contract.annex":
             # TODO: bad
             fields.update({
-                "annex_name": {
-                    "specification": "{number} {name}",
-                    "approval_list": "{number}.1 {name}-1",
-                    "act_at": "{number}.2 {name}-2",
-                    "act_ad": "{number}.3 {name}-3",
-                }.get(self.document_template.document_type_name).format(
-                    number=self.target.number,
-                    name=self.target.name,
-                ),
+                "annex_name": self.document_name,
                 "specification_name": _("{name} from {date}").format(
                     name="{}-{}".format(self.target.contract_id.name, self.target.order_id.name),
                     date=self.target.contract_id.get_date().strftime("%d.%m.%Y"),

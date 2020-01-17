@@ -15,9 +15,11 @@ self = record
 
 partner = self.partner_id # res.partner
 partner_bank = partner.bank_ids and partner.bank_ids[0] # res.partner.bank
+partner_bank_name = partner_bank.bank_id.name + (" г. {city}".format(city=partner_bank.bank_id.city) if partner_bank.bank_id.city else "")
 
 seller = self.company_id
 seller_bank = seller.bank_ids and seller.bank_ids[0]
+seller_bank_name = seller_bank.bank_id.name + (" г. {city}".format(city=seller_bank.bank_id.city) if seller_bank.bank_id.city else "")
 
 # Functions
 _ = self._
@@ -71,14 +73,14 @@ ctx = {
 
 if partner_bank:
     ctx.update({
-        "partner_bank": partner_bank.bank_id.name,
+        "partner_bank": partner_bank_name,
         "partner_rs": partner_bank.acc_number,
         "partner_ks": partner_bank.bank_id.corr_account,
         "partner_bic": partner_bank.bank_id.bic,
     })
 if seller_bank:
     ctx.update({
-        "seller_bank": seller_bank.bank_id.name,
+        "seller_bank": seller_bank_name,
         "seller_rs": seller_bank.acc_number,
         "seller_ks": seller_bank.bank_id.corr_account,
         "seller_bic": seller_bank.bank_id.bic,
@@ -149,7 +151,10 @@ seller = self.contract_id.company_id
 partner = self.contract_id.partner_id
 
 seller_bank = seller.bank_ids and seller.bank_ids[0]
+seller_bank_name = seller_bank.bank_id.name + (" г. {city}".format(city=seller_bank.bank_id.city) if seller_bank.bank_id.city else "")
+
 partner_bank = partner.bank_ids and partner.bank_ids[0]
+partner_bank_name = partner_bank.bank_id.name + (" г. {city}".format(city=partner_bank.bank_id.city) if partner_bank.bank_id.city else "")
 
 # Functions
 _ = self.contract_id._
@@ -177,6 +182,7 @@ order_date = self.parse_odoo_datetime(self.order_id.date_order)
 ctx = {
     "contract_number": self.contract_id.name,
     "annex_name": self.name,
+    "annex_number": self.number,
     "order_name": self.order_id.name,
     "order_date": "{} {} {}".format(order_date.day, months[order_date.month], order_date.year),
 
@@ -210,14 +216,14 @@ ctx = {
 
 if partner_bank:
     ctx.update({
-        "partner_bank": partner_bank.bank_id.name,
+        "partner_bank": partner_bank_name,
         "partner_rs": partner_bank.acc_number,
         "partner_ks": partner_bank.bank_id.corr_account,
         "partner_bic": partner_bank.bank_id.bic,
     })
 if seller_bank:
     ctx.update({
-        "seller_bank": seller_bank.bank_id.name,
+        "seller_bank": seller_bank_name,
         "seller_rs": seller_bank.acc_number,
         "seller_ks": seller_bank.bank_id.corr_account,
         "seller_bic": seller_bank.bank_id.bic,
@@ -282,6 +288,14 @@ action = ctx
             <field name="technical_name">annex_name</field>
             <field name="description"></field>
             <field name="sequence">2</field>
+        </record>
+
+        <record id="contract_field_annex_number" model="res.partner.contract.field">
+            <field name="name">Annex Number</field>
+            <field name="technical_name">annex_number</field>
+            <field name="description"></field>
+            <field name="sequence">2</field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_order_name" model="res.partner.contract.field">

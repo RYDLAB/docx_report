@@ -32,6 +32,26 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         "account.payment.term", related="order_id.payment_term_id", readonly=True,
     )
 
+    development_period = fields.Integer("Product Development Period (days)",)
+
+    design_cost = fields.Float(string="Design Cost",)
+
+    design_doc_period = fields.Integer(string="Documentation Design Period (days)",)
+    design_doc_cost = fields.Float(string="Documentation Design Cost",)
+
+    delivery_address = fields.Char(string="Delivery Address",)
+    delivery_period = fields.Integer(string="Delivery Period (days)")
+
+    installation_address = fields.Char(string="Installation Address",)
+    installation_period = fields.Integer(string="Installation Period (days)",)
+    installation_cost = fields.Integer(string="Installation Cost",)
+
+    total_cost = fields.Float(string="Total Cost",)
+
+    payment_part_one = fields.Float(string="Payment 1 Part (%)", default=100)
+    payment_part_two = fields.Float(string="Payment 2 Part (%)",)
+    payment_part_three = fields.Float(string="Payment 3 Part (%)",)
+
     @api.onchange("order_id")
     def _onchange_order_id(self):
         contract_number = self.contract_id.name

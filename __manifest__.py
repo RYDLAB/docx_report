@@ -17,7 +17,6 @@
         "data/fields_default.xml",
         "data/payment_terms.xml",
         "security/ir.model.access.csv",
-        "views/crm_lead.xml",
         "views/res_partner_contract.xml",
         "views/res_partner_contract_annex.xml",
         "views/res_partner_document_template.xml",

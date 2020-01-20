@@ -13,18 +13,12 @@ _logger = logging.getLogger(__name__)
 class ContractWizard(models.TransientModel):
     _name = "res.partner.contract.wizard"
 
-    def _get_default_partner(self):
-        current_id = self.env.context.get("active_id")
-        partner_id = self.env[self.active_model].browse(current_id).partner_id
-        return partner_id
-
     def _get_default_template(self):
-        partner_id = self._get_default_partner()
         template_type = {
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
-        company_type = partner_id.company_form if partner_id.is_company else "person"
+        company_type = self.partner_id.company_form if self.partner_id.is_company else "person"
 
         document_template_domain = [
             ("template_type", "=", template_type),
@@ -42,10 +36,8 @@ class ContractWizard(models.TransientModel):
         ],
         string="Target",
     )
-    company_id = fields.Many2one("res.partner", string="Company")
-    partner_id = fields.Many2one(
-        "res.partner", string="Partner", default=_get_default_partner
-    )
+    company_id = fields.Many2one("res.partner", string="Company", compute="_compute_company_id",)
+    partner_id = fields.Many2one("res.partner", string="Partner", compute="_compute_partner_id",)
     document_template = fields.Many2one(
         "res.partner.document.template",
         string="Document Template",
@@ -68,6 +60,16 @@ class ContractWizard(models.TransientModel):
         if not self.document_template:
             raise ValidationError("You did not set up the template...")
 
+    @api.depends("company_id", "target")
+    def _compute_company_id(self):
+        if self.target:
+            self.company_id = self.target.company_id
+
+    @api.depends("partner_id", "target")
+    def _compute_partner_id(self):
+        if self.target:
+            self.partner_id = self.target.partner_id
+
     @api.depends("document_name", "document_template", "target")
     def _compute_document_name(self):
         self.document_name = self.target.get_name_by_document_template(
@@ -89,20 +91,6 @@ class ContractWizard(models.TransientModel):
         self.target = "{model},{target_id}".format(
             model=self.active_model, target_id=int(self.env.context.get("self_id"))
         )
-
-        # Check for model and get this meta fields
-        company_id = (
-            self.target.company_id
-            if hasattr(self.target, "company_id")
-            else self.target.contract_id.company_id
-        )
-        partner_id = (
-            self.target.partner_id
-            if hasattr(self.target, "partner_id")
-            else self.target.contract_id.partner_id
-        )
-        self.company_id = company_id
-        self.partner_id = partner_id
 
         model_to_action = {
             "res.partner.contract": "action_get_contract_context",

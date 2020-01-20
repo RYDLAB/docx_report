@@ -17,7 +17,8 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     contract_id = fields.Many2one(
         "res.partner.contract", string="Contract", readonly=True,
     )
-    partner_id = fields.Many2one(related="contract_id.partner_id")
+    company_id = fields.Many2one("res.partner", related="contract_id.company_id",)
+    partner_id = fields.Many2one("res.partner", related="contract_id.partner_id",)
     order_id = fields.Many2one(
         "sale.order",
         string="Order",

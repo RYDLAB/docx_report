@@ -27,7 +27,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
-    number = fields.Integer(string="№",help="Counter of Contract Annexes")
+    number = fields.Integer(string="№", help="Counter of Contract Annexes")
 
     development_period = fields.Integer("Product Development Period (days)",)
 
@@ -70,12 +70,14 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         }
 
     @api.multi
-    @api.depends('name')
+    @api.depends("name")
     def _compute_display_name(self):
         for record in self:
-            record.display_name = "№{} {}".format(record.number or record.contract_id.contract_annex_number, record.name)
+            record.display_name = "№{} {}".format(
+                record.number or record.contract_id.contract_annex_number, record.name
+            )
 
-    @api.depends('specification_name', 'contract_id', 'order_id')
+    @api.depends("specification_name", "contract_id", "order_id")
     def _compute_specification_name(self):
         self.specification_name = _("{name} from {date}").format(
             name="{}-{}".format(self.contract_id.name, self.order_id.name),
@@ -111,30 +113,41 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         }
 
     def get_name_by_document_template(self, document_template_id):
-        return {
-            "specification": "{number} {name}",
-            "approval_list": "{number}.1 {name}-1",
-            "act_at": "{number}.2 {name}-2",
-            "act_ad": "{number}.3 {name}-3",
-        }.get(document_template_id.document_type_name, "Unknown").format(
-            number=self.number,
-            name=self.name,
+        return (
+            {
+                "specification": "{number} {name}",
+                "approval_list": "{number}.1 {name}-1",
+                "act_at": "{number}.2 {name}-2",
+                "act_ad": "{number}.3 {name}-3",
+            }
+            .get(document_template_id.document_type_name, "Unknown")
+            .format(number=self.number, name=self.name,)
         )
 
     def get_filename_by_document_template(self, document_template_id):
         return "{type} №{name}".format(
-            type=_(dict(document_template_id._fields['document_type'].selection).get(document_template_id.document_type)),
+            type=_(
+                dict(document_template_id._fields["document_type"].selection).get(
+                    document_template_id.document_type
+                )
+            ),
             name={
                 "bill": "{number} {type} {name}",
                 "specification": "{number} {type} {name}",
                 "approval_list": "{number}.1 {type} {name}-1",
                 "act_at": "{number}.2 {type} {name}-2",
                 "act_ad": "{number}.3 {type} {name}-3",
-            }.get(document_template_id.document_type_name).format(
+            }
+            .get(document_template_id.document_type_name)
+            .format(
                 number=self.number,
-                type=_(dict(document_template_id._fields['document_type_name'].selection).get(document_template_id.document_type_name)),
+                type=_(
+                    dict(
+                        document_template_id._fields["document_type_name"].selection
+                    ).get(document_template_id.document_type_name)
+                ),
                 name=self.name,
-            )
+            ),
         )
 
     def modf(self, arg):

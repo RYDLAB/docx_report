@@ -24,9 +24,7 @@ class ContractWizard(models.TransientModel):
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
-        company_type = (
-            partner_id.company_form if partner_id.is_company else "person"
-        )
+        company_type = partner_id.company_form if partner_id.is_company else "person"
 
         document_template_domain = [
             ("template_type", "=", template_type),
@@ -45,11 +43,17 @@ class ContractWizard(models.TransientModel):
         string="Target",
     )
     company_id = fields.Many2one("res.partner", string="Company")
-    partner_id = fields.Many2one("res.partner", string="Partner", default=_get_default_partner)
-    document_template = fields.Many2one(
-        "res.partner.document.template", string="Document Template", default=_get_default_template,
+    partner_id = fields.Many2one(
+        "res.partner", string="Partner", default=_get_default_partner
     )
-    document_name = fields.Char(string="Document Name", compute='_compute_document_name')
+    document_template = fields.Many2one(
+        "res.partner.document.template",
+        string="Document Template",
+        default=_get_default_template,
+    )
+    document_name = fields.Char(
+        string="Document Name", compute="_compute_document_name"
+    )
     transient_field_ids = fields.One2many(
         "res.partner.contract.field.transient",
         "_contract_wizard_id",
@@ -64,9 +68,11 @@ class ContractWizard(models.TransientModel):
         if not self.document_template:
             raise ValidationError("You did not set up the template...")
 
-    @api.depends('document_name', 'document_template', 'target')
+    @api.depends("document_name", "document_template", "target")
     def _compute_document_name(self):
-        self.document_name = self.target.get_name_by_document_template(self.document_template)
+        self.document_name = self.target.get_name_by_document_template(
+            self.document_template
+        )
 
     @api.onchange("document_template")
     def _onchange_document_template(self):
@@ -143,7 +149,14 @@ class ContractWizard(models.TransientModel):
             self.partner_id.company_form if self.partner_id.is_company else "person"
         )
 
-        return {"domain": {"document_template": [("template_type", "=", template_type),("company_type", "=", company_type),],}}
+        return {
+            "domain": {
+                "document_template": [
+                    ("template_type", "=", template_type),
+                    ("company_type", "=", company_type),
+                ],
+            }
+        }
 
     @api.multi
     def get_docx_contract(self):
@@ -159,15 +172,20 @@ class ContractWizard(models.TransientModel):
             if transient_field.technical_name and transient_field.value
         }
         if self.target._name == "res.partner.contract.annex":
-            fields.update({
-                "annex_name": self.document_name,
-                "specification_name": self.target.specification_name,
-            })
+            fields.update(
+                {
+                    "annex_name": self.document_name,
+                    "specification_name": self.target.specification_name,
+                }
+            )
 
         binary_data = get_document_from_values_stream(path_to_template, fields).read()
         encoded_data = base64.b64encode(binary_data)
 
-        attachment_name = self.target.get_filename_by_document_template(self.document_template) or "Unknown"
+        attachment_name = (
+            self.target.get_filename_by_document_template(self.document_template)
+            or "Unknown"
+        )
         attachment_name = "{}.docx".format(attachment_name)
 
         document_as_attachment = self.env["ir.attachment"].create(

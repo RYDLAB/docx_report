@@ -110,7 +110,11 @@ class PartnerContract(models.Model, IDocument, Extension):
 
     def get_filename_by_document_template(self, document_template_id):
         return _("{type} {number} from {date}").format(
-            type=_(dict(document_template_id._fields['document_type'].selection).get(document_template_id.document_type)),
+            type=_(
+                dict(document_template_id._fields["document_type"].selection).get(
+                    document_template_id.document_type
+                )
+            ),
             number=self.name,
             date=self.get_date().strftime("%d.%m.%Y"),
         )

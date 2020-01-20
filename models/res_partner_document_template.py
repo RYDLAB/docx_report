@@ -8,7 +8,10 @@ class DocumentTemplate(models.Model):
 
     name = fields.Char()
     attachment_id = fields.Many2one(
-        "ir.attachment", string="Template Attachment", ondelete="cascade", required=True,
+        "ir.attachment",
+        string="Template Attachment",
+        ondelete="cascade",
+        required=True,
     )
     document_type = fields.Selection(
         string="Type of document",
@@ -16,7 +19,7 @@ class DocumentTemplate(models.Model):
             ("contract", _("Contract")),
             ("annex", _("Annex")),
             ("addition", _("Addition")),
-        ]
+        ],
     )
     document_type_name = fields.Selection(
         string="Document",
@@ -26,7 +29,7 @@ class DocumentTemplate(models.Model):
             ("approval_list", _("Approval List")),
             ("act_at", _("Act of Acceptance and Transfer")),
             ("act_ad", _("Act of Acceptance and Delivery")),
-        ]
+        ],
     )
     company_type = fields.Selection(
         selection=[

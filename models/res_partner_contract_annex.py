@@ -22,8 +22,8 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
-        required=True,
         help="Orders with this partner which are not uses in annexes yet",
+        required=True,
     )
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
@@ -60,8 +60,11 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
             contract=contract_number, order=order_number,
         )
 
-        # Compute domain for order_id because of bug with
-        # not working correctly domain in model
+    @api.onchange("order_id")
+    def _domain_order_id(self):
+        """Using domain function because of
+        simple domain does not working properly because of
+        contract_id is still False"""
         return {
             "domain": {
                 "order_id": [

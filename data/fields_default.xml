@@ -187,7 +187,7 @@ ctx = {
     "contract_number": self.contract_id.name,
     
     "annex_name": self.name,
-    "annex_number": self.number,
+    "annex_number": self.counter,
     
     "order_name": self.order_id.name,
     "order_date": "{} {} {}".format(order_date.day, months[order_date.month], order_date.year),

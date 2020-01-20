@@ -27,7 +27,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
-    number = fields.Integer(string="№", help="Counter of Contract Annexes")
+    counter = fields.Integer(string="№", help="Counter of Contract Annexes")
 
     development_period = fields.Integer("Product Development Period (days)",)
 
@@ -74,7 +74,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     def _compute_display_name(self):
         for record in self:
             record.display_name = "№{} {}".format(
-                record.number or record.contract_id.contract_annex_number, record.name
+                record.counter or record.contract_id.contract_annex_number, record.name
             )
 
     @api.depends("specification_name", "contract_id", "order_id")
@@ -92,7 +92,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         record.order_id.contract_annex_id = record.id
 
         # Counter
-        record.number = record.contract_id.contract_annex_number
+        record.counter = record.contract_id.contract_annex_number
         record.contract_id.contract_annex_number += 1
 
         return record
@@ -115,13 +115,13 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     def get_name_by_document_template(self, document_template_id):
         return (
             {
-                "specification": "{number} {name}",
-                "approval_list": "{number}.1 {name}-1",
-                "act_at": "{number}.2 {name}-2",
-                "act_ad": "{number}.3 {name}-3",
+                "specification": "{counter} {name}",
+                "approval_list": "{counter}.1 {name}-1",
+                "act_at": "{counter}.2 {name}-2",
+                "act_ad": "{counter}.3 {name}-3",
             }
             .get(document_template_id.document_type_name, "Unknown")
-            .format(number=self.number, name=self.name,)
+            .format(counter=self.counter, name=self.name,)
         )
 
     def get_filename_by_document_template(self, document_template_id):
@@ -132,15 +132,15 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
                 )
             ),
             name={
-                "bill": "{number} {type} {name}",
-                "specification": "{number} {type} {name}",
-                "approval_list": "{number}.1 {type} {name}-1",
-                "act_at": "{number}.2 {type} {name}-2",
-                "act_ad": "{number}.3 {type} {name}-3",
+                "bill": "{counter} {type} {name}",
+                "specification": "{counter} {type} {name}",
+                "approval_list": "{counter}.1 {type} {name}-1",
+                "act_at": "{counter}.2 {type} {name}-2",
+                "act_ad": "{counter}.3 {type} {name}-3",
             }
             .get(document_template_id.document_type_name)
             .format(
-                number=self.number,
+                counter=self.counter,
                 type=_(
                     dict(
                         document_template_id._fields["document_type_name"].selection

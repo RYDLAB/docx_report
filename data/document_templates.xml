@@ -21,45 +21,6 @@
         </record>
 
 
-        <!-- Common -->
-        
-        <!-- Bill -->
-        <record id="document_bill" model="ir.attachment">
-            <field name="name">Счёт</field>
-            <field name="datas_fname">Спецификация</field>
-            <field name="type">binary</field>
-            <field name="datas" file="client_contracts/static/assets/documents/common/bill.docx" type="base64"/>
-        </record>
-        <record id="template_bill_person" model="res.partner.document.template">
-            <field name="name">Счёт</field>
-            <field name="attachment_id" ref="document_bill"/>
-            <field name="document_type">annex</field>
-            <field name="document_type_name">bill</field>
-            <field name="template_type">annex</field>
-            <field name="company_type">person</field>
-            <field name="sequence">5</field>
-        </record>
-        <record id="template_bill_sp" model="res.partner.document.template">
-            <field name="name">Счёт</field>
-            <field name="attachment_id" ref="document_bill"/>
-            <field name="document_type">annex</field>
-            <field name="document_type_name">bill</field>
-            <field name="template_type">annex</field>
-            <field name="company_type">sp</field>
-            <field name="sequence">5</field>
-        </record>
-        <record id="template_bill_plc" model="res.partner.document.template">
-            <field name="name">Счёт</field>
-            <field name="attachment_id" ref="document_bill"/>
-            <field name="document_type">annex</field>
-            <field name="document_type_name">bill</field>
-            <field name="template_type">annex</field>
-            <field name="company_type">plc</field>
-            <field name="sequence">5</field>
-        </record>
-
-
-
         <!-- Individual -->
 
         <!-- Contract -->
@@ -80,6 +41,22 @@
         </record>
         
         <!-- Annexes -->
+        <record id="document_bill_person" model="ir.attachment">
+            <field name="name">Счёт Физлицо</field>
+            <field name="datas_fname">Счёт</field>
+            <field name="type">binary</field>
+            <field name="datas" file="client_contracts/static/assets/documents/person/bill_person.docx" type="base64"/>
+        </record>
+        <record id="template_bill_person" model="res.partner.document.template">
+            <field name="name">Счёт</field>
+            <field name="attachment_id" ref="document_bill_person"/>
+            <field name="document_type">annex</field>
+            <field name="document_type_name">bill</field>
+            <field name="template_type">annex</field>
+            <field name="company_type">person</field>
+            <field name="sequence">9</field>
+        </record>
+        
         <record id="document_specification_person" model="ir.attachment">
             <field name="name">Спецификация Физлицо</field>
             <field name="datas_fname">Спецификация</field>
@@ -183,6 +160,22 @@
             <field name="sequence">10</field>
         </record>
         
+        <record id="document_bill_sp" model="ir.attachment">
+            <field name="name">Счёт ИП</field>
+            <field name="datas_fname">Счёт</field>
+            <field name="type">binary</field>
+            <field name="datas" file="client_contracts/static/assets/documents/sp/bill_sp.docx" type="base64"/>
+        </record>
+        <record id="template_bill_sp" model="res.partner.document.template">
+            <field name="name">Счёт</field>
+            <field name="attachment_id" ref="document_bill_sp"/>
+            <field name="document_type">annex</field>
+            <field name="document_type_name">bill</field>
+            <field name="template_type">annex</field>
+            <field name="company_type">sp</field>
+            <field name="sequence">9</field>
+        </record>
+        
         <record id="document_addition_list_soglasovania_sp" model="ir.attachment">
             <field name="name">Лист согласования ИП</field>
             <field name="datas_fname">Лист согласования</field>
@@ -267,6 +260,23 @@
             <field name="template_type">annex</field>
             <field name="company_type">plc</field>
             <field name="sequence">10</field>
+        </record>
+
+        <!-- Annexes -->
+        <record id="document_bill_plc" model="ir.attachment">
+            <field name="name">Счёт ООО</field>
+            <field name="datas_fname">Счёт</field>
+            <field name="type">binary</field>
+            <field name="datas" file="client_contracts/static/assets/documents/plc/bill_plc.docx" type="base64"/>
+        </record>
+        <record id="template_bill_plc" model="res.partner.document.template">
+            <field name="name">Счёт</field>
+            <field name="attachment_id" ref="document_bill_plc"/>
+            <field name="document_type">annex</field>
+            <field name="document_type_name">bill</field>
+            <field name="template_type">annex</field>
+            <field name="company_type">plc</field>
+            <field name="sequence">9</field>
         </record>
 
         <record id="document_addition_list_soglasovania_plc" model="ir.attachment">

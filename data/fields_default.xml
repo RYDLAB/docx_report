@@ -375,25 +375,25 @@ action = ctx
         <record id="contract_field_payment_part_one" model="res.partner.contract.field">
             <field name="name">Payment Part 1</field>
             <field name="technical_name">payment_part_one</field>
-            <field name="description"></field>
+            <field name="description">35</field>
         </record>
 
         <record id="contract_field_payment_part_two" model="res.partner.contract.field">
             <field name="name">Payment Part 2</field>
             <field name="technical_name">payment_part_two</field>
-            <field name="description"></field>
+            <field name="description">36</field>
         </record>
 
         <record id="contract_field_payment_part_three" model="res.partner.contract.field">
             <field name="name">Payment Part 3</field>
             <field name="technical_name">payment_part_three</field>
-            <field name="description"></field>
+            <field name="description">37</field>
         </record>
 
         <record id="contract_field_delivery_period" model="res.partner.contract.field">
             <field name="name">Delivery Period</field>
             <field name="technical_name">delivery_period</field>
-            <field name="description"></field>
+            <field name="description">38</field>
         </record>
 
 

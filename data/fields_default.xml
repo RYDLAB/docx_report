@@ -62,12 +62,16 @@ ctx = {
     "seller_ogrn": seller.psrn,
     "seller_business_address": seller.full_address,
     "seller_phone": seller.phone,
+    "seller_whatsapp": seller.whatsapp,
+    "seller_telegram": seller.telegram,
     "seller_email": seller.email,
 
     "partner_name": partner.name_write,
     "partner_inn": partner.vat,
     "partner_business_address": partner.full_address,
     "partner_phone": partner.phone,
+    "partner_whatsapp": partner.whatsapp,
+    "partner_telegram": partner.telegram,
     "partner_email": partner.email,
 }
 
@@ -570,6 +574,20 @@ action = ctx
             <field name="sequence">232</field>
         </record>
 
+        <record id="contract_field_seller_whatsapp" model="res.partner.contract.field">
+            <field name="name">WhatsApp</field>
+            <field name="technical_name">seller_whatsapp</field>
+            <field name="description">Seller</field>
+            <field name="sequence">233</field>
+        </record>
+
+        <record id="contract_field_seller_telegram" model="res.partner.contract.field">
+            <field name="name">Telegram</field>
+            <field name="technical_name">seller_telegram</field>
+            <field name="description">Seller</field>
+            <field name="sequence">234</field>
+        </record>
+
         <record id="contract_field_seller_email" model="res.partner.contract.field">
             <field name="name">Email</field>
             <field name="technical_name">seller_email</field>
@@ -753,6 +771,20 @@ action = ctx
             <field name="technical_name">partner_phone</field>
             <field name="description">Partner</field>
             <field name="sequence">432</field>
+        </record>
+
+        <record id="contract_field_partner_whatsapp" model="res.partner.contract.field">
+            <field name="name">WhatsApp</field>
+            <field name="technical_name">partner_whatsapp</field>
+            <field name="description">Partner</field>
+            <field name="sequence">433</field>
+        </record>
+
+        <record id="contract_field_partner_telegram" model="res.partner.contract.field">
+            <field name="name">Telegram</field>
+            <field name="technical_name">partner_telegram</field>
+            <field name="description">Partner</field>
+            <field name="sequence">434</field>
         </record>
 
         <record id="contract_field_partner_email" model="res.partner.contract.field">

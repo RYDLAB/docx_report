@@ -48,8 +48,8 @@
             </xpath>
 
             <xpath expr="//field[@name='email']" position="before">
-                <field name="phone_whatsapp" attrs="{'invisible': [('is_company', '=', True)]}"/>
-                <field name="phone_telegram" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                <field name="whatsapp" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                <field name="telegram" attrs="{'invisible': [('is_company', '=', True)]}"/>
             </xpath>
 
         </field>

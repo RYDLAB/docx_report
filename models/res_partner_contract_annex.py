@@ -28,14 +28,15 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
-    counter = fields.Integer(string="№", help="Counter of Contract Annexes")
+    counter = fields.Integer(string="№", help="Counter of Contract Annexes",)
+    currency_id = fields.Many2one(related="company_id.currency_id", readonly=True,)
 
     development_period = fields.Integer("Product Development Period (days)",)
 
-    design_cost = fields.Float(string="Design Cost",)
+    design_cost = fields.Monetary(string="Design Cost",)
 
     design_doc_period = fields.Integer(string="Documentation Design Period (days)",)
-    design_doc_cost = fields.Float(string="Documentation Design Cost",)
+    design_doc_cost = fields.Monetary(string="Documentation Design Cost",)
 
     delivery_address = fields.Char(string="Delivery Address",)
     delivery_period = fields.Integer(string="Delivery Period (days)")
@@ -44,7 +45,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     installation_period = fields.Integer(string="Installation Period (days)",)
     installation_cost = fields.Integer(string="Installation Cost",)
 
-    total_cost = fields.Float(string="Total Cost",)
+    total_cost = fields.Monetary(string="Total Cost",)
 
     payment_part_one = fields.Float(string="Payment 1 Part (%)", default=100)
     payment_part_two = fields.Float(string="Payment 2 Part (%)",)

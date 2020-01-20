@@ -181,10 +181,17 @@ order_date = self.parse_odoo_datetime(self.order_id.date_order)
 # ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
     "contract_number": self.contract_id.name,
+    
     "annex_name": self.name,
     "annex_number": self.number,
+    
     "order_name": self.order_id.name,
     "order_date": "{} {} {}".format(order_date.day, months[order_date.month], order_date.year),
+    
+    "payment_part_one": self.payment_part_one,
+    "payment_part_two": self.payment_part_two,
+    "payment_part_three": self.payment_part_three,
+    "delivery_period": self.delivery_period,
 
     "dd": dd,
     "mm": mm,
@@ -358,6 +365,30 @@ action = ctx
         <record id="contract_field_amount_fractional" model="res.partner.contract.field">
             <field name="name">Amount Fractional Part</field>
             <field name="technical_name">amount_fractional</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_payment_part_one" model="res.partner.contract.field">
+            <field name="name">Payment Part 1</field>
+            <field name="technical_name">payment_part_one</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_payment_part_two" model="res.partner.contract.field">
+            <field name="name">Payment Part 2</field>
+            <field name="technical_name">payment_part_two</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_payment_part_three" model="res.partner.contract.field">
+            <field name="name">Payment Part 3</field>
+            <field name="technical_name">payment_part_three</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="contract_field_delivery_period" model="res.partner.contract.field">
+            <field name="name">Delivery Period</field>
+            <field name="technical_name">delivery_period</field>
             <field name="description"></field>
         </record>
 

@@ -98,7 +98,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
 
         # Counter
         record.counter = record.contract_id.contract_annex_number
-        record.contract_id.contract_annex_number += 1
+        record.contract_id.contract_annex_number += 1  # TODO: should I use a sequence?
 
         return record
 

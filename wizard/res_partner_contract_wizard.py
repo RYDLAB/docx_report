@@ -1,13 +1,10 @@
 import base64
-import logging
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
-
-_logger = logging.getLogger(__name__)
 
 
 class ContractWizard(models.TransientModel):
@@ -18,7 +15,9 @@ class ContractWizard(models.TransientModel):
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
-        company_type = self.partner_id.company_form if self.partner_id.is_company else "person"
+        company_type = (
+            self.partner_id.company_form if self.partner_id.is_company else "person"
+        )
 
         document_template_domain = [
             ("template_type", "=", template_type),
@@ -36,8 +35,12 @@ class ContractWizard(models.TransientModel):
         ],
         string="Target",
     )
-    company_id = fields.Many2one("res.partner", string="Company", compute="_compute_company_id",)
-    partner_id = fields.Many2one("res.partner", string="Partner", compute="_compute_partner_id",)
+    company_id = fields.Many2one(
+        "res.partner", string="Company", compute="_compute_company_id",
+    )
+    partner_id = fields.Many2one(
+        "res.partner", string="Partner", compute="_compute_partner_id",
+    )
     document_template = fields.Many2one(
         "res.partner.document.template",
         string="Document Template",

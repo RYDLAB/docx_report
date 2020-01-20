@@ -10,22 +10,9 @@ from ..utils.docxtpl import get_document_from_values_stream
 class ContractWizard(models.TransientModel):
     _name = "res.partner.contract.wizard"
 
-    def _get_default_template(self):
-        template_type = {
-            "res.partner.contract": "contract",
-            "res.partner.contract.annex": "annex",
-        }.get(self.active_model, False)
-        company_type = (
-            self.partner_id.company_form if self.partner_id.is_company else "person"
-        )
-
-        document_template_domain = [
-            ("template_type", "=", template_type),
-            ("company_type", "=", company_type),
-        ]
-
-        return self.env["res.partner.document.template"].search(
-            document_template_domain, limit=1
+    def _default_target(self):
+        return "{model},{target_id}".format(
+            model=self.active_model, target_id=int(self.env.context.get("self_id"))
         )
 
     target = fields.Reference(
@@ -34,6 +21,7 @@ class ContractWizard(models.TransientModel):
             ("res.partner.contract.annex", "Contract Annex"),
         ],
         string="Target",
+        default=_default_target,
     )
     company_id = fields.Many2one(
         "res.partner", string="Company", compute="_compute_company_id",
@@ -44,7 +32,8 @@ class ContractWizard(models.TransientModel):
     document_template = fields.Many2one(
         "res.partner.document.template",
         string="Document Template",
-        default=_get_default_template,
+        compute="_compute_document_template",
+        readonly=False,
     )
     document_name = fields.Char(
         string="Document Name", compute="_compute_document_name"
@@ -79,6 +68,34 @@ class ContractWizard(models.TransientModel):
             self.document_template
         )
 
+    @api.depends('target')
+    def _compute_document_template(self):
+        self.document_template = self.env["res.partner.document.template"].search(self._get_template_domain(), limit=1)
+
+    @api.onchange('document_template')
+    def _domain_document_template(self):
+        return {
+            "domain": {
+                "document_template": self._get_template_domain(),
+            }
+        }
+
+    def _get_template_domain(self):
+        template_type = {
+            "res.partner.contract": "contract",
+            "res.partner.contract.annex": "annex",
+        }.get(self.active_model, False)
+        company_type = {
+            True: self.partner_id.company_form,
+            False: "person",
+        }.get(self.partner_id.is_company, False)
+
+        document_template_domain = [
+            ("template_type", "=", template_type),
+            ("company_type", "=", company_type),
+        ]
+        return document_template_domain
+
     @api.onchange("document_template")
     def _onchange_document_template(self):
         """Creates transient fields for generate contract template
@@ -89,11 +106,6 @@ class ContractWizard(models.TransientModel):
             return self.env["res.partner.contract.field"].search(
                 [("technical_name", "=", technical_name),]
             )
-
-        # A record is the model called from (manually set with context)
-        self.target = "{model},{target_id}".format(
-            model=self.active_model, target_id=int(self.env.context.get("self_id"))
-        )
 
         model_to_action = {
             "res.partner.contract": "action_get_contract_context",
@@ -130,24 +142,6 @@ class ContractWizard(models.TransientModel):
         self.transient_field_ids = (
             self.transient_field_ids - self.transient_field_ids_hidden
         )
-
-        # TODO: remove replicate of code
-        template_type = {
-            "res.partner.contract": "contract",
-            "res.partner.contract.annex": "annex",
-        }.get(self.active_model, False)
-        company_type = (
-            self.partner_id.company_form if self.partner_id.is_company else "person"
-        )
-
-        return {
-            "domain": {
-                "document_template": [
-                    ("template_type", "=", template_type),
-                    ("company_type", "=", company_type),
-                ],
-            }
-        }
 
     @api.multi
     def get_docx_contract(self):

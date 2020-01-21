@@ -57,7 +57,7 @@ ctx = {
     "seller_representer_name_parent": seller.representative_id.name_genitive,
     "seller_representer_name_initials": seller.representative_id.name_initials,
     "seller_representer_function": seller.representative_id.function,
-    "seller_representer_function_genitive": seller.representative_id.function_genitive,
+    "seller_representer_function_parent": seller.representative_id.function_genitive,
     "seller_representer_document_parent": seller.representative_document,
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
@@ -116,7 +116,7 @@ else:
         "partner_representer_name_parent": partner.representative_id.name_genitive,
         "partner_representer_name_initials": partner.representative_id.name_initials,
         "partner_representer_function": partner.representative_id.function,
-        "partner_representer_function_genitive": partner.representative_id.function_genitive,
+        "partner_representer_function_parent": partner.representative_id.function_genitive,
         "partner_representer_document_parent": partner.representative_document,
     })
 
@@ -213,7 +213,7 @@ ctx = {
     "seller_representer_name_parent": seller.representative_id.name_genitive,
     "seller_representer_name_initials": seller.representative_id.name_initials,
     "seller_representer_function": seller.representative_id.function,
-    "seller_representer_function_genitive": seller.representative_id.function_genitive,
+    "seller_representer_function_parent": seller.representative_id.function_genitive,
 
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
@@ -268,7 +268,7 @@ else:
         "partner_representer_name_parent": partner.representative_id.name_genitive,
         "partner_representer_document_parent": partner.representative_document,
         "partner_representer_function": partner.representative_id.function,
-        "partner_representer_function_genitive": partner.representative_id.function_genitive,
+        "partner_representer_function_parent": partner.representative_id.function_genitive,
     })
 
     if partner.company_form == 'sp':
@@ -467,7 +467,7 @@ action = ctx
             <field name="sequence">104</field>
         </record>
 
-        <record id="contract_field_seller_representer_function_genitive" model="res.partner.contract.field">
+        <record id="contract_field_seller_representer_function_parent" model="res.partner.contract.field">
             <field name="name">Function Genitive</field>
             <field name="technical_name">seller_representer_function_parent</field>
             <field name="description">Seller Representative</field>
@@ -666,7 +666,7 @@ action = ctx
             <field name="sequence">304</field>
         </record>
 
-        <record id="contract_field_partner_representer_function_genitive" model="res.partner.contract.field">
+        <record id="contract_field_partner_representer_function_parent" model="res.partner.contract.field">
             <field name="name">Function Genitive</field>
             <field name="technical_name">partner_representer_function_parent</field>
             <field name="description">Partner Representative</field>

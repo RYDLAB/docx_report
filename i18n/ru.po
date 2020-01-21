@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 08:56+0000\n"
-"PO-Revision-Date: 2020-01-20 08:56+0000\n"
+"POT-Creation-Date: 2020-01-21 14:27+0000\n"
+"PO-Revision-Date: 2020-01-21 14:27+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -262,11 +262,6 @@ msgstr "Информация"
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_view_buttons
 msgid "Contracts"
 msgstr "Договоры"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_crm_lead_cost_price
-msgid "Cost Price"
-msgstr "Себестоимость"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_contract_annex_number

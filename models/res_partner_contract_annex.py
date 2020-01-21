@@ -51,13 +51,19 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     payment_part_two = fields.Float(string="Payment 2 Part (%)",)
     payment_part_three = fields.Float(string="Payment 3 Part (%)",)
 
-    @api.onchange("order_id")
-    def _onchange_order_id(self):
-        contract_number = self.contract_id.name
-        order_number = self.order_id.name or "SO###"
+    @api.multi
+    @api.depends("name")
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = "№{} {}".format(
+                record.counter or record.contract_id.contract_annex_number, record.name
+            )
 
-        self.name = "{contract}-{order}".format(
-            contract=contract_number, order=order_number,
+    @api.depends("specification_name", "contract_id", "order_id")
+    def _compute_specification_name(self):
+        self.specification_name = _("{name} from {date}").format(
+            name="{}-{}".format(self.contract_id.name, self.order_id.name),
+            date=self.contract_id.get_date().strftime("%d.%m.%Y"),
         )
 
     @api.onchange("order_id")
@@ -74,19 +80,13 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
             }
         }
 
-    @api.multi
-    @api.depends("name")
-    def _compute_display_name(self):
-        for record in self:
-            record.display_name = "№{} {}".format(
-                record.counter or record.contract_id.contract_annex_number, record.name
-            )
+    @api.onchange("order_id")
+    def _onchange_order_id(self):
+        contract_number = self.contract_id.name
+        order_number = self.order_id.name or "SO###"
 
-    @api.depends("specification_name", "contract_id", "order_id")
-    def _compute_specification_name(self):
-        self.specification_name = _("{name} from {date}").format(
-            name="{}-{}".format(self.contract_id.name, self.order_id.name),
-            date=self.contract_id.get_date().strftime("%d.%m.%Y"),
+        self.name = "{contract}-{order}".format(
+            contract=contract_number, order=order_number,
         )
 
     @api.model

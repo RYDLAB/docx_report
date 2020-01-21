@@ -56,6 +56,8 @@ ctx = {
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_genitive,
     "seller_representer_name_initials": seller.representative_id.name_initials,
+    "seller_representer_function": seller.representative_id.function,
+    "seller_representer_function_parent": seller.representative_id.function_genitive,
     "seller_representer_document_parent": seller.representative_document,
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
@@ -113,6 +115,8 @@ else:
         "partner_representer_name": partner.representative_id.name,
         "partner_representer_name_parent": partner.representative_id.name_genitive,
         "partner_representer_name_initials": partner.representative_id.name_initials,
+        "partner_representer_function": partner.representative_id.function,
+        "partner_representer_function_parent": partner.representative_id.function_genitive,
         "partner_representer_document_parent": partner.representative_document,
     })
 
@@ -208,6 +212,8 @@ ctx = {
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_genitive,
     "seller_representer_name_initials": seller.representative_id.name_initials,
+    "seller_representer_function": seller.representative_id.function,
+    "seller_representer_function_parent": seller.representative_id.function_genitive,
 
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
@@ -261,6 +267,8 @@ else:
         "partner_company_form": _(dict(partner._fields['company_form'].selection).get(partner.company_form)),
         "partner_representer_name_parent": partner.representative_id.name_genitive,
         "partner_representer_document_parent": partner.representative_document,
+        "partner_representer_function": partner.representative_id.function,
+        "partner_representer_function_parent": partner.representative_id.function_genitive,
     })
 
     if partner.company_form == 'sp':

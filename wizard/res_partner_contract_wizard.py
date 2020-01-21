@@ -85,10 +85,9 @@ class ContractWizard(models.TransientModel):
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
-        company_type = {
-            True: self.partner_id.company_form,
-            False: "person",
-        }.get(self.partner_id.is_company, False)
+        company_type = (
+            self.partner_id.company_form if self.partner_id.is_company else "person"
+        )
 
         document_template_domain = [
             ("template_type", "=", template_type),

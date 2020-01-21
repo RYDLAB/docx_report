@@ -9,9 +9,7 @@ class ResPartner(models.Model):
     )
     name_genitive = fields.Char(string="Name Genitive",)
     name_initials = fields.Char(string="Name Initials",)
-    function_genitive = fields.Char(
-        string="Function Genitive",
-    )  # TODO: have no use of this
+    function_genitive = fields.Char(string="Function Genitive",)
     client_contract_ids = fields.One2many(
         "res.partner.contract", "partner_id", string="Contracts",
     )

@@ -19,6 +19,7 @@
         "security/ir.model.access.csv",
         "views/res_partner_contract.xml",
         "views/res_partner_contract_annex.xml",
+        "views/res_partner_contract_field.xml",
         "views/res_partner_document_template.xml",
         "views/res_partner.xml",
         "views/sale_order.xml",

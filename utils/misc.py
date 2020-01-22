@@ -1,8 +1,9 @@
-import inspect
 import datetime as dt
+import inspect
 
 from odoo import fields
-from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools.misc import (DEFAULT_SERVER_DATE_FORMAT,
+                             DEFAULT_SERVER_DATETIME_FORMAT)
 
 
 class IDocument(object):

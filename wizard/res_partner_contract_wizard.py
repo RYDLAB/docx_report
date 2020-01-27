@@ -15,6 +15,9 @@ class ContractWizard(models.TransientModel):
             model=self.active_model, target_id=int(self.env.context.get("self_id"))
         )
 
+    def _default_document_template(self):
+        return self.env["res.partner.document.template"].search(self._get_template_domain(), limit=1)
+
     target = fields.Reference(
         selection=[
             ("res.partner.contract", "Contract"),
@@ -35,7 +38,7 @@ class ContractWizard(models.TransientModel):
     document_template = fields.Many2one(
         "res.partner.document.template",
         string="Document Template",
-        compute="_compute_document_template",
+        default=_default_document_template,
         readonly=False,
     )
     transient_field_ids = fields.One2many(
@@ -62,10 +65,6 @@ class ContractWizard(models.TransientModel):
         self.document_name = self.target.get_name_by_document_template(
             self.document_template
         )
-
-    @api.depends('target')
-    def _compute_document_template(self):
-        self.document_template = self.env["res.partner.document.template"].search(self._get_template_domain(), limit=1)
 
     @api.constrains("document_template")
     def _check_document_template(self):

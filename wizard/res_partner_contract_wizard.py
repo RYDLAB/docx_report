@@ -18,6 +18,21 @@ class ContractWizard(models.TransientModel):
     def _default_document_template(self):
         return self.env["res.partner.document.template"].search(self._get_template_domain(), limit=1)
 
+    def _get_template_domain(self):
+        template_type = {
+            "res.partner.contract": "contract",
+            "res.partner.contract.annex": "annex",
+        }.get(self.active_model, False)
+        company_type = (
+            self.partner_id.company_form if self.partner_id.is_company else "person"
+        )
+
+        document_template_domain = [
+            ("template_type", "=", template_type),
+            ("company_type", "=", company_type),
+        ]
+        return document_template_domain
+
     target = fields.Reference(
         selection=[
             ("res.partner.contract", "Contract"),
@@ -152,6 +167,7 @@ class ContractWizard(models.TransientModel):
         return self.afterload(document_as_attachment)
 
     def payload(self):
+        # Collect fields into a key-value structure
         fields = {
             transient_field.technical_name: transient_field.value
             for transient_field in (
@@ -159,11 +175,35 @@ class ContractWizard(models.TransientModel):
             )
             if transient_field.technical_name and transient_field.value
         }
+        # Extend with special case
         if self.target._name == "res.partner.contract.annex":
             fields.update(
                 {
                     "annex_name": self.document_name,
                     "specification_name": self.target.specification_name,
+                }
+            )
+        # Extend with order product lines
+        if hasattr(self.target, "order_id") and self.target.order_id.order_line:
+            def number_generator(n=1):
+                while (True):
+                    yield n
+                    n += 1
+
+            counter = number_generator()
+
+            fields.update(
+                {
+                    "order_products": [
+                        {
+                            "number": next(counter),
+                            "label": item.product_id.name,
+                            "count": item.product_uom_qty,
+                            "unit": item.product_uom.name,
+                            "cost": item.price_unit,
+                            "amount": item.price_subtotal,
+                        } for item in self.target.order_id.order_line or []
+                    ]
                 }
             )
         return fields
@@ -173,7 +213,7 @@ class ContractWizard(models.TransientModel):
         if hasattr(self.target, "contract_id"):
             res_id = self.target.contract_id.id
 
-        return self.env["mail.message"].create(
+        self.env["mail.message"].create(
             {
                 "model": "res.partner.contract",
                 "res_id": res_id,
@@ -182,20 +222,7 @@ class ContractWizard(models.TransientModel):
             }
         )
 
-    def _get_template_domain(self):
-        template_type = {
-            "res.partner.contract": "contract",
-            "res.partner.contract.annex": "annex",
-        }.get(self.active_model, False)
-        company_type = (
-            self.partner_id.company_form if self.partner_id.is_company else "person"
-        )
-
-        document_template_domain = [
-            ("template_type", "=", template_type),
-            ("company_type", "=", company_type),
-        ]
-        return document_template_domain
+        return result
 
     @property
     def active_model(self):

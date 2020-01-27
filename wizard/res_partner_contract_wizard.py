@@ -132,9 +132,27 @@ class ContractWizard(models.TransientModel):
     @api.multi
     def get_docx_contract(self):
         template = self.document_template.attachment_id
+        template_path = template._full_path(template.store_fname)
 
-        path_to_template = template._full_path(template.store_fname)
+        payload = self.payload()
+        binary_data = get_document_from_values_stream(template_path, payload).read()
+        encoded_data = base64.b64encode(binary_data)
 
+        get_fn = self.target.get_filename_by_document_template
+        attachment_name = "{}.docx".format(get_fn(self.document_template or "Unknown"))
+
+        document_as_attachment = self.env["ir.attachment"].create(
+            {
+                "name": attachment_name,
+                "datas_fname": attachment_name,
+                "type": "binary",
+                "datas": encoded_data,
+            }
+        )
+
+        return self.afterload(document_as_attachment)
+
+    def payload(self):
         fields = {
             transient_field.technical_name: transient_field.value
             for transient_field in (
@@ -149,40 +167,21 @@ class ContractWizard(models.TransientModel):
                     "specification_name": self.target.specification_name,
                 }
             )
+        return fields
 
-        binary_data = get_document_from_values_stream(path_to_template, fields).read()
-        encoded_data = base64.b64encode(binary_data)
-
-        attachment_name = (
-            self.target.get_filename_by_document_template(self.document_template)
-            or "Unknown"
-        )
-        attachment_name = "{}.docx".format(attachment_name)
-
-        document_as_attachment = self.env["ir.attachment"].create(
-            {
-                "name": attachment_name,
-                "datas_fname": attachment_name,
-                "type": "binary",
-                "datas": encoded_data,
-            }
-        )
-
-        # Send message with attachment to a mail.thread of the company
+    def afterload(self, result):
         res_id = self.target.id
         if hasattr(self.target, "contract_id"):
             res_id = self.target.contract_id.id
 
-        self.env["mail.message"].create(
+        return self.env["mail.message"].create(
             {
                 "model": "res.partner.contract",
                 "res_id": res_id,
                 "message_type": "comment",
-                "attachment_ids": [(4, document_as_attachment.id, False)],
+                "attachment_ids": [(4, result.id, False)],
             }
         )
-
-        return document_as_attachment
 
     def _get_template_domain(self):
         template_type = {

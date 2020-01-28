@@ -87,7 +87,7 @@
         parent="res_partner_menu_contracts"
         sequence="1"/>
 
-    <menuitem id="res_partner_menu_contracts_templates_"
+    <menuitem id="res_partner_menu_contracts_templates"
         name="Templates"
         parent="res_partner_menu_contracts"
         action="res_partner_document_template_action"

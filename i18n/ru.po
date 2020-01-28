@@ -1015,7 +1015,7 @@ msgid "Template Type"
 msgstr "Тип шаблона"
 
 #. module: client_contracts
-#: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates_
+#: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates
 msgid "Templates"
 msgstr "Шаблоны"
 

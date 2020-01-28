@@ -1,12 +1,12 @@
 import datetime
 
 from odoo import _, api, fields, models
-from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 from ..utils import MODULE_NAME
+from ..utils.misc import Extension, IDocument
 
 
-class PartnerContract(models.Model):
+class PartnerContract(models.Model, IDocument, Extension):
     _name = "res.partner.contract"
     _description = "Contract"
     _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers"]
@@ -36,6 +36,7 @@ class PartnerContract(models.Model):
         """Returns timestamp of now by local datetime"""
         return datetime.datetime.now().timestamp()
 
+    res_model = fields.Char(default=lambda self: self._name)
     name = fields.Char(string="Contract number", default=_get_default_name,)
     create_date = fields.Datetime(string="Created on")
     create_date_ts = fields.Char(default=_get_default_create_date_ts)
@@ -90,7 +91,9 @@ class PartnerContract(models.Model):
 
     @api.multi
     def action_print_form(self):
-        view = self.env.ref("{}.res_partner_wizard_print_contract_view".format(MODULE_NAME))
+        view = self.env.ref(
+            "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)
+        )
         return {
             "name": _("Print Form of Contract"),
             "type": "ir.actions.act_window",
@@ -101,6 +104,20 @@ class PartnerContract(models.Model):
             "context": {"self_id": self.id},
         }
 
+    def get_name_by_document_template(self, document_template_id):
+        return self.name
+
+    def get_filename_by_document_template(self, document_template_id):
+        return _("{type} {number} from {date}").format(
+            type=_(
+                dict(document_template_id._fields["document_type"].selection).get(
+                    document_template_id.document_type
+                )
+            ),
+            number=self.name,
+            date=self.get_date().strftime("%d.%m.%Y"),
+        )
+
     def get_date(self):
         """Uses in xml action (data/fields_default)
 
@@ -109,37 +126,15 @@ class PartnerContract(models.Model):
         """
         date = self.date_conclusion_fix or self.date_conclusion
         if date:
-            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATE_FORMAT)
+            date = self.parse_odoo_date(date)
         else:
-            date = self.create_date
-            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
+            date = self.parse_odoo_datetime(self.create_date)
         return date
 
+    def _(self, arg):
+        """Uses in xml action (data/fields_default)
 
-class PrintTemplate(models.Model):
-    _name = "res.partner.template.print"
-    _description = "Print Template"
-
-    name = fields.Char(related="attachment_id.name",)
-    attachment_id = fields.Many2one(
-        "ir.attachment", string="Template Attachment", required=True,
-    )
-    company_type = fields.Selection(
-        selection=[
-            ("person", "Individual"),
-            ("sp", "Sole Proprietor"),
-            ("plc", "Private Limited Company"),
-        ]
-    )
-
-
-class PrintTemplateContract(models.Model):
-    _name = "res.partner.template.print.contract"
-    _inherit = "res.partner.template.print"
-    _description = "Print Template Contract"
-
-
-class PrintTemplateAnnex(models.Model):
-    _name = "res.partner.template.print.annex"
-    _inherit = "res.partner.template.print"
-    _description = "Print Template Contract Annex"
+        Arguments:
+            arg {str} -- String to translate
+        """
+        return _(arg)

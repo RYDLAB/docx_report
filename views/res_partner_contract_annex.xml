@@ -10,20 +10,39 @@
 
                 <form string="Contract Annex">
                     <sheet>
-                        <group>
+                        <group name="options" invisible="1">
+                            <field name="display_name" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group name="info" string="Info">
                             <field name="name" placeholder="Leave empty for compute"/>
                             <field name="contract_id" attrs="{'invisible': [('contract_id', '=', False)]}"/>
-                            <field name="order_id"/>
+                            <field name="order_id" options="{'no_create': True}"/>
                             <field name="date_conclusion"/>
-                            <field name="payment_term" invisible="1"/>
-                            <field name="delivery_time" invisible="1"/>
                         </group>
-                        <group>
-                            <button name="action_print_form" type="object" string="Print" attrs="{'invisible': [('contract_id', '=', False)]}"/>
+                        <group name="design" string="Design">
+                            <field name="design_cost"/>
+                            <field name="design_doc_period"/>
+                            <field name="design_doc_cost"/>
+                        </group>
+                        <group name="delivery" string="Delivery">
+                            <field name="delivery_address"/>
+                            <field name="delivery_period"/>
+                        </group>
+                        <group name="installation" string="Installation">
+                            <field name="installation_address"/>
+                            <field name="installation_period"/>
+                            <field name="installation_cost"/>
+                        </group>
+                        <group name="payment" string="Payment">
+                            <field name="total_cost"/>
+                            <field name="payment_part_one" widget="integer"/>
+                            <field name="payment_part_two" widget="integer"/>
+                            <field name="payment_part_three" widget="integer"/>
                         </group>
                     </sheet>
                 </form>
-                
+
             </field>
         </record>
 

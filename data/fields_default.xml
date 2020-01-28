@@ -15,11 +15,14 @@ self = record
 
 partner = self.partner_id # res.partner
 partner_bank = partner.bank_ids and partner.bank_ids[0] # res.partner.bank
+partner_bank_name = partner_bank.bank_id.name + (" г. {city}".format(city=partner_bank.bank_id.city) if partner_bank.bank_id.city else "")
 
 seller = self.company_id
 seller_bank = seller.bank_ids and seller.bank_ids[0]
+seller_bank_name = seller_bank.bank_id.name + (" г. {city}".format(city=seller_bank.bank_id.city) if seller_bank.bank_id.city else "")
 
 # Functions
+_ = self._
 get_date = self.get_date
 
 # Parse date
@@ -35,6 +38,9 @@ yyyy = date.year
 yy = yyyy % 100
 MM = months[mm]
 
+dd = dd if dd // 10 else '0{}'.format(dd)
+mm = mm if mm // 10 else '0{}'.format(mm)
+
 # ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
     "contract_number": self.name,
@@ -45,34 +51,42 @@ ctx = {
     "yy": yy,
     "yyyy": yyyy,
 
-    "seller_name": seller.name,
+    "seller_name": seller.name_write,
     "seller_company_form": _(dict(seller._fields['company_form'].selection).get(seller.company_form)),
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_genitive,
     "seller_representer_name_initials": seller.representative_id.name_initials,
+    "seller_representer_function": seller.representative_id.function,
+    "seller_representer_function_parent": seller.representative_id.function_genitive,
     "seller_representer_document_parent": seller.representative_document,
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
     "seller_ogrn": seller.psrn,
     "seller_business_address": seller.full_address,
     "seller_phone": seller.phone,
+    "seller_whatsapp": seller.whatsapp,
+    "seller_telegram": seller.telegram,
     "seller_email": seller.email,
 
-    "partner_name": partner.name,
+    "partner_name": partner.name_write,
     "partner_inn": partner.vat,
     "partner_business_address": partner.full_address,
     "partner_phone": partner.phone,
+    "partner_whatsapp": partner.whatsapp,
+    "partner_telegram": partner.telegram,
     "partner_email": partner.email,
 }
 
 if partner_bank:
     ctx.update({
+        "partner_bank": partner_bank_name,
         "partner_rs": partner_bank.acc_number,
         "partner_ks": partner_bank.bank_id.corr_account,
         "partner_bic": partner_bank.bank_id.bic,
     })
 if seller_bank:
     ctx.update({
+        "seller_bank": seller_bank_name,
         "seller_rs": seller_bank.acc_number,
         "seller_ks": seller_bank.bank_id.corr_account,
         "seller_bic": seller_bank.bank_id.bic,
@@ -82,11 +96,18 @@ if seller_bank:
 # Person
 if not partner.is_company:
     ctx.update({
+        "partner_representer_name": partner.name_write,
         "partner_representer_name_initials": partner.name_initials,
         "partner_representer_passport_number": partner.passport_number,
         "partner_representer_passport_date": partner.passport_date,
         "partner_representer_passport_department": partner.passport_department,
+        "partner_representer_passport_department_code": partner.passport_department_code,
     })
+    if not partner.name_write:
+        ctx.update({
+            "partner_name": partner.name,
+            "partner_representer_name": partner.name,
+        })
 else:
     # Company
     ctx.update({
@@ -94,6 +115,8 @@ else:
         "partner_representer_name": partner.representative_id.name,
         "partner_representer_name_parent": partner.representative_id.name_genitive,
         "partner_representer_name_initials": partner.representative_id.name_initials,
+        "partner_representer_function": partner.representative_id.function,
+        "partner_representer_function_parent": partner.representative_id.function_genitive,
         "partner_representer_document_parent": partner.representative_document,
     })
 
@@ -106,6 +129,7 @@ else:
             "partner_representer_passport_number": partner.representative_id.passport_number,
             "partner_representer_passport_date": partner.representative_id.passport_date,
             "partner_representer_passport_department": partner.representative_id.passport_department,
+            "partner_representer_passport_department_code": partner.representative_id.passport_department_code,
         })
     if partner.company_form == 'plc':
         # Private Limited Company
@@ -131,13 +155,17 @@ action = ctx
 # Aliases
 self = record
 
-seller = self.contract_id.company_id
-partner = self.contract_id.partner_id
+seller = self.company_id
+partner = self.partner_id
 
 seller_bank = seller.bank_ids and seller.bank_ids[0]
+seller_bank_name = seller_bank.bank_id.name + (" г. {city}".format(city=seller_bank.bank_id.city) if seller_bank.bank_id.city else "")
+
 partner_bank = partner.bank_ids and partner.bank_ids[0]
+partner_bank_name = partner_bank.bank_id.name + (" г. {city}".format(city=partner_bank.bank_id.city) if partner_bank.bank_id.city else "")
 
 # Functions
+_ = self.contract_id._
 get_date = self.contract_id.get_date
 
 # Parse date
@@ -153,9 +181,25 @@ yyyy = date.year
 yy = yyyy % 100
 MM = months[mm]
 
+dd = dd if dd // 10 else '0{}'.format(dd)
+mm = mm if mm // 10 else '0{}'.format(mm)
+
+order_date = self.parse_odoo_datetime(self.order_id.date_order)
+
 # ctx keys must be decalared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
     "contract_number": self.contract_id.name,
+    
+    "annex_name": self.name,
+    "annex_number": self.counter,
+    
+    "order_name": self.order_id.name,
+    "order_date": "{} {} {}".format(order_date.day, months[order_date.month], order_date.year),
+    
+    "payment_part_one": self.payment_part_one,
+    "payment_part_two": self.payment_part_two,
+    "payment_part_three": self.payment_part_three,
+    "delivery_period": self.delivery_period,
 
     "dd": dd,
     "mm": mm,
@@ -163,11 +207,13 @@ ctx = {
     "yy": yy,
     "yyyy": yyyy,
 
-    "seller_name": seller.name,
-    "seller_company_form": seller.read(["company_form"])[0]['company_form'],
+    "seller_name": seller.name_write,
+    "seller_company_form": _(dict(seller._fields['company_form'].selection).get(seller.company_form)),
     "seller_representer_name": seller.representative_id.name,
     "seller_representer_name_parent": seller.representative_id.name_genitive,
     "seller_representer_name_initials": seller.representative_id.name_initials,
+    "seller_representer_function": seller.representative_id.function,
+    "seller_representer_function_parent": seller.representative_id.function_genitive,
 
     "seller_inn": seller.vat,
     "seller_kpp": seller.iec,
@@ -176,7 +222,7 @@ ctx = {
     "seller_phone": seller.phone,
     "seller_email": seller.email,
 
-    "partner_name": partner.name,
+    "partner_name": partner.name_write,
     "partner_representer_name": partner.representative_id.name,
     "partner_representer_name_initials": partner.representative_id.name_initials,
     "partner_inn": partner.vat,
@@ -187,12 +233,14 @@ ctx = {
 
 if partner_bank:
     ctx.update({
+        "partner_bank": partner_bank_name,
         "partner_rs": partner_bank.acc_number,
         "partner_ks": partner_bank.bank_id.corr_account,
         "partner_bic": partner_bank.bank_id.bic,
     })
 if seller_bank:
     ctx.update({
+        "seller_bank": seller_bank_name,
         "seller_rs": seller_bank.acc_number,
         "seller_ks": seller_bank.bank_id.corr_account,
         "seller_bic": seller_bank.bank_id.bic,
@@ -202,17 +250,25 @@ if seller_bank:
 # Person
 if not partner.is_company:
     ctx.update({
+        "partner_representer_name": partner.name_write,
         "partner_representer_name_initials": partner.name_initials,
         "partner_representer_passport_number": partner.passport_number,
         "partner_representer_passport_date": partner.passport_date,
         "partner_representer_passport_department": partner.passport_department,
     })
+    if not partner.name_write:
+        ctx.update({
+            "partner_name": partner.name,
+            "partner_representer_name": partner.name,
+        })
 else:
     # Company
     ctx.update({
-        "partner_company_form": partner.read(["company_form"])[0]['company_form'],
+        "partner_company_form": _(dict(partner._fields['company_form'].selection).get(partner.company_form)),
         "partner_representer_name_parent": partner.representative_id.name_genitive,
         "partner_representer_document_parent": partner.representative_document,
+        "partner_representer_function": partner.representative_id.function,
+        "partner_representer_function_parent": partner.representative_id.function_genitive,
     })
 
     if partner.company_form == 'sp':
@@ -246,6 +302,35 @@ action = ctx
             <field name="sequence">1</field>
         </record>
 
+        <record id="contract_field_annex_name" model="res.partner.contract.field">
+            <field name="name">Annex Name</field>
+            <field name="technical_name">annex_name</field>
+            <field name="description"></field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="contract_field_annex_number" model="res.partner.contract.field">
+            <field name="name">Annex Number</field>
+            <field name="technical_name">annex_number</field>
+            <field name="description"></field>
+            <field name="sequence">2</field>
+            <field name="visible">False</field>
+        </record>
+
+        <record id="contract_field_order_name" model="res.partner.contract.field">
+            <field name="name">Order Name</field>
+            <field name="technical_name">order_name</field>
+            <field name="description"></field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="contract_field_order_date" model="res.partner.contract.field">
+            <field name="name">Order Date</field>
+            <field name="technical_name">order_date</field>
+            <field name="description"></field>
+            <field name="sequence">4</field>
+        </record>
+
         <record id="contract_field_dd" model="res.partner.contract.field">
             <field name="name">Day</field>
             <field name="technical_name">dd</field>
@@ -258,6 +343,7 @@ action = ctx
             <field name="technical_name">mm</field>
             <field name="description">Number</field>
             <field name="sequence">16</field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_MM" model="res.partner.contract.field">
@@ -272,6 +358,7 @@ action = ctx
             <field name="technical_name">yy</field>
             <field name="description">Short</field>
             <field name="sequence">40</field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_yyyy" model="res.partner.contract.field">
@@ -293,16 +380,32 @@ action = ctx
             <field name="description"></field>
         </record>
 
-        <record id="contract_field_delivery_time" model="res.partner.contract.field">
-            <field name="name">Delivery Time</field>
-            <field name="technical_name">delivery_time</field>
+        <record id="contract_field_payment_part_one" model="res.partner.contract.field">
+            <field name="name">Payment Part 1</field>
+            <field name="technical_name">payment_part_one</field>
             <field name="description"></field>
+            <field name="sequence">35</field>
         </record>
 
-        <record id="contract_field_payment_term" model="res.partner.contract.field">
-            <field name="name">Payment Term</field>
-            <field name="technical_name">payment_term</field>
+        <record id="contract_field_payment_part_two" model="res.partner.contract.field">
+            <field name="name">Payment Part 2</field>
+            <field name="technical_name">payment_part_two</field>
             <field name="description"></field>
+            <field name="sequence">36</field>
+        </record>
+
+        <record id="contract_field_payment_part_three" model="res.partner.contract.field">
+            <field name="name">Payment Part 3</field>
+            <field name="technical_name">payment_part_three</field>
+            <field name="description"></field>
+            <field name="sequence">37</field>
+        </record>
+
+        <record id="contract_field_delivery_period" model="res.partner.contract.field">
+            <field name="name">Delivery Period</field>
+            <field name="technical_name">delivery_period</field>
+            <field name="description"></field>
+            <field name="sequence">38</field>
         </record>
 
 
@@ -399,6 +502,13 @@ action = ctx
             <field name="sequence">144</field>
         </record>
 
+        <record id="contract_field_seller_representer_passport_department_code" model="res.partner.contract.field">
+            <field name="name">Passport Department Code</field>
+            <field name="technical_name">seller_representer_passport_department_code</field>
+            <field name="description">Seller Representative</field>
+            <field name="sequence">146</field>
+        </record>
+
         <record id="contract_field_seller_inn" model="res.partner.contract.field">
             <field name="name">INN</field>
             <field name="technical_name">seller_inn</field>
@@ -474,6 +584,20 @@ action = ctx
             <field name="technical_name">seller_phone</field>
             <field name="description">Seller</field>
             <field name="sequence">232</field>
+        </record>
+
+        <record id="contract_field_seller_whatsapp" model="res.partner.contract.field">
+            <field name="name">WhatsApp</field>
+            <field name="technical_name">seller_whatsapp</field>
+            <field name="description">Seller</field>
+            <field name="sequence">233</field>
+        </record>
+
+        <record id="contract_field_seller_telegram" model="res.partner.contract.field">
+            <field name="name">Telegram</field>
+            <field name="technical_name">seller_telegram</field>
+            <field name="description">Seller</field>
+            <field name="sequence">234</field>
         </record>
 
         <record id="contract_field_seller_email" model="res.partner.contract.field">
@@ -577,6 +701,13 @@ action = ctx
             <field name="sequence">344</field>
         </record>
 
+        <record id="contract_field_partner_representer_passport_department_code" model="res.partner.contract.field">
+            <field name="name">Passport Department Code</field>
+            <field name="technical_name">partner_representer_passport_department_code</field>
+            <field name="description">Partner Representative</field>
+            <field name="sequence">346</field>
+        </record>
+
         <record id="contract_field_partner_inn" model="res.partner.contract.field">
             <field name="name">INN</field>
             <field name="technical_name">partner_inn</field>
@@ -652,6 +783,20 @@ action = ctx
             <field name="technical_name">partner_phone</field>
             <field name="description">Partner</field>
             <field name="sequence">432</field>
+        </record>
+
+        <record id="contract_field_partner_whatsapp" model="res.partner.contract.field">
+            <field name="name">WhatsApp</field>
+            <field name="technical_name">partner_whatsapp</field>
+            <field name="description">Partner</field>
+            <field name="sequence">433</field>
+        </record>
+
+        <record id="contract_field_partner_telegram" model="res.partner.contract.field">
+            <field name="name">Telegram</field>
+            <field name="technical_name">partner_telegram</field>
+            <field name="description">Partner</field>
+            <field name="sequence">434</field>
         </record>
 
         <record id="contract_field_partner_email" model="res.partner.contract.field">

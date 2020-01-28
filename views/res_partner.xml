@@ -3,27 +3,18 @@
 
     <!-- res.partner.contract.field action window -->
     <record id="res_partner_contract_field_action" model="ir.actions.act_window">
-        <field name="name">res.partner.contract.field.action</field>
+        <field name="name">Contract Fields</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner.contract.field</field>
         <field name="view_mode">tree,form</field>
         <field name="view_type">form</field>
     </record>
 
-    <!-- res.partner.template.print.contract action window -->
-    <record id="res_partner_print_contract_action" model="ir.actions.act_window">
-        <field name="name">res.partner.template.print.contract.action</field>
+    <!-- res.partner.document.template action window -->
+    <record id="res_partner_document_template_action" model="ir.actions.act_window">
+        <field name="name">Document Templates</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.partner.template.print.contract</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
-    </record>
-
-    <!-- res.partner.template.print.annex action window -->
-    <record id="res_partner_print_annex_action" model="ir.actions.act_window">
-        <field name="name">res.partner.template.print.annex.action</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.partner.template.print.annex</field>
+        <field name="res_model">res.partner.document.template</field>
         <field name="view_mode">tree,form</field>
         <field name="view_type">form</field>
     </record>
@@ -35,21 +26,34 @@
         <field name="priority" eval="25"/>
         <field name="arch" type="xml">
 
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="placeholder">Name in ERP</attribute>
+            </xpath>
+
             <xpath expr="//field[@name='type']" position="before">
-                <field name="name" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                <field name="name_genitive" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
-                <field name="name_initials" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                <field name="name_write" placeholder="i.e. Ural Bank for Reconstruction and Development" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                <field name="name_genitive" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                <field name="name_initials" attrs="{'invisible': [('is_company', '=', True)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='function']" position="after">
+                <field name="function_genitive" attrs="{'invisible': [('is_company', '=', True)]}"/>
             </xpath>
 
             <xpath expr="//field[@name='category_id']" position="after">
-                <field name="representative_id" domain="[('company_type', '=', 'person')]" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
-                <field name="representative_document" attrs="{'invisible': [('company_type', '!=', 'company')]}"/>
+                <field name="representative_id" domain="[('is_company', '=', False)]" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                <field name="representative_document" attrs="{'invisible': [('is_company', '=', False)]}"/>
 
                 <field name="signature" widget="image"/>
             </xpath>
 
             <xpath expr="//field[@name='function']" position="after">
-                <field name="function_genitive" attrs="{'invisible': [('is_company','=', True)]}"/>
+                <field name="function_genitive" attrs="{'invisible': [('is_company','=', True)]}" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='email']" position="before">
+                <field name="whatsapp" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                <field name="telegram" attrs="{'invisible': [('is_company', '=', True)]}"/>
             </xpath>
 
         </field>
@@ -86,18 +90,7 @@
     <menuitem id="res_partner_menu_contracts_templates"
         name="Templates"
         parent="res_partner_menu_contracts"
-        sequence="2"/>
-
-    <menuitem id="res_partner_menu_contracts_templates_contract"
-        name="Contract"
-        parent="res_partner_menu_contracts_templates"
-        action="res_partner_print_contract_action"
-        sequence="1"/>
-
-    <menuitem id="res_partner_menu_contracts_templates_annex"
-        name="Annex"
-        parent="res_partner_menu_contracts_templates"
-        action="res_partner_print_annex_action"
+        action="res_partner_document_template_action"
         sequence="2"/>
 
 </odoo>

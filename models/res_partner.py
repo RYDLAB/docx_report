@@ -4,6 +4,9 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    name_write = fields.Char(
+        string="Name in contracts", help="This name uses in contracts",
+    )
     name_genitive = fields.Char(string="Name Genitive",)
     name_initials = fields.Char(string="Name Initials",)
     function_genitive = fields.Char(string="Function Genitive",)
@@ -24,6 +27,12 @@ class ResPartner(models.Model):
         string="Representative acts on the basis of", help="Parent Case",
     )
     signature = fields.Binary(string="Client signature")
+    whatsapp = fields.Char(
+        string="WhatsApp", help="If a contact have a WhatsApp number",
+    )
+    telegram = fields.Char(
+        string="Telegram", help="If a contact have a Telegram number or identifier",
+    )
 
     @api.depends("street", "street2", "city", "state_id", "zip", "country_id")
     def _compute_full_address(self):

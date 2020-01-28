@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-28 10:32+0000\n"
-"PO-Revision-Date: 2019-12-28 10:32+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2020-01-22 11:29+0000\n"
+"PO-Revision-Date: 2020-01-22 11:29+0000\n"
+"Last-Translator: Stepan Savelyev\n"
+"Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -42,15 +42,31 @@ msgid "3 stages"
 msgstr "Оплата в 3 этапа"
 
 #. module: client_contracts
+#: code:addons/client_contracts/models/res_partner_document_template.py:31
+#: selection:res.partner.document.template,document_type_name:0
+#, python-format
+msgid "Act of Acceptance and Delivery"
+msgstr "Акт сдачи-приемки"
+
+#. module: client_contracts
+#: code:addons/client_contracts/models/res_partner_document_template.py:30
+#: selection:res.partner.document.template,document_type_name:0
+#, python-format
+msgid "Act of Acceptance and Transfer"
+msgstr "Акт приема-передачи"
+
+#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_street_actual
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_street_actual
 msgid "Actual Address"
 msgstr "Актуальный адрес"
 
 #. module: client_contracts
-#: model:ir.model.fields,help:client_contracts.field_res_users_okpo
-msgid "All-Russian Classifier of Enterprises and Organizations"
-msgstr "Общероссийский классификатор предприятий и организаций"
+#: code:addons/client_contracts/models/res_partner_document_template.py:21
+#: selection:res.partner.document.template,document_type:0
+#, python-format
+msgid "Addition"
+msgstr "Дополнение"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_amount_fractional
@@ -63,21 +79,27 @@ msgid "Amount Whole Part"
 msgstr "Целая часть суммы"
 
 #. module: client_contracts
-#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:139
-#: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates_annex
+#: code:addons/client_contracts/models/res_partner_document_template.py:20
+#: selection:res.partner.document.template,document_type:0
+#: selection:res.partner.document.template,template_type:0
 #, python-format
 msgid "Annex"
 msgstr "Приложение"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_annex_view
-msgid "Annex values"
-msgstr "Поля в печатном приложении"
+#: model:res.partner.contract.field,name:client_contracts.contract_field_annex_name
+msgid "Annex Name"
+msgstr "Наименование приложения"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_annex_number
+msgid "Annex Number"
+msgstr "Номер приложения"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
-msgid "Annexed orders"
-msgstr "Приложенные заказы"
+msgid "Annexed Specifications"
+msgstr "Приложенные спецификации"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_contract_annex_ids
@@ -90,11 +112,11 @@ msgid "Annexes to this contract"
 msgstr "Приложения к договору"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_name
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_name
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_name
-msgid "Attachment Name"
-msgstr "Название вложения"
+#: code:addons/client_contracts/models/res_partner_document_template.py:29
+#: selection:res.partner.document.template,document_type_name:0
+#, python-format
+msgid "Approval List"
+msgstr "Лист согласования"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_bic
@@ -125,6 +147,13 @@ msgid "Bank Payment Account"
 msgstr "Расчётный счёт"
 
 #. module: client_contracts
+#: code:addons/client_contracts/models/res_partner_document_template.py:27
+#: selection:res.partner.document.template,document_type_name:0
+#, python-format
+msgid "Bill"
+msgstr "Счёт"
+
+#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_business_address
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_business_address
 msgid "Business Address"
@@ -146,15 +175,14 @@ msgid "Closed"
 msgstr "Закрыт"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_company_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_company_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_company_id
 msgid "Company"
 msgstr "Компания"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_company_type
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_company_type
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_company_type
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_company_type
 msgid "Company Type"
 msgstr "Тип компании"
 
@@ -169,14 +197,15 @@ msgid "Contact"
 msgstr "Контакт"
 
 #. module: client_contracts
-#: code:addons/client_contracts/wizard/res_partner_contract_wizard.py:136
+#: code:addons/client_contracts/models/res_partner_document_template.py:19
 #: model:ir.model,name:client_contracts.model_res_partner_contract
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_contract_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient__contract_wizard_id
 #: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts
-#: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates_contract
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 #: selection:res.partner.contract.wizard,target:0
+#: selection:res.partner.document.template,document_type:0
+#: selection:res.partner.document.template,template_type:0
 #, python-format
 msgid "Contract"
 msgstr "Договор"
@@ -205,6 +234,7 @@ msgid "Contract Field Transient"
 msgstr "Фактическое поле договора"
 
 #. module: client_contracts
+#: model:ir.actions.act_window,name:client_contracts.res_partner_contract_field_action
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_transient_field_ids
 msgid "Contract Fields"
 msgstr "Поля договора"
@@ -225,11 +255,6 @@ msgid "Contract parameters"
 msgstr "Информация"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_contract_view
-msgid "Contract values"
-msgstr "Поля в печатном договоре"
-
-#. module: client_contracts
 #: model:ir.actions.act_window,name:client_contracts.res_partner_contract_action
 #: model:ir.actions.act_window,name:client_contracts.res_partner_contract_partner_action
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_client_contract_ids
@@ -246,39 +271,44 @@ msgid "Counter for generate Annex name"
 msgstr "Счётчик для генерации имени приложения к договору"
 
 #. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_counter
+msgid "Counter of Contract Annexes"
+msgstr "Счётчик приложений к договору"
+
+#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_create_date_ts
 msgid "Create Date Ts"
 msgstr "Создан (таймстамп)"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_annex_view
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_contract_view
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_document_view
 msgid "Create a document"
 msgstr "Создать документ"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_create_uid
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_create_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_create_uid
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_create_uid
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_create_uid
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_create_uid
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_create_uid
 msgid "Created by"
 msgstr "Создано"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:40
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_create_date
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_create_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_create_date
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_create_date
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_create_date
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_create_date
-#, python-format
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_create_date
 msgid "Created on"
 msgstr "Создан"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_currency_id
+msgid "Currency"
+msgstr "Валюта"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_date_conclusion_fix
@@ -296,9 +326,27 @@ msgid "Day"
 msgstr "День"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_delivery_time
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
+msgid "Delivery"
+msgstr "Доставка"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_delivery_address
+msgid "Delivery Address"
+msgstr "Адрес доставки"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_delivery_period
+msgid "Delivery Period"
+msgstr "Срок поставки"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_delivery_period
+msgid "Delivery Period (days)"
+msgstr "Срок поставки изделий"
+
+#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_sale_order_delivery_time
-#: model:res.partner.contract.field,name:client_contracts.contract_field_delivery_time
 msgid "Delivery Time"
 msgstr "Срок доставки"
 
@@ -309,22 +357,61 @@ msgid "Description"
 msgstr "Описание"
 
 #. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
+msgid "Design"
+msgstr "Дизайн"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_design_cost
+msgid "Design Cost"
+msgstr "Стоимость разработки дизайна"
+
+#. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_display_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_display_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_display_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_display_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_display_name
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_display_name
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_display_name
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_display_name
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_display_name
 msgid "Display Name"
 msgstr "Отображаемое Имя"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_document_type_name
+msgid "Document"
+msgstr "Документ"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_document_parent
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_document_parent
 msgid "Document Genitive"
 msgstr "Документ (род.падеж)"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_document_name
+msgid "Document Name"
+msgstr "Имя документа"
+
+#. module: client_contracts
+#: model:ir.model,name:client_contracts.model_res_partner_document_template
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_document_template
+msgid "Document Template"
+msgstr "Шаблон документа"
+
+#. module: client_contracts
+#: model:ir.actions.act_window,name:client_contracts.res_partner_document_template_action
+msgid "Document Templates"
+msgstr "Шаблоны документов"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_design_doc_cost
+msgid "Documentation Design Cost"
+msgstr "Стоимость разработки КД"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_design_doc_period
+msgid "Documentation Design Period (days)"
+msgstr "Срок подготовки КД"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_email
@@ -365,8 +452,8 @@ msgid "Function"
 msgstr "Должность"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_function_parent_case
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_function_parent_case
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_function_genitive
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_function_genitive
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_function_parent
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_function_parent
 msgid "Function Genitive"
@@ -382,10 +469,9 @@ msgstr "Generate Context for Contract"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_id
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_id
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_id
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_id
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_id
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_id
 msgid "ID"
 msgstr "Номер"
 
@@ -408,16 +494,46 @@ msgid "IP Number"
 msgstr "ИП Серия и номер"
 
 #. module: client_contracts
-#: selection:res.partner.template.print,company_type:0
-#: selection:res.partner.template.print.annex,company_type:0
-#: selection:res.partner.template.print.contract,company_type:0
+#: model:ir.model.fields,help:client_contracts.field_res_partner_telegram
+#: model:ir.model.fields,help:client_contracts.field_res_users_telegram
+msgid "If a contact have a Telegram number or identifier"
+msgstr "Номер или идентификатор в Telegram"
+
+#. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_whatsapp
+#: model:ir.model.fields,help:client_contracts.field_res_users_whatsapp
+msgid "If a contact have a WhatsApp number"
+msgstr "Номер в WhatsApp"
+
+#. module: client_contracts
+#: selection:res.partner.document.template,company_type:0
 msgid "Individual"
 msgstr "Физическое лицо"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_annex_view
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
 msgid "Info"
 msgstr "Информация"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
+msgid "Installation"
+msgstr "Монтаж"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_installation_address
+msgid "Installation Address"
+msgstr "Монтаж по адресу"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_installation_cost
+msgid "Installation Cost"
+msgstr "Стоимость монтажа"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_installation_period
+msgid "Installation Period (days)"
+msgstr "Срок монтажа изделий"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_company_form
@@ -437,9 +553,7 @@ msgstr "КПП"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field___last_update
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient___last_update
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard___last_update
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print___last_update
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex___last_update
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract___last_update
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template___last_update
 msgid "Last Modified on"
 msgstr "Последнее изменение"
 
@@ -448,22 +562,25 @@ msgstr "Последнее изменение"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_write_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_write_uid
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_write_uid
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_write_uid
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_write_uid
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_write_uid
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_write_uid
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_write_uid
 msgid "Last Updated by"
-msgstr "Последний раз обновлено"
+msgstr "Последний раз обновил"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_write_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_write_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_write_date
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_write_date
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_write_date
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_write_date
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_write_date
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_write_date
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_write_date
 msgid "Last Updated on"
-msgstr "Последний раз обновлено"
+msgstr "Последнее обновление"
+
+#. module: client_contracts
+#: model:ir.model,name:client_contracts.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Лид / Потенциальная сделка"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
@@ -480,6 +597,8 @@ msgstr "Месяц"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_name
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_name
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_name
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_name
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_name
@@ -488,20 +607,31 @@ msgid "Name"
 msgstr "Название"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_parent_case
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_parent_case
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_genitive
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_genitive
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name_parent
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name_parent
 msgid "Name Genitive"
 msgstr "Имя (род.падеж)"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_initials_case
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_initials_case
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_initials
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_initials
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_name_initials
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_name_initials
 msgid "Name Initials"
 msgstr "Фамилия с инициалами"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_info_inherit_view
+msgid "Name in ERP"
+msgstr "Название в ERP"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_name_write
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_name_write
+msgid "Name in contracts"
+msgstr "Название в договоре"
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_field_technical_name
@@ -521,7 +651,6 @@ msgid "Number"
 msgstr "Число"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_users_okpo
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_okpo
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_okpo
 msgid "OKPO"
@@ -531,6 +660,21 @@ msgstr "ОКПО"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_order_id
 msgid "Order"
 msgstr "Заказ"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_order_date
+msgid "Order Date"
+msgstr "Дата заказа"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_order_name
+msgid "Order Name"
+msgstr "Имя заказа"
+
+#. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_order_id
+msgid "Orders with this partner which are not uses in annexes yet"
+msgstr "Заказы, заключённые с этим партнёром и ещё не использующиеся в приложениях"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_ogrn
@@ -551,9 +695,9 @@ msgid "Parent Case"
 msgstr "В родительном падеже"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_partner_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_partner_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_partner_id
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_contract_view
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_bank
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_bic
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_business_address
@@ -568,6 +712,8 @@ msgstr "В родительном падеже"
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_okpo
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_phone
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_rs
+#: model:res.partner.contract.field,description:client_contracts.contract_field_partner_telegram
+#: model:res.partner.contract.field,description:client_contracts.contract_field_partner_whatsapp
 msgid "Partner"
 msgstr "Партнёр"
 
@@ -586,9 +732,16 @@ msgstr "Партнёр; Сертификат о регистрации ИП"
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_name_parent
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_date
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_department
+#: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_department_code
 #: model:res.partner.contract.field,description:client_contracts.contract_field_partner_representer_passport_number
 msgid "Partner Representative"
 msgstr "Представитель Партнёра"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_passport_department_code
+#: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_passport_department_code
+msgid "Passport Department Code"
+msgstr "Код подразделения, выдавшего паспорт"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_passport_department
@@ -609,14 +762,39 @@ msgid "Passport №"
 msgstr "Паспорт №"
 
 #. module: client_contracts
-#: model:res.partner.contract.field,name:client_contracts.contract_field_payment_term
-msgid "Payment Term"
-msgstr "Условия оплаты"
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
+msgid "Payment"
+msgstr "Оплата"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_payment_term
-msgid "Payment Terms"
-msgstr "Условия оплаты"
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_payment_part_one
+msgid "Payment 1 Part (%)"
+msgstr "Оплата первой части в размере (%)"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_payment_part_two
+msgid "Payment 2 Part (%)"
+msgstr "Оплата второй части в размере (%)"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_payment_part_three
+msgid "Payment 3 Part (%)"
+msgstr "Оплата третьей части в размере (%)"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_payment_part_one
+msgid "Payment Part 1"
+msgstr "Оплата первой части (%)"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_payment_part_two
+msgid "Payment Part 2"
+msgstr "Оплата второй части (%)"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_payment_part_three
+msgid "Payment Part 3"
+msgstr "Оплата третьей части (%)"
 
 #. module: client_contracts
 #: model:account.payment.term,note:client_contracts.payment_term_postpayment
@@ -651,24 +829,18 @@ msgid "Phone"
 msgstr "Телефон"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_prepaid_expense
-msgid "Prepaid Expense"
-msgstr "Аванс"
-
-#. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
 msgid "Print"
 msgstr "Печать"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:95
+#: code:addons/client_contracts/models/res_partner_contract.py:99
 #, python-format
 msgid "Print Form of Contract"
 msgstr "Форма печати договора"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract_annex.py:63
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:111
 #, python-format
 msgid "Print Form of Contract Annex"
 msgstr "Форма печати приложения к договору"
@@ -689,26 +861,19 @@ msgid "Print Template Contract Annex"
 msgstr "Вложение-шаблон приложения к договору"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_print_template_contract
-msgid "Print Template of Contract"
-msgstr "Шаблон-Вложение договора"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_print_template_annex
-msgid "Print Template of Contract Annex"
-msgstr "Шаблон-Вложение приложения к договору"
-
-#. module: client_contracts
-#: selection:res.partner.template.print,company_type:0
-#: selection:res.partner.template.print.annex,company_type:0
-#: selection:res.partner.template.print.contract,company_type:0
+#: selection:res.partner.document.template,company_type:0
 msgid "Private Limited Company"
 msgstr "Общество с ограниченной ответственностью"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_development_period
+msgid "Product Development Period (days)"
+msgstr "Срок разработки изделий"
+
+#. module: client_contracts
 #: model:ir.model,name:client_contracts.model_sale_order
 msgid "Quotation"
-msgstr "Предложение цен"
+msgstr "Оферта"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
@@ -728,17 +893,11 @@ msgid "Representative acts on the basis of"
 msgstr "Представитель действует на основании"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_contract_view
-msgid "Requisites"
-msgstr "Реквизиты"
-
-#. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.search_res_partner_contract_filter
 msgid "Search Contract"
 msgstr "Поиск договора"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_contract_view
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_bank
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_bic
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_business_address
@@ -753,6 +912,8 @@ msgstr "Поиск договора"
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_okpo
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_phone
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_rs
+#: model:res.partner.contract.field,description:client_contracts.contract_field_seller_telegram
+#: model:res.partner.contract.field,description:client_contracts.contract_field_seller_whatsapp
 msgid "Seller"
 msgstr "Продавец"
 
@@ -771,12 +932,14 @@ msgstr "Продавец; Сертификат о регистрации ИП"
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_name_parent
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_date
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_department
+#: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_department_code
 #: model:res.partner.contract.field,description:client_contracts.contract_field_seller_representer_passport_number
 msgid "Seller Representative"
 msgstr "Представитель Продавца"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_sequence
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_sequence
 msgid "Sequence"
 msgstr "Нумерация"
 
@@ -796,11 +959,21 @@ msgid "Signed"
 msgstr "Подписан"
 
 #. module: client_contracts
-#: selection:res.partner.template.print,company_type:0
-#: selection:res.partner.template.print.annex,company_type:0
-#: selection:res.partner.template.print.contract,company_type:0
+#: selection:res.partner.document.template,company_type:0
 msgid "Sole Proprietor"
 msgstr "Индивидуальный предприниматель"
+
+#. module: client_contracts
+#: code:addons/client_contracts/models/res_partner_document_template.py:28
+#: selection:res.partner.document.template,document_type_name:0
+#, python-format
+msgid "Specification"
+msgstr "Спецификация"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_specification_name
+msgid "Specification Name"
+msgstr "Имя спецификации"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_state
@@ -819,27 +992,27 @@ msgid "Technical Name"
 msgstr "Техническое название"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_annex_view
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_contract_view
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_telegram
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_telegram
+#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_telegram
+#: model:res.partner.contract.field,name:client_contracts.contract_field_seller_telegram
+msgid "Telegram"
+msgstr "Telegram"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_document_view
 msgid "Template"
 msgstr "Шаблон"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_template_print_annex_view_form
-msgid "Template Annex"
-msgstr "Шаблон приложения"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_annex_attachment_id
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_attachment_id
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_template_print_contract_attachment_id
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_attachment_id
 msgid "Template Attachment"
 msgstr "Вложение-шаблон"
 
 #. module: client_contracts
-#: model:ir.ui.view,arch_db:client_contracts.res_partner_template_print_contract_view_form
-msgid "Template Contract"
-msgstr "Шаблон договора"
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_template_type
+msgid "Template Type"
+msgstr "Тип шаблона"
 
 #. module: client_contracts
 #: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates
@@ -847,14 +1020,54 @@ msgid "Templates"
 msgstr "Шаблоны"
 
 #. module: client_contracts
-#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_name
-msgid "The Number of Annex"
-msgstr "Номер приложения"
+#: model:ir.model.fields,help:client_contracts.field_res_partner_name_write
+#: model:ir.model.fields,help:client_contracts.field_res_users_name_write
+msgid "This name uses in contracts"
+msgstr "Наименование, используемое при заполнении договоров"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_total_cost
+msgid "Total Cost"
+msgstr "Общая стоимость"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_transient_field_ids_hidden
+msgid "Transient Field Ids Hidden"
+msgstr "Transient Field Ids Hidden"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_document_type
+msgid "Type of document"
+msgstr "Вид документа"
+
+#. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_currency_id
+msgid "Utility field to express amount currency"
+msgstr "Служебное поле, чтобы выразить суммы в валюте"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_value
 msgid "Value"
 msgstr "Значение"
+
+#. module: client_contracts
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_wizard_print_document_view
+msgid "Values"
+msgstr "Значения"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_visible
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_visible
+msgid "Visible"
+msgstr "Видимый"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_whatsapp
+#: model:ir.model.fields,field_description:client_contracts.field_res_users_whatsapp
+#: model:res.partner.contract.field,name:client_contracts.contract_field_partner_whatsapp
+#: model:res.partner.contract.field,name:client_contracts.contract_field_seller_whatsapp
+msgid "WhatsApp"
+msgstr "WhatsApp"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,description:client_contracts.contract_field_MM
@@ -868,24 +1081,9 @@ msgid "Year"
 msgstr "Год"
 
 #. module: client_contracts
-#: model:ir.model,name:client_contracts.model_res_partner_contract_annex_line
-msgid "res.partner.contract.annex.line"
-msgstr "res.partner.contract.annex.line"
-
-#. module: client_contracts
-#: model:ir.model,name:client_contracts.model_res_partner_contract_annex_type
-msgid "res.partner.contract.annex.type"
-msgstr "res.partner.contract.annex.type"
-
-#. module: client_contracts
-#: model:ir.actions.act_window,name:client_contracts.res_partner_contract_field_action
-msgid "res.partner.contract.field.action"
-msgstr "res.partner.contract.field.action"
-
-#. module: client_contracts
-#: model:ir.model,name:client_contracts.model_res_partner_contract_template
-msgid "res.partner.contract.template"
-msgstr "res.partner.contract.template"
+#: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_info_inherit_view
+msgid "i.e. Ural Bank for Reconstruction and Development"
+msgstr "напр. «Уральский банк реконструкции и развития»"
 
 #. module: client_contracts
 #: model:ir.model,name:client_contracts.model_res_partner_contract_wizard
@@ -893,11 +1091,13 @@ msgid "res.partner.contract.wizard"
 msgstr "res.partner.contract.wizard"
 
 #. module: client_contracts
-#: model:ir.actions.act_window,name:client_contracts.res_partner_print_annex_action
-msgid "res.partner.template.print.annex.action"
-msgstr "res.partner.template.print.annex.action"
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:64
+#, python-format
+msgid "{name} from {date}"
+msgstr "{name} от {date}"
 
 #. module: client_contracts
-#: model:ir.actions.act_window,name:client_contracts.res_partner_print_contract_action
-msgid "res.partner.template.print.contract.action"
-msgstr "res.partner.template.print.contract.action"
+#: code:addons/client_contracts/models/res_partner_contract.py:112
+#, python-format
+msgid "{type} {number} from {date}"
+msgstr "{type} {number} от {date}"

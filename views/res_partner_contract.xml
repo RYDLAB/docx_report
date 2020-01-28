@@ -8,8 +8,9 @@
         <field name="arch" type="xml">
             <tree string="Contracts">
                 <field name="name"/>
-                <field name="date_conclusion"/>
                 <field name="partner_id"/>
+                <field name="date_conclusion"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -19,7 +20,7 @@
         <field name="name">Contract Form</field>
         <field name="model">res.partner.contract</field>
         <field name="arch" type="xml">
-            <form string="Contract">
+            <form string="Contract" create="0">
                 <header attrs="{'invisible': [('id', '=', False)]}">
                     <button name="action_sign" type="object" string="Sign" states="draft" class="oe_highlight"/>
                     <button name="action_close" type="object" string="Close" states="sign" class="oe_highlight"/>
@@ -40,9 +41,12 @@
                         <!-- Uses to generate number of Annex -->
                         <field name="contract_annex_number" invisible="1"/> 
                     </group>
-                    <group string="Annexed orders" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
-                        <field name="contract_annex_ids">
-                            <field name="name"/>
+                    <group string="Annexed Specifications" name="annexes" attrs="{'invisible': [('id', '=', False)]}">
+                        <field name="contract_annex_ids" nolabel="1">
+                            <tree>
+                                <field name="display_name" string="Name"/>
+                                <button name="action_print_form" type="object" string="Print" attrs="{'invisible': [('id', '=', False)]}"/>
+                            </tree>
                         </field>
                     </group>
                 </sheet>

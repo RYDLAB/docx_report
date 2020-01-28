@@ -18,4 +18,5 @@ class ContractFieldTransient(models.TransientModel):
     description = fields.Char(
         related="contract_field_id.description", string="Description", readonly=True,
     )
+    visible = fields.Boolean(related="contract_field_id.visible",)
     value = fields.Char(string="Value", default="",)

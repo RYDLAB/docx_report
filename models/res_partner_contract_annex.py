@@ -3,38 +3,74 @@ import math
 from odoo import _, api, fields, models
 
 from ..utils import MODULE_NAME
+from ..utils.misc import Extension, IDocument
 
 
-class ContractOrderAnnex(models.Model):
+class ContractOrderAnnex(models.Model, IDocument, Extension):
     _name = "res.partner.contract.annex"
     _description = "Contract Annex"
 
-    name = fields.Char(string="Name", help="The Number of Annex")
-    order_id = fields.Many2one("sale.order", string="Order", required=True,)
+    name = fields.Char(string="Name",)
+    display_name = fields.Char(compute="_compute_display_name",)
+    specification_name = fields.Char(compute="_compute_specification_name",)
+
     contract_id = fields.Many2one(
         "res.partner.contract", string="Contract", readonly=True,
+    )
+    company_id = fields.Many2one("res.partner", related="contract_id.company_id",)
+    partner_id = fields.Many2one("res.partner", related="contract_id.partner_id",)
+    order_id = fields.Many2one(
+        "sale.order",
+        string="Order",
+        help="Orders with this partner which are not uses in annexes yet",
+        required=True,
     )
     date_conclusion = fields.Date(
         string="Conclusion Date", default=fields.Date.today(),
     )
-    prepaid_expense = fields.Float(string="Prepaid Expense", default=0)
-    delivery_time = fields.Integer(related="order_id.delivery_time", readonly=True,)
-    payment_term = fields.Many2one(
-        "account.payment.term", related="order_id.payment_term_id", readonly=True,
-    )
+    counter = fields.Integer(string="№", help="Counter of Contract Annexes",)
+    currency_id = fields.Many2one(related="company_id.currency_id", readonly=True,)
 
-    @api.onchange("contract_id")
-    def _onchange_contract_id(self):
-        # Compute name if there is no custom name
-        contract_number = self.contract_id.name
-        annex_number = self.contract_id.contract_annex_number
+    development_period = fields.Integer("Product Development Period (days)",)
 
-        self.name = "{contract}--{annex}".format(
-            contract=contract_number, annex=annex_number
+    design_cost = fields.Monetary(string="Design Cost",)
+
+    design_doc_period = fields.Integer(string="Documentation Design Period (days)",)
+    design_doc_cost = fields.Monetary(string="Documentation Design Cost",)
+
+    delivery_address = fields.Char(string="Delivery Address",)
+    delivery_period = fields.Integer(string="Delivery Period (days)")
+
+    installation_address = fields.Char(string="Installation Address",)
+    installation_period = fields.Integer(string="Installation Period (days)",)
+    installation_cost = fields.Integer(string="Installation Cost",)
+
+    total_cost = fields.Monetary(string="Total Cost",)
+
+    payment_part_one = fields.Float(string="Payment 1 Part (%)", default=100)
+    payment_part_two = fields.Float(string="Payment 2 Part (%)",)
+    payment_part_three = fields.Float(string="Payment 3 Part (%)",)
+
+    @api.multi
+    @api.depends("name")
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = "№{} {}".format(
+                record.counter or record.contract_id.contract_annex_number, record.name
+            )
+
+    @api.depends("specification_name", "contract_id", "order_id")
+    def _compute_specification_name(self):
+        self.specification_name = _("{name} from {date}").format(
+            name="{}-{}".format(self.contract_id.name, self.order_id.name),
+            date=self.contract_id.get_date().strftime("%d.%m.%Y"),
         )
 
-        # Compute domain for order_id because of bug with
-        # not working correctly domain in model
+    @api.onchange("order_id")
+    def _domain_order_id(self):
+        """Using domain function because of
+        simple domain does not working properly because of
+        contract_id is still False"""
         return {
             "domain": {
                 "order_id": [
@@ -44,6 +80,15 @@ class ContractOrderAnnex(models.Model):
             }
         }
 
+    @api.onchange("order_id")
+    def _onchange_order_id(self):
+        contract_number = self.contract_id.name
+        order_number = self.order_id.name or "SO###"
+
+        self.name = "{contract}-{order}".format(
+            contract=contract_number, order=order_number,
+        )
+
     @api.model
     def create(self, values):
         record = super().create(values)
@@ -51,14 +96,17 @@ class ContractOrderAnnex(models.Model):
         # Fill annex_id to domain it in future
         record.order_id.contract_annex_id = record.id
 
-        # Add counter
-        record.contract_id.contract_annex_number += 1
+        # Counter
+        record.counter = record.contract_id.contract_annex_number
+        record.contract_id.contract_annex_number += 1  # TODO: should I use a sequence?
 
         return record
 
     @api.multi
     def action_print_form(self):
-        view = self.env.ref("{}.res_partner_wizard_print_annex_view".format(MODULE_NAME))
+        view = self.env.ref(
+            "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)
+        )
         return {
             "name": _("Print Form of Contract Annex"),
             "type": "ir.actions.act_window",
@@ -68,6 +116,44 @@ class ContractOrderAnnex(models.Model):
             "target": "new",
             "context": {"self_id": self.id},
         }
+
+    def get_name_by_document_template(self, document_template_id):
+        return (
+            {
+                "specification": "{counter} {name}",
+                "approval_list": "{counter}.1 {name}-1",
+                "act_at": "{counter}.2 {name}-2",
+                "act_ad": "{counter}.3 {name}-3",
+            }
+            .get(document_template_id.document_type_name, "Unknown")
+            .format(counter=self.counter, name=self.name,)
+        )
+
+    def get_filename_by_document_template(self, document_template_id):
+        return "{type} №{name}".format(
+            type=_(
+                dict(document_template_id._fields["document_type"].selection).get(
+                    document_template_id.document_type
+                )
+            ),
+            name={
+                "bill": "{counter} {type} {name}",
+                "specification": "{counter} {type} {name}",
+                "approval_list": "{counter}.1 {type} {name}-1",
+                "act_at": "{counter}.2 {type} {name}-2",
+                "act_ad": "{counter}.3 {type} {name}-3",
+            }
+            .get(document_template_id.document_type_name)
+            .format(
+                counter=self.counter,
+                type=_(
+                    dict(
+                        document_template_id._fields["document_type_name"].selection
+                    ).get(document_template_id.document_type_name)
+                ),
+                name=self.name,
+            ),
+        )
 
     def modf(self, arg):
         """Math.modf function for using in XML ir.action.server code

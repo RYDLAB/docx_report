@@ -1,1 +1,1 @@
-MODULE_NAME = __package__.split('.')[-2]
+MODULE_NAME = __package__.split(".")[-2]

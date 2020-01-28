@@ -31,8 +31,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     counter = fields.Integer(string="№", help="Counter of Contract Annexes",)
     currency_id = fields.Many2one(related="company_id.currency_id", readonly=True,)
 
-    development_period = fields.Integer("Product Development Period (days)",)
-
+    design_period = fields.Integer(string="Design Period",)
     design_cost = fields.Monetary(string="Design Cost",)
 
     design_doc_period = fields.Integer(string="Documentation Design Period (days)",)

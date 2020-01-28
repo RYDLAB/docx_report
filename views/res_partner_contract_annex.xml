@@ -21,6 +21,7 @@
                             <field name="date_conclusion"/>
                         </group>
                         <group name="design" string="Design">
+                            <field name="design_period"/>
                             <field name="design_cost"/>
                             <field name="design_doc_period"/>
                             <field name="design_doc_cost"/>

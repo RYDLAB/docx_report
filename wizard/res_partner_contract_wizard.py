@@ -1,5 +1,4 @@
 import base64
-import logging
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
@@ -7,35 +6,32 @@ from odoo.exceptions import ValidationError
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
 
-_logger = logging.getLogger(__name__)
-
 
 class ContractWizard(models.TransientModel):
     _name = "res.partner.contract.wizard"
 
-    def _get_default_partner(self):
-        current_id = self.env.context.get("active_id")
-        partner_id = self.env[self.active_model].browse(current_id).partner_id
-        return partner_id
+    def _default_target(self):
+        return "{model},{target_id}".format(
+            model=self.active_model, target_id=int(self.env.context.get("self_id"))
+        )
 
-    def _get_default_template(self):
-        partner_id = self._get_default_partner()
+    def _default_document_template(self):
+        return self.env["res.partner.document.template"].search(self._get_template_domain(), limit=1)
+
+    def _get_template_domain(self):
         template_type = {
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
         company_type = (
-            partner_id.company_form if partner_id.is_company else "person"
+            self.partner_id.company_form if self.partner_id.is_company else "person"
         )
 
         document_template_domain = [
             ("template_type", "=", template_type),
             ("company_type", "=", company_type),
         ]
-
-        return self.env["res.partner.document.template"].search(
-            document_template_domain, limit=1
-        )
+        return document_template_domain
 
     target = fields.Reference(
         selection=[
@@ -43,13 +39,23 @@ class ContractWizard(models.TransientModel):
             ("res.partner.contract.annex", "Contract Annex"),
         ],
         string="Target",
+        default=_default_target,
     )
-    company_id = fields.Many2one("res.partner", string="Company")
-    partner_id = fields.Many2one("res.partner", string="Partner", default=_get_default_partner)
+    company_id = fields.Many2one(
+        "res.partner", string="Company", compute="_compute_company_id",
+    )
+    partner_id = fields.Many2one(
+        "res.partner", string="Partner", compute="_compute_partner_id",
+    )
+    document_name = fields.Char(
+        string="Document Name", compute="_compute_document_name"
+    )
     document_template = fields.Many2one(
-        "res.partner.document.template", string="Document Template", default=_get_default_template,
+        "res.partner.document.template",
+        string="Document Template",
+        default=_default_document_template,
+        readonly=False,
     )
-    document_name = fields.Char(string="Document Name", compute='_compute_document_name')
     transient_field_ids = fields.One2many(
         "res.partner.contract.field.transient",
         "_contract_wizard_id",
@@ -59,14 +65,34 @@ class ContractWizard(models.TransientModel):
         "res.partner.contract.field.transient", "_contract_wizard_id",
     )
 
+    @api.depends("company_id", "target")
+    def _compute_company_id(self):
+        if self.target:
+            self.company_id = self.target.company_id
+
+    @api.depends("partner_id", "target")
+    def _compute_partner_id(self):
+        if self.target:
+            self.partner_id = self.target.partner_id
+
+    @api.depends("document_name", "document_template", "target")
+    def _compute_document_name(self):
+        self.document_name = self.target.get_name_by_document_template(
+            self.document_template
+        )
+
     @api.constrains("document_template")
     def _check_document_template(self):
         if not self.document_template:
             raise ValidationError("You did not set up the template...")
 
-    @api.depends('document_name', 'document_template', 'target')
-    def _compute_document_name(self):
-        self.document_name = self.target.get_name_by_document_template(self.document_template)
+    @api.onchange('document_template')
+    def _domain_document_template(self):
+        return {
+            "domain": {
+                "document_template": self._get_template_domain(),
+            }
+        }
 
     @api.onchange("document_template")
     def _onchange_document_template(self):
@@ -78,25 +104,6 @@ class ContractWizard(models.TransientModel):
             return self.env["res.partner.contract.field"].search(
                 [("technical_name", "=", technical_name),]
             )
-
-        # A record is the model called from (manually set with context)
-        self.target = "{model},{target_id}".format(
-            model=self.active_model, target_id=int(self.env.context.get("self_id"))
-        )
-
-        # Check for model and get this meta fields
-        company_id = (
-            self.target.company_id
-            if hasattr(self.target, "company_id")
-            else self.target.contract_id.company_id
-        )
-        partner_id = (
-            self.target.partner_id
-            if hasattr(self.target, "partner_id")
-            else self.target.contract_id.partner_id
-        )
-        self.company_id = company_id
-        self.partner_id = partner_id
 
         model_to_action = {
             "res.partner.contract": "action_get_contract_context",
@@ -134,41 +141,19 @@ class ContractWizard(models.TransientModel):
             self.transient_field_ids - self.transient_field_ids_hidden
         )
 
-        # TODO: remove replicate of code
-        template_type = {
-            "res.partner.contract": "contract",
-            "res.partner.contract.annex": "annex",
-        }.get(self.active_model, False)
-        company_type = (
-            self.partner_id.company_form if self.partner_id.is_company else "person"
-        )
-
-        return {"domain": {"document_template": [("template_type", "=", template_type),("company_type", "=", company_type),],}}
+    # Other
 
     @api.multi
     def get_docx_contract(self):
         template = self.document_template.attachment_id
+        template_path = template._full_path(template.store_fname)
 
-        path_to_template = template._full_path(template.store_fname)
-
-        fields = {
-            transient_field.technical_name: transient_field.value
-            for transient_field in (
-                self.transient_field_ids + self.transient_field_ids_hidden
-            )
-            if transient_field.technical_name and transient_field.value
-        }
-        if self.target._name == "res.partner.contract.annex":
-            fields.update({
-                "annex_name": self.document_name,
-                "specification_name": self.target.specification_name,
-            })
-
-        binary_data = get_document_from_values_stream(path_to_template, fields).read()
+        payload = self.payload()
+        binary_data = get_document_from_values_stream(template_path, payload).read()
         encoded_data = base64.b64encode(binary_data)
 
-        attachment_name = self.target.get_filename_by_document_template(self.document_template) or "Unknown"
-        attachment_name = "{}.docx".format(attachment_name)
+        get_fn = self.target.get_filename_by_document_template
+        attachment_name = "{}.docx".format(get_fn(self.document_template or "Unknown"))
 
         document_as_attachment = self.env["ir.attachment"].create(
             {
@@ -179,7 +164,51 @@ class ContractWizard(models.TransientModel):
             }
         )
 
-        # Send message with attachment to a mail.thread of the company
+        return self.afterload(document_as_attachment)
+
+    def payload(self):
+        # Collect fields into a key-value structure
+        fields = {
+            transient_field.technical_name: transient_field.value
+            for transient_field in (
+                self.transient_field_ids + self.transient_field_ids_hidden
+            )
+            if transient_field.technical_name and transient_field.value
+        }
+        # Extend with special case
+        if self.target._name == "res.partner.contract.annex":
+            fields.update(
+                {
+                    "annex_name": self.document_name,
+                    "specification_name": self.target.specification_name,
+                }
+            )
+        # Extend with order product lines
+        if hasattr(self.target, "order_id") and self.target.order_id.order_line:
+            def number_generator(n=1):
+                while (True):
+                    yield n
+                    n += 1
+
+            counter = number_generator()
+
+            fields.update(
+                {
+                    "order_products": [
+                        {
+                            "number": next(counter),
+                            "label": item.product_id.name,
+                            "count": item.product_uom_qty,
+                            "unit": item.product_uom.name,
+                            "cost": item.price_unit,
+                            "amount": item.price_subtotal,
+                        } for item in self.target.order_id.order_line or []
+                    ]
+                }
+            )
+        return fields
+
+    def afterload(self, result):
         res_id = self.target.id
         if hasattr(self.target, "contract_id"):
             res_id = self.target.contract_id.id
@@ -189,11 +218,11 @@ class ContractWizard(models.TransientModel):
                 "model": "res.partner.contract",
                 "res_id": res_id,
                 "message_type": "comment",
-                "attachment_ids": [(4, document_as_attachment.id, False)],
+                "attachment_ids": [(4, result.id, False)],
             }
         )
 
-        return document_as_attachment
+        return result
 
     @property
     def active_model(self):

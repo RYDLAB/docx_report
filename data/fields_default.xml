@@ -155,8 +155,8 @@ action = ctx
 # Aliases
 self = record
 
-seller = self.contract_id.company_id
-partner = self.contract_id.partner_id
+seller = self.company_id
+partner = self.partner_id
 
 seller_bank = seller.bank_ids and seller.bank_ids[0]
 seller_bank_name = seller_bank.bank_id.name + (" г. {city}".format(city=seller_bank.bank_id.city) if seller_bank.bank_id.city else "")
@@ -191,7 +191,7 @@ ctx = {
     "contract_number": self.contract_id.name,
     
     "annex_name": self.name,
-    "annex_number": self.number,
+    "annex_number": self.counter,
     
     "order_name": self.order_id.name,
     "order_date": "{} {} {}".format(order_date.day, months[order_date.month], order_date.year),

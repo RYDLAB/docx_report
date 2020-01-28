@@ -1,7 +1,6 @@
 import datetime
 
 from odoo import _, api, fields, models
-from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 from ..utils import MODULE_NAME
 from ..utils.misc import Extension, IDocument
@@ -110,7 +109,11 @@ class PartnerContract(models.Model, IDocument, Extension):
 
     def get_filename_by_document_template(self, document_template_id):
         return _("{type} {number} from {date}").format(
-            type=_(dict(document_template_id._fields['document_type'].selection).get(document_template_id.document_type)),
+            type=_(
+                dict(document_template_id._fields["document_type"].selection).get(
+                    document_template_id.document_type
+                )
+            ),
             number=self.name,
             date=self.get_date().strftime("%d.%m.%Y"),
         )
@@ -123,10 +126,9 @@ class PartnerContract(models.Model, IDocument, Extension):
         """
         date = self.date_conclusion_fix or self.date_conclusion
         if date:
-            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATE_FORMAT)
+            date = self.parse_odoo_date(date)
         else:
-            date = self.create_date
-            date = datetime.datetime.strptime(date, DEFAULT_SERVER_DATETIME_FORMAT)
+            date = self.parse_odoo_datetime(self.create_date)
         return date
 
     def _(self, arg):

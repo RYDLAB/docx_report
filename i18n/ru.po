@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-21 14:27+0000\n"
-"PO-Revision-Date: 2020-01-21 14:27+0000\n"
+"POT-Creation-Date: 2020-01-22 11:29+0000\n"
+"PO-Revision-Date: 2020-01-22 11:29+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -42,14 +42,14 @@ msgid "3 stages"
 msgstr "Оплата в 3 этапа"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:28
+#: code:addons/client_contracts/models/res_partner_document_template.py:31
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Act of Acceptance and Delivery"
 msgstr "Акт сдачи-приемки"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:27
+#: code:addons/client_contracts/models/res_partner_document_template.py:30
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Act of Acceptance and Transfer"
@@ -62,7 +62,7 @@ msgid "Actual Address"
 msgstr "Актуальный адрес"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:18
+#: code:addons/client_contracts/models/res_partner_document_template.py:21
 #: selection:res.partner.document.template,document_type:0
 #, python-format
 msgid "Addition"
@@ -79,7 +79,7 @@ msgid "Amount Whole Part"
 msgstr "Целая часть суммы"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:17
+#: code:addons/client_contracts/models/res_partner_document_template.py:20
 #: selection:res.partner.document.template,document_type:0
 #: selection:res.partner.document.template,template_type:0
 #, python-format
@@ -112,7 +112,7 @@ msgid "Annexes to this contract"
 msgstr "Приложения к договору"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:26
+#: code:addons/client_contracts/models/res_partner_document_template.py:29
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Approval List"
@@ -147,7 +147,7 @@ msgid "Bank Payment Account"
 msgstr "Расчётный счёт"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:24
+#: code:addons/client_contracts/models/res_partner_document_template.py:27
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Bill"
@@ -175,6 +175,7 @@ msgid "Closed"
 msgstr "Закрыт"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_company_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_company_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_company_id
 msgid "Company"
@@ -196,7 +197,7 @@ msgid "Contact"
 msgstr "Контакт"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:16
+#: code:addons/client_contracts/models/res_partner_document_template.py:19
 #: model:ir.model,name:client_contracts.model_res_partner_contract
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_contract_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient__contract_wizard_id
@@ -233,6 +234,7 @@ msgid "Contract Field Transient"
 msgstr "Фактическое поле договора"
 
 #. module: client_contracts
+#: model:ir.actions.act_window,name:client_contracts.res_partner_contract_field_action
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_transient_field_ids
 msgid "Contract Fields"
 msgstr "Поля договора"
@@ -269,7 +271,7 @@ msgid "Counter for generate Annex name"
 msgstr "Счётчик для генерации имени приложения к договору"
 
 #. module: client_contracts
-#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_number
+#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_counter
 msgid "Counter of Contract Annexes"
 msgstr "Счётчик приложений к договору"
 
@@ -302,6 +304,11 @@ msgstr "Создано"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_create_date
 msgid "Created on"
 msgstr "Создан"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_currency_id
+msgid "Currency"
+msgstr "Валюта"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_date_conclusion_fix
@@ -390,6 +397,11 @@ msgstr "Имя документа"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_wizard_document_template
 msgid "Document Template"
 msgstr "Шаблон документа"
+
+#. module: client_contracts
+#: model:ir.actions.act_window,name:client_contracts.res_partner_document_template_action
+msgid "Document Templates"
+msgstr "Шаблоны документов"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_design_doc_cost
@@ -828,7 +840,7 @@ msgid "Print Form of Contract"
 msgstr "Форма печати договора"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract_annex.py:104
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:111
 #, python-format
 msgid "Print Form of Contract Annex"
 msgstr "Форма печати приложения к договору"
@@ -952,7 +964,7 @@ msgid "Sole Proprietor"
 msgstr "Индивидуальный предприниматель"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_document_template.py:25
+#: code:addons/client_contracts/models/res_partner_document_template.py:28
 #: selection:res.partner.document.template,document_type_name:0
 #, python-format
 msgid "Specification"
@@ -1003,7 +1015,7 @@ msgid "Template Type"
 msgstr "Тип шаблона"
 
 #. module: client_contracts
-#: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates_
+#: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates
 msgid "Templates"
 msgstr "Шаблоны"
 
@@ -1027,6 +1039,11 @@ msgstr "Transient Field Ids Hidden"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_document_type
 msgid "Type of document"
 msgstr "Вид документа"
+
+#. module: client_contracts
+#: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_currency_id
+msgid "Utility field to express amount currency"
+msgstr "Служебное поле, чтобы выразить суммы в валюте"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_field_transient_value
@@ -1069,22 +1086,12 @@ msgid "i.e. Ural Bank for Reconstruction and Development"
 msgstr "напр. «Уральский банк реконструкции и развития»"
 
 #. module: client_contracts
-#: model:ir.actions.act_window,name:client_contracts.res_partner_contract_field_action
-msgid "res.partner.contract.field.action"
-msgstr "res.partner.contract.field.action"
-
-#. module: client_contracts
 #: model:ir.model,name:client_contracts.model_res_partner_contract_wizard
 msgid "res.partner.contract.wizard"
 msgstr "res.partner.contract.wizard"
 
 #. module: client_contracts
-#: model:ir.actions.act_window,name:client_contracts.res_partner_document_template_action
-msgid "res.partner.document.template.action"
-msgstr "res.partner.document.template.action"
-
-#. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract_annex.py:80
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:64
 #, python-format
 msgid "{name} from {date}"
 msgstr "{name} от {date}"

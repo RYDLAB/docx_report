@@ -3,7 +3,7 @@
 
     <!-- res.partner.contract.field action window -->
     <record id="res_partner_contract_field_action" model="ir.actions.act_window">
-        <field name="name">res.partner.contract.field.action</field>
+        <field name="name">Contract Fields</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner.contract.field</field>
         <field name="view_mode">tree,form</field>
@@ -12,7 +12,7 @@
 
     <!-- res.partner.document.template action window -->
     <record id="res_partner_document_template_action" model="ir.actions.act_window">
-        <field name="name">res.partner.document.template.action</field>
+        <field name="name">Document Templates</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner.document.template</field>
         <field name="view_mode">tree,form</field>
@@ -87,7 +87,7 @@
         parent="res_partner_menu_contracts"
         sequence="1"/>
 
-    <menuitem id="res_partner_menu_contracts_templates_"
+    <menuitem id="res_partner_menu_contracts_templates"
         name="Templates"
         parent="res_partner_menu_contracts"
         action="res_partner_document_template_action"

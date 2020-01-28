@@ -4,11 +4,14 @@ from odoo import _, fields, models
 class DocumentTemplate(models.Model):
     _name = "res.partner.document.template"
     _description = "Document Template"
-    _order = "template_type desc,company_type,sequence"
+    _order = "company_type,document_type,sequence"
 
     name = fields.Char()
     attachment_id = fields.Many2one(
-        "ir.attachment", string="Template Attachment", ondelete="cascade", required=True,
+        "ir.attachment",
+        string="Template Attachment",
+        ondelete="cascade",
+        required=True,
     )
     document_type = fields.Selection(
         string="Type of document",
@@ -16,7 +19,7 @@ class DocumentTemplate(models.Model):
             ("contract", _("Contract")),
             ("annex", _("Annex")),
             ("addition", _("Addition")),
-        ]
+        ],
     )
     document_type_name = fields.Selection(
         string="Document",
@@ -26,7 +29,7 @@ class DocumentTemplate(models.Model):
             ("approval_list", _("Approval List")),
             ("act_at", _("Act of Acceptance and Transfer")),
             ("act_ad", _("Act of Acceptance and Delivery")),
-        ]
+        ],
     )
     company_type = fields.Selection(
         selection=[

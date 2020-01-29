@@ -1,4 +1,5 @@
 import base64
+import logging
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
@@ -7,6 +8,7 @@ from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
 from ..utils.misc import Extension
 
+_logger = logging.getLogger(__name__)
 
 
 class ContractWizard(models.TransientModel, Extension):
@@ -175,7 +177,6 @@ class ContractWizard(models.TransientModel, Extension):
             for transient_field in (
                 self.transient_field_ids + self.transient_field_ids_hidden
             )
-            if transient_field.technical_name and transient_field.value
         }
         # Extend with special case
         if self.target._name == "res.partner.contract.annex":
@@ -196,19 +197,21 @@ class ContractWizard(models.TransientModel, Extension):
 
             fields.update(
                 {
-                    "order_products": [
+                    "products": [
                         {
                             "number": next(counter),
                             "label": item.product_id.name,
+                            "description": item.product_id.description_sale,
                             "count": item.product_uom_qty,
                             "unit": item.product_uom.name,
                             "cost": item.price_unit,
-                            "amount": item.price_subtotal,
+                            "subtotal": item.price_subtotal,
                         } for item in self.target.order_id.order_line or []
-                    ]
+                    ],
+                    "total_amount": self.to_fixed(sum(self.target.order_id.order_line.mapped("price_subtotal")))
                 }
             )
-        return fields
+        return self.middleware_fields(fields)
 
     def afterload(self, result):
         res_id = self.target.id
@@ -225,6 +228,18 @@ class ContractWizard(models.TransientModel, Extension):
         )
 
         return result
+
+    def middleware_fields(self, kv):
+
+        # Debug False values
+        empty = []
+        for k,v in kv:
+            if not v:
+                empty.append(k)
+                kv.pop(k)
+        _logger.debug("Empty fields: {}".format(empty))
+
+        return kv
 
     @property
     def active_model(self):

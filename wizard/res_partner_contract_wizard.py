@@ -204,8 +204,8 @@ class ContractWizard(models.TransientModel, Extension):
                             "description": item.product_id.description_sale,
                             "count": item.product_uom_qty,
                             "unit": item.product_uom.name,
-                            "cost": item.price_unit,
-                            "subtotal": item.price_subtotal,
+                            "cost": self.to_fixed(item.price_unit),
+                            "subtotal": self.to_fixed(item.price_subtotal),
                         } for item in self.target.order_id.order_line or []
                     ],
                     "total_amount": self.to_fixed(sum(self.target.order_id.order_line.mapped("price_subtotal")))

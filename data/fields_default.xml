@@ -195,12 +195,17 @@ ctx = {
     
     "order_name": self.order_id.name,
     "order_date": "{} {} {}".format(order_date.day, months[order_date.month], order_date.year),
-    
+
+    "design_cost": self.to_fixed(self.design_cost),
+    "design_period": self.design_period,
+    "design_doc_cost": self.to_fixed(self.design_doc_cost),
+    "design_doc_period": self.design_doc_period,
     "delivery_address": self.delivery_address,
     "delivery_period": self.delivery_period,
     "installation_address": self.installation_address,
-    "installation_cost": self.installation_cost,
+    "installation_cost": self.to_fixed(self.installation_cost),
     "installation_period": self.installation_period,
+    "total_cost": self.to_fixed(self.total_cost),
     
     "payment_part_one": self.payment_part_one,
     "payment_part_two": self.payment_part_two,
@@ -337,46 +342,81 @@ action = ctx
             <field name="sequence">4</field>
         </record>
 
+        <record id="contract_field_design_cost" model="res.partner.contract.field">
+            <field name="name">Design Cost</field>
+            <field name="technical_name">design_cost</field>
+            <field name="description"></field>
+            <field name="visible">False</field>
+        </record>
+
+        <record id="contract_field_design_period" model="res.partner.contract.field">
+            <field name="name">Design Period</field>
+            <field name="technical_name">design_period</field>
+            <field name="description"></field>
+            <field name="visible">False</field>
+        </record>
+
+        <record id="contract_field_design_doc_period" model="res.partner.contract.field">
+            <field name="name">Design Documentation Period</field>
+            <field name="technical_name">design_doc_period</field>
+            <field name="description"></field>
+            <field name="visible">False</field>
+        </record>
+
+        <record id="contract_field_design_doc_cost" model="res.partner.contract.field">
+            <field name="name">Design Documentation Cost</field>
+            <field name="technical_name">design_doc_cost</field>
+            <field name="description"></field>
+            <field name="visible">False</field>
+        </record>
+
         <record id="contract_field_delivery_address" model="res.partner.contract.field">
             <field name="name">Delivery Address</field>
             <field name="technical_name">delivery_address</field>
             <field name="description"></field>
-            <field name="sequence">5</field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_delivery_period" model="res.partner.contract.field">
             <field name="name">Delivery Period</field>
             <field name="technical_name">delivery_period</field>
             <field name="description"></field>
-            <field name="sequence">6</field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_installation_address" model="res.partner.contract.field">
             <field name="name">Installation Address</field>
             <field name="technical_name">installation_address</field>
             <field name="description"></field>
-            <field name="sequence">7</field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_installation_cost" model="res.partner.contract.field">
             <field name="name">Installation Cost</field>
             <field name="technical_name">installation_cost</field>
             <field name="description"></field>
-            <field name="sequence">8</field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_installation_period" model="res.partner.contract.field">
             <field name="name">Installation Period</field>
             <field name="technical_name">installation_period</field>
             <field name="description"></field>
-            <field name="sequence">9</field>
+            <field name="visible">False</field>
+        </record>
+
+        <record id="contract_field_total_cost" model="res.partner.contract.field">
+            <field name="name">Total Cost</field>
+            <field name="technical_name">total_cost</field>
+            <field name="description"></field>
+            <field name="visible">False</field>
         </record>
 
         <record id="contract_field_dd" model="res.partner.contract.field">
             <field name="name">Day</field>
             <field name="technical_name">dd</field>
             <field name="description">Number</field>
-            <field name="sequence">8</field>
+            <field name="sequence">11</field>
         </record>
 
         <record id="contract_field_mm" model="res.partner.contract.field">
@@ -440,13 +480,6 @@ action = ctx
             <field name="technical_name">payment_part_three</field>
             <field name="description"></field>
             <field name="sequence">37</field>
-        </record>
-
-        <record id="contract_field_delivery_period" model="res.partner.contract.field">
-            <field name="name">Delivery Period</field>
-            <field name="technical_name">delivery_period</field>
-            <field name="description"></field>
-            <field name="sequence">38</field>
         </record>
 
 

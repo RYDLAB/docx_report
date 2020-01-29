@@ -5,9 +5,11 @@ from odoo.exceptions import ValidationError
 
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
+from ..utils.misc import Extension
 
 
-class ContractWizard(models.TransientModel):
+
+class ContractWizard(models.TransientModel, Extension):
     _name = "res.partner.contract.wizard"
 
     def _default_target(self):

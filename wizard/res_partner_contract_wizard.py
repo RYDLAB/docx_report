@@ -233,7 +233,7 @@ class ContractWizard(models.TransientModel, Extension):
 
         # Debug False values
         empty = []
-        for k,v in kv.items():
+        for k,v in list(kv.items()):
             if not v:
                 empty.append(k)
                 kv.pop(k)

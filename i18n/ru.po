@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-22 11:29+0000\n"
-"PO-Revision-Date: 2020-01-22 11:29+0000\n"
+"POT-Creation-Date: 2020-01-29 11:03+0000\n"
+"PO-Revision-Date: 2020-01-29 11:03+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -306,6 +306,7 @@ msgid "Created on"
 msgstr "Создан"
 
 #. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_crm_lead_currency_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_currency_id
 msgid "Currency"
 msgstr "Валюта"
@@ -332,6 +333,7 @@ msgstr "Доставка"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_delivery_address
+#: model:res.partner.contract.field,name:client_contracts.contract_field_delivery_address
 msgid "Delivery Address"
 msgstr "Адрес доставки"
 
@@ -363,8 +365,25 @@ msgstr "Дизайн"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_design_cost
+#: model:res.partner.contract.field,name:client_contracts.contract_field_design_cost
 msgid "Design Cost"
 msgstr "Стоимость разработки дизайна"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_design_doc_cost
+msgid "Design Documentation Cost"
+msgstr "Стоимость разработки КД"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_design_doc_period
+msgid "Design Documentation Period"
+msgstr "Срок разработки КД"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_design_period
+#: model:res.partner.contract.field,name:client_contracts.contract_field_design_period
+msgid "Design Period"
+msgstr "Срок разработки дизайна"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_display_name
@@ -522,13 +541,20 @@ msgstr "Монтаж"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_installation_address
+#: model:res.partner.contract.field,name:client_contracts.contract_field_installation_address
 msgid "Installation Address"
 msgstr "Монтаж по адресу"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_installation_cost
+#: model:res.partner.contract.field,name:client_contracts.contract_field_installation_cost
 msgid "Installation Cost"
 msgstr "Стоимость монтажа"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_installation_period
+msgid "Installation Period"
+msgstr "Срок монтажа изделий"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_installation_period
@@ -834,13 +860,13 @@ msgid "Print"
 msgstr "Печать"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:99
+#: code:addons/client_contracts/models/res_partner_contract.py:98
 #, python-format
 msgid "Print Form of Contract"
 msgstr "Форма печати договора"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract_annex.py:111
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:110
 #, python-format
 msgid "Print Form of Contract Annex"
 msgstr "Форма печати приложения к договору"
@@ -864,11 +890,6 @@ msgstr "Вложение-шаблон приложения к договору"
 #: selection:res.partner.document.template,company_type:0
 msgid "Private Limited Company"
 msgstr "Общество с ограниченной ответственностью"
-
-#. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_development_period
-msgid "Product Development Period (days)"
-msgstr "Срок разработки изделий"
 
 #. module: client_contracts
 #: model:ir.model,name:client_contracts.model_sale_order
@@ -1027,6 +1048,7 @@ msgstr "Наименование, используемое при заполне
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_total_cost
+#: model:res.partner.contract.field,name:client_contracts.contract_field_total_cost
 msgid "Total Cost"
 msgstr "Общая стоимость"
 
@@ -1091,13 +1113,13 @@ msgid "res.partner.contract.wizard"
 msgstr "res.partner.contract.wizard"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract_annex.py:64
+#: code:addons/client_contracts/models/res_partner_contract_annex.py:63
 #, python-format
 msgid "{name} from {date}"
 msgstr "{name} от {date}"
 
 #. module: client_contracts
-#: code:addons/client_contracts/models/res_partner_contract.py:112
+#: code:addons/client_contracts/models/res_partner_contract.py:111
 #, python-format
 msgid "{type} {number} from {date}"
 msgstr "{type} {number} от {date}"

@@ -26,3 +26,8 @@ class Extension(object):
 
     def parse_odoo_datetime(self, datetime: str):
         return dt.datetime.strptime(datetime, DEFAULT_SERVER_DATETIME_FORMAT)
+
+    def to_fixed(self, number, digit=2):
+        if isinstance(number, str) and number.isdigit():
+            number = float(number)
+        return format(number, ".{digit}f".format(digit=digit))

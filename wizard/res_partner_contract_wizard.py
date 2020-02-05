@@ -69,17 +69,17 @@ class ContractWizard(models.TransientModel, Extension):
         "res.partner.contract.field.transient", "_contract_wizard_id",
     )
 
-    @api.depends("company_id", "target")
+    @api.depends("target")
     def _compute_company_id(self):
         if self.target:
             self.company_id = self.target.company_id
 
-    @api.depends("partner_id", "target")
+    @api.depends("target")
     def _compute_partner_id(self):
         if self.target:
             self.partner_id = self.target.partner_id
 
-    @api.depends("document_name", "document_template", "target")
+    @api.depends("document_template", "target")
     def _compute_document_name(self):
         self.document_name = self.target.get_name_by_document_template(
             self.document_template

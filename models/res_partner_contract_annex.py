@@ -58,7 +58,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
                 record.counter or record.contract_id.contract_annex_number, record.name
             )
 
-    @api.depends("specification_name", "contract_id", "order_id")
+    @api.depends("contract_id", "order_id")
     def _compute_specification_name(self):
         self.specification_name = _("{name} from {date}").format(
             name="{}-{}".format(self.contract_id.name, self.order_id.name),

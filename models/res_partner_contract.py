@@ -36,10 +36,21 @@ class PartnerContract(models.Model, IDocument, Extension):
         """Returns timestamp of now by local datetime"""
         return datetime.datetime.now().timestamp()
 
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Partner",
+        default=lambda self: self.env.context.get("active_id"),
+        required=True,
+    )
+    company_id = fields.Many2one(
+        "res.partner",
+        string="Company",
+        default=lambda self: self.env.user.company_id.partner_id,
+    )
+    create_date_ts = fields.Char(default=_get_default_create_date_ts)
     res_model = fields.Char(default=lambda self: self._name)
     name = fields.Char(string="Contract number", default=_get_default_name,)
     create_date = fields.Datetime(string="Created on")
-    create_date_ts = fields.Char(default=_get_default_create_date_ts)
     date_conclusion = fields.Date(string="Date of system conclusion",)
     date_conclusion_fix = fields.Date(
         string="Date of manual conclusion",
@@ -54,17 +65,6 @@ class PartnerContract(models.Model, IDocument, Extension):
     )
     contract_annex_number = fields.Integer(
         default=1, help="Counter for generate Annex name"
-    )
-    partner_id = fields.Many2one(
-        "res.partner",
-        string="Partner",
-        default=lambda self: self.env.context.get("active_id"),
-        required=True,
-    )
-    company_id = fields.Many2one(
-        "res.partner",
-        string="Company",
-        default=lambda self: self.env.user.company_id.partner_id,
     )
     state = fields.Selection(
         [("draft", "New"), ("sign", "Signed"), ("close", "Closed"),],

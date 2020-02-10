@@ -200,7 +200,7 @@ class ContractWizard(models.TransientModel, Extension):
                     "products": [
                         {
                             "number": next(counter),
-                            "label": item.product_id.name,
+                            "label": item.product_id.display_name,
                             "description": item.product_id.description_sale,
                             "count": item.product_uom_qty,
                             "unit": item.product_uom.name,

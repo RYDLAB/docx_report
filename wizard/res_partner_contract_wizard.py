@@ -20,7 +20,9 @@ class ContractWizard(models.TransientModel, Extension):
         )
 
     def _default_document_template(self):
-        return self.env["res.partner.document.template"].search(self._get_template_domain(), limit=1)
+        return self.env["res.partner.document.template"].search(
+            self._get_template_domain(), limit=1
+        )
 
     def _get_template_domain(self):
         template_type = {
@@ -90,13 +92,9 @@ class ContractWizard(models.TransientModel, Extension):
         if not self.document_template:
             raise ValidationError("You did not set up the template...")
 
-    @api.onchange('document_template')
+    @api.onchange("document_template")
     def _domain_document_template(self):
-        return {
-            "domain": {
-                "document_template": self._get_template_domain(),
-            }
-        }
+        return {"domain": {"document_template": self._get_template_domain(),}}
 
     @api.onchange("document_template")
     def _onchange_document_template(self):
@@ -159,13 +157,17 @@ class ContractWizard(models.TransientModel, Extension):
         get_fn = self.target.get_filename_by_document_template
         attachment_name = "{}.docx".format(get_fn(self.document_template or "Unknown"))
 
-        document_as_attachment = self.env["ir.attachment"].sudo().create(
-            {
-                "name": attachment_name,
-                "datas_fname": attachment_name,
-                "type": "binary",
-                "datas": encoded_data,
-            }
+        document_as_attachment = (
+            self.env["ir.attachment"]
+            .sudo()
+            .create(
+                {
+                    "name": attachment_name,
+                    "datas_fname": attachment_name,
+                    "type": "binary",
+                    "datas": encoded_data,
+                }
+            )
         )
 
         return self.afterload(document_as_attachment)
@@ -188,8 +190,9 @@ class ContractWizard(models.TransientModel, Extension):
             )
         # Extend with order product lines
         if hasattr(self.target, "order_id") and self.target.order_id.order_line:
+
             def number_generator(n=1):
-                while (True):
+                while True:
                     yield n
                     n += 1
 
@@ -206,9 +209,12 @@ class ContractWizard(models.TransientModel, Extension):
                             "unit": item.product_uom.name,
                             "cost": self.to_fixed(item.price_unit),
                             "subtotal": self.to_fixed(item.price_subtotal),
-                        } for item in self.target.order_id.order_line or []
+                        }
+                        for item in self.target.order_id.order_line or []
                     ],
-                    "total_amount": self.to_fixed(sum(self.target.order_id.order_line.mapped("price_subtotal")))
+                    "total_amount": self.to_fixed(
+                        sum(self.target.order_id.order_line.mapped("price_subtotal"))
+                    ),
                 }
             )
         return self.middleware_fields(fields)
@@ -233,7 +239,7 @@ class ContractWizard(models.TransientModel, Extension):
 
         # Debug False values
         empty = []
-        for k,v in list(kv.items()):
+        for k, v in list(kv.items()):
             if not v:
                 empty.append(k)
                 kv.pop(k)

@@ -159,7 +159,7 @@ class ContractWizard(models.TransientModel, Extension):
         get_fn = self.target.get_filename_by_document_template
         attachment_name = "{}.docx".format(get_fn(self.document_template or "Unknown"))
 
-        document_as_attachment = self.env["ir.attachment"].create(
+        document_as_attachment = self.env["ir.attachment"].sudo().create(
             {
                 "name": attachment_name,
                 "datas_fname": attachment_name,

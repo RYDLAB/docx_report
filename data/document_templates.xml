@@ -2,25 +2,6 @@
 <odoo>
     <data>
 
-        <!-- Original -->
-
-        <record id="document_contract_postavki_person" model="ir.attachment">
-            <field name="name">Договор Поставки Исходный</field>
-            <field name="datas_fname">Договор Поставки Исходный</field>
-            <field name="type">binary</field>
-            <field name="datas" file="client_contracts/static/assets/documents/contract_postavki.docx" type="base64"/>
-        </record>
-        <record id="template_contract_postavki_person" model="res.partner.document.template">
-            <field name="name">Договор Поставки Исходный</field>
-            <field name="attachment_id" ref="document_contract_postavki_person"/>
-            <field name="document_type"></field>
-            <field name="document_type_name"></field>
-            <field name="template_type"></field>
-            <field name="company_type"></field>
-            <field name="sequence">0</field>
-        </record>
-
-
         <!-- Individual -->
 
         <!-- Contract -->

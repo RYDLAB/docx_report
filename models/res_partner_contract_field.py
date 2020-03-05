@@ -4,6 +4,7 @@ from odoo import fields, models
 class ContractField(models.Model):
     _name = "res.partner.contract.field"
     _description = "Contract Field"
+    _order = "sequence"
 
     name = fields.Char(string="Name", required=True, translate=True,)
     technical_name = fields.Char(

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-29 11:03+0000\n"
-"PO-Revision-Date: 2020-01-29 11:03+0000\n"
+"POT-Creation-Date: 2020-03-05 13:43+0000\n"
+"PO-Revision-Date: 2020-03-05 13:43+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -306,10 +306,14 @@ msgid "Created on"
 msgstr "Создан"
 
 #. module: client_contracts
-#: model:ir.model.fields,field_description:client_contracts.field_crm_lead_currency_id
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_currency_id
 msgid "Currency"
 msgstr "Валюта"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_currency2words
+msgid "Currency Number in Words"
+msgstr "Денежный формат числа прописью"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_date_conclusion_fix
@@ -463,6 +467,12 @@ msgstr "Полный"
 #: model:ir.model.fields,field_description:client_contracts.field_res_users_full_address
 msgid "Full Address"
 msgstr "Полный адрес"
+
+#. module: client_contracts
+#: model:res.partner.contract.field,description:client_contracts.contract_field_currency2words
+#: model:res.partner.contract.field,description:client_contracts.contract_field_number2words
+msgid "Function"
+msgstr "Функция"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_function
@@ -677,6 +687,11 @@ msgid "Number"
 msgstr "Число"
 
 #. module: client_contracts
+#: model:res.partner.contract.field,name:client_contracts.contract_field_number2words
+msgid "Number in Words"
+msgstr "Число прописью"
+
+#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_okpo
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_okpo
 msgid "OKPO"
@@ -790,7 +805,7 @@ msgstr "Паспорт №"
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
 msgid "Payment"
-msgstr "Оплата"
+msgstr "Платеж"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_annex_payment_part_one

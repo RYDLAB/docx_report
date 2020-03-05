@@ -11,7 +11,7 @@
             <field name="code">
 
 # Aliases
-self = record
+self = record  # res.partner.contract
 
 partner = self.partner_id # res.partner
 seller = self.company_id
@@ -162,7 +162,7 @@ action = ctx
             <field name="code">
 
 # Aliases
-self = record
+self = record  # res.partner.contract.annex
 
 seller = self.company_id
 partner = self.partner_id

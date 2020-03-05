@@ -322,6 +322,23 @@ action = ctx
         </record>
 
 
+        <!-- Functions -->
+
+        <record id="contract_field_number2words" model="res.partner.contract.field">
+            <field name="name">Number in Words</field>
+            <field name="technical_name">number2words</field>
+            <field name="description">Function</field>
+            <field name="sequence">-1</field>
+        </record>
+        
+        <record id="contract_field_currency2words" model="res.partner.contract.field">
+            <field name="name">Currency Number in Words</field>
+            <field name="technical_name">currency2words</field>
+            <field name="description">Function</field>
+            <field name="sequence">-1</field>
+        </record>
+
+
         <!-- Common fields -->
 
         <record id="contract_field_contract_number" model="res.partner.contract.field">

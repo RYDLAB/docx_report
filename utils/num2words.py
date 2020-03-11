@@ -28,7 +28,17 @@ def num2words_currency(number, **kwargs):
             kwargs["to"] = "currency"
         if "currency" not in kwargs:
             kwargs["currency"] = "RUB"
-        return num2words(number, **kwargs)
+        result = num2words(number, **kwargs)
+
+        total = result.split(",")[0]
+        part_word = result.split()[-1]
+        part_number = float(number) - int(float(number))
+
+        return "{total}, {part_n} {part_w}".format(
+            total=total.capitalize(),
+            part_n="{:02d}".format(int(part_number * 100)),
+            part_w=part_word,
+        )
 
 
 def _performConvert(number):

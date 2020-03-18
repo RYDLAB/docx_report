@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-05 13:43+0000\n"
-"PO-Revision-Date: 2020-03-05 13:43+0000\n"
+"POT-Creation-Date: 2020-03-18 13:42+0000\n"
+"PO-Revision-Date: 2020-03-18 13:42+0000\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
@@ -578,6 +578,11 @@ msgid "Institutional-Legal Form"
 msgstr "Огранизационно-правовая форма"
 
 #. module: client_contracts
+#: model:ir.model,name:client_contracts.model_account_invoice
+msgid "Invoice"
+msgstr "Счёт"
+
+#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_kpp
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_kpp
 msgid "KPP"
@@ -612,11 +617,6 @@ msgstr "Последний раз обновил"
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_document_template_write_date
 msgid "Last Updated on"
 msgstr "Последнее обновление"
-
-#. module: client_contracts
-#: model:ir.model,name:client_contracts.model_crm_lead
-msgid "Lead/Opportunity"
-msgstr "Лид / Потенциальная сделка"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
@@ -881,25 +881,11 @@ msgid "Print Form of Contract"
 msgstr "Форма печати договора"
 
 #. module: client_contracts
+#: code:addons/client_contracts/models/account_invoice.py:31
 #: code:addons/client_contracts/models/res_partner_contract_annex.py:110
 #, python-format
 msgid "Print Form of Contract Annex"
 msgstr "Форма печати приложения к договору"
-
-#. module: client_contracts
-#: model:ir.model,name:client_contracts.model_res_partner_template_print
-msgid "Print Template"
-msgstr "Шаблон печати"
-
-#. module: client_contracts
-#: model:ir.model,name:client_contracts.model_res_partner_template_print_contract
-msgid "Print Template Contract"
-msgstr "Вложение-шаблон договора"
-
-#. module: client_contracts
-#: model:ir.model,name:client_contracts.model_res_partner_template_print_annex
-msgid "Print Template Contract Annex"
-msgstr "Вложение-шаблон приложения к договору"
 
 #. module: client_contracts
 #: selection:res.partner.document.template,company_type:0
@@ -910,6 +896,11 @@ msgstr "Общество с ограниченной ответственнос�
 #: model:ir.model,name:client_contracts.model_sale_order
 msgid "Quotation"
 msgstr "Оферта"
+
+#. module: client_contracts
+#: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_res_model
+msgid "Related Document Model Name"
+msgstr "Related Document Model Name"
 
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_form
@@ -1054,6 +1045,12 @@ msgstr "Тип шаблона"
 #: model:ir.ui.menu,name:client_contracts.res_partner_menu_contracts_templates
 msgid "Templates"
 msgstr "Шаблоны"
+
+#. module: client_contracts
+#: code:addons/client_contracts/models/account_invoice.py:20
+#, python-format
+msgid "There is no binding contract. It is necessary to link the order with the annex to the contract."
+msgstr "Отсутствует связанный договор. Необходимо связать заказ с приложением к договору."
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_name_write

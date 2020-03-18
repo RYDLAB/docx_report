@@ -1,3 +1,4 @@
+from . import account_invoice
 from . import res_partner
 from . import res_partner_contract
 from . import res_partner_contract_annex

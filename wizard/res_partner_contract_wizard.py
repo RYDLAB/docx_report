@@ -226,7 +226,9 @@ class ContractWizard(models.TransientModel, Extension):
 
         self.env["mail.message"].create(
             {
-                "model": self.env.context.get("attachment_model", "res.partner.contract"),
+                "model": self.env.context.get(
+                    "attachment_model", "res.partner.contract"
+                ),
                 "res_id": self.env.context.get("attachment_res_id", res_id),
                 "message_type": "comment",
                 "attachment_ids": [(4, result.id, False)],

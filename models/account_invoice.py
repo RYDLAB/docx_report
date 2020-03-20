@@ -38,6 +38,6 @@ class AccountInvoice(models.Model):
                 "self_id": order.contract_annex_id.id,
                 "active_model": "res.partner.contract.annex",
                 "attachment_model": self._name,
-                "attachment_res_id": self.id
+                "attachment_res_id": self.id,
             },
         }

@@ -37,5 +37,7 @@ class AccountInvoice(models.Model):
             "context": {
                 "self_id": order.contract_annex_id.id,
                 "active_model": "res.partner.contract.annex",
+                "attachment_model": self._name,
+                "attachment_res_id": self.id
             },
         }

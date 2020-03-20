@@ -142,7 +142,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
                 "act_at": "{counter}.2 {type} {name}-2",
                 "act_ad": "{counter}.3 {type} {name}-3",
             }
-            .get(document_template_id.document_type_name)
+            .get(document_template_id.document_type_name, "Unknown")
             .format(
                 counter=self.counter,
                 type=_(

@@ -119,7 +119,7 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     def get_name_by_document_template(self, document_template_id):
         return (
             {
-                "bill": "{name}";
+                "bill": "{name}",
                 "specification": "{counter} {name}",
                 "approval_list": "{counter}.1 {name}-1",
                 "act_at": "{counter}.2 {name}-2",

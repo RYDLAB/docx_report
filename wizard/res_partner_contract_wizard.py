@@ -29,9 +29,7 @@ class ContractWizard(models.TransientModel, Extension):
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
-        company_type = (
-            self.partner_id.company_form if self.partner_id.is_company else "person"
-        )
+        company_type = self.env.context.get("company_form", False)
 
         document_template_domain = [
             ("template_type", "=", template_type),
@@ -60,6 +58,7 @@ class ContractWizard(models.TransientModel, Extension):
         "res.partner.document.template",
         string="Document Template",
         default=_default_document_template,
+        domain=lambda self: self._get_template_domain(),
         readonly=False,
     )
     transient_field_ids = fields.One2many(

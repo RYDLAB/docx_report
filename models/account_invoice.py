@@ -27,6 +27,7 @@ class AccountInvoice(models.Model):
         view = self.env.ref(
             "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)
         )
+        annex = order.contract_annex_id
         return {
             "name": _("Print Form of Contract Annex"),
             "type": "ir.actions.act_window",
@@ -35,8 +36,9 @@ class AccountInvoice(models.Model):
             "view_id": view.id,
             "target": "new",
             "context": {
-                "self_id": order.contract_annex_id.id,
+                "self_id": annex.id,
                 "active_model": "res.partner.contract.annex",
+                "company_form": annex.partner_id.company_form if annex.partner_id.is_company else "person",
                 "attachment_model": self._name,
                 "attachment_res_id": self.id,
             },

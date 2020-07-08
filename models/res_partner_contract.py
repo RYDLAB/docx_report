@@ -104,8 +104,11 @@ class PartnerContract(models.Model, IDocument, Extension):
             "context": {
                 "self_id": self.id,
                 "active_model": self._name,
-                "company_form": self.partner_id.company_form if self.partner_id.is_company else "person",},
-            }
+                "company_form": self.partner_id.company_form
+                if self.partner_id.is_company
+                else "person",
+            },
+        }
 
     def get_name_by_document_template(self, document_template_id):
         return self.name

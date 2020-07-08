@@ -38,7 +38,9 @@ class AccountInvoice(models.Model):
             "context": {
                 "self_id": annex.id,
                 "active_model": "res.partner.contract.annex",
-                "company_form": annex.partner_id.company_form if annex.partner_id.is_company else "person",
+                "company_form": annex.partner_id.company_form
+                if annex.partner_id.is_company
+                else "person",
                 "attachment_model": self._name,
                 "attachment_res_id": self.id,
             },

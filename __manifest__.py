@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "client_contracts",
+    "name": "Client Contracts",
     "summary": """
         Print forms for contracts with clients""",
     "description": """
@@ -9,7 +9,7 @@
     "author": "RYDLAB",
     "website": "http://rydlab.ru",
     "category": "Invoicing & Payments",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "depends": ["base", "contacts", "hr", "russian_requisites", "sale",],
     "data": [
         "data/assets_extension.xml",

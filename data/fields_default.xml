@@ -155,7 +155,7 @@ action = ctx
 
         <!-- Action -->
         <record id="action_get_annex_context" model="ir.actions.server">
-            <field name="name">Generate Context for Contract</field>
+            <field name="name">Generate Context for Annex</field>
             <field name="model_id" ref="client_contracts.model_res_partner_contract_wizard"/>
             <field name="binding_model_id" ref="client_contracts.model_res_partner_contract_wizard" />
             <field name="state">code</field>

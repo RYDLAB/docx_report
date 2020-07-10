@@ -123,16 +123,25 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         }
 
     def get_name_by_document_template(self, document_template_id):
+        bill_name = None
+        for invoice in self.order_id.invoice_ids:
+            bill_name = invoice.number
+            break
+
         return (
             {
-                "bill": "{name}",
+                "bill": "{bill_name}",
                 "specification": "{counter} {name}",
                 "approval_list": "{counter}.1 {name}-1",
                 "act_at": "{counter}.2 {name}-2",
                 "act_ad": "{counter}.3 {name}-3",
             }
             .get(document_template_id.document_type_name, "Unknown")
-            .format(counter=self.counter, name=self.name,)
+            .format(
+                counter=self.counter,
+                name=self.name,
+                bill_name=(bill_name or "Счёт отсутствует"),
+            )
         )
 
     def get_filename_by_document_template(self, document_template_id):

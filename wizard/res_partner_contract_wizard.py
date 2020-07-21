@@ -207,6 +207,7 @@ class ContractWizard(models.TransientModel, Extension):
                             "count": item.product_uom_qty,
                             "unit": item.product_uom.name,
                             "cost": self.to_fixed(item.price_unit),
+                            "discount": self.to_fixed(item.discount),
                             "subtotal": self.to_fixed(item.price_subtotal),
                         }
                         for item in self.target.order_id.order_line or []

@@ -123,10 +123,10 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         }
 
     def get_name_by_document_template(self, document_template_id):
-        bill_name = None
-        for invoice in self.order_id.invoice_ids:
-            bill_name = invoice.number
-            break
+        active_invoices = self.order_id.invoice_ids.filtered(
+            lambda r: r.state not in ("draft", "cancel")
+        )
+        bill_name = active_invoices and active_invoices[-1].number
 
         return (
             {

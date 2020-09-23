@@ -10,15 +10,29 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     _name = "res.partner.contract.annex"
     _description = "Contract Annex"
 
-    name = fields.Char(string="Name",)
-    display_name = fields.Char(compute="_compute_display_name",)
-    specification_name = fields.Char(compute="_compute_specification_name",)
+    name = fields.Char(
+        string="Name",
+    )
+    display_name = fields.Char(
+        compute="_compute_display_name",
+    )
+    specification_name = fields.Char(
+        compute="_compute_specification_name",
+    )
 
     contract_id = fields.Many2one(
-        "res.partner.contract", string="Contract", readonly=True,
+        "res.partner.contract",
+        string="Contract",
+        readonly=True,
     )
-    company_id = fields.Many2one("res.partner", related="contract_id.company_id",)
-    partner_id = fields.Many2one("res.partner", related="contract_id.partner_id",)
+    company_id = fields.Many2one(
+        "res.partner",
+        related="contract_id.company_id",
+    )
+    partner_id = fields.Many2one(
+        "res.partner",
+        related="contract_id.partner_id",
+    )
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
@@ -26,29 +40,58 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         required=True,
     )
     date_conclusion = fields.Date(
-        string="Conclusion Date", default=fields.Date.today(),
+        string="Conclusion Date",
+        default=fields.Date.today(),
     )
-    counter = fields.Integer(string="№", help="Counter of Contract Annexes",)
-    currency_id = fields.Many2one(related="company_id.currency_id", readonly=True,)
+    counter = fields.Integer(
+        string="№",
+        help="Counter of Contract Annexes",
+    )
+    currency_id = fields.Many2one(
+        related="company_id.currency_id",
+        readonly=True,
+    )
 
-    design_period = fields.Integer(string="Design Period",)
-    design_cost = fields.Monetary(string="Design Cost",)
+    design_period = fields.Integer(
+        string="Design Period",
+    )
+    design_cost = fields.Monetary(
+        string="Design Cost",
+    )
 
-    design_doc_period = fields.Integer(string="Documentation Design Period (days)",)
-    design_doc_cost = fields.Monetary(string="Documentation Design Cost",)
+    design_doc_period = fields.Integer(
+        string="Documentation Design Period (days)",
+    )
+    design_doc_cost = fields.Monetary(
+        string="Documentation Design Cost",
+    )
 
-    delivery_address = fields.Char(string="Delivery Address",)
+    delivery_address = fields.Char(
+        string="Delivery Address",
+    )
     delivery_period = fields.Integer(string="Delivery Period (days)")
 
-    installation_address = fields.Char(string="Installation Address",)
-    installation_period = fields.Integer(string="Installation Period (days)",)
-    installation_cost = fields.Integer(string="Installation Cost",)
+    installation_address = fields.Char(
+        string="Installation Address",
+    )
+    installation_period = fields.Integer(
+        string="Installation Period (days)",
+    )
+    installation_cost = fields.Integer(
+        string="Installation Cost",
+    )
 
-    total_cost = fields.Monetary(string="Total Cost",)
+    total_cost = fields.Monetary(
+        string="Total Cost",
+    )
 
     payment_part_one = fields.Float(string="Payment 1 Part (%)", default=100)
-    payment_part_two = fields.Float(string="Payment 2 Part (%)",)
-    payment_part_three = fields.Float(string="Payment 3 Part (%)",)
+    payment_part_two = fields.Float(
+        string="Payment 2 Part (%)",
+    )
+    payment_part_three = fields.Float(
+        string="Payment 3 Part (%)",
+    )
 
     @api.multi
     @api.depends("name")
@@ -85,7 +128,8 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         order_number = self.order_id.name or "SO###"
 
         self.name = "{contract}-{order}".format(
-            contract=contract_number, order=order_number,
+            contract=contract_number,
+            order=order_number,
         )
 
     @api.model

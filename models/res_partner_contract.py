@@ -20,16 +20,14 @@ class PartnerContract(models.Model, IDocument, Extension):
             .replace(minute=0, hour=0, second=0, microsecond=0)
             .timestamp()
         )
-        partner = self.env["res.partner"].browse(self.env.context.get("active_id"))
 
-        contracts_today = self.search(
-            [("partner_id", "=", partner.id), ("create_date_ts", ">=", current_day_ts),]
-        )
+        contracts_today = self.search([("create_date_ts", ">=", current_day_ts)])
 
         contract_date = "{format_date}-{number}".format(
             format_date=datetime.date.strftime(datetime.date.today(), "%y%m-%d"),
             number=len(contracts_today) + 1,
         )
+
         return contract_date
 
     def _get_default_create_date_ts(self):
@@ -49,9 +47,14 @@ class PartnerContract(models.Model, IDocument, Extension):
     )
     create_date_ts = fields.Char(default=_get_default_create_date_ts)
     res_model = fields.Char(default=lambda self: self._name)
-    name = fields.Char(string="Contract number", default=_get_default_name,)
+    name = fields.Char(
+        string="Contract number",
+        default=_get_default_name,
+    )
     create_date = fields.Datetime(string="Created on")
-    date_conclusion = fields.Date(string="Date of system conclusion",)
+    date_conclusion = fields.Date(
+        string="Date of system conclusion",
+    )
     date_conclusion_fix = fields.Date(
         string="Date of manual conclusion",
         help="Field for manual edit when contract is signed or closed",
@@ -67,7 +70,11 @@ class PartnerContract(models.Model, IDocument, Extension):
         default=1, help="Counter for generate Annex name"
     )
     state = fields.Selection(
-        [("draft", "New"), ("sign", "Signed"), ("close", "Closed"),],
+        [
+            ("draft", "New"),
+            ("sign", "Signed"),
+            ("close", "Closed"),
+        ],
         string="Status",
         readonly=True,
         copy=False,

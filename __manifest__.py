@@ -16,6 +16,7 @@
         "hr",
         "russian_requisites",
         "sale",
+        "sale_margin"
     ],
     "data": [
         "data/assets_extension.xml",

@@ -47,9 +47,14 @@ class PartnerContract(models.Model, IDocument, Extension):
     )
     create_date_ts = fields.Char(default=_get_default_create_date_ts)
     res_model = fields.Char(default=lambda self: self._name)
-    name = fields.Char(string="Contract number", default=_get_default_name,)
+    name = fields.Char(
+        string="Contract number",
+        default=_get_default_name,
+    )
     create_date = fields.Datetime(string="Created on")
-    date_conclusion = fields.Date(string="Date of system conclusion",)
+    date_conclusion = fields.Date(
+        string="Date of system conclusion",
+    )
     date_conclusion_fix = fields.Date(
         string="Date of manual conclusion",
         help="Field for manual edit when contract is signed or closed",
@@ -65,7 +70,11 @@ class PartnerContract(models.Model, IDocument, Extension):
         default=1, help="Counter for generate Annex name"
     )
     state = fields.Selection(
-        [("draft", "New"), ("sign", "Signed"), ("close", "Closed"),],
+        [
+            ("draft", "New"),
+            ("sign", "Signed"),
+            ("close", "Closed"),
+        ],
         string="Status",
         readonly=True,
         copy=False,

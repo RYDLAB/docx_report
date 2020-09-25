@@ -39,6 +39,9 @@ class DocumentTemplate(models.Model):
         ]
     )
     template_type = fields.Selection(
-        selection=[("contract", "Contract"), ("annex", "Annex"),]
+        selection=[
+            ("contract", "Contract"),
+            ("annex", "Annex"),
+        ]
     )
     sequence = fields.Integer()

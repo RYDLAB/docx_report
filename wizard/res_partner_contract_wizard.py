@@ -46,14 +46,10 @@ class ContractWizard(models.TransientModel, Extension):
         default=_default_target,
     )
     company_id = fields.Many2one(
-        "res.partner",
-        string="Company",
-        compute="_compute_company_id",
+        "res.partner", string="Company", compute="_compute_company_id",
     )
     partner_id = fields.Many2one(
-        "res.partner",
-        string="Partner",
-        compute="_compute_partner_id",
+        "res.partner", string="Partner", compute="_compute_partner_id",
     )
     document_name = fields.Char(
         string="Document Name", compute="_compute_document_name"
@@ -71,8 +67,7 @@ class ContractWizard(models.TransientModel, Extension):
         string="Contract Fields",
     )
     transient_field_ids_hidden = fields.One2many(
-        "res.partner.contract.field.transient",
-        "_contract_wizard_id",
+        "res.partner.contract.field.transient", "_contract_wizard_id",
     )
 
     @api.depends("target")
@@ -98,11 +93,7 @@ class ContractWizard(models.TransientModel, Extension):
 
     @api.onchange("document_template")
     def _domain_document_template(self):
-        return {
-            "domain": {
-                "document_template": self._get_template_domain(),
-            }
-        }
+        return {"domain": {"document_template": self._get_template_domain(),}}
 
     @api.onchange("document_template")
     def _onchange_document_template(self):
@@ -112,9 +103,7 @@ class ContractWizard(models.TransientModel, Extension):
 
         def get_contract_field(technical_name):
             return self.env["res.partner.contract.field"].search(
-                [
-                    ("technical_name", "=", technical_name),
-                ]
+                [("technical_name", "=", technical_name),]
             )
 
         model_to_action = {
@@ -134,10 +123,7 @@ class ContractWizard(models.TransientModel, Extension):
                 4,
                 self.env["res.partner.contract.field.transient"]
                 .create(
-                    {
-                        "contract_field_id": get_contract_field(field).id,
-                        "value": value,
-                    }
+                    {"contract_field_id": get_contract_field(field).id, "value": value,}
                 )
                 .id,
                 0,

@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from num2words import num2words
 from num2words import CONVERTER_CLASSES, CONVERTES_TYPES
 
@@ -29,10 +31,9 @@ def num2words_currency(number, **kwargs):
         if "currency" not in kwargs:
             kwargs["currency"] = "RUB"
         result = num2words(number, **kwargs)
-
         total = result.split(",")[0]
         part_word = result.split()[-1]
-        part_number = float(number) - int(float(number))
+        part_number = Decimal(str(number)) % 1
 
         return "{total}, {part_n} {part_w}".format(
             total=total.capitalize(),

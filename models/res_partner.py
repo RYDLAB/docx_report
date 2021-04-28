@@ -67,7 +67,7 @@ class ResPartner(models.Model):
             )
             record.full_address = ", ".join(data)
 
-    @api.one
     @api.depends("self.client_contract_ids")
     def _compute_contract_count(self):
+        self.ensure_one()
         self.contract_count = len(self.client_contract_ids)

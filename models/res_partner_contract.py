@@ -84,19 +84,15 @@ class PartnerContract(models.Model, IDocument, Extension):
         default="draft",
     )
 
-    @api.multi
     def action_sign(self):
         self.write({"state": "sign", "date_conclusion": fields.Date.today()})
 
-    @api.multi
     def action_close(self):
         self.write({"state": "close"})
 
-    @api.multi
     def action_renew(self):
         self.write({"state": "draft"})
 
-    @api.multi
     def action_print_form(self):
         view = self.env.ref(
             "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)

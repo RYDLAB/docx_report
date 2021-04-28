@@ -93,7 +93,6 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         string="Payment 3 Part (%)",
     )
 
-    @api.multi
     @api.depends("name")
     def _compute_display_name(self):
         for record in self:
@@ -145,7 +144,6 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
 
         return record
 
-    @api.multi
     def action_print_form(self):
         view = self.env.ref(
             "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)

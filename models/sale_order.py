@@ -21,7 +21,6 @@ class SaleOrder(models.Model):
         domain=lambda self: [("id", "in", self._get_payment_terms())],
     )
 
-    @api.multi
     def _get_payment_terms(self):
         ref = self.env.ref
         terms = (

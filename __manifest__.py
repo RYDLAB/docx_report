@@ -4,13 +4,14 @@
     "summary": """
         Print forms for contracts with clients""",
     "description": """
-        Module for storing and creating print forms for contracts with clients
+        Module for storing and creating print forms for contracts.
     """,
     "author": "RYDLAB",
     "website": "http://rydlab.ru",
     "category": "Invoicing & Payments",
-    "version": "0.2.0",
-    "depends": ["base", "contacts", "hr", "russian_requisites", "sale", "sale_margin"],
+    "version": "14.0.1.0.0",
+    "depends": ["base", "contacts", "hr", "l10n_ru", "sale", "sale_margin"],
+    "external_dependencies": {"python": ["docxtpl"]},
     "data": [
         "data/assets_extension.xml",
         "data/fields_default.xml",

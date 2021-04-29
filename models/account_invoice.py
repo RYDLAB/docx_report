@@ -43,13 +43,10 @@ class AccountInvoice(models.Model):
         self.check_contract_presence(sale_orders_ids)
         self.filtered(lambda inv: not inv.is_move_sent).write({'is_move_sent': True})
 
-
-
-
         view = self.env.ref(
             "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)
         )
-        annex = order.contract_annex_id
+        # annex = order.contract_annex_id
         return {
             "name": _("Print Form of Contract Annex"),
             "type": "ir.actions.act_window",
@@ -58,11 +55,12 @@ class AccountInvoice(models.Model):
             "view_id": view.id,
             "target": "new",
             "context": {
-                "self_id": annex.id,
+                # "self_id": annex.id,
+                "active_ids": self.ids,
                 "active_model": "res.partner.contract.annex",
-                "company_form": annex.partner_id.company_form
-                if annex.partner_id.is_company
-                else "person",
+                # "company_form": annex.partner_id.company_form
+                # if annex.partner_id.is_company
+                # else "person",
                 "attachment_model": self._name,
                 "attachment_res_id": self.id,
             },

@@ -1,6 +1,6 @@
 import datetime
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 from ..utils import MODULE_NAME
 from ..utils.misc import Extension, IDocument

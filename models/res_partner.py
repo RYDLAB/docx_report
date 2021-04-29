@@ -6,7 +6,7 @@ class ResPartner(models.Model):
 
     name_write = fields.Char(
         string="Name in contracts",
-        help="This name uses in contracts",
+        help="This name used in contracts",
     )
     name_genitive = fields.Char(
         string="Name Genitive",

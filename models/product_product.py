@@ -7,6 +7,6 @@ class ProductProduct(models.Model):
     description_sale = fields.Text(
         "Sale Description",
         translate=True,
-        help="A description of the Product that you want to communicate to your customers. "
+        help="A product's description you want to inform to your customers.\n"
         "This description will be copied to every Sales Order, Delivery Order and Customer Invoice/Credit Note",
     )

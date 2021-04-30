@@ -3,13 +3,13 @@ import datetime
 from odoo import _, fields, models
 
 from ..utils import MODULE_NAME
-from ..utils.misc import Extension, IDocument
+# from ..utils.misc import Extension, IDocument
 
 
-class PartnerContract(models.Model, IDocument, Extension):
+class PartnerContract(models.Model):    #, IDocument, Extension):
     _name = "res.partner.contract"
     _description = "Contract"
-    _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers"]
+    _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers", "client_contracts.utils"]
 
     def _get_default_name(self):
         """Returns name format `№YYMM-D-N`,
@@ -43,7 +43,7 @@ class PartnerContract(models.Model, IDocument, Extension):
     company_id = fields.Many2one(
         "res.partner",
         string="Company",
-        default=lambda self: self.env.user.company_id.partner_id,
+        default=lambda self: self.env.company.partner_id,
     )
     create_date_ts = fields.Char(default=_get_default_create_date_ts)
     res_model = fields.Char(default=lambda self: self._name)
@@ -79,7 +79,7 @@ class PartnerContract(models.Model, IDocument, Extension):
         readonly=True,
         copy=False,
         index=True,
-        track_visibility="onchange",
+        tracking=True,
         track_sequence=3,
         default="draft",
     )

@@ -7,7 +7,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner.contract.field</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
     </record>
 
     <!-- res.partner.document.template action window -->
@@ -16,7 +15,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner.document.template</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
     </record>
 
     <record id="res_partner_contract_info_inherit_view" model="ir.ui.view">
@@ -66,11 +64,11 @@
         <field name="priority" eval="25"/>
         <field name="arch" type="xml">
 
-            <button name="toggle_active" position="before">
-                <button class="oe_inline oe_stat_button" type="action" name="%(res_partner_contract_partner_action)d" attrs="{'invisible': [('customer', '=', False)]}" icon="fa-pencil-square-o">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_inline oe_stat_button" type="action" name="%(res_partner_contract_partner_action)d" attrs="{'invisible': [('parent_id', '!=', False)]}" icon="fa-pencil-square-o">
                     <field string="Contracts" name="contract_count" widget="statinfo"/>
                 </button>
-            </button>
+            </xpath>
             
         </field>
     </record>

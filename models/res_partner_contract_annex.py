@@ -3,11 +3,12 @@ import math
 from odoo import _, api, fields, models
 
 from ..utils import MODULE_NAME
-from ..utils.misc import Extension, IDocument
+# from ..utils.misc import Extension, IDocument
 
 
-class ContractOrderAnnex(models.Model, IDocument, Extension):
+class ContractOrderAnnex(models.Model):    # , IDocument, Extension):
     _name = "res.partner.contract.annex"
+    _inherit = ["client_contracts.utils"]
     _description = "Contract Annex"
 
     name = fields.Char(
@@ -85,12 +86,18 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
         string="Total Cost",
     )
 
-    payment_part_one = fields.Float(string="Payment 1 Part (%)", default=100)
+    payment_part_one = fields.Float(
+        string="Payment 1 Part (%)",
+        default=100,
+        digits="Account",
+    )
     payment_part_two = fields.Float(
         string="Payment 2 Part (%)",
+        digits="Account",
     )
     payment_part_three = fields.Float(
         string="Payment 3 Part (%)",
+        digits="Account",
     )
 
     @api.depends("name")
@@ -134,14 +141,11 @@ class ContractOrderAnnex(models.Model, IDocument, Extension):
     @api.model
     def create(self, values):
         record = super().create(values)
-
         # Fill annex_id to domain it in future
         record.order_id.contract_annex_id = record.id
-
         # Counter
         record.counter = record.contract_id.contract_annex_number
         record.contract_id.contract_annex_number += 1  # TODO: should I use a sequence?
-
         return record
 
     def action_print_form(self):

@@ -11,13 +11,13 @@ class AccountInvoice(models.Model):
         error_message = ""
         if any(not so.contract_annex_id.contract_id for so in sale_order_ids):
             error_message = _("There is a Sale order without binding contract.")
-        if any(not so.contract_annex_id  for so in sale_order_ids):
+        if any(not so.contract_annex_id for so in sale_order_ids):
             error_message = _("There is a Sale order without annex.")
         if error_message:
             raise UserError(error_message)
 
     def action_invoice_print(self):
-        '''
+        """
         for so in self.env["sale.order"].search([]):
             if self.id in so.invoice_ids.ids:
                 order = so
@@ -32,16 +32,16 @@ class AccountInvoice(models.Model):
                 )
             )
         self.sent = True
-        '''
+        """
 
-        sale_orders_ids = self.env["sale.order"].search([
-            ("invoice_ids", "in", self.ids)
-        ])
+        sale_orders_ids = self.env["sale.order"].search(
+            [("invoice_ids", "in", self.ids)]
+        )
         if not sale_orders_ids:
             return super().action_invoice_print()
 
         self.check_contract_presence(sale_orders_ids)
-        self.filtered(lambda inv: not inv.is_move_sent).write({'is_move_sent': True})
+        self.filtered(lambda inv: not inv.is_move_sent).write({"is_move_sent": True})
 
         view = self.env.ref(
             "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)

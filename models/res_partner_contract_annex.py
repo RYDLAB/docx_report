@@ -3,10 +3,11 @@ import math
 from odoo import _, api, fields, models
 
 from ..utils import MODULE_NAME
+
 # from ..utils.misc import Extension, IDocument
 
 
-class ContractOrderAnnex(models.Model):    # , IDocument, Extension):
+class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     _name = "res.partner.contract.annex"
     _inherit = ["client_contracts.utils"]
     _description = "Contract Annex"

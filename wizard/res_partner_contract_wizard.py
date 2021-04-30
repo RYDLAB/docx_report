@@ -6,12 +6,13 @@ from odoo.exceptions import ValidationError
 
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
+
 # from ..utils.misc import Extension
 
 _logger = logging.getLogger(__name__)
 
 
-class ContractWizard(models.TransientModel):    #, Extension):
+class ContractWizard(models.TransientModel):  # , Extension):
     _name = "res.partner.contract.wizard"
     _inherit = ["client_contracts.utils"]
 

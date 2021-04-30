@@ -3,13 +3,19 @@ import datetime
 from odoo import _, fields, models
 
 from ..utils import MODULE_NAME
+
 # from ..utils.misc import Extension, IDocument
 
 
-class PartnerContract(models.Model):    #, IDocument, Extension):
+class PartnerContract(models.Model):  # , IDocument, Extension):
     _name = "res.partner.contract"
     _description = "Contract"
-    _inherit = ["mail.thread", "mail.activity.mixin", "mail.followers", "client_contracts.utils"]
+    _inherit = [
+        "mail.thread",
+        "mail.activity.mixin",
+        "mail.followers",
+        "client_contracts.utils",
+    ]
 
     def _get_default_name(self):
         """Returns name format `№YYMM-D-N`,

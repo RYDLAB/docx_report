@@ -1,7 +1,8 @@
 import datetime as dt
+
 # import inspect
 
-from odoo import models   # , fields
+from odoo import models  # , fields
 from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
 

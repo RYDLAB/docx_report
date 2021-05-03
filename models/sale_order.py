@@ -6,6 +6,7 @@ from ..utils import MODULE_NAME
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    # TODO: exists original field "commitment_date".
     delivery_time = fields.Integer(
         string="Delivery Time",
         default=45,
@@ -15,7 +16,7 @@ class SaleOrder(models.Model):
         string="Contract Annex",
         readonly=True,
     )
-    # Extend default field
+    # Extend default field for showing payment terms created by this module only.
     payment_term_id = fields.Many2one(
         "account.payment.term",
         domain=lambda self: [("id", "in", self._get_payment_terms())],

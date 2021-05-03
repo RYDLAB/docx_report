@@ -38,20 +38,20 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     order_id = fields.Many2one(
         "sale.order",
         string="Order",
-        help="Orders with this partner which are not uses in annexes yet",
+        help="This partner's orders which are not used in annexes yet",
         required=True,
     )
     date_conclusion = fields.Date(
-        string="Conclusion Date",
+        string="Signing Date",
         default=fields.Date.today(),
     )
     counter = fields.Integer(
         string="№",
-        help="Counter of Contract Annexes",
+        help="Contract Annexes counter",
     )
     currency_id = fields.Many2one(
-        related="company_id.currency_id",
-        readonly=True,
+        string="Currency",
+        default=lambda self: self.env.company.currency_id,
     )
 
     design_period = fields.Integer(

@@ -15,7 +15,7 @@ class ResPartner(models.Model):
         string="Name Initials",
     )
     function_genitive = fields.Char(
-        string="Function Genitive",
+        string="Job position genitive",
     )
     client_contract_ids = fields.One2many(
         "res.partner.contract",
@@ -33,7 +33,7 @@ class ResPartner(models.Model):
         string="Actual Address",
     )
     representative_id = fields.Many2one(
-        "res.partner", string="Representative", help="Person, who represents company"
+        "res.partner", string="Representative", help="Person representing company"
     )
     representative_document = fields.Char(
         string="Representative acts on the basis of",

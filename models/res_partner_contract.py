@@ -36,7 +36,8 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
 
         return contract_date
 
-    def _get_default_create_date_ts(self):
+    @staticmethod
+    def _get_default_create_date_ts():
         """Returns timestamp of now by local datetime"""
         return datetime.datetime.now().timestamp()
 
@@ -59,11 +60,11 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
     )
     create_date = fields.Datetime(string="Created on")
     date_conclusion = fields.Date(
-        string="Date of system conclusion",
+        string="Signing date in system",
     )
     date_conclusion_fix = fields.Date(
-        string="Date of manual conclusion",
-        help="Field for manual edit when contract is signed or closed",
+        string="Actual signing date",
+        help="Field for pointing out manually when contract is signed or closed",
         default=lambda self: self.date_conclusion,
     )
     contract_annex_ids = fields.One2many(
@@ -140,11 +141,7 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
             datetime.datetime -- date_conclusion_fix or date_conclusion or create_date
         """
         date = self.date_conclusion_fix or self.date_conclusion
-        if date:
-            date = self.parse_odoo_date(date)
-        else:
-            date = self.parse_odoo_datetime(self.create_date)
-        return date
+        return date or self.create_date
 
     def _(self, arg):
         """Uses in xml action (data/fields_default)

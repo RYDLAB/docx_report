@@ -17,8 +17,10 @@ class ContractWizard(models.TransientModel):  # , Extension):
     _inherit = ["client_contracts.utils"]
 
     def _default_target(self):
+        _logger.debug("\n\n model: %s | id: %s \n\n", self.env.context.get("active_model"), self.env.context.get("self_id"))
         return "{model},{target_id}".format(
-            model=self.active_model, target_id=int(self.env.context.get("self_id"))
+            # model=self.active_model, target_id=int(self.env.context.get("self_id"))
+            model=self.env.context.get("active_model"), target_id=int(self.env.context.get("self_id"))
         )
 
     def _default_document_template(self):
@@ -177,7 +179,7 @@ class ContractWizard(models.TransientModel):  # , Extension):
             .create(
                 {
                     "name": attachment_name,
-                    "datas_fname": attachment_name,
+                    "store_fname": attachment_name,
                     "type": "binary",
                     "datas": encoded_data,
                 }

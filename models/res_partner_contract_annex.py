@@ -1,11 +1,12 @@
 import math
+import logging
 
 from odoo import _, api, fields, models
 
 from ..utils import MODULE_NAME
 
 # from ..utils.misc import Extension, IDocument
-
+_logger = logging.getLogger(__name__)
 
 class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     _name = "res.partner.contract.annex"
@@ -141,6 +142,7 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
 
     @api.model
     def create(self, values):
+        _logger.debug("\n\n Values: %s\n\n", values)
         record = super().create(values)
         # Fill annex_id to domain it in future
         record.order_id.contract_annex_id = record.id

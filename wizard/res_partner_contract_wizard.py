@@ -19,13 +19,7 @@ class ContractWizard(models.TransientModel):  # , Extension):
     _inherit = ["client_contracts.utils"]
 
     def _default_target(self):
-        _logger.debug(
-            "\n\n model: %s | id: %s \n\n",
-            self.env.context.get("active_model"),
-            self.env.context.get("self_id"),
-        )
         return "{model},{target_id}".format(
-            # model=self.active_model, target_id=int(self.env.context.get("self_id"))
             model=self.env.context.get("active_model"),
             target_id=int(self.env.context.get("self_id")),
         )
@@ -142,13 +136,20 @@ class ContractWizard(models.TransientModel):  # , Extension):
             "res.partner.contract": "action_get_contract_context",
             "res.partner.contract.annex": "action_get_annex_context",
         }
-        action = "{}.{}".format(MODULE_NAME, model_to_action[self.active_model])
+        pdb.set_trace()
+        action_external_id = "{}.{}".format(
+            MODULE_NAME, model_to_action[self.active_model]
+        )
+        action_rec = self.env.ref(action_external_id)
+        action_rec.model_id = (
+            self.env["ir.model"].search([("model", "=", self.active_model)]).id
+        )
 
         # Get dictionary for `transient_fields_ids` with editable fields
         # With data from Odoo database
-        contract_context_values = (
-            self.env.ref(action).with_context({"onchange_self": self.target}).run()
-        )
+        contract_context_values = action_rec.with_context(
+            {"onchange_self": self.target}
+        ).run()
 
         transient_fields_data = [
             get_contract_field_data(field_name, field_value)

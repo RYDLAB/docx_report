@@ -1,5 +1,3 @@
-import pdb
-
 import base64
 import logging
 
@@ -8,8 +6,6 @@ from odoo.exceptions import ValidationError, UserError
 
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
-
-# from ..utils.misc import Extension
 
 _logger = logging.getLogger(__name__)
 
@@ -136,7 +132,6 @@ class ContractWizard(models.TransientModel):  # , Extension):
             "res.partner.contract": "action_get_contract_context",
             "res.partner.contract.annex": "action_get_annex_context",
         }
-        pdb.set_trace()
         action_external_id = "{}.{}".format(
             MODULE_NAME, model_to_action[self.active_model]
         )

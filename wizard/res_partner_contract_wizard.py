@@ -1,8 +1,10 @@
+import pdb
+
 import base64
 import logging
 
-from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError, UserError
 
 from ..utils import MODULE_NAME
 from ..utils.docxtpl import get_document_from_values_stream
@@ -17,10 +19,15 @@ class ContractWizard(models.TransientModel):  # , Extension):
     _inherit = ["client_contracts.utils"]
 
     def _default_target(self):
-        _logger.debug("\n\n model: %s | id: %s \n\n", self.env.context.get("active_model"), self.env.context.get("self_id"))
+        _logger.debug(
+            "\n\n model: %s | id: %s \n\n",
+            self.env.context.get("active_model"),
+            self.env.context.get("self_id"),
+        )
         return "{model},{target_id}".format(
             # model=self.active_model, target_id=int(self.env.context.get("self_id"))
-            model=self.env.context.get("active_model"), target_id=int(self.env.context.get("self_id"))
+            model=self.env.context.get("active_model"),
+            target_id=int(self.env.context.get("self_id")),
         )
 
     def _default_document_template(self):
@@ -114,12 +121,22 @@ class ContractWizard(models.TransientModel):  # , Extension):
         Looks as a tree view of *_contract_field_transient model in xml
         """
 
-        def get_contract_field(technical_name):
-            return self.env["res.partner.contract.field"].search(
-                [
-                    ("technical_name", "=", technical_name),
-                ]
+        def get_contract_field_data(field_name, field_value):
+            rec = self.env["res.partner.contract.field"].search(
+                [("technical_name", "=", field_name)]
             )
+            if not rec:
+                raise UserError(
+                    _(
+                        'Field "%s" specified in template, not found in model "res.partner.contract.field"'
+                    )
+                    % field_name
+                )
+            return {
+                "contract_field_id": rec.id,
+                "visible": rec.visible,
+                "value": field_value,
+            }
 
         model_to_action = {
             "res.partner.contract": "action_get_contract_context",
@@ -133,6 +150,37 @@ class ContractWizard(models.TransientModel):  # , Extension):
             self.env.ref(action).with_context({"onchange_self": self.target}).run()
         )
 
+        transient_fields_data = [
+            get_contract_field_data(field_name, field_value)
+            for field_name, field_value in contract_context_values.items()
+        ]
+        transient_fields_hidden_data = list(
+            filter(lambda item: not item["visible"], transient_fields_data)
+        )
+        transient_fields_data = list(
+            filter(lambda item: item["visible"], transient_fields_data)
+        )
+
+        self.transient_field_ids = [
+            (
+                6,
+                False,
+                self.env["res.partner.contract.field.transient"]
+                .create(transient_fields_data)
+                .ids,
+            )
+        ]
+        self.transient_field_ids_hidden = [
+            (
+                6,
+                False,
+                self.env["res.partner.contract.field.transient"]
+                .create(transient_fields_hidden_data)
+                .ids,
+            )
+        ]
+
+        """
         self.transient_field_ids = [  # one2many
             (
                 4,
@@ -159,6 +207,7 @@ class ContractWizard(models.TransientModel):  # , Extension):
         self.transient_field_ids = (
             self.transient_field_ids - self.transient_field_ids_hidden
         )
+        """
 
     # Other
 

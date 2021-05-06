@@ -11,7 +11,7 @@
     "category": "Invoicing & Payments",
     "version": "14.0.1.0.0",
     "depends": ["base", "contacts", "hr", "l10n_ru", "sale", "sale_margin"],
-    "external_dependencies": {"python": ["docxtpl"]},
+    "external_dependencies": {"python": ["docxtpl", "num2words"]},
     "data": [
         "data/assets_extension.xml",
         "data/fields_default.xml",

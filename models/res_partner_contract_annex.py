@@ -8,6 +8,7 @@ from ..utils import MODULE_NAME
 # from ..utils.misc import Extension, IDocument
 _logger = logging.getLogger(__name__)
 
+
 class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     _name = "res.partner.contract.annex"
     _inherit = ["client_contracts.utils"]
@@ -51,6 +52,7 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
         help="Contract Annexes counter",
     )
     currency_id = fields.Many2one(
+        comodel_name="res.currency",
         string="Currency",
         default=lambda self: self.env.company.currency_id,
     )
@@ -140,16 +142,21 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
             order=order_number,
         )
 
-    @api.model
-    def create(self, values):
-        _logger.debug("\n\n Values: %s\n\n", values)
-        record = super().create(values)
-        # Fill annex_id to domain it in future
-        record.order_id.contract_annex_id = record.id
-        # Counter
-        record.counter = record.contract_id.contract_annex_number
-        record.contract_id.contract_annex_number += 1  # TODO: should I use a sequence?
-        return record
+    def create(self, values_list):
+        _logger.debug("\n\n Values: %s\n\n", values_list)
+        if isinstance(values_list, dict):
+            values_list = [values_list]
+            _logger.debug("\n\n Values fixed: %s\n\n", values_list)
+        records = super(ContractOrderAnnex, self).create(values_list)
+        for record in records:
+            # Fill annex_id to domain it in future
+            # record.order_id.contract_annex_id = record.id
+            # Counter
+            record.counter = record.contract_id.contract_annex_number
+            record.contract_id.contract_annex_number += (
+                1  # TODO: should I use a sequence?
+            )
+        return records
 
     def action_print_form(self):
         view = self.env.ref(

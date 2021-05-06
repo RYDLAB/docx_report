@@ -68,8 +68,8 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
         default=lambda self: self.date_conclusion,
     )
     contract_annex_ids = fields.One2many(
-        "res.partner.contract.annex",
-        "contract_id",
+        comodel_name="res.partner.contract.annex",
+        inverse_name="contract_id",
         string="Annexes",
         help="Annexes to this contract",
     )
@@ -101,6 +101,7 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
         self.write({"state": "draft"})
 
     def action_print_form(self):
+        self.ensure_one()
         view = self.env.ref(
             "{}.res_partner_wizard_print_document_view".format(MODULE_NAME)
         )
@@ -121,9 +122,11 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
         }
 
     def get_name_by_document_template(self, document_template_id):
+        self.ensure_one()
         return self.name
 
     def get_filename_by_document_template(self, document_template_id):
+        self.ensure_one()
         return _("{type} {number} from {date}").format(
             type=_(
                 dict(document_template_id._fields["document_type"].selection).get(
@@ -140,10 +143,12 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
         Returns:
             datetime.datetime -- date_conclusion_fix or date_conclusion or create_date
         """
+        self.ensure_one()
         date = self.date_conclusion_fix or self.date_conclusion
         return date or self.create_date
 
-    def _(self, arg):
+    @staticmethod
+    def _(arg):
         """Uses in xml action (data/fields_default)
 
         Arguments:

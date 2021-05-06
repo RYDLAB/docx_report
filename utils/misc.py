@@ -23,13 +23,13 @@ from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_
 class Utils(models.AbstractModel):
     _name = "client_contracts.utils"
 
-    '''@staticmethod
+    """@staticmethod
     def parse_odoo_date(date: str):
         return dt.datetime.strptime(date, DEFAULT_SERVER_DATE_FORMAT)
 
     @staticmethod
     def parse_odoo_datetime(datetime: str):
-        return dt.datetime.strptime(datetime, DEFAULT_SERVER_DATETIME_FORMAT)'''
+        return dt.datetime.strptime(datetime, DEFAULT_SERVER_DATETIME_FORMAT)"""
 
     @staticmethod
     def to_fixed(number, digit=2):

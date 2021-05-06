@@ -13,11 +13,12 @@ class ContractField(models.Model):
     )
     technical_name = fields.Char(
         string="Technical Name",
-        help="Name uses in template",
+        help="Name for using in templates",
         required=True,
     )
     description = fields.Char(
         string="Description",
+        help="Description for this field to be showed in fields list in print form creation wizard.",
         translate=True,
         default="",
     )
@@ -26,5 +27,7 @@ class ContractField(models.Model):
     )
     visible = fields.Boolean(
         string="Visible",
+        help="To show this field in fields list in print form creation wizard\n"
+        "User can change showed field's values in wizard.",
         default=True,
     )

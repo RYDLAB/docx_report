@@ -10,7 +10,7 @@ from ..utils.docxtpl import get_document_from_values_stream
 _logger = logging.getLogger(__name__)
 
 
-class ContractWizard(models.TransientModel):  # , Extension):
+class ContractWizard(models.TransientModel):
     _name = "res.partner.contract.wizard"
     _inherit = ["client_contracts.utils"]
 
@@ -31,7 +31,6 @@ class ContractWizard(models.TransientModel):  # , Extension):
             "res.partner.contract.annex": "annex",
         }.get(self.active_model, False)
         company_type = self.env.context.get("company_form", False)
-
         document_template_domain = [
             ("template_type", "=", template_type),
             ("company_type", "=", company_type),
@@ -45,14 +44,15 @@ class ContractWizard(models.TransientModel):  # , Extension):
         ],
         string="Target",
         default=_default_target,
+        help="Record of contract or annex entity, from where wizard has been called",
     )
     company_id = fields.Many2one(
-        "res.partner",
+        comodel_name="res.partner",
         string="Company",
         compute="_compute_company_id",
     )
     partner_id = fields.Many2one(
-        "res.partner",
+        comodel_name="res.partner",
         string="Partner",
         compute="_compute_partner_id",
     )
@@ -60,7 +60,7 @@ class ContractWizard(models.TransientModel):  # , Extension):
         string="Document Name", compute="_compute_document_name"
     )
     document_template = fields.Many2one(
-        "res.partner.document.template",
+        comodel_name="res.partner.document.template",
         string="Document Template",
         default=_default_document_template,
         domain=lambda self: self._get_template_domain(),
@@ -78,8 +78,10 @@ class ContractWizard(models.TransientModel):  # , Extension):
 
     @api.depends("target")
     def _compute_company_id(self):
-        if self.target:
-            self.company_id = self.target.company_id
+        if self.target and self.target.company_id:
+            self.company_id = self.target.company_id.id
+        else:
+            self.company_id = self.env.company.id
 
     @api.depends("target")
     def _compute_partner_id(self):
@@ -176,37 +178,7 @@ class ContractWizard(models.TransientModel):  # , Extension):
             )
         ]
 
-        """
-        self.transient_field_ids = [  # one2many
-            (
-                4,
-                self.env["res.partner.contract.field.transient"]
-                .create(
-                    {
-                        "contract_field_id": get_contract_field(field).id,
-                        "value": value,
-                    }
-                )
-                .id,
-                0,
-            )
-            for field, value in sorted(
-                contract_context_values.items(),
-                key=lambda tpl: self.env.ref(
-                    "{}.contract_field_{}".format(MODULE_NAME, tpl[0])
-                ).sequence,
-            )
-        ]
-        self.transient_field_ids_hidden = (
-            self.transient_field_ids - self.transient_field_ids.filtered("visible")
-        )
-        self.transient_field_ids = (
-            self.transient_field_ids - self.transient_field_ids_hidden
-        )
-        """
-
     # Other
-
     def get_docx_contract(self):
         template = self.document_template.attachment_id
         template_path = template._full_path(template.store_fname)
@@ -297,11 +269,14 @@ class ContractWizard(models.TransientModel):  # , Extension):
                 "attachment_ids": [(4, result.id, False)],
             }
         )
-
         return result
 
-    def middleware_fields(self, kv):
-
+    @staticmethod
+    def middleware_fields(kv):
+        """
+        Removes items without values from dictionary.
+        :kv: dict.
+        """
         # Debug False values
         empty = []
         for k, v in list(kv.items()):
@@ -309,7 +284,6 @@ class ContractWizard(models.TransientModel):  # , Extension):
                 empty.append(k)
                 kv.pop(k)
         _logger.debug("Empty fields: {}".format(empty))
-
         return kv
 
     @property

@@ -48,9 +48,9 @@ class PartnerContract(models.Model):  # , IDocument, Extension):
         required=True,
     )
     company_id = fields.Many2one(
-        "res.partner",
+        "res.company",
         string="Company",
-        default=lambda self: self.env.company.partner_id,
+        default=lambda self: self.env.company,
     )
     create_date_ts = fields.Char(default=_get_default_create_date_ts)
     res_model = fields.Char(default=lambda self: self._name)

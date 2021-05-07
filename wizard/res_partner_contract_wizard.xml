@@ -10,12 +10,11 @@
 
                 <group string="Template">
                     <field name="document_template"></field>
-                    <field name="target"/>
                 </group>
 
                 <group invisible="1">
                     <!-- Need for generate a document -->
-
+                    <field name="target"/>
                     <field name="partner_id"/>
                     <field name="company_id"/>
                 </group>

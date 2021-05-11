@@ -19,11 +19,13 @@ class DocumentTemplate(models.Model):
             ("contract", _("Contract")),
             ("annex", _("Annex")),
             ("addition", _("Addition")),
+            ("offer", _("Offer")),
         ],
     )
     document_type_name = fields.Selection(
         string="Document",
         selection=[
+            ("offer", _("Offer")),
             ("bill", _("Bill")),
             ("specification", _("Specification")),
             ("approval_list", _("Approval List")),
@@ -42,6 +44,7 @@ class DocumentTemplate(models.Model):
         selection=[
             ("contract", "Contract"),
             ("annex", "Annex"),
+            ("offer", _("Offer")),
         ]
     )
     sequence = fields.Integer()

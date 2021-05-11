@@ -7,7 +7,11 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            
+
+            <xpath expr="//header" position="inside">
+                <button name="action_print_form" type="object" string="Create offer document"/>
+            </xpath>
+
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="delivery_time"/>
                 <field name="contract_annex_id" readonly="1"/>

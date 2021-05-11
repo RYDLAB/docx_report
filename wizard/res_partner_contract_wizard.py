@@ -1,3 +1,5 @@
+import pdb
+
 import base64
 import logging
 
@@ -29,6 +31,7 @@ class ContractWizard(models.TransientModel):
         template_type = {
             "res.partner.contract": "contract",
             "res.partner.contract.annex": "annex",
+            "sale.order": "offer",
         }.get(self.active_model, False)
         company_type = self.env.context.get("company_form", False)
         document_template_domain = [
@@ -41,6 +44,7 @@ class ContractWizard(models.TransientModel):
         selection=[
             ("res.partner.contract", "Contract"),
             ("res.partner.contract.annex", "Contract Annex"),
+            ("sale.order", "Offer")
         ],
         string="Target",
         default=_default_target,
@@ -133,6 +137,7 @@ class ContractWizard(models.TransientModel):
         model_to_action = {
             "res.partner.contract": "action_get_contract_context",
             "res.partner.contract.annex": "action_get_annex_context",
+            "sale.order": "action_get_so_context",
         }
         action_external_id = "{}.{}".format(
             MODULE_NAME, model_to_action[self.active_model]
@@ -202,7 +207,7 @@ class ContractWizard(models.TransientModel):
                 }
             )
         )
-
+        pdb.set_trace()
         return self.afterload(document_as_attachment)
 
     def payload(self):
@@ -258,6 +263,9 @@ class ContractWizard(models.TransientModel):
         res_id = self.target.id
         if hasattr(self.target, "contract_id"):
             res_id = self.target.contract_id.id
+
+
+
 
         self.env["mail.message"].create(
             {

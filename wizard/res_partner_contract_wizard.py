@@ -1,5 +1,3 @@
-import pdb
-
 import base64
 import logging
 
@@ -44,7 +42,7 @@ class ContractWizard(models.TransientModel):
         selection=[
             ("res.partner.contract", "Contract"),
             ("res.partner.contract.annex", "Contract Annex"),
-            ("sale.order", "Offer")
+            ("sale.order", "Offer"),
         ],
         string="Target",
         default=_default_target,
@@ -207,7 +205,6 @@ class ContractWizard(models.TransientModel):
                 }
             )
         )
-        pdb.set_trace()
         return self.afterload(document_as_attachment)
 
     def payload(self):
@@ -263,15 +260,15 @@ class ContractWizard(models.TransientModel):
         res_id = self.target.id
         if hasattr(self.target, "contract_id"):
             res_id = self.target.contract_id.id
-
-
-
-
+        target_model = (
+            self.target._name
+            if self.target._name
+            not in ("res.partner.contract", "res.partner.contract.annex")
+            else "res.partner.contract"
+        )
         self.env["mail.message"].create(
             {
-                "model": self.env.context.get(
-                    "attachment_model", "res.partner.contract"
-                ),
+                "model": self.env.context.get("attachment_model") or target_model,
                 "res_id": self.env.context.get("attachment_res_id", res_id),
                 "message_type": "comment",
                 "attachment_ids": [(4, result.id, False)],

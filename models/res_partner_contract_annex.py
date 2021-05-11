@@ -52,7 +52,7 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     )
     currency_id = fields.Many2one(
         string="Currency",
-        default=lambda self: self.env.company.currency_id,
+        default=lambda self: self.env.company.currency_id.id,
     )
 
     design_period = fields.Integer(
@@ -60,6 +60,7 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     )
     design_cost = fields.Monetary(
         string="Design Cost",
+        currency_field="currency_id",
     )
 
     design_doc_period = fields.Integer(
@@ -67,6 +68,7 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     )
     design_doc_cost = fields.Monetary(
         string="Documentation Design Cost",
+        currency_field="currency_id",
     )
 
     delivery_address = fields.Char(
@@ -86,6 +88,7 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
 
     total_cost = fields.Monetary(
         string="Total Cost",
+        currency_field="currency_id",
     )
 
     payment_part_one = fields.Float(
@@ -143,9 +146,9 @@ class ContractOrderAnnex(models.Model):  # , IDocument, Extension):
     @api.model
     def create(self, values):
         _logger.debug("\n\n Values: %s\n\n", values)
-        record = super().create(values)
+        record = super(ContractOrderAnnex, self).create(values)
         # Fill annex_id to domain it in future
-        record.order_id.contract_annex_id = record.id
+        # record.order_id.contract_annex_id = record.id
         # Counter
         record.counter = record.contract_id.contract_annex_number
         record.contract_id.contract_annex_number += 1  # TODO: should I use a sequence?

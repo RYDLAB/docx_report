@@ -13,7 +13,7 @@ from num2words import CONVERTER_CLASSES, CONVERTES_TYPES
 
 # Jinja2 Global Method
 def num2words_(number, **kwargs):
-    if _performConvert(number):
+    if _perform_convert(number):
         if "lang" not in kwargs:
             kwargs["lang"] = "ru"
         if "to" not in kwargs or kwargs["to"] not in CONVERTES_TYPES:
@@ -23,7 +23,7 @@ def num2words_(number, **kwargs):
 
 # Jinja2 Global Method
 def num2words_currency(number, **kwargs):
-    if _performConvert(number):
+    if _perform_convert(number):
         if "lang" not in kwargs:
             kwargs["lang"] = "ru"
         if "to" not in kwargs or kwargs["to"] not in CONVERTES_TYPES:
@@ -34,7 +34,6 @@ def num2words_currency(number, **kwargs):
         total = result.split(",")[0]
         part_word = result.split()[-1]
         part_number = Decimal(str(number)) % 1
-
         return "{total}, {part_n} {part_w}".format(
             total=total.capitalize(),
             part_n="{:02d}".format(int(part_number * 100)),
@@ -42,15 +41,13 @@ def num2words_currency(number, **kwargs):
         )
 
 
-def _performConvert(number):
+def _perform_convert(number):
     if isinstance(number, int) or isinstance(number, float):
         return True
-
     if isinstance(number, str):
         try:
             number = float(number)
             return True
         except ValueError:
             return False
-
     return False

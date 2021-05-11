@@ -14,7 +14,7 @@
 self = record  # res.partner.contract
 
 partner = self.partner_id # res.partner
-seller = self.company_id
+seller = self.company_id.partner_id
 
 # Functions
 _ = self._
@@ -164,7 +164,7 @@ action = ctx
 # Aliases
 self = record  # res.partner.contract.annex
 
-seller = self.company_id
+seller = self.company_id.partner_id
 partner = self.partner_id
 
 # Functions

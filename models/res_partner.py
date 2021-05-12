@@ -52,7 +52,7 @@ class ResPartner(models.Model):
     @api.depends("street", "street2", "city", "state_id", "zip", "country_id")
     def _compute_full_address(self):
         for record in self:
-            data = filter(
+            address_data = filter(
                 None,
                 map(
                     lambda s: s and s.strip(),
@@ -60,12 +60,12 @@ class ResPartner(models.Model):
                         record.zip,
                         record.street,
                         record.street2,
-                        record.country_id.name,
                         record.city,
+                        record.country_id.l10n_ru_short_name or record.country_id.name,
                     ],
-                ),
+                )
             )
-            record.full_address = ", ".join(data)
+            record.full_address = ", ".join(address_data)
 
     @api.depends("self.client_contract_ids")
     def _compute_contract_count(self):

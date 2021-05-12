@@ -1,19 +1,21 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* client_contracts
+# 	* client_contracts
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0-20191106\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-18 13:42+0000\n"
-"PO-Revision-Date: 2020-03-18 13:42+0000\n"
+"PO-Revision-Date: 2021-05-12 16:28+0500\n"
 "Last-Translator: Stepan Savelyev\n"
 "Language-Team: RYDLAB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"Language: ru\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #. module: client_contracts
 #: model:ir.model.fields,field_description:client_contracts.field_res_partner_contract_count
@@ -471,10 +473,6 @@ msgstr "Полный адрес"
 #. module: client_contracts
 #: model:res.partner.contract.field,description:client_contracts.contract_field_currency2words
 #: model:res.partner.contract.field,description:client_contracts.contract_field_number2words
-msgid "Function"
-msgstr "Функция"
-
-#. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_representer_function
 #: model:res.partner.contract.field,name:client_contracts.contract_field_seller_representer_function
 msgid "Function"
@@ -621,7 +619,7 @@ msgstr "Последнее обновление"
 #. module: client_contracts
 #: model:ir.ui.view,arch_db:client_contracts.res_partner_contract_annex_view_form
 msgid "Leave empty for compute"
-msgstr "Оставить пустым для автозаполнения..."
+msgstr "Оставить пустым для автозаполнения"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_MM
@@ -715,7 +713,8 @@ msgstr "Имя заказа"
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_contract_annex_order_id
 msgid "Orders with this partner which are not uses in annexes yet"
-msgstr "Заказы, заключённые с этим партнёром и ещё не использующиеся в приложениях"
+msgstr ""
+"Заказы, заключённые с этим партнёром и ещё не использующиеся в приложениях"
 
 #. module: client_contracts
 #: model:res.partner.contract.field,name:client_contracts.contract_field_partner_ogrn
@@ -1049,8 +1048,12 @@ msgstr "Шаблоны"
 #. module: client_contracts
 #: code:addons/client_contracts/models/account_invoice.py:20
 #, python-format
-msgid "There is no binding contract. It is necessary to link the order with the annex to the contract."
-msgstr "Отсутствует связанный договор. Необходимо связать заказ с приложением к договору."
+msgid ""
+"There is no binding contract. It is necessary to link the order with the "
+"annex to the contract."
+msgstr ""
+"Отсутствует связанный договор. Необходимо связать заказ с приложением к "
+"договору."
 
 #. module: client_contracts
 #: model:ir.model.fields,help:client_contracts.field_res_partner_name_write

@@ -359,6 +359,12 @@ mm = mm if mm // 10 else '0{}'.format(mm)
 
 # ctx keys must be declared in this xml with id equal to "contract_field_{technical_name}"
 ctx = {
+    # For manual filling on offer creation
+    "offer_subject": "",
+    "object_name": "",
+    "object_address": "",
+
+    # Fields from models
     "offer_name": self.name,
     "offer_date": "{} {} {}".format(offer_date.day, months[offer_date.month], offer_date.year),
 
@@ -498,7 +504,35 @@ action = ctx
 
 
         <!-- Offer fields -->
+        <!-- For manual filling -->
+        <record id="contract_field_offer_subject" model="res.partner.contract.field">
+            <field name="name">Offer subject</field>
+            <field name="technical_name">offer_subject</field>
+            <field name="description">
+                What we offers to our customer, i.e. 'power panels supply' or 'jobs execution and equipment supply'
+            </field>
+            <field name="sequence">1</field>
+        </record>
 
+        <record id="contract_field_object_name" model="res.partner.contract.field">
+            <field name="name">Object name</field>
+            <field name="technical_name">object_name</field>
+            <field name="description">
+                Object name this offer is made for
+            </field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="contract_field_object_address" model="res.partner.contract.field">
+            <field name="name">Object address</field>
+            <field name="technical_name">object_address</field>
+            <field name="description">
+                Object's address this offer is made for
+            </field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- Filling from models -->
         <record id="contract_field_offer_name" model="res.partner.contract.field">
             <field name="name">Offer name</field>
             <field name="technical_name">offer_name</field>

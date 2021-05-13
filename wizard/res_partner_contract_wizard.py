@@ -229,6 +229,7 @@ class ContractWizard(models.TransientModel):
             or hasattr(self.target, "order_id")
             and self.target.order_id.order_line
         ):
+
             def number_generator(n=1):
                 while True:
                     yield n

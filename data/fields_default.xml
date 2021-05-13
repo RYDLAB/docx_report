@@ -374,6 +374,7 @@ ctx = {
     "amount_untaxed": self.amount_untaxed,
     "amount_tax": self.amount_tax,
     "amount_total": self.amount_total,
+    "currency_symbol": self.currency_id.symbol,
     "terms_and_conditions": self.note,
 
     # "payment_part_one": self.payment_part_one,
@@ -591,6 +592,15 @@ action = ctx
             <field name="technical_name">amount_total</field>
             <field name="description">
                 Sale order total amount including taxes
+            </field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="contract_field_currency_symbol" model="res.partner.contract.field">
+            <field name="name">Currency symbol</field>
+            <field name="technical_name">currency_symbol</field>
+            <field name="description">
+                Symbol for used currency, for displaying in documents
             </field>
             <field name="sequence">4</field>
         </record>

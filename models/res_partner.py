@@ -63,7 +63,7 @@ class ResPartner(models.Model):
                         record.city,
                         record.country_id.l10n_ru_short_name or record.country_id.name,
                     ],
-                )
+                ),
             )
             record.full_address = ", ".join(address_data)
 

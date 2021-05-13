@@ -224,33 +224,45 @@ class ContractWizard(models.TransientModel):
                 }
             )
         # Extend with order product lines
-        if hasattr(self.target, "order_id") and self.target.order_id.order_line:
+        if (
+            self.target._name == "sale.order"
+            or hasattr(self.target, "order_id")
+            and self.target.order_id.order_line
+        ):
 
             def number_generator(n=1):
                 while True:
                     yield n
                     n += 1
 
+            sale_order_rec = (
+                self.target
+                if self.target._name == "sale.order"
+                else self.target.order_id
+            )
             counter = number_generator()
-
             fields.update(
                 {
                     "products": [
                         {
                             "number": next(counter),
+                            "vendor_code": item.product_id.default_code,
                             "label": item.product_id.display_name,
                             "description": item.name,
+                            # "uom": item.product_id.uom_po_id.name,
                             "count": item.product_uom_qty,
                             "unit": item.product_uom.name,
                             "cost": self.to_fixed(item.price_unit),
+                            "cost_wo_vat": self.to_fixed(item.price_reduce_taxexcl),
                             "discount": self.to_fixed(item.discount),
                             "subtotal": self.to_fixed(item.price_subtotal),
+                            "currency_symbol": item.currency_id.symbol,
                             "display_type": item.display_type,
                         }
-                        for item in self.target.order_id.order_line or []
+                        for item in sale_order_rec.order_line or []
                     ],
                     "total_amount": self.to_fixed(
-                        sum(self.target.order_id.order_line.mapped("price_subtotal"))
+                        sum(sale_order_rec.order_line.mapped("price_subtotal"))
                     ),
                 }
             )

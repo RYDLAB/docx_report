@@ -370,7 +370,11 @@ ctx = {
 
     # "delivery_address": self.delivery_address,
     "commitment_date": self.commitment_date,
+    "products_amount": len(self.order_line.filtered(lambda rec: not rec.display_type)),
+    "amount_untaxed": self.amount_untaxed,
+    "amount_tax": self.amount_tax,
     "amount_total": self.amount_total,
+    "terms_and_conditions": self.note,
 
     # "payment_part_one": self.payment_part_one,
     # "payment_part_two": self.payment_part_two,
@@ -500,9 +504,6 @@ action = ctx
             <field name="sequence">-1</field>
         </record>
 
-
-
-
         <!-- Offer fields -->
         <!-- For manual filling -->
         <record id="contract_field_offer_subject" model="res.partner.contract.field">
@@ -558,11 +559,47 @@ action = ctx
             <field name="sequence">3</field>
         </record>
 
+        <record id="contract_field_products_amount" model="res.partner.contract.field">
+            <field name="name">Products amount</field>
+            <field name="technical_name">products_amount</field>
+            <field name="description">
+                Total products amount in Sale order, including services and goods.
+            </field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="contract_field_amount_untaxed" model="res.partner.contract.field">
+            <field name="name">Amount untaxed</field>
+            <field name="technical_name">amount_untaxed</field>
+            <field name="description">
+                Sale order total amount without taxes
+            </field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="contract_field_amount_tax" model="res.partner.contract.field">
+            <field name="name">Amount tax</field>
+            <field name="technical_name">amount_tax</field>
+            <field name="description">
+                Sale order total taxes amount
+            </field>
+            <field name="sequence">4</field>
+        </record>
+
         <record id="contract_field_amount_total" model="res.partner.contract.field">
             <field name="name">Amount total</field>
             <field name="technical_name">amount_total</field>
             <field name="description">
-                Sale order total amount
+                Sale order total amount including taxes
+            </field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="contract_field_terms_and_conditions" model="res.partner.contract.field">
+            <field name="name">Terms and conditions</field>
+            <field name="technical_name">terms_and_conditions</field>
+            <field name="description">
+                Terms and conditions from Sale order
             </field>
             <field name="sequence">4</field>
         </record>

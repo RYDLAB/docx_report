@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from num2words import num2words
-from num2words import CONVERTER_CLASSES, CONVERTES_TYPES
+from num2words import CONVERTES_TYPES
 
 
 # Can use params:

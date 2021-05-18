@@ -370,7 +370,7 @@ ctx = {
 
     # "delivery_address": self.delivery_address,
     "commitment_date": self.commitment_date,
-    "products_amount": len(self.order_line.filtered(lambda rec: not rec.display_type)),
+    # "products_amount": len(self.order_line.filtered(lambda rec: not rec.display_type)),
     "amount_untaxed": self.amount_untaxed,
     "amount_tax": self.amount_tax,
     "amount_total": self.amount_total,

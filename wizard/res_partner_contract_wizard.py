@@ -69,13 +69,13 @@ class ContractWizard(models.TransientModel):
         readonly=False,
     )
     transient_field_ids = fields.One2many(
-        "res.partner.contract.field.transient",
-        "_contract_wizard_id",
+        comodel_name="res.partner.contract.field.transient",
+        inverse_name="_contract_wizard_id",
         string="Contract Fields",
     )
     transient_field_ids_hidden = fields.One2many(
-        "res.partner.contract.field.transient",
-        "_contract_wizard_id",
+        comodel_name="res.partner.contract.field.transient",
+        inverse_name="_contract_wizard_id",
     )
 
     @api.depends("target")
@@ -207,6 +207,95 @@ class ContractWizard(models.TransientModel):
         )
         return self.afterload(document_as_attachment)
 
+    def get_so_lines(self):
+        """
+        Generates lines for printing from Sale order lines, including folding groups
+        ended with text "--fold".
+        :return: 2 values: lines data with folded groups and total amount of SO.
+        """
+
+        def number_generator(n=1):
+            while True:
+                yield n
+                n += 1
+
+        sale_order_rec = (
+            self.target if self.target._name == "sale.order" else self.target.order_id
+        )
+        counter = number_generator()
+        lines_data = []
+        folded_group = False
+        group_description = ""
+        group_amount = 0.0
+
+        for item in sale_order_rec.order_line:
+            # Folded group ends #
+            if item.display_type == "line_section" and folded_group:
+                folded_group = False
+                lines_data.append(
+                    {
+                        "number": next(counter),
+                        "vendor_code": "",
+                        "label": group_description,
+                        "count": 1.0,
+                        "unit": self.env.ref("uom.product_uom_unit").name,
+                        "cost_wo_vat": group_amount,
+                        "subtotal": group_amount,
+                        "display_type": False,
+                    }
+                )
+            # Folded group starts #
+            if item.display_type == "line_section" and item.name.find("--fold") >= 0:
+                folded_group = True
+                group_amount = 0.0
+                index_for_cut = item.name.find("--fold")
+                group_description = item.name[:index_for_cut].strip()
+            # Regular, unfolded group or comment or regular line with product #
+            if (
+                item.display_type == "line_note"
+                or item.display_type == "line_section"
+                and item.name.find("--fold") == -1
+                or not folded_group
+                and not item.display_type
+            ):
+                lines_data.append(
+                    {
+                        "number": next(counter) if not item.display_type else "",
+                        "vendor_code": item.product_id.default_code
+                        if item.product_id
+                        else "",
+                        "label": item.product_id.display_name
+                        if item.product_id
+                        else "",
+                        "description": item.name,
+                        "count": item.product_uom_qty,
+                        "unit": item.product_uom.name if item.product_uom else "",
+                        "cost": item.price_unit,
+                        "cost_wo_vat": item.price_reduce_taxexcl,
+                        "discount": item.discount,
+                        "subtotal": item.price_subtotal,
+                        "display_type": item.display_type,
+                    }
+                )
+            # Line with product inside folded group #
+            if folded_group and not item.display_type:
+                group_amount += item.price_subtotal
+        # Last folded group handling #
+        if folded_group and group_description:
+            lines_data.append(
+                {
+                    "number": next(counter),
+                    "vendor_code": "",
+                    "label": group_description,
+                    "count": 1,
+                    "unit": self.env.ref("uom.product_uom_unit").name,
+                    "cost_wo_vat": group_amount,
+                    "subtotal": group_amount,
+                    "display_type": False,
+                }
+            )
+        return lines_data, sale_order_rec.amount_total
+
     def payload(self):
         # Collect fields into a key-value structure
         fields = {
@@ -229,38 +318,13 @@ class ContractWizard(models.TransientModel):
             or hasattr(self.target, "order_id")
             and self.target.order_id.order_line
         ):
-
-            def number_generator(n=1):
-                while True:
-                    yield n
-                    n += 1
-
-            sale_order_rec = (
-                self.target
-                if self.target._name == "sale.order"
-                else self.target.order_id
-            )
-            counter = number_generator()
+            so_lines, total_amount = self.get_so_lines()
             fields.update(
                 {
-                    "products": [
-                        {
-                            "number": next(counter) if not item.display_type else "",
-                            "vendor_code": item.product_id.default_code or "",
-                            "label": item.product_id.display_name,
-                            "description": item.name,
-                            "count": item.product_uom_qty,
-                            "unit": item.product_uom.name,
-                            "cost": item.price_unit,
-                            "cost_wo_vat": item.price_reduce_taxexcl,
-                            "discount": item.discount,
-                            "subtotal": item.price_subtotal,
-                            "display_type": item.display_type,
-                        }
-                        for item in sale_order_rec.order_line or []
-                    ],
-                    "total_amount": self.to_fixed(
-                        sum(sale_order_rec.order_line.mapped("price_subtotal"))
+                    "products": so_lines,
+                    "total_amount": total_amount,
+                    "products_amount": len(
+                        list(filter(lambda rec: not rec["display_type"], so_lines))
                     ),
                 }
             )

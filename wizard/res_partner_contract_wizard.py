@@ -239,8 +239,8 @@ class ContractWizard(models.TransientModel):
                         "label": group_description,
                         "count": 1.0,
                         "unit": self.env.ref("uom.product_uom_unit").name,
-                        "cost_wo_vat": group_amount,
-                        "subtotal": group_amount,
+                        "cost_wo_vat": self.to_fixed(group_amount),
+                        "subtotal": self.to_fixed(group_amount),
                         "display_type": False,
                     }
                 )
@@ -255,14 +255,13 @@ class ContractWizard(models.TransientModel):
                 item.display_type == "line_note"
                 or item.display_type == "line_section"
                 and item.name.find("--fold") == -1
-                or not folded_group
-                and not item.display_type
-            ):
+                or not item.display_type
+            ) and not folded_group:
                 lines_data.append(
                     {
                         "number": next(counter) if not item.display_type else "",
                         "vendor_code": item.product_id.default_code
-                        if item.product_id
+                        if (item.product_id and item.product_id.default_code)
                         else "",
                         "label": item.product_id.display_name
                         if item.product_id
@@ -270,14 +269,14 @@ class ContractWizard(models.TransientModel):
                         "description": item.name,
                         "count": item.product_uom_qty,
                         "unit": item.product_uom.name if item.product_uom else "",
-                        "cost": item.price_unit,
-                        "cost_wo_vat": item.price_reduce_taxexcl,
+                        "cost": self.to_fixed(item.price_unit),
+                        "cost_wo_vat": self.to_fixed(item.price_reduce_taxexcl),
                         "discount": item.discount,
-                        "subtotal": item.price_subtotal,
+                        "subtotal": self.to_fixed(item.price_subtotal),
                         "display_type": item.display_type,
                     }
                 )
-            # Line with product inside folded group #
+            # Line with product or comment inside folded group #
             if folded_group and not item.display_type:
                 group_amount += item.price_subtotal
         # Last folded group handling #
@@ -287,10 +286,10 @@ class ContractWizard(models.TransientModel):
                     "number": next(counter),
                     "vendor_code": "",
                     "label": group_description,
-                    "count": 1,
+                    "count": 1.0,
                     "unit": self.env.ref("uom.product_uom_unit").name,
-                    "cost_wo_vat": group_amount,
-                    "subtotal": group_amount,
+                    "cost_wo_vat": self.to_fixed(group_amount),
+                    "subtotal": self.to_fixed(group_amount),
                     "display_type": False,
                 }
             )

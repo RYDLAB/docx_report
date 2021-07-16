@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     "name": "DOCX report",
     "summary": """
@@ -8,10 +7,10 @@
     "website": "http://rydlab.ru",
     "category": "Technical",
     "version": "0.0.1",
-    "depends": ["base"],
-    "external_dependencies": {"python": ["docxtpl", "num2words"]},
+    "depends": ["base", "web"],
+    "external_dependencies": {"python": ["docxcompose", "docxtpl"]},
     "data": [
-        "data/assets_extension.xml",
+        "views/assets.xml",
         "views/ir_actions_report_views.xml",
     ],
 }

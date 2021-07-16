@@ -7,10 +7,10 @@
         <field name="inherit_id" ref="base.act_report_xml_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='report_name']" position="attributes">
-                <attribute name="attrs">{'required': [('report_type', 'not in', ['docx-docx'])]}</attribute>
+                <attribute name="attrs">{'readonly': [('report_type', 'in', ['docx-docx', 'docx-pdf'])], 'required': [('report_type', 'not in', ['docx-docx', 'docx-pdf'])]}</attribute>
             </xpath>
             <xpath expr="//field[@name='report_name']" position="after">
-                <field name="report_docx_template" attrs="{'required': [('report_type', 'in', ['docx-docx'])]}"/>
+                <field name="report_docx_template" attrs="{'required': [('report_type', 'in', ['docx-docx', 'docx-pdf'])]}"/>
             </xpath>
         </field>
     </record>

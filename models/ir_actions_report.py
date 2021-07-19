@@ -22,7 +22,10 @@ class IrActionsReport(models.Model):
     _inherit = "ir.actions.report"
 
     report_name = fields.Char(
-        compute="_compute_report_name", inverse="_inverse_report_name", store=True
+        compute="_compute_report_name",
+        inverse="_inverse_report_name",
+        store=True,
+        required=False,
     )
     report_type = fields.Selection(
         selection_add=[("docx-docx", "DOCX"), ("docx-pdf", "DOCX(PDF)")],

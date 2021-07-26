@@ -1,10 +1,18 @@
 # DOCS report
-Adds docx reports printing from docx templates like standard Odoo reports
-with qweb templates. Standard Odoo reports also available.
 
-For generating pdf from docx external service the "gotenberg" is used.
-It should work at the same server as Odoo app. If "gotenberg" absent, there
-will be only reports in docx format.
+Позволяет добавлять в модель отчётов в качестве шаблона-источника файлы формата docx.
+Получить отчёты на основе такого шаблона можно в формате docx или pdf.
+Для преобразования docx -> pdf требуется доступный сервис gotenberg на localhost:8808.
+Пример запуска сервиса в docker-compose рядом с Odoo:
 
-To get and start "gotenberg" container use command:
-docker run -h docx_to_pdf -e DEFAULT_LISTEN_PORT=8808 thecodingmachine/gotenberg
+```yaml
+gotenberg:
+    image: thecodingmachine/gotenberg:6
+    restart: unless-stopped
+    environment:
+        LOG_LEVEL: INFO
+        DEFAULT_LISTEN_PORT: 8808
+        DISABLE_GOOGLE_CHROME: 1
+        DEFAULT_WAIT_TIMEOUT: 30
+        MAXIMUM_WAIT_TIMEOUT: 60
+```

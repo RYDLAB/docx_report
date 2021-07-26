@@ -51,6 +51,12 @@ class IrActionsReport(models.Model):
         pass
 
     def retrieve_attachment(self, record):
+        """
+        Поиск существующего файла отчета во вложениях записи по:
+        1. name
+        2. res_model
+        3. res_id
+        """
         result = super().retrieve_attachment(record)
         if result:
             if self.report_type == "docx-docx":
@@ -69,6 +75,10 @@ class IrActionsReport(models.Model):
 
     @api.model
     def _render_docx_pdf(self, res_ids=None, data=None):
+        """
+        Подготавливает данные для рендера файла отчета, вызывает метод рендера
+        И обрабатывает результат рендера
+        """
         if not data:
             data = {}
         data.setdefault("report_type", "pdf")
@@ -127,6 +137,10 @@ class IrActionsReport(models.Model):
 
     @api.model
     def _render_docx_docx(self, res_ids=None, data=None):
+        """
+        Подготавливает данные для рендера файла отчета, вызывает метод рендера
+        И обрабатывает результат рендера
+        """
         if not data:
             data = {}
         data.setdefault("report_type", "docx")
@@ -174,6 +188,10 @@ class IrActionsReport(models.Model):
         return docx_content, "docx"
 
     def _post_docx(self, save_in_attachment, docx_content=None, res_ids=None):
+        """
+        Добавляет сгенерированный файл в аттачменты
+        """
+
         def close_streams(streams):
             for stream in streams:
                 try:
@@ -233,6 +251,9 @@ class IrActionsReport(models.Model):
         return result
 
     def _postprocess_docx_report(self, record, buffer):
+        """
+        Непосредственно создает запись в ir.attachment
+        """
         attachment_name = safe_eval(self.attachment, {"object": record, "time": time})
         if not attachment_name:
             return None
@@ -257,6 +278,9 @@ class IrActionsReport(models.Model):
         return buffer
 
     def _merge_docx(self, streams):
+        """
+        Объединяет несколько docx файлов в один
+        """
         if streams:
             writer = Document(streams[0])
             composer = Composer(writer)
@@ -268,6 +292,9 @@ class IrActionsReport(models.Model):
             return streams
 
     def _render_docx(self, docids, data=None):
+        """
+        Получает данные для рендеринга и вызывает его.
+        """
         if not data:
             data = {}
         data.setdefault("report_type", "docx")
@@ -275,6 +302,9 @@ class IrActionsReport(models.Model):
         return self._render_docx_template(self.report_docx_template, values=data)
 
     def _render_docx_template(self, template, values=None):
+        """
+        Непосредственно рендеринг docx файла
+        """
         if values is None:
             values = {}
 
@@ -322,6 +352,9 @@ class IrActionsReport(models.Model):
         return docx_content
 
     def _get_pdf_from_office(self, content_stream):
+        """
+        Вызов конвертации docx в pdf с помощью gotenberg
+        """
         result = None
         try:
             response = post_request(

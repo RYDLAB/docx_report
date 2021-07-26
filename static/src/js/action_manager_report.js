@@ -6,6 +6,9 @@ odoo.define("docx_report.ReportActionManager", function (require) {
     var session = require("web.session");
 
     ActionManager.include({
+        /**
+        * Запрос на скачивание сгенерированного файла отчета
+        */
         _downloadReport: function (url, action) {
             var self = this;
             var template_type = (action.report_type && action.report_type.split("-")[0]) || "qweb";
@@ -36,6 +39,13 @@ odoo.define("docx_report.ReportActionManager", function (require) {
                 }
             });
         },
+        /**
+        * Этот метод вызывается при нажатии на пункт меню для печати отчета.
+        *
+        * Вызывает _triggerDownload с различными аргументами.
+        * Расширяется новыми вариантами.
+        * В оригинальном методе есть и другой функционал.
+        */
         _executeReportAction: function (action, options) {
             if (action.report_type === "docx-docx") {
                 return this._triggerDownload(action, options, "docx");
@@ -45,6 +55,10 @@ odoo.define("docx_report.ReportActionManager", function (require) {
                 return this._super.apply(this, arguments);
             }
         },
+
+        /**
+        * Запускает скачивание файла отчета
+        */
         _triggerDownload: function (action, options, type){
             var self = this;
             var reportUrls = this._makeReportUrls(action);
@@ -57,6 +71,9 @@ odoo.define("docx_report.ReportActionManager", function (require) {
                 }
             });
         },
+        /**
+        * Генерирует URL для запроса отчета
+        */
         _makeReportUrls: function (action) {
             var reportUrls = this._super.apply(this, arguments);
             reportUrls.docx = "/report/docx/" + action.report_name;

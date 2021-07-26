@@ -20,6 +20,9 @@ _logger = getLogger(__name__)
 class DocxReportController(ReportController):
     @route()
     def report_routes(self, reportname, docids=None, converter=None, **data):
+        """
+        Запускает генерацию файла отчета и возвращает его
+        """
         report = request.env["ir.actions.report"]._get_report_from_name(reportname)
         context = dict(request.env.context)
         _data = dict()
@@ -61,6 +64,9 @@ class DocxReportController(ReportController):
 
     @route()
     def report_download(self, data, token, context=None):
+        """
+        Обрабатывает запрос на скачивание файла отчета
+        """
         requestcontent = json_loads(data)
         url, type = requestcontent[0], requestcontent[1]
         try:

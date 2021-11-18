@@ -11,6 +11,7 @@ from requests import codes as codes_request, post as post_request
 from requests.exceptions import RequestException
 
 from odoo import _, api, fields, models
+from odoo.addons.gotenberg.service.utils import get_auth,  convert_pdf_from_office_url
 from odoo.exceptions import AccessError, UserError
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval, time
@@ -356,10 +357,13 @@ class IrActionsReport(models.Model):
         Вызов конвертации docx в pdf с помощью gotenberg
         """
         result = None
+        url = convert_pdf_from_office_url()
+        auth = get_auth()
         try:
             response = post_request(
-                "http://gotenberg:8808/convert/office",
+                url,
                 files={"file": ("converted_file.docx", content_stream.read())},
+                auth=auth
             )
             if response.status_code == codes_request.ok:
                 result = response.content

@@ -11,7 +11,7 @@ from requests import codes as codes_request, post as post_request
 from requests.exceptions import RequestException
 
 from odoo import _, api, fields, models
-from odoo.addons.gotenberg.service.utils import get_auth,  convert_pdf_from_office_url
+from odoo.addons.gotenberg.service.utils import get_auth, convert_pdf_from_office_url
 from odoo.exceptions import AccessError, UserError
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval, time
@@ -363,7 +363,7 @@ class IrActionsReport(models.Model):
             response = post_request(
                 url,
                 files={"file": ("converted_file.docx", content_stream.read())},
-                auth=auth
+                auth=auth,
             )
             if response.status_code == codes_request.ok:
                 result = response.content

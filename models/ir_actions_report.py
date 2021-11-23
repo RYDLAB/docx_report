@@ -11,10 +11,19 @@ from requests import codes as codes_request, post as post_request
 from requests.exceptions import RequestException
 
 from odoo import _, api, fields, models
-from odoo.addons.gotenberg.service.utils import get_auth, convert_pdf_from_office_url
 from odoo.exceptions import AccessError, UserError
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval, time
+
+try:
+    from odoo.addons.gotenberg.service.utils import (
+        get_auth,  # noqa
+        convert_pdf_from_office_url,  # noqa
+    )
+
+    gotenberg_installed = True
+except ImportError:
+    gotenberg_installed = False
 
 _logger = getLogger(__name__)
 
@@ -113,7 +122,10 @@ class IrActionsReport(models.Model):
             return self_sudo._post_pdf(save_in_attachment), "pdf"
 
         docx_content = self._render_docx(res_ids, data=data)
-        pdf_content = self._get_pdf_from_office(docx_content)
+
+        pdf_content = (
+            self._get_pdf_from_office(docx_content) if gotenberg_installed else None
+        )
 
         if not pdf_content:
             raise UserError(

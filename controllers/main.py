@@ -54,7 +54,7 @@ class DocxReportController(ReportController):
                     "Content-Type",
                     "application/pdf",
                 ),
-                ("Content-Length", len(pdf)),
+                ("Content-Length", len(pdf[0])),
             ]
             return request.make_response(pdf, headers=pdfhttpheaders)
         else:

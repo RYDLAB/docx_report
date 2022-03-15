@@ -15,6 +15,17 @@ from odoo.exceptions import AccessError, UserError
 from odoo.http import request
 from odoo.tools.safe_eval import safe_eval, time
 
+try:
+    from odoo.addons.gotenberg.service.utils import (
+        get_auth,  # noqa
+        convert_pdf_from_office_url,  # noqa
+        check_gotenberg_installed,  # noqa
+    )
+
+    gotenberg_imported = True
+except ImportError:
+    gotenberg_imported = False
+
 _logger = getLogger(__name__)
 
 
@@ -113,7 +124,12 @@ class IrActionsReport(models.Model):
             return self_sudo._post_pdf(save_in_attachment), "pdf"
 
         docx_content = self._render_docx(res_ids, data=data)
-        pdf_content = self._get_pdf_from_office(docx_content)
+
+        pdf_content = (
+            self._get_pdf_from_office(docx_content)
+            if check_gotenberg_installed()
+            else None
+        )
 
         if not pdf_content:
             raise UserError(
@@ -357,10 +373,13 @@ class IrActionsReport(models.Model):
         Вызов конвертации docx в pdf с помощью gotenberg
         """
         result = None
+        url = convert_pdf_from_office_url()
+        auth = get_auth()
         try:
             response = post_request(
-                "http://gotenberg:8808/convert/office",
+                url,
                 files={"file": ("converted_file.docx", content_stream.read())},
+                auth=auth,
             )
             if response.status_code == codes_request.ok:
                 result = response.content

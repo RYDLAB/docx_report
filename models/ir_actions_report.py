@@ -48,6 +48,7 @@ class IrActionsReport(models.Model):
                 record.report_name = False
 
     def _inverse_report_name(self):
+        """TODO: write this method"""
         pass
 
     def retrieve_attachment(self, record):

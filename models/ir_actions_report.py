@@ -19,7 +19,7 @@ try:
     from odoo.addons.gotenberg.service.utils import (
         get_auth,  # noqa
         convert_pdf_from_office_url,  # noqa
-        check_gotenberg_installed, # noqa
+        check_gotenberg_installed,  # noqa
     )
 
     gotenberg_imported = True
@@ -125,7 +125,9 @@ class IrActionsReport(models.Model):
         docx_content = self._render_docx(res_ids, data=data)
 
         pdf_content = (
-            self._get_pdf_from_office(docx_content) if check_gotenberg_installed() else None
+            self._get_pdf_from_office(docx_content)
+            if check_gotenberg_installed()
+            else None
         )
 
         if not pdf_content:

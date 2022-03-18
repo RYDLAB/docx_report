@@ -2,16 +2,19 @@
     "name": "DOCX report",
     "summary": """Printing reports in docx format from docx templates.""",
     "description": """
-        Adds docx reports printing from docx templates like standard Odoo reports
+        Adds generation reports from .docx templates like standard Odoo reports
         with qweb templates. Standard Odoo reports also available.
-        For generating pdf from docx external service the "gotenberg" is used.
-        It should work at the same server as Odoo app. If "gotenberg" absent, there
-        will be only reports in docx format.
+        For generating .pdf from .docx external service the "Gotenberg" is used,
+        and it required module for integration with this service: "gotenberg".
+        If integration module "gotenberg" is absent, or service itself unreachable
+        there will be only reports in docx format.
+
+        This is the beta version, bugs may be present.
     """,
     "author": "RYDLAB",
     "website": "http://rydlab.ru",
     "category": "Technical",
-    "version": "0.0.1",
+    "version": "0.8.1",
     "depends": ["base", "web", "custom_report_field", "report_monetary_helpers"],
     "external_dependencies": {"python": ["docxcompose", "docxtpl"]},
     "data": [

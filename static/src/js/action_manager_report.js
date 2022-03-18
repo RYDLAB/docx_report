@@ -39,6 +39,7 @@ odoo.define("docx_report.ReportActionManager", function (require) {
                 }
             });
         },
+
         /**
         * Этот метод вызывается при нажатии на пункт меню для печати отчета.
         *
@@ -71,6 +72,7 @@ odoo.define("docx_report.ReportActionManager", function (require) {
                 }
             });
         },
+
         /**
         * Генерирует URL для запроса отчета
         */

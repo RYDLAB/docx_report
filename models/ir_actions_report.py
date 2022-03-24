@@ -127,7 +127,7 @@ class IrActionsReport(models.Model):
 
         pdf_content = (
             self._get_pdf_from_office(docx_content)
-            if check_gotenberg_installed()
+            if gotenberg_imported and check_gotenberg_installed()
             else None
         )
 

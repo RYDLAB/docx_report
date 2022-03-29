@@ -1,6 +1,4 @@
 from json import dumps as json_dumps, loads as json_loads
-from logging import getLogger
-
 from werkzeug.urls import url_decode
 
 from odoo.http import (
@@ -13,8 +11,6 @@ from odoo.tools import html_escape
 from odoo.tools.safe_eval import safe_eval, time
 
 from odoo.addons.web.controllers.main import ReportController
-
-_logger = getLogger(__name__)
 
 
 class DocxReportController(ReportController):
@@ -44,7 +40,6 @@ class DocxReportController(ReportController):
                     "Content-Type",
                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 ),
-                # ("Content-Length", len(docx)),
             ]
             return request.make_response(docx, headers=docxhttpheaders)
         elif converter == "pdf" and "docx" in report.report_type:

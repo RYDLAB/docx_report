@@ -18,7 +18,12 @@
     "depends": ["base", "web", "custom_report_field", "report_monetary_helpers"],
     "external_dependencies": {"python": ["docxcompose", "docxtpl"]},
     "data": [
-        "views/assets.xml",
         "views/ir_actions_report_views.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "docx_report/static/src/css/mimetypes.css",
+            "docx_report/static/src/js/action_manager_report.js",
+        ],
+    },
 }

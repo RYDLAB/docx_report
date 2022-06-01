@@ -111,10 +111,11 @@ class DocxReportController(ReportController):
                 response.headers.add(
                     "Content-Disposition", content_disposition(filename)
                 )
-                response.set_cookie("fileToken", token)
+                # token is dummy in 15 version
+                # response.set_cookie("fileToken", token)
                 return response
             else:
-                return super().report_download(data, token, context=context)
+                return super(DocxReportController, self).report_download(data, context=context)
         except Exception as e:
             se = _serialize_exception(e)
             error = {"code": 200, "message": "Odoo Server Error", "data": se}

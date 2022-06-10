@@ -1,4 +1,5 @@
 from base64 import b64decode
+from bs4 import BeautifulSoup
 from collections import OrderedDict
 from io import BytesIO
 from logging import getLogger
@@ -6,7 +7,6 @@ from logging import getLogger
 from docx import Document
 from docxcompose.composer import Composer
 from docxtpl import DocxTemplate
-from jinja2 import Environment as Jinja2Environment
 from requests import codes as codes_request, post as post_request
 from requests.exceptions import RequestException
 
@@ -119,7 +119,7 @@ class IrActionsReport(models.Model):
             res_ids = docx_record_ids.ids
 
         if save_in_attachment and not res_ids:
-            _logger.info("The PDF report has been generated from attachments.")
+            _logger.info("The PDF report has been generated from attachment.")
             self._raise_on_unreadable_pdfs(save_in_attachment.values(), stream_record)
             return self_sudo._post_pdf(save_in_attachment), "pdf"
 
@@ -186,7 +186,7 @@ class IrActionsReport(models.Model):
             res_ids = docx_record_ids.ids
 
         if save_in_attachment and not res_ids:
-            _logger.info("The DOCS report has been generated from attachments.")
+            _logger.info("The DOCS report has been generated from attachment.")
             return self_sudo._post_docx(save_in_attachment), "docx"
 
         docx_content = self._render_docx(res_ids, data=data)
@@ -262,7 +262,9 @@ class IrActionsReport(models.Model):
                 result = self._merge_docx(streams)
             except Exception as e:
                 _logger.exception(e)
-                raise UserError(_("One of the documents, you try to merge is fallback"))
+                raise UserError(
+                    _("One of the documents you try to merge caused failure.")
+                )
 
         close_streams(streams)
         return result
@@ -294,9 +296,10 @@ class IrActionsReport(models.Model):
             )
         return buffer
 
-    def _merge_docx(self, streams):
+    @staticmethod
+    def _merge_docx(streams):
         """
-        Объединяет несколько docx файлов в один
+        Joins several docx files into one.
         """
         if streams:
             writer = Document(streams[0])
@@ -318,15 +321,13 @@ class IrActionsReport(models.Model):
         data = self._get_rendering_context(docids, data)
         return self._render_docx_template(self.report_docx_template, values=data)
 
-    def _render_docx_template(self, template, values=None):
+    def _render_docx_template(self, template: bytes, values: dict = None):
         """
         Непосредственно рендеринг docx файла
         """
         if values is None:
             values = {}
-
         context = dict(self.env.context, inherit_branding=False)
-
         # Browse the user instead of using the sudo self.env.user
         user = self.env["res.users"].browse(self.env.uid)
         website = None
@@ -338,7 +339,6 @@ class IrActionsReport(models.Model):
                     translatable=context.get("lang")
                     != request.env["ir.http"]._get_default_lang().code,
                 )
-
         values.update(
             time=time,
             context_timestamp=lambda t: fields.Datetime.context_timestamp(
@@ -352,23 +352,41 @@ class IrActionsReport(models.Model):
             .get_param("web.base.url", default=""),
         )
 
-        data = {key: value for key, value in values.items() if not callable(value)}
-        functions = {key: value for key, value in values.items() if callable(value)}
+        record_to_render = values["docs"]
+        docs = {
+            key: record_to_render[key]
+            for key in record_to_render._fields.keys()
+            if not isinstance(record_to_render[key], fields.Markup)
+        }
+        docs.update(
+            {
+                key: self._parse_markup(record_to_render[key])
+                for key in record_to_render._fields.keys()
+                if isinstance(record_to_render[key], fields.Markup)
+            }
+        )
+        values["docs"] = docs
 
         docx_content = BytesIO()
-        jinja_env = Jinja2Environment()
-        jinja_env.globals.update(**functions)
-
         with BytesIO(b64decode(template)) as template_file:
             doc = DocxTemplate(template_file)
-            doc.render(data, jinja_env)
+            doc.render(values)
             doc.save(docx_content)
-
         docx_content.seek(0)
-
         return docx_content
 
-    def _get_pdf_from_office(self, content_stream):
+    @staticmethod
+    def _parse_markup(markup_data: fields.Markup):
+        """
+        Extracts data from field of Html type and returns them in text format,
+        without html tags.
+        """
+        soup = BeautifulSoup(markup_data.__str__())
+        data_arr = list(soup.strings)
+        return "\n".join(data_arr)
+
+    @staticmethod
+    def _get_pdf_from_office(content_stream):
         """
         Вызов конвертации docx в pdf с помощью gotenberg
         """

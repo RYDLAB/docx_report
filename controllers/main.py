@@ -22,8 +22,7 @@ class DocxReportController(ReportController):
         report = request.env["ir.actions.report"]._get_report_from_name(reportname)
         context = dict(request.env.context)
         _data = dict()
-        if docids:
-            _docids = [int(i) for i in docids.split(",")]
+        _docids = [int(i) for i in docids.split(",")] if docids else []
         if data.get("options"):
             _data.update(json_loads(data.pop("options")))
         if data.get("context"):

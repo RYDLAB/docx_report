@@ -16,7 +16,7 @@
     "category": "Technical",
     "version": "0.8.1",
     "depends": ["base", "web", "custom_report_field", "report_monetary_helpers"],
-    "external_dependencies": {"python": ["docxcompose", "docxtpl"]},
+    "external_dependencies": {"python": ["docxcompose", "docxtpl", "bs4"]},
     "data": [
         "views/ir_actions_report_views.xml",
     ],

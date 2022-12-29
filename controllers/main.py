@@ -10,7 +10,7 @@ from odoo.http import (
 from odoo.tools import html_escape
 from odoo.tools.safe_eval import safe_eval, time
 
-from odoo.addons.web.controllers.main import ReportController
+from odoo.addons.web.controllers.report import ReportController
 
 
 class DocxReportController(ReportController):
@@ -52,8 +52,8 @@ class DocxReportController(ReportController):
             ]
             return request.make_response(pdf, headers=pdfhttpheaders)
         else:
-            return super().report_routes(
-                reportname, docids=docids, converter=converter, **data
+            return super(DocxReportController, self).report_routes(
+                reportname, docids, converter, **data
             )
 
     @route()

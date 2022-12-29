@@ -64,7 +64,7 @@ class IrActionsReport(models.Model):
 
     def retrieve_attachment(self, record):
         """
-        Поиск существующего файла отчета во вложениях записи по:
+        Searc for existing report file in record's attachments by fields:
         1. name
         2. res_model
         3. res_id
@@ -88,8 +88,8 @@ class IrActionsReport(models.Model):
     @api.model
     def _render_docx_pdf(self, res_ids=None, data=None):
         """
-        Подготавливает данные для рендера файла отчета, вызывает метод рендера
-        И обрабатывает результат рендера
+        Prepares the data for report file rendering, calls for the render method
+        and handle rendering result.
         """
         if not data:
             data = {}
@@ -100,7 +100,7 @@ class IrActionsReport(models.Model):
 
         save_in_attachment = OrderedDict()
         # Maps the streams in `save_in_attachment` back to the records they came from
-        stream_record = dict()
+        # stream_record = dict()
         if res_ids:
             Model = self.env[self_sudo.model]
             record_ids = Model.browse(res_ids)
@@ -108,19 +108,20 @@ class IrActionsReport(models.Model):
             if self_sudo.attachment:
                 for record_id in record_ids:
                     attachment = self_sudo.retrieve_attachment(record_id)
-                    if attachment:
-                        stream = self_sudo._retrieve_stream_from_attachment(attachment)
+                    if attachment and self_sudo.attachment_use:
+                        # stream = self_sudo._retrieve_stream_from_attachment(attachment)
+                        stream = BytesIO(attachment.raw)
                         save_in_attachment[record_id.id] = stream
-                        stream_record[stream] = record_id
+                         # stream_record[stream] = record_id
                     if not self_sudo.attachment_use or not attachment:
                         docx_record_ids += record_id
             else:
                 docx_record_ids = record_ids
             res_ids = docx_record_ids.ids
 
-        if save_in_attachment and not res_ids:
+        if save_in_attachment:   # and not res_ids:
             _logger.info("The PDF report has been generated from attachment.")
-            self._raise_on_unreadable_pdfs(save_in_attachment.values(), stream_record)
+            # self._raise_on_unreadable_pdfs(save_in_attachment.values(), stream_record)
             return self_sudo._post_pdf(save_in_attachment), "pdf"
 
         docx_content = self._render_docx(res_ids, data=data)
@@ -139,24 +140,22 @@ class IrActionsReport(models.Model):
             )
 
         if res_ids:
-            self._raise_on_unreadable_pdfs(save_in_attachment.values(), stream_record)
-            _logger.info(
-                "The PDF report has been generated for model: %s, records %s."
-                % (self_sudo.model, str(res_ids))
-            )
+            # self._raise_on_unreadable_pdfs(save_in_attachment.values(), stream_record)
+            # saving pdf in attachment.
             return (
                 self_sudo._post_pdf(
                     save_in_attachment, pdf_content=pdf_content, res_ids=res_ids
                 ),
                 "pdf",
             )
+
         return pdf_content, "pdf"
 
     @api.model
     def _render_docx_docx(self, res_ids=None, data=None):
         """
-        Подготавливает данные для рендера файла отчета, вызывает метод рендера
-        И обрабатывает результат рендера
+        Prepares the data for report file rendering, calls for the render method
+        and handle rendering result.
         """
         if not data:
             data = {}
@@ -176,7 +175,8 @@ class IrActionsReport(models.Model):
                 for record_id in record_ids:
                     attachment = self_sudo.retrieve_attachment(record_id)
                     if attachment:
-                        stream = self_sudo._retrieve_stream_from_attachment(attachment)
+                        # stream = self_sudo._retrieve_stream_from_attachment(attachment)
+                        stream = BytesIO(attachment.raw)
                         save_in_attachment[record_id.id] = stream
                         stream_record[stream] = record_id
                     if not self_sudo.attachment_use or not attachment:
@@ -204,11 +204,52 @@ class IrActionsReport(models.Model):
             )
         return docx_content, "docx"
 
+    def _post_pdf(self, save_in_attachment, pdf_content=None, res_ids=None):
+        """
+        Adds pdf file in record's attachments.
+        TODO: For now bunch generation is not supported.
+        2 execution ways:
+           - save_in_attachment and not res_ids - when get reports from attachments
+           - res_ids and not save_in_attachment - when generate report.
+        """
+        self_sudo = self.sudo()
+        attachment_vals_list = []
+        if save_in_attachment:
+            # here get streams from save_in_attachment, make pdf file and return it
+            # bunch generation here is already realized.
+            reports_data = list(save_in_attachment.values())
+            if len(reports_data) == 1:
+                # If only one report, no need to merge files. Returns as is.
+                return reports_data[0].getvalue()
+            else:
+                return self._merge_pdfs(reports_data)
+        for res_id in res_ids:
+            record = self.env[self_sudo.model].browse(res_id)
+            attachment_name = safe_eval(self_sudo.attachment, {'object': record, 'time': time})
+            # Unable to compute a name for the attachment.
+            if not attachment_name:
+                continue
+            attachment_vals_list.append({
+                'name': attachment_name,
+                'raw': pdf_content,    # stream_data['stream'].getvalue(),
+                'res_model': self_sudo.model,
+                'res_id': record.id,
+                'type': 'binary',
+            })
+        if attachment_vals_list:
+            attachment_names = ', '.join(x['name'] for x in attachment_vals_list)
+            try:
+                self.env['ir.attachment'].create(attachment_vals_list)
+            except AccessError:
+                _logger.info("Cannot save PDF report %r attachments for user %r", attachment_names, self.env.user.display_name)
+            else:
+                _logger.info("The PDF documents %r are now saved in the database", attachment_names)
+        return pdf_content
+
     def _post_docx(self, save_in_attachment, docx_content=None, res_ids=None):
         """
-        Добавляет сгенерированный файл в аттачменты
+        Adds generated file in attachments.
         """
-
         def close_streams(streams):
             for stream in streams:
                 try:
@@ -218,9 +259,7 @@ class IrActionsReport(models.Model):
 
         if len(save_in_attachment) == 1 and not docx_content:
             return list(save_in_attachment.values())[0].getvalue()
-
         streams = []
-
         if docx_content:
             # Build a record_map mapping id -> record
             record_map = {
@@ -229,7 +268,6 @@ class IrActionsReport(models.Model):
                     [res_id for res_id in res_ids if res_id]
                 )
             }
-
             # If no value in attachment or no record specified, only append the whole docx.
             if not record_map or not self.attachment:
                 streams.append(docx_content)
@@ -250,11 +288,9 @@ class IrActionsReport(models.Model):
                     streams.append(docx_content)
                 else:
                     streams.append(docx_content)
-
         if self.attachment_use:
             for stream in save_in_attachment.values():
                 streams.append(stream)
-
         if len(streams) == 1:
             result = streams[0].getvalue()
         else:
@@ -271,7 +307,7 @@ class IrActionsReport(models.Model):
 
     def _postprocess_docx_report(self, record, buffer):
         """
-        Непосредственно создает запись в ir.attachment
+        Creates the record in the "ir.attachment" model.
         """
         attachment_name = safe_eval(self.attachment, {"object": record, "time": time})
         if not attachment_name:
@@ -311,19 +347,22 @@ class IrActionsReport(models.Model):
         else:
             return streams
 
-    def _render_docx(self, docids, data=None):
+    def _render_docx(self, docids: list, data: dict=None):
         """
-        Получает данные для рендеринга и вызывает его.
+        Receive the data for rendering and calls for it.
+
+        docids: list of record's ids for which report is generated.
+        data: dict, conains "context", "report_type".
         """
         if not data:
             data = {}
         data.setdefault("report_type", "docx")
-        data = self._get_rendering_context(docids, data)
+        data = self._get_rendering_context(self, docids, data)  # self contains current record of ir.actions.report model.
         return self._render_docx_template(self.report_docx_template, values=data)
 
     def _render_docx_template(self, template: bytes, values: dict = None):
         """
-        Непосредственно рендеринг docx файла
+        docx file rendering itself.
         """
         if values is None:
             values = {}
@@ -388,7 +427,7 @@ class IrActionsReport(models.Model):
     @staticmethod
     def _get_pdf_from_office(content_stream):
         """
-        Вызов конвертации docx в pdf с помощью gotenberg
+        Converting docx into pdf with Gotenberg service.
         """
         result = None
         url = convert_pdf_from_office_url()

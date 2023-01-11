@@ -112,14 +112,14 @@ class IrActionsReport(models.Model):
                         # stream = self_sudo._retrieve_stream_from_attachment(attachment)
                         stream = BytesIO(attachment.raw)
                         save_in_attachment[record_id.id] = stream
-                         # stream_record[stream] = record_id
+                        # stream_record[stream] = record_id
                     if not self_sudo.attachment_use or not attachment:
                         docx_record_ids += record_id
             else:
                 docx_record_ids = record_ids
             res_ids = docx_record_ids.ids
 
-        if save_in_attachment:   # and not res_ids:
+        if save_in_attachment:  # and not res_ids:
             _logger.info("The PDF report has been generated from attachment.")
             # self._raise_on_unreadable_pdfs(save_in_attachment.values(), stream_record)
             return self_sudo._post_pdf(save_in_attachment), "pdf"
@@ -225,31 +225,43 @@ class IrActionsReport(models.Model):
                 return self._merge_pdfs(reports_data)
         for res_id in res_ids:
             record = self.env[self_sudo.model].browse(res_id)
-            attachment_name = safe_eval(self_sudo.attachment, {'object': record, 'time': time})
+            attachment_name = safe_eval(
+                self_sudo.attachment, {"object": record, "time": time}
+            )
             # Unable to compute a name for the attachment.
             if not attachment_name:
                 continue
-            attachment_vals_list.append({
-                'name': attachment_name,
-                'raw': pdf_content,    # stream_data['stream'].getvalue(),
-                'res_model': self_sudo.model,
-                'res_id': record.id,
-                'type': 'binary',
-            })
+            attachment_vals_list.append(
+                {
+                    "name": attachment_name,
+                    "raw": pdf_content,  # stream_data['stream'].getvalue(),
+                    "res_model": self_sudo.model,
+                    "res_id": record.id,
+                    "type": "binary",
+                }
+            )
         if attachment_vals_list:
-            attachment_names = ', '.join(x['name'] for x in attachment_vals_list)
+            attachment_names = ", ".join(x["name"] for x in attachment_vals_list)
             try:
-                self.env['ir.attachment'].create(attachment_vals_list)
+                self.env["ir.attachment"].create(attachment_vals_list)
             except AccessError:
-                _logger.info("Cannot save PDF report %r attachments for user %r", attachment_names, self.env.user.display_name)
+                _logger.info(
+                    "Cannot save PDF report %r attachments for user %r",
+                    attachment_names,
+                    self.env.user.display_name,
+                )
             else:
-                _logger.info("The PDF documents %r are now saved in the database", attachment_names)
+                _logger.info(
+                    "The PDF documents %r are now saved in the database",
+                    attachment_names,
+                )
         return pdf_content
 
     def _post_docx(self, save_in_attachment, docx_content=None, res_ids=None):
         """
         Adds generated file in attachments.
         """
+
         def close_streams(streams):
             for stream in streams:
                 try:
@@ -347,7 +359,7 @@ class IrActionsReport(models.Model):
         else:
             return streams
 
-    def _render_docx(self, docids: list, data: dict=None):
+    def _render_docx(self, docids: list, data: dict = None):
         """
         Receive the data for rendering and calls for it.
 
@@ -357,7 +369,9 @@ class IrActionsReport(models.Model):
         if not data:
             data = {}
         data.setdefault("report_type", "docx")
-        data = self._get_rendering_context(self, docids, data)  # self contains current record of ir.actions.report model.
+        data = self._get_rendering_context(
+            self, docids, data
+        )  # self contains current record of ir.actions.report model.
         return self._render_docx_template(self.report_docx_template, values=data)
 
     def _render_docx_template(self, template: bytes, values: dict = None):

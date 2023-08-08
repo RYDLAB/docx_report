@@ -393,6 +393,7 @@ class IrActionsReport(models.Model):
                     != request.env["ir.http"]._get_default_lang().code,
                 )
         values.update(
+            record=values["docs"],
             time=time,
             context_timestamp=lambda t: fields.Datetime.context_timestamp(
                 self.with_context(tz=user.tz), t

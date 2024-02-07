@@ -14,7 +14,8 @@
     "author": "RYDLAB",
     "website": "http://rydlab.ru",
     "category": "Technical",
-    "version": "16.0.0.9.0",
+    "version": "16.0.1.0.0",
+    "license": "LGPL-3",
     "depends": ["base", "web", "custom_report_field", "report_monetary_helpers"],
     "external_dependencies": {"python": ["docxcompose", "docxtpl", "bs4"]},
     "data": [

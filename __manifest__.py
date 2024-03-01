@@ -12,7 +12,7 @@
         This is the beta version, bugs may be present.
     """,
     "author": "RYDLAB",
-    "website": "http://rydlab.ru",
+    "website": "https://rydlab.ru",
     "category": "Technical",
     "version": "16.0.1.0.0",
     "license": "LGPL-3",

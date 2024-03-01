@@ -12,9 +12,9 @@
         This is the beta version, bugs may be present.
     """,
     "author": "RYDLAB",
-    "website": "http://rydlab.ru",
+    "website": "https://rydlab.ru",
     "category": "Technical",
-    "version": "16.0.1.8.1",
+    "version": "15.0.1.8.1",
     "license": "LGPL-3",
     "depends": ["base", "web", "custom_report_field", "report_monetary_helpers"],
     "external_dependencies": {"python": ["docxcompose", "docxtpl", "bs4"]},

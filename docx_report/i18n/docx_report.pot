@@ -1,0 +1,70 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* docx_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-29 08:24+0000\n"
+"PO-Revision-Date: 2022-12-29 08:24+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: docx_report
+#: model:ir.model.fields.selection,name:docx_report.selection__ir_actions_report__report_type__docx-docx
+msgid "DOCX"
+msgstr ""
+
+#. module: docx_report
+#: model:ir.model.fields.selection,name:docx_report.selection__ir_actions_report__report_type__docx-pdf
+msgid "DOCX(PDF)"
+msgstr ""
+
+#. module: docx_report
+#. odoo-python
+#: code:addons/docx_report/models/ir_actions_report.py:0
+#, python-format
+msgid ""
+"Gotenberg converting service not available. The PDF can not be created."
+msgstr ""
+
+#. module: docx_report
+#. odoo-python
+#: code:addons/docx_report/models/ir_actions_report.py:0
+#, python-format
+msgid "One of the documents you try to merge caused failure."
+msgstr ""
+
+#. module: docx_report
+#: model:ir.model,name:docx_report.model_ir_actions_report
+msgid "Report Action"
+msgstr ""
+
+#. module: docx_report
+#: model:ir.model.fields,field_description:docx_report.field_ir_actions_report__report_type
+msgid "Report Type"
+msgstr ""
+
+#. module: docx_report
+#: model:ir.model.fields,field_description:docx_report.field_ir_actions_report__report_docx_template
+msgid "Report docx template"
+msgstr ""
+
+#. module: docx_report
+#: model:ir.model.fields,field_description:docx_report.field_ir_actions_report__report_name
+msgid "Template Name"
+msgstr ""
+
+#. module: docx_report
+#: model:ir.model.fields,help:docx_report.field_ir_actions_report__report_type
+msgid ""
+"The type of the report that will be rendered, each one having its own "
+"rendering method. HTML means the report will be opened directly in your "
+"browser PDF means the report will be rendered using Wkhtmltopdf and "
+"downloaded by the user."
+msgstr ""

@@ -1,0 +1,4 @@
+.o_image[data-mimetype$='msword'],
+.o_image[data-mimetype$='application/vnd.openxmlformats-officedocument.wordprocessingml.document'] {
+    background-image: url('/docx_report/static/src/img/msword.png');
+}

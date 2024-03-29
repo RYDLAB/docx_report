@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_custom_report_field","custom_report_field user","model_custom_report_field","base.group_user",1,1,1,1
+"access_custom_report_field_values_wizard","custom_report_field_values_wizard user","model_custom_report_field_values_wizard",,1,1,1,1
+"access_custom_report_field_values_wizard_line","custom_report_field_values_wizard_line user","model_custom_report_field_values_wizard_line",,1,1,1,1

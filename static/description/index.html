@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en-US" data-website-id="1" data-oe-company-name="Rydlab">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <!-- Module name and short description of the module. -->
+        <section>
+            <h1 class="display-3" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+              color: #eb8900;
+            ">DOCX REPORT</h1>
+            <div style="
+            font-family: FontAwesome;
+            font-size: 26px;
+            margin: 0 auto;
+            width: 70%;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+          ">
+                <p style="text-align: center">
+                    The DOCX REPORT module is a tool for creating templates using the Jinja
+                    template engine. The module allows you to add docx files to the report model as a source template.
+                    Thanks to this, you can create automatically filled-out documents in docx and pdf formats.
+                </p>
+            </div>
+            <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                <img style="height: 10px; width: 40%" src="divider.png">
+            </div>
+        </section>
+        <section>
+            <div style="width: 15%; margin: 0 auto">
+                <a href="https://rydlab.ru/" target="_blank" style="color: black; text-decoration: none">
+                    <img style="display: block; max-width: 100%; margin: 0 auto" src="company_logo.jpg"
+                        alt="Rydlab company logo">
+                </a>
+            </div>
+            <div style="
+            width: 30%;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 20px;
+          ">
+                <a href="mailto:company@rydlab.ru?subject=Odoo Support / Development / Module: Contract&amp;body="
+                    style="
+                border-radius: 42px;
+                display: inline-block;
+                cursor: pointer;
+                color: #ffffff !important;
+                font-family: 'Roboto', sans-serif;
+                font-size: 23px;
+                padding: 10px 33px;
+                background-color: black;
+                text-decoration: none;
+                border-radius: 45px;
+              ">
+                    <i class="fa fa-envelope"></i>
+                    &nbsp; Have questions or need support?
+                </a>
+            </div>
+            <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                <img style="height: 10px; width: 70%" src="divider.png" />
+            </div>
+        </section>
+    </header>
+    <main>
+        <section>
+            <h3 class="display-5" style="
+            text-align: center;
+            font-family: FontAwesome;
+            margin-bottom: 10px;
+            font-weight: 700;
+          ">Features</h3>
+            <div class="d-flex flex-wrap" style="display: flex; flex-wrap: wrap; width: 70%; margin: 0 auto">
+                <div style="
+              box-sizing: border-box;
+              padding: 10px 10px;
+              border: 2px solid #dfdee8;
+              text-align: center;
+              width: 48%;
+              word-wrap: break-word;
+              font-family: FontAwesome;
+              font-size: 20px;
+              margin: 0 auto;
+              margin-top: 10px;
+              margin-bottom: 10px;
+            ">
+                    <h5 style="
+                text-align: center;
+                font-family: FontAwesome;
+                font-weight: 700;
+                font-size: 22px;
+                margin-bottom: 1px;
+              ">Easy creation of auto-filled documents</h5>
+                    <p style="margin-top: 1px; margin-bottom: 2px">
+                        There is no need to create a complex HTML template that is difficult to edit
+                        and customize. It is enough to take a template in Docx format and insert the necessary values in
+                        the right places.
+                    </p>
+                </div>
+                <div style="
+              box-sizing: border-box;
+              padding: 10px 10px;
+              border: 2px solid #dfdee8;
+              text-align: center;
+              width: 48%;
+              word-wrap: break-word;
+              font-family: FontAwesome;
+              font-size: 20px;
+              margin: 0 auto;
+              margin-top: 10px;
+              margin-bottom: 10px;
+            ">
+                    <h5 style="
+                text-align: center;
+                font-family: FontAwesome;
+                font-weight: 700;
+                font-size: 22px;
+                margin-bottom: 1px;
+              ">Access to all attributes of the model</h5>
+                    <p style="margin-top: 1px; margin-bottom: 2px">
+                        During the creation of the report, the model to which this report belongs is
+                        specified. When creating a report template, we can refer to any attribute of the specified
+                        model.
+                    </p>
+                </div>
+                <div style="
+              box-sizing: border-box;
+              padding: 10px 10px;
+              border: 2px solid #dfdee8;
+              text-align: center;
+              width: 48%;
+              word-wrap: break-word;
+              font-family: FontAwesome;
+              font-size: 20px;
+              margin: 0 auto;
+              margin-top: 10px;
+              margin-bottom: 10px;
+            ">
+                    <h5 style="
+                text-align: center;
+                font-family: FontAwesome;
+                font-weight: 700;
+                font-size: 22px;
+                margin-bottom: 1px;
+              ">Easy template maintenance</h5>
+                    <p style="margin-top: 1px; margin-bottom: 2px">
+                        There is no need to change the template in the Odoo code; it is enough to
+                        upload a new template through the user interface.
+                    </p>
+                </div>
+                <div style="
+              box-sizing: border-box;
+              padding: 10px 10px;
+              border: 2px solid #dfdee8;
+              text-align: center;
+              width: 48%;
+              word-wrap: break-word;
+              font-family: FontAwesome;
+              font-size: 20px;
+              margin: 0 auto;
+              margin-top: 10px;
+              margin-bottom: 10px;
+            ">
+                    <h5 style="
+                text-align: center;
+                font-family: FontAwesome;
+                font-weight: 700;
+                font-size: 22px;
+                margin-bottom: 1px;
+              ">The amount-to-words methods are available</h5>
+                    <p style="margin-top: 1px; margin-bottom: 2px">
+                        Thanks to these methods, we can insert numbers and sums with currencies in
+                        words and round the numbers to the desired accuracy.
+                    </p>
+                </div>
+            </div>
+            <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                <img style="height: 10px; width: 70%" src="divider.png" />
+            </div>
+        </section>
+        <section>
+            <h3 class="display-5" style="
+            text-align: center;
+            font-family: FontAwesome;
+            margin-bottom: 10px;
+            font-weight: 700;
+          ">How to use</h3>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 1: Install the module</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/1_intall_app.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        Open the Apps menu in your Odoo and install the module "DOCX report".
+                    </p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 2: Activate the Developer Mode</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/2_activate_developer_mode.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        To create a new report in the user interface, we need to activate the
+                        developer mode.
+                    </p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 3: Open Reports</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/3_open_reports.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        Now you should go back to the settings. Click "Technical", scroll down the
+                        list, and click "Reports".
+                    </p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 4: Create Docx template</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/4_docx_template.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        1. To get model attributes like model field values, use the word "docs" +
+                        (dot) + model field name.
+                    </p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        2. To call a model method that returns a value, use the word "record" + .
+                        (dot) + model method name + () to call it.
+                    </p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">3. Use double curly braces "{{ }}" to call methods and attributes.</p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        4. Use curly braces with the percentage sign "{% %}" to create local
+                        variables and use loops and if conditions.
+                    </p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 5: Reports list view</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/5_reporst_list.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        When the Reports list view will be opened, click the "New" button to create a
+                        new report.
+                    </p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 6: Create a Report</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/6_report_form.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">1. To create a new report, you should fill out the form.</p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        2. "Action name" is the name that will be shown in the Print menu of the
+                        model.
+                    </p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">3. "Report Type" should be DOCS or DOCX (PDF). The gotenberg service is used
+                        to create pdf files. To use it, you need to install the Odoo module to communicate with the
+                        service and enter the access details.</p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        4. "Model name" is the name of the model. Fields and methods will be derived
+                        from this model.
+                    </p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        5. "Report docx template" is the template file that was created at step 4.
+                    </p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        6. "Printed report name" is the name of the file after generation.
+                    </p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        7. To add this report to the Print menu, you should click on the button "Add
+                        in the Print".
+                    </p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 7: Create a custom field</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/7_cutom_fields.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        1. Custom fields are needed to get data that is not in the fields of the model associated with
+                        the
+                        report. Thanks to them, you can get data from other models, for example, through the reference
+                        fields of the current model.
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        2. To create a custom field you should click "Custom Fields" menu on the form
+                        and then click "Add a line"
+                    </p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">3. After that, write your Python code for the new variable.</p>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">4. In the template, custom fields are available by the name specified in the
+                        "tech_name" field of the custom field entry. For exapmle: {{ contract_date }}.</p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 8: Print the Report</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/8_result.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">
+                        After printing the report the file will be saved. The information from the
+                        model will complete the template.
+                    </p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+            </div>
+            <div>
+                <h5 class="display-6" style="
+              text-align: center;
+              font-family: FontAwesome;
+              margin-bottom: 10px;
+              font-weight: 700;
+            ">Step 9: Make a report from the Python code</h5>
+                <div>
+                    <img style="
+                display: block;
+                border: none;
+                width: 70%;
+                position: relative;
+                margin: 0 auto;
+                margin-top: 20px;
+              " src="screenshots/9_report_code.jpg">
+                </div>
+                <div>
+                    <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">If you want to make the report from the Python code, you should make an
+                        ir.action.report record and an ir.attachment record that is connected to the first one. Add the
+                        path to the Docx template from step 4.</p>
+                </div>
+                <div style="
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            height: 30px;
+          ">
+                    <img style="height: 10px; width: 70%" src="divider.png" />
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer style="margin-bottom: 70px">
+        <div style="width: 15%; margin: 0 auto">
+            <a href="https://rydlab.ru/" target="_blank" style="color: black; text-decoration: none">
+                <img style="display: block; max-width: 100%; margin: 0 auto" src="company_logo.jpg"
+                    alt="Rydlab company logo">
+            </a>
+        </div>
+        <div style="margin: 0 auto; margin-top: 10px; margin-bottom: 5px; padding: 0">
+            <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">Need any help for this module?</p>
+            <p style="
+                font-family: FontAwesome;
+                font-size: 26px;
+                margin: 0 auto;
+                width: 70%;
+                text-align: center;
+                margin-top: 5px;
+                margin-bottom: 5px;
+              ">Contact us for your queries</p>
+            <p style="
+            font-family: FontAwesome;
+            font-size: 26px;
+            margin: 0 auto;
+            width: 70%;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-weight: 700;
+          "> Email: company@rydlab.ru</p>
+        </div>
+        <div style="
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        height: 30px;
+      ">
+            <img style="height: 10px; width: 70%" src="divider.png">
+        </div>
+    </footer>
+</body>
+
+</html>

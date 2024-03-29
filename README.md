@@ -1,12 +1,12 @@
-# DOCS report
-Функционал
+# DOCX report
+Functionality
 
-Позволяет добавлять в модель отчётов в качестве шаблона-источника файлы формата docx.
-Получить отчёты на основе такого шаблона можно в формате docx или pdf.
-На данный момент одновременное создание нескольких отчетов не поддерживается.
+Allows you to add docx files to the report model as a source template.
+You can get reports based on such a template in docx or pdf format.
+Currently, the simultaneous creation of multiple reports is not supported.
 
-Для преобразования docx -> pdf требуется доступный сервис gotenberg на localhost:8808.
-Пример запуска сервиса в docker-compose рядом с Odoo:
+To convert docx -> pdf, an available gutenberg service is required on localhost:8808.
+An example of launching a service in docker-compose next to Odoo:
 
 ```yaml
 gotenberg:
@@ -20,33 +20,29 @@ gotenberg:
         MAXIMUM_WAIT_TIMEOUT: 60
 ```
 
-Создание отчета
+Creating a report
 
-Создание отчета выполняется аналогично стандартной процедуре Odoo:
-1. В Settings -> Technical -> Reports нужно создать новую запись. В записи отчета
-   выбрать один из новых типов: "DOCX" или "DOCX(PDF)". Поле "Template name" заполнять
-   не нужно, а вместо этого загрузить docx файл отчета. Все остальные поля заполняются
-   так же, как и в стандартных отчетах Odoo.
-2. Если в шаблоне отчета применены кастомные поля, то нужно их создать на вкладке
-   "Сustom fields".
-3. В записи указанной модели, в меню печати, появится дополнительный пункт с названием
-   созданного отчета. По нажатию на него отобразится визард, в котором можно проверить
-   значения кастомных полей перед генерацией файла отчета.
-4. При генерации отчета с портала файл генерируется без отображения визарда.
+The report creates in the same way as the standard Odoo procedure:
+1. In Settings -> Technical -> Reports, you need to create a new record. In the record of the report 
+   choose one of the new types: "DOCX" or "DOCX(PDF)". 
+   You do not need to fill in the "Template name" field, but instead download the docx file of the report. 
+   All other fields are filled in the same as in standard Odoo reports.
+2. If custom fields are applied in the report template, then you need to create them on the tab
+   "Custom fields".
+3. In the entry of the specified model, an additional item with the name of the created report will appear in the print menu. 
+   Clicking on it will display a wizard in which you can check the values of custom fields before generating the report file.
+4. When generating a report from the portal, the file is generated without displaying the wizard.
 
 
-Создание шаблонов
+Templates creating
 
-1. Шаблоны можно создавать в любом текстовом редакторе, поддерживающем формат docx.
-2. Всё форматирование шаблона сохраняется в генерируемом отчете.
-3. Для вставки переменных используются двойные фигурные скобки.
-4. Доступ к записи Odoo, для которой вызвана генерация отчета, выполняется через
-   переменную "docs", обращение к атрибутам и методам как в Оду:
-      {{ docs.attribute_name }}
-5. Возможен вызов методов, имеющихся у записи в "docs", или переданных в контекст
-   отчета.
-6. По умолчанию в контексте отчета присутствуют методы модуля "report_monetary_helper",
-   которые могут быть вызваны непосредственно по имени.
-7. Так же в контексте отчета могут присутствовать кастомные поля. Такие поля должны быть
-   созданы в записи отчета. В шаблоне кастомные поля доступны по имени, указанному в
-   поле "tech_name" записи кастомного поля.
+1. Templates can be created in any text editor that supports the docx format.
+2. All formatting of the template is saved in the generated report.
+3. Double curly braces are used to insert variables.
+4. Access to the Odoo record for which the report generation is called is performed through the "docs" variable, 
+   accessing attributes and methods as in Odoo: {{docs.attribute_name }}
+5. It is possible to call the methods available for the entry in "docs", or passed to the context of the report.
+6. By default, the report context contains methods of the "report_monetary_helper" module, which can be called directly by name.
+7. Custom fields may also be present in the context of the report. 
+   Such fields must be created in the report record. 
+   In the template, custom fields are available by the name specified in the "tech_name" field of the custom field entry.

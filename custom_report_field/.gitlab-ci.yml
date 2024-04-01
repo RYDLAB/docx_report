@@ -1,0 +1,16 @@
+include:
+  - project: 'odoo-infra/odoo-ci-cd'
+    ref: master
+    file: 'odoo-ci-ansible.yml'
+
+deploy dev stark:
+  extends: .deploy_dev_template
+  environment:
+    name: dev/stark
+    url: https://odoo14-stark.rydlab.dev
+
+deploy dev odoo14-ee-tmp:
+  extends: .deploy_dev_template
+  environment:
+    name: dev/odoo14-ee-tmp
+    url:  https://odoo14-ee-tmp.rydlab.dev

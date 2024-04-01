@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <template id="assets_backend" name="custom_report_field_assets" inherit_id="web.assets_backend">
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/custom_report_field/static/src/js/action_manager_report.js" />
+        </xpath>
+    </template>
+
+</odoo>

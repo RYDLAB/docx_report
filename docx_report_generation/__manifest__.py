@@ -1,5 +1,5 @@
 {
-    "name": "DOCX report",
+    "name": "DOCX report generation",
     "summary": """Printing reports in docx format from docx templates.""",
     "description": """
         Adds generation reports from .docx templates like standard Odoo reports
@@ -22,4 +22,5 @@
         "views/assets.xml",
         "views/ir_actions_report_views.xml",
     ],
+    "images": ["static/description/banner.jpg"],
 }

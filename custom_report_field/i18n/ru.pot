@@ -1,0 +1,247 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_report_field
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20211110\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-07 12:05+0000\n"
+"PO-Revision-Date: 2021-12-07 12:05+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__create_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__create_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__create_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__create_uid
+msgid "Created by"
+msgstr "Создал"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__create_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__create_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__create_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__create_date
+msgid "Created on"
+msgstr "Создан"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "Custom fields"
+msgstr "Пользовательские поля"
+
+#. module: custom_report_field
+#: model:ir.model,name:custom_report_field.model_custom_report_field
+msgid "Custom report field"
+msgstr "Пользовательское поле отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__custom_report_field_value_id
+msgid "Custom report field value"
+msgstr "Значение пользовательского поля отчета"
+
+#. module: custom_report_field
+#: model:ir.model,name:custom_report_field.model_custom_report_field_values
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__field_values_ids
+msgid "Custom report field values"
+msgstr "Значения пользовательских полей отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_ir_actions_report__custom_report_field_ids
+msgid "Custom report fields"
+msgstr "Пользовательское поле отчета"
+
+#. module: custom_report_field
+#: model:ir.model,name:custom_report_field.model_custom_report_field_values_wizard
+#: model:ir.model,name:custom_report_field.model_custom_report_field_values_wizard_line
+msgid "Custom report values field verify wizard"
+msgstr "Мастер проверки полей значений пользовательское отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__default_value
+msgid "Default value"
+msgstr "Значение по умолчанию"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__description
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__description
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__description
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field_values__description
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field_values_wizard_line__description
+msgid ""
+"Description for this field to be showed in fields list in verify wizard."
+msgstr "Описание для поля, которое будет отображаться в списке полей мастера проверки."
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__display_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__display_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__display_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__display_name
+#: model:ir.model.fields,field_description:custom_report_field.field_ir_actions_report__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__custom_report_field_id
+msgid "Field"
+msgstr "Поле"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.custom_report_values_wizard_view_form
+msgid "Get report"
+msgstr "Получить отчет"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__id
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__id
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__id
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__id
+#: model:ir.model.fields,field_description:custom_report_field.field_ir_actions_report__id
+msgid "ID"
+msgstr "Номер"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__required
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field_values__required
+msgid ""
+"If checked, it will not be possible to generate a document without a default"
+" value."
+msgstr "Если значение установлено, то невозможно будет сгенерировать документ без значения по умолчанию."
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field____last_update
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values____last_update
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard____last_update
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line____last_update
+#: model:ir.model.fields,field_description:custom_report_field.field_ir_actions_report____last_update
+msgid "Last Modified on"
+msgstr "Последнее изменение"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__write_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__write_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__write_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "Последний раз обновил"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__write_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__write_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__write_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "Последнее обновление"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__name
+msgid "Name"
+msgstr "Имя"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__technical_name
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field_values__technical_name
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field_values_wizard_line__technical_name
+msgid "Name for using in templates"
+msgstr "Имя для использования в шаблонах"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__ref_id
+msgid "Ref"
+msgstr "Ссылка"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__ref_model
+msgid "Ref Model"
+msgstr "Ссылка на модель"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__reference_id
+msgid "Reference record"
+msgstr "Связанная запись"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__ir_actions_report_id
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__ir_actions_report_id
+msgid "Report"
+msgstr "Отчет"
+
+#. module: custom_report_field
+#: model:ir.model,name:custom_report_field.model_ir_actions_report
+msgid "Report Action"
+msgstr "Действие отчета"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.custom_report_values_wizard_view_form
+msgid "Report values"
+msgstr "Значения отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__required
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__required
+msgid "Required"
+msgstr "Обязательно"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__sequence
+msgid "Sequence"
+msgstr "Последовательность"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__technical_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__technical_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__technical_name
+msgid "Technical Name"
+msgstr "Техническое имя"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__default_value
+msgid ""
+"This field is a Python expression that can use the same values as the code "
+"field in the server action."
+msgstr "Это поле представляет собой выражение Python, которое может использовать те же значения, "
+"что и поле кода в действии сервера"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__visible
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field_values__visible
+msgid ""
+"To show this field in fields list in verify wizard\n"
+"User can change showed field's values in wizard."
+msgstr "Чтобы показать это поле в списке полей в мастере проверки, "
+"пользователь может изменить значения показанного поля в мастере."
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_ir_actions_report__validate_custom_report_field
+msgid "Validate Custom Report Field"
+msgstr "Проверка пользовательского поля отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__value
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__value
+msgid "Value"
+msgstr "Значение"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__visible
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values__visible
+msgid "Visible"
+msgstr "Видимость"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Мастер"

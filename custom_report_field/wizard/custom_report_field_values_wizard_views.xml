@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="custom_report_values_wizard_view_form" model="ir.ui.view">
+        <field name="name">Verify report values</field>
+        <field name="model">custom.report.field.values.wizard</field>
+        <field name="arch" type="xml">
+            <form create="0" delete="0">
+                <group string="Report values">
+                    <field name="ir_actions_report_id" invisible="1"/>
+                    <field name="field_values_ids" nolabel="1" colspan="4" readonly="1" view_mode="tree">
+                        <tree >
+                            <field name="name"/>
+                            <field name="value"/>
+                            <field name="description"/>
+                            <field name="technical_name" invisible="1"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button name="get_report" type="object" string="Get report"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

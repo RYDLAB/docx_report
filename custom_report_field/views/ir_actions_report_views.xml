@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record id="act_report_xml_inherit_view_form" model="ir.ui.view">
+        <field name="name">ir.actions.report.inherit.view.form</field>
+        <field name="model">ir.actions.report</field>
+        <field name="inherit_id" ref="base.act_report_xml_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='advanced']" position="after">
+                <page name="custom_report_field" string="Custom fields">
+                    <field name="custom_report_field_ids">
+                        <tree>
+                            <field name="ir_actions_report_id" invisible="1"/>
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="technical_name"/>
+                            <field name="required" widget="boolean_toggle"/>
+                            <field name="visible" widget="boolean_toggle"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="technical_name"/>
+                                    <field name="required" widget="boolean_toggle"/>
+                                </group>
+                                <group>
+                                    <field name="visible" widget="boolean_toggle"/>
+                                    <field name="description" widget="text"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Computing field's value">
+                                    <field name="default_value" widget="ace" options="{'mode': 'python'}"/>
+                                </page>
+                                <page string="Help">
+                                    <group>
+                                        <div style="margin-top: 4px;">
+                                            <h3>Help with Python code</h3>
+                                            <p>The following variables can be used:</p>
+                                            <ul>
+                                                <li><code>env</code>: Odoo Environment on which the action is triggered</li>
+                                                <li><code>model</code>: Odoo Model of the record on which the action is triggered; is a void recordset</li>
+                                                <li><code>record</code>: record on which the action is triggered; may be be void</li>
+                                                <li><code>records</code>: recordset of all records on which the action is triggered in multi mode; may be void</li>
+                                                <li><code>time</code>, <code>datetime</code>, <code>dateutil</code>, <code>timezone</code>: useful Python libraries</li>
+                                                <li><code>log(message, level='info')</code>:logging function to record debug information in <code>ir.logging</code> table</li>
+                                                <li><code>UserError</code>, <code>Warning</code>: Warning Exceptions to use with <code>raise</code></li>
+                                                <li><code>format_number</code>Method for formatting number representation in report.
+                                                    <div style="padding-left: 10px;">
+                                                    It's signature: <code>format_number(number, r_acc, dec_sep, div_by_3)</code><br/>
+                                                    Param <code>number</code> - <code>int</code> or <code>float</code> to represent,<br/>
+                                                    Param <code>r_acc</code> - <code>int</code> is round accuracy, default value is <code>2</code><br/>
+                                                    Param <code>dec_sep</code> - <code>str</code> is decimal separator, default value is <code>,</code><br/>
+                                                    Param <code>div_by_3</code> - <code>bool</code> is flag for add whitespase separators after each 3 digits id integer part. Default value is <code>True</code><br/>
+                                                    Returns number as <code>str</code>.<br/>
+                                                    </div>
+                                                </li>
+                                                <li>To return a value, assign: <code>value = ...</code></li>
+                                            </ul>
+                                            <div>
+                                                Example of Python code:
+    <code style="white-space: pre-wrap;">
+    partner_rec = env['res.partner'].search([('name', '=' record.name)])
+    value = partner_rec.parent_id.vat if partner_rec else ""
+    </code>
+                                            </div>
+                                        </div>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

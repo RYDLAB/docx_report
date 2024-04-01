@@ -1,0 +1,333 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_report_field
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-15 06:30+0000\n"
+"PO-Revision-Date: 2022-06-15 06:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"<code>UserError</code>, <code>Warning</code>: Warning Exceptions to use with"
+" <code>raise</code>"
+msgstr ""
+"<code>UserError</code>, <code>Warning</code>: Исключение для использования с "
+"<code>raise</code>"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "<code>env</code>: Odoo Environment on which the action is triggered"
+msgstr "<code>env</code>: Окружение Odoo, на котором вызывается action."
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"<code>format_number</code>Method for formatting number representation in "
+"report."
+msgstr ""
+"<code>format_number</code>Метод для форматирования числовых представлений "
+"в отчете."
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"<code>log(message, level='info')</code>:logging function to record debug "
+"information in <code>ir.logging</code> table"
+msgstr ""
+"<code>log(message, level='info')</code>:Метод логирования для записи "
+"отладочной информации<code>ir.logging</code> table"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"<code>model</code>: Odoo Model of the record on which the action is "
+"triggered; is a void recordset"
+msgstr ""
+"<code>model</code>: Модель записи Odoo, на которой вызванaction; Является "
+"пустым множеством записей."
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"<code>record</code>: record on which the action is triggered; may be be void"
+msgstr ""
+"<code>record</code>: Запись, на которой вызван action; Может быть пустой."
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"<code>records</code>: recordset of all records on which the action is "
+"triggered in multi mode; may be void"
+msgstr ""
+"<code>records</code>: Множество записей, на которых вызван actionв режиме "
+"нескольких записей; Может быть пустым."
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"<code>time</code>, <code>datetime</code>, <code>dateutil</code>, "
+"<code>timezone</code>: useful Python libraries"
+msgstr ""
+"<code>time</code>, <code>datetime</code>, <code>dateutil</code>, "
+"<code>timezone</code>: полезные библиотеки Python"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__default_value
+msgid "Code"
+msgstr "Код"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "Computing field's value"
+msgstr "Вычисление значения поля"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__create_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__create_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__create_uid
+msgid "Created by"
+msgstr "Создал"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__create_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__create_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__create_date
+msgid "Created on"
+msgstr "Создан"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "Custom fields"
+msgstr "Пользовательские поля"
+
+#. module: custom_report_field
+#: model:ir.model,name:custom_report_field.model_custom_report_field
+msgid "Custom report field"
+msgstr "Пользовательское поле отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__field_values_ids
+msgid "Custom report field values"
+msgstr "Значения пользовательских полей отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_ir_actions_report__custom_report_field_ids
+msgid "Custom report fields"
+msgstr "Пользовательские поля отчета"
+
+#. module: custom_report_field
+#: model:ir.model,name:custom_report_field.model_custom_report_field_values_wizard
+#: model:ir.model,name:custom_report_field.model_custom_report_field_values_wizard_line
+msgid "Custom report values field verify wizard"
+msgstr "Мастер проверки значений пользовательских полей отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__description
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__description
+msgid ""
+"Description for this field to be showed in fields list in verify wizard."
+msgstr ""
+"Описание для поля, которое будет отображаться в списке полей мастера "
+"проверки."
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__display_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__display_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"Example of Python code:\n"
+"    <code style=\"white-space: pre-wrap;\">\n"
+"    partner_rec = env['res.partner'].search([('name', '=' record.name)])\n"
+"    value = partner_rec.parent_id.vat if partner_rec else \"\"\n"
+"    </code>"
+msgstr ""
+"Пример кода Python:\n"
+"    <code style=\"white-space: pre-wrap;\">\n"
+"    partner_rec = env['res.partner'].search([('name', '=' record.name)])\n"
+"    value = partner_rec.parent_id.vat if partner_rec else \"\"\n"
+"    </code>"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.custom_report_values_wizard_view_form
+msgid "Get report"
+msgstr "Получить отчет"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "Help"
+msgstr "Помощь"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "Help with Python code"
+msgstr "Помощь с кодом Python"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__id
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__id
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__id
+msgid "ID"
+msgstr ""
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__required
+msgid ""
+"If checked, it will not be possible to generate a document without a default"
+" value."
+msgstr ""
+"Если отмечено, то невозможно будет сгенерировать документ без значения для "
+"этого поля."
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid ""
+"It's signature: <code>format_number(number, r_acc, dec_sep, div_by_3)</code><br/>\n"
+"                                                    Param <code>number</code> - <code>int</code> or <code>float</code> to represent,<br/>\n"
+"                                                    Param <code>r_acc</code> - <code>int</code> is round accuracy, default value is <code>2</code><br/>\n"
+"                                                    Param <code>dec_sep</code> - <code>str</code> is decimal separator, default value is <code>,</code><br/>\n"
+"                                                    Param <code>div_by_3</code> - <code>bool</code> is flag for add whitespase separators after each 3 digits id integer part. Default value is <code>True</code><br/>\n"
+"                                                    Returns number as <code>str</code>.<br/>"
+msgstr ""
+"Сигнатура: <code>format_number(number, r_acc, dec_sep, div_by_3)</code><br/>\n"
+"                                                    Param <code>number</code> - <code>int</code> или <code>float</code> число для отображения,<br/>\n"
+"                                                    Param <code>r_acc</code> - <code>int</code> точность округления, по умолчанию <code>2</code> знака,<br/>\n"
+"                                                    Param <code>dec_sep</code> - <code>str</code> разделитель для десятичной части, по умолчанию <code>,</code>,<br/>\n"
+"                                                    Param <code>div_by_3</code> - <code>bool</code> флаг для добавления пробелов между каждыми тремя цифрами числа в целой части. По умолчанию <code>True</code>,<br/>\n"
+"                                                    Возвращает число как <code>str</code>.<br/>"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field____last_update
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard____last_update
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line____last_update
+msgid "Last Modified on"
+msgstr "Последнее изменение"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__write_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__write_uid
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr "Последний раз обновил"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__write_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__write_date
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__write_date
+msgid "Last Updated on"
+msgstr "Последнее обновление"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__name
+msgid "Name"
+msgstr "Имя"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__technical_name
+msgid "Name for using in templates"
+msgstr "Имя для использования в шаблонах"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__ir_actions_report_id
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard__ir_actions_report_id
+msgid "Report"
+msgstr "Отчет"
+
+#. module: custom_report_field
+#: model:ir.model,name:custom_report_field.model_ir_actions_report
+msgid "Report Action"
+msgstr "Действие отчета"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.custom_report_values_wizard_view_form
+msgid "Report values"
+msgstr "Значения отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__required
+msgid "Required"
+msgstr "Обязательно"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__sequence
+msgid "Sequence"
+msgstr "Последовательность"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__technical_name
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__technical_name
+msgid "Technical Name"
+msgstr "Техническое имя"
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "The following variables can be used:"
+msgstr "Могут быть использованы следующие переменные:"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__default_value
+msgid ""
+"This field contains a Python code which can use the same variables as the "
+"'code' field in the server action, except moment that the computation result"
+" should be assigned into the 'value' variable.Also available method "
+"'format_number' for formatting numbers representation in report. Returns "
+"number as string."
+msgstr ""
+"Это поле - выражение на Python, которое может использовать те же переменные,"
+" что и поле 'code' в серверных действиях, кроме момента, что результат вычисления"
+" должен присваиваться в переменную 'value'. Так же, доступен метод "
+"'format_number' для форматирования представлений чисел в отчете. Возвращает "
+"число как строку."
+
+#. module: custom_report_field
+#: model_terms:ir.ui.view,arch_db:custom_report_field.act_report_xml_inherit_view_form
+msgid "To return a value, assign: <code>value = ...</code>"
+msgstr ""
+"Для возвращения значения выполните присвоение: <code>value = ...</code>"
+
+#. module: custom_report_field
+#: model:ir.model.fields,help:custom_report_field.field_custom_report_field__visible
+msgid ""
+"To show this field in fields list in verification wizard."
+msgstr ""
+"Чтобы показать это поле в списке полей в мастере проверки."
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_ir_actions_report__validate_custom_report_field
+msgid "Validate Custom Report Field"
+msgstr "Проверка пользовательского поля отчета"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__value
+msgid "Value"
+msgstr "Значение"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field__visible
+msgid "Visible"
+msgstr "Видимость"
+
+#. module: custom_report_field
+#: model:ir.model.fields,field_description:custom_report_field.field_custom_report_field_values_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Мастер"

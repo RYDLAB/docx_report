@@ -27,4 +27,5 @@
             "docx_report/static/src/js/action_manager_report.js",
         ],
     },
+    "images": ["static/description/banner.jpg"],
 }

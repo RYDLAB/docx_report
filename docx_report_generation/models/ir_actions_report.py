@@ -189,7 +189,10 @@ class IrActionsReport(models.Model):
             _logger.info("The DOCS report has been generated from attachment.")
             return self_sudo._post_docx(save_in_attachment), "docx"
 
-        docx_content = self._render_docx(res_ids, data=data)
+        docx_contents = []
+        for record_id in res_ids:
+            docx_content = self._render_docx([record_id], data=data)
+            docx_contents.append(docx_content)
 
         if res_ids:
             _logger.info(
@@ -198,11 +201,11 @@ class IrActionsReport(models.Model):
             )
             return (
                 self_sudo._post_docx(
-                    save_in_attachment, docx_content=docx_content, res_ids=res_ids
+                    save_in_attachment, docx_contents=docx_contents, res_ids=res_ids
                 ),
                 "docx",
             )
-        return docx_content, "docx"
+        return docx_contents, "docx"
 
     def _post_pdf(self, save_in_attachment, pdf_content=None, res_ids=None):
         """
@@ -225,9 +228,12 @@ class IrActionsReport(models.Model):
                 return self._merge_pdfs(reports_data)
         for res_id in res_ids:
             record = self.env[self_sudo.model].browse(res_id)
-            attachment_name = safe_eval(
-                self_sudo.attachment, {"object": record, "time": time}
-            )
+            if not self_sudo.attachment:
+                attachment_name = False
+            else:
+                attachment_name = safe_eval(
+                    self_sudo.attachment, {"object": record, "time": time}
+                )
             # Unable to compute a name for the attachment.
             if not attachment_name:
                 continue
@@ -257,7 +263,7 @@ class IrActionsReport(models.Model):
                 )
         return pdf_content
 
-    def _post_docx(self, save_in_attachment, docx_content=None, res_ids=None):
+    def _post_docx(self, save_in_attachment, docx_contents=None, res_ids=None):
         """
         Adds generated file in attachments.
         """
@@ -269,10 +275,11 @@ class IrActionsReport(models.Model):
                 except Exception:
                     pass
 
-        if len(save_in_attachment) == 1 and not docx_content:
+        if len(save_in_attachment) == 1 and not docx_contents:
             return list(save_in_attachment.values())[0].getvalue()
+
         streams = []
-        if docx_content:
+        if docx_contents:
             # Build a record_map mapping id -> record
             record_map = {
                 r.id: r
@@ -282,23 +289,17 @@ class IrActionsReport(models.Model):
             }
             # If no value in attachment or no record specified, only append the whole docx.
             if not record_map or not self.attachment:
-                streams.append(docx_content)
+                streams.extend(docx_contents)
             else:
-                if len(res_ids) == 1:
-                    # Only one record, so postprocess directly and append the whole docx.
-                    if (
-                        res_ids[0] in record_map
-                        and not res_ids[0] in save_in_attachment
-                    ):
+                for res_id, docx_content in zip(res_ids, docx_contents):
+                    if res_id in record_map and not res_id in save_in_attachment:
                         new_stream = self._postprocess_docx_report(
-                            record_map[res_ids[0]], docx_content
+                            record_map[res_id], docx_content
                         )
                         # If the buffer has been modified, mark the old buffer to be closed as well.
                         if new_stream and new_stream != docx_content:
                             close_streams([docx_content])
                             docx_content = new_stream
-                    streams.append(docx_content)
-                else:
                     streams.append(docx_content)
         if self.attachment_use:
             for stream in save_in_attachment.values():
@@ -307,7 +308,8 @@ class IrActionsReport(models.Model):
             result = streams[0].getvalue()
         else:
             try:
-                result = self._merge_docx(streams)
+                merged_stream = self._merge_docx(streams)
+                result = merged_stream.getvalue()
             except Exception as e:
                 _logger.exception(e)
                 raise UserError(
@@ -347,17 +349,27 @@ class IrActionsReport(models.Model):
     @staticmethod
     def _merge_docx(streams):
         """
-        Joins several docx files into one.
+        Joins several docx files into one with page breaks between them.
         """
-        if streams:
-            writer = Document(streams[0])
-            composer = Composer(writer)
-            for stream in streams[1:]:
-                reader = Document(stream)
-                composer.append(reader)
-            return composer.getvalue()
-        else:
-            return streams
+        if not streams:
+            return None
+
+        merged_document = Document()
+        composer = Composer(merged_document)
+
+        for stream in streams:
+            document = Document(stream)
+
+            if composer.doc.paragraphs:
+                composer.doc.add_page_break()
+
+            composer.append(document)
+
+        merged_stream = BytesIO()
+        merged_document.save(merged_stream)
+        merged_stream.seek(0)
+
+        return merged_stream
 
     def _render_docx(self, docids: list, data: dict = None):
         """

@@ -13,7 +13,7 @@
     "author": "RYDLAB",
     "website": "https://rydlab.ru",
     "category": "Technical",
-    "version": "16.0.1.0.2",
+    "version": "17.0.1.0.2",
     "license": "LGPL-3",
     "depends": ["base", "web", "report_monetary_helpers"],
     "data": [

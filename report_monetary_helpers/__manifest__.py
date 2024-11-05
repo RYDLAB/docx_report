@@ -27,7 +27,7 @@
     "author": "RYDLAB",
     "website": "http://rydlab.ru",
     "category": "Technical",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "LGPL-3",
     "depends": ["base"],
     "external_dependencies": {"python": ["num2words"]},
